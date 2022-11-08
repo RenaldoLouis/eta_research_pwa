@@ -14,7 +14,6 @@ const getRequest = async (path) => {
 }
 
 const postRequest = async (path, payload) => {
-  console.log("masuk")
   try {
     const res = await http.post(path, payload)
     return res
