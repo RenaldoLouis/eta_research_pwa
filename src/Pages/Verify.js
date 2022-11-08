@@ -23,9 +23,9 @@ const Verify = () => {
                 if (!isEmpty(stoppFromStorage)) {
                     let existedStopp = false;
                     console.log("stoppFromStorage1", stoppFromStorage)
-                    stoppFromStorage.forEach((eachData) => {
+                    stoppFromStorage.forEach((eachData, index) => {
                         if (eachData.id === data[0].id) {
-                            eachData = data;
+                            stoppFromStorage[index] = data[0];
                             existedStopp = true
                         }
                     })
