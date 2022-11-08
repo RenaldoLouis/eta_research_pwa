@@ -21,18 +21,25 @@ const Verify = () => {
             if (status === 200 && data) {
                 toast.success("Succesfully Succesfully Verified")
                 if (!isEmpty(stoppFromStorage)) {
+                    let existedStopp = false;
+                    console.log("stoppFromStorage1", stoppFromStorage)
                     stoppFromStorage.forEach((eachData) => {
-                        if (eachData.id === data.id) {
+                        if (eachData.id === data[0].id) {
                             eachData = data;
+                            existedStopp = true
                         }
                     })
-                    stoppFromStorage.concat(data);
-                    console.log("stoppFromStorage", stoppFromStorage)
+                    console.log("existedStopp", existedStopp)
+                    if (!existedStopp) {
+                        console.log("concat Time")
+                        stoppFromStorage.push(data[0]);
+                    }
+                    console.log("stoppFromStorage2", stoppFromStorage)
                     localStorage.setItem('stopp', JSON.stringify(stoppFromStorage));
-                    setData(prevState => [...prevState, stoppFromStorage])
+                    setData(prevState => stoppFromStorage)
                 } else {
-                    localStorage.setItem('stopp', JSON.stringify([data]));
-                    setData(prevState => [...prevState, data])
+                    localStorage.setItem('stopp', JSON.stringify(data));
+                    setData(prevState => data)
                 }
             }
         } catch {
