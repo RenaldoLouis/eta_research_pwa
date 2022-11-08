@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import apis from '../apis';
-import { isSuccessfulRequest } from '../utils/apiHelper';
 import { toast } from 'react-toastify';
 import { isEmpty } from "lodash";
 
@@ -9,39 +8,42 @@ import { isEmpty } from "lodash";
 const Verify = () => {
     const [doneVerify, setDoneVerify] = useState(false)
     const [data, setData] = useState([]);
+    const payload = window.location.href;
 
     const handleVerify = async () => {
         console.log("handleVerify")
-        const payload = window.location.href;
         var splitStr = payload.substring(payload.indexOf('?') + 1);
-        if (!isEmpty(splitStr)) {
+        const stoppFromStorage = JSON.parse(localStorage.getItem("stopp"));
+        try {
             const { status, data } = await apis.auth.verify(splitStr);
-
-            if (isSuccessfulRequest(status) && data) {
+            console.log("status", status)
+            console.log("data", data)
+            if (status === 200 && data) {
                 toast.success("Succesfully Succesfully Verified")
-                try {
-                    const stoppFromStorage = JSON.parse(localStorage.getItem("stopp"));
-                    if (!isEmpty(stoppFromStorage)) {
-                        stoppFromStorage.forEach((eachData) => {
-                            if (eachData.id === data.id) {
-                                eachData = data;
-                            }
-                        })
-                        stoppFromStorage.concat(data);
-                        localStorage.setItem('stopp', JSON.stringify([stoppFromStorage]));
-                        setData(prevState => [...prevState, stoppFromStorage])
-                    } else {
-                        localStorage.setItem('stopp', JSON.stringify([data]));
-                        setData(prevState => [...prevState, data])
-                    }
-                } catch {
-                    toast.error("error happened");
+                if (!isEmpty(stoppFromStorage)) {
+                    stoppFromStorage.forEach((eachData) => {
+                        if (eachData.id === data.id) {
+                            eachData = data;
+                        }
+                    })
+                    stoppFromStorage.concat(data);
+                    console.log("stoppFromStorage", stoppFromStorage)
+                    localStorage.setItem('stopp', JSON.stringify(stoppFromStorage));
+                    setData(prevState => [...prevState, stoppFromStorage])
+                } else {
+                    localStorage.setItem('stopp', JSON.stringify([data]));
+                    setData(prevState => [...prevState, data])
                 }
-            } else {
-                toast.error("error happened");
             }
-            setDoneVerify(true)
+        } catch {
+            console.log("error2")
+            toast.error("error happened");
+            if (!isEmpty(stoppFromStorage)) {
+                handleDisplayData()
+            }
         }
+
+        setDoneVerify(true)
     }
 
     const handleDisplayData = () => {
@@ -51,11 +53,9 @@ const Verify = () => {
     }
 
     useEffect(() => {
-        // searchParams.get("token")
-
         const stoppFromStorage = localStorage.getItem('stopp');
-
-        if (isEmpty(stoppFromStorage)) {
+        console.log("payload.length", payload.length)
+        if (isEmpty(stoppFromStorage) || payload.length > 31) {
             if (!doneVerify) {
                 handleVerify();
             }

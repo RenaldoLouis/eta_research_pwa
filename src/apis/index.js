@@ -5,9 +5,10 @@ const handleErrors = (err /* path  payload */) => {
   return { error: errorMessageKey }
 }
 
-const getRequest = async (path) => {
+const getRequest = async (path, payload) => {
   try {
-    return await http.get(path)
+    const res = await http.get(path, payload)
+    return res;
   } catch (err) {
     return handleErrors(err)
   }
