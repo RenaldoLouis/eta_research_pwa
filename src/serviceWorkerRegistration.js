@@ -12,10 +12,10 @@
 
 const isLocalhost = Boolean(
   window.location.hostname === 'localhost' ||
-    // [::1] is the IPv6 localhost address.
-    window.location.hostname === '[::1]' ||
-    // 127.0.0.0/8 are considered localhost for IPv4.
-    window.location.hostname.match(/^127(?:\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)){3}$/)
+  // [::1] is the IPv6 localhost address.
+  window.location.hostname === '[::1]' ||
+  // 127.0.0.0/8 are considered localhost for IPv4.
+  window.location.hostname.match(/^127(?:\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)){3}$/)
 );
 
 export function register(config) {
@@ -41,7 +41,7 @@ export function register(config) {
         navigator.serviceWorker.ready.then(() => {
           console.log(
             'This web app is being served cache-first by a service ' +
-              'worker. To learn more, visit https://cra.link/PWA'
+            'worker. To learn more, visit https://cra.link/PWA'
           );
         });
       } else {
@@ -51,6 +51,35 @@ export function register(config) {
     });
   }
 }
+
+if ('Notification' in window && Notification.permission !== 'granted') {
+  console.log('Ask user permission')
+  Notification.requestPermission(status => {
+    console.log('Status:' + status)
+    displayNotification('Notification Enabled');
+  });
+}
+
+
+const displayNotification = notificationTitle => {
+  console.log('display notification')
+  if (Notification.permission === 'granted') {
+    navigator.serviceWorker.getRegistration().then(reg => {
+      console.log(reg)
+      const options = {
+        body: 'Thanks for allowing push notification !',
+        icon: './assets/icons/logo512.png',
+        vibrate: [100, 50, 100],
+        data: {
+          dateOfArrival: Date.now(),
+          primaryKey: 0
+        }
+      };
+
+      reg.showNotification(notificationTitle, options);
+    });
+  }
+};
 
 function registerValidSW(swUrl, config) {
   navigator.serviceWorker
@@ -69,7 +98,7 @@ function registerValidSW(swUrl, config) {
               // content until all client tabs are closed.
               console.log(
                 'New content is available and will be used when all ' +
-                  'tabs for this page are closed. See https://cra.link/PWA.'
+                'tabs for this page are closed. See https://cra.link/PWA.'
               );
 
               // Execute callback
@@ -122,6 +151,18 @@ function checkValidServiceWorker(swUrl, config) {
     .catch(() => {
       console.log('No internet connection found. App is running in offline mode.');
     });
+}
+
+export function forceServiceWorkerUpdate() {
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.getRegistrations().then(function (registrations) {
+      for (let registration of registrations) {
+        // registration.update();  does not work!
+        registration.unregister();
+      }
+      window.location.reload(true);
+    });
+  }
 }
 
 export function unregister() {
