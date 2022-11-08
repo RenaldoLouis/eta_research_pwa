@@ -45,11 +45,19 @@ const Verify = () => {
         <>
             Verify Page
             {verifyStatus === "Succesfully Verified" && (
-                <div>
-                    Succesfully Verified
-                    id :{data.id}
-                    name: {data.name}
-                </div>
+                <>
+                    <div>
+                        Succesfully Verified
+                    </div>
+                    <div>
+                        id :{data.id}
+                    </div>
+
+                    <div>
+
+                        name: {data.name}
+                    </div>
+                </>
             )}
         </>
     )
