@@ -11,30 +11,23 @@ const Verify = () => {
     const payload = window.location.href;
 
     const handleVerify = async () => {
-        console.log("handleVerify")
         var splitStr = payload.substring(payload.indexOf('?') + 1);
         const stoppFromStorage = JSON.parse(localStorage.getItem("stopp"));
         try {
             const { status, data } = await apis.auth.verify(splitStr);
-            console.log("status", status)
-            console.log("data", data)
             if (status === 200 && data) {
                 toast.success("Succesfully Succesfully Verified")
                 if (!isEmpty(stoppFromStorage)) {
                     let existedStopp = false;
-                    console.log("stoppFromStorage1", stoppFromStorage)
                     stoppFromStorage.forEach((eachData, index) => {
                         if (eachData.id === data[0].id) {
                             stoppFromStorage[index] = data[0];
                             existedStopp = true
                         }
                     })
-                    console.log("existedStopp", existedStopp)
                     if (!existedStopp) {
-                        console.log("concat Time")
                         stoppFromStorage.push(data[0]);
                     }
-                    console.log("stoppFromStorage2", stoppFromStorage)
                     localStorage.setItem('stopp', JSON.stringify(stoppFromStorage));
                     setData(prevState => stoppFromStorage)
                 } else {
@@ -43,7 +36,6 @@ const Verify = () => {
                 }
             }
         } catch {
-            console.log("error2")
             toast.error("error happened");
             if (!isEmpty(stoppFromStorage)) {
                 handleDisplayData()
@@ -54,14 +46,12 @@ const Verify = () => {
     }
 
     const handleDisplayData = () => {
-        console.log("handleDisplayData")
         var storedNames = JSON.parse(localStorage.getItem("stopp"));
         setData(storedNames)
     }
 
     useEffect(() => {
         const stoppFromStorage = localStorage.getItem('stopp');
-        console.log("payload.length", payload.length)
         if (isEmpty(stoppFromStorage) || payload.length > 31) {
             if (!doneVerify) {
                 handleVerify();
@@ -71,19 +61,12 @@ const Verify = () => {
         }
     }, [])
 
-    // useEffect(() => {
-    //     const tempArray = [{ id: 1, name: "REN" }, { id: 2, name: "JEX" }]
-    //     localStorage.setItem('stopp', JSON.stringify(tempArray));
-    // }, [])
-
-    console.log("data", data)
     return (
         <>
             Verify Page
             {
                 !isEmpty(data) && (
                     data.map((mappedData, index) => {
-                        // console.log(mappedData)
                         return (
                             <div key={index}>
                                 <div>
