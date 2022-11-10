@@ -7,6 +7,7 @@ const handleErrors = (err /* path  payload */) => {
 
 const getRequest = async (path, payload) => {
   try {
+    console.log("path", path)
     const res = await http.get(path, payload)
     return res;
   } catch (err) {
@@ -53,6 +54,6 @@ export default {
   auth: {
     login: (payload) => postRequest('/users/login', payload),
     signup: (payload) => postRequest('/users/signUp', payload),
-    verify: (payload) => getRequest(`/users/emailVerification?token=${payload}`),
+    verify: (payload) => getRequest(`/users/emailVerification?tokens=${payload}`),
   },
 };
