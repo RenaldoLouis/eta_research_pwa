@@ -29,7 +29,7 @@ function Login() {
         <div className="App">
             <header className="App-header">
                 <p>
-                    Edit <code>src/App.js</code> and save to reload.
+                    Ver 1.1
                 </p>
                 {supportsPWA ? (
 
