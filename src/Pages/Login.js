@@ -8,6 +8,23 @@ import Modal from 'react-bootstrap/Modal';
 import firstStep from "../assets/images/1st_step.png";
 import addLogo from "../assets/images/add_to_home_screen.png";
 
+// Opera 8.0+
+var isOpera = (!!window.opr && (navigator.userAgent.indexOf("Opera") || navigator.userAgent.indexOf('OPR')) !== -1) || !!window.opera || navigator.userAgent.indexOf(' OPR/') >= 0;
+
+// Firefox 1.0+
+var isFirefox = typeof InstallTrigger !== 'undefined';
+
+// Safari 3.0+ "[object HTMLElementConstructor]" 
+var isSafari = /constructor/i.test(window.HTMLElement) || (function (p) { return p.toString() === "[object SafariRemoteNotification]"; })(!window['safari'] || (typeof safari !== 'undefined' && window['safari'].pushNotification));
+
+// Internet Explorer 6-11
+var isIE = /*@cc_on!@*/false || !!document.documentMode;
+
+// Edge 20+
+var isEdge = !isIE && !!window.StyleMedia;
+
+// Chrome 1 - 79
+var isChrome = navigator.userAgent.indexOf("Chrome") !== -1;
 
 function Login() {
     const { downloadApp, supportsPWA, showInstallMessage } = useContext(PwaContext);
@@ -35,7 +52,6 @@ function Login() {
         });
     }
 
-
     const handleClose = () => {
         setShow(false);
     }
@@ -48,7 +64,7 @@ function Login() {
         <div className="App">
             <header className="App-header">
                 <p>
-                    Ver 1.1
+                    Ver 1.2
                 </p>
                 {supportsPWA ? (
 
@@ -56,6 +72,11 @@ function Login() {
                         <button onClick={(e) => downloadApp(e)}>install_to_homescreen</button>
                     </div>
                 ) : null}
+                {isChrome ? null : (
+                    <div>
+                        This Browser is not supported
+                    </div>
+                )}
                 {showInstallMessage && (
                     <div className="mt-3">
                         <button onClick={() => handleShow()}>Step to Install to homescreen</button>
