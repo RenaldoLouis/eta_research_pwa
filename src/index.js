@@ -6,7 +6,11 @@ import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import reportWebVitals from './reportWebVitals';
 import { onServiceWorkerUpdate } from '@3m1/service-worker-updater'
 
+<<<<<<< HEAD
 import 'bootstrap/dist/css/bootstrap.min.css';
+=======
+// import './fonts/Eina04/Eina04-Bold.ttf'
+>>>>>>> build UI Component
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));

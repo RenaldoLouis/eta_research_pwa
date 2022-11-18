@@ -11,3 +11,31 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+@font-face {
+  font-family: "Eina04-Bold";
+  src: local("Eina04-Bold"),
+  url("./fonts/Eina04/Eina04-Bold.ttf") format("trueType")
+  ;
+}
+
+@font-face {
+  font-family: "Eina04-Regular";
+  src: local("Eina04-Regular"),
+  url("./fonts/Eina04/Eina04-Regular.ttf") format("trueType")
+  ;
+}
+
+@font-face {
+  font-family: "Eina04-SemiBold";
+  src: local("Eina04-SemiBold"),
+  url("./fonts/Eina04/Eina04-SemiBold.ttf") format("trueType")
+  ;
+}
+
+@font-face {
+  font-family: "Eina04-LightItalic";
+  src: local("Eina04-LightItalic"),
+  url("./fonts/Eina04/Eina04-LightItalic.ttf") format("trueType")
+  ;
+}
