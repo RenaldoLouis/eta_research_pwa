@@ -44,7 +44,7 @@ const DeliveryPage = () => {
     let navigate = useNavigate();
     const location = useLocation()
     const handleDeliveryDetailPage = (deliveryId) => {
-        navigate(`/deliveryDetail/1`)
+        navigate(`/deliveryDetail/${deliveryId}`)
         setHistoryStack((stack) => stack.concat(location))
     }
 

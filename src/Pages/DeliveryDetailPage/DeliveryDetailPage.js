@@ -29,6 +29,8 @@ const DeliveryDetailPage = () => {
             top: 0,
             // behavior: 'smooth'
         })
+
+        console.log(deliveryDumpData.filter(dumpData=> dumpData.id == deliveryId)[0])
     },[])
 
     let navigate = useNavigate();
