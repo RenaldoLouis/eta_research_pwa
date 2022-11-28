@@ -1,15 +1,16 @@
 import React from "react";
 
-/**Import Component */
+// imoort material component
 import { Typography } from "@mui/material";
 
-/**Styles */
+// import custom styles
 import { usePlatDriverStyles } from "./PlatDriverStyles";
 
 const PlatDriver = props => {
 
     const {vehicle} = props
 
+    // custom styles
     const classes = usePlatDriverStyles()
 
     return (
@@ -18,9 +19,8 @@ const PlatDriver = props => {
 
             <div className={classes.platNumber}>
                 <Typography
-                    style={{
-                       fontFamily:'Roboto Mono',
-
+                    sx={{
+                       fontFamily:'RobotoMono-Regular',
                     }}   
                     color={'#26242e'} fontSize={14}
                 >

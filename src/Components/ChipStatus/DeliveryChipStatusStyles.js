@@ -1,7 +1,7 @@
-import { createStyles, makeStyles } from '@mui/styles';
+import { makeStyles } from '@mui/styles';
 
 export const deliveryChipStatusStyles = makeStyles(() =>
-  createStyles({
+  ({
     chip: {
         display: 'flex',
         alignItems: 'center',

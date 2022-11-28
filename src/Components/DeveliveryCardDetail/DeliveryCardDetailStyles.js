@@ -1,13 +1,10 @@
-import { createStyles, makeStyles } from '@mui/styles';
+import { makeStyles } from '@mui/styles';
 
 export const useDeliveryCardDetail = makeStyles((theme) =>
-  createStyles({
+  ({
     root: {
-        // width:312,
-        // height:165,
         backgroundColor:theme.palette.background.deliveryCard,
         padding:20,
-        // color:'#ffffff'
     },
     flexSpaceBetween: {
         display: 'flex',

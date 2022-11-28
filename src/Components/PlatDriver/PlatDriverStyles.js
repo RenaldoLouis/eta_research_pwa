@@ -1,15 +1,16 @@
-import { createStyles, makeStyles } from '@mui/styles';
+import { makeStyles } from '@mui/styles';
 
 export const usePlatDriverStyles = makeStyles(() =>
-  createStyles({
+  ({
     root: {
         display: 'flex',
+        border:'0.5px solid rgb(151, 151, 151)'
     },
     plat: {
         height: 24,
         width: 5,
         background: '#7464eb',
-        boxShadow: `0px 0px 2px 0px rgba(0, 0, 0, 0.5)`
+        boxShadow: `0px 0px 2px 0px rgba(0, 0, 0, 0.5)`,
     },
     platNumber: {
         height: '24px',

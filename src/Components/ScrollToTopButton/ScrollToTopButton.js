@@ -3,12 +3,13 @@ import React, { useState } from "react";
 // import Icon
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 
-// import styles
+// import custom styles
 import { useScrollToTopButton } from "./ScrollToTopButtonStyles";
 
-// dark mode and light mode
-import { styled, useTheme } from "@mui/material/styles";
+// import color theme
+import { useTheme } from "@mui/material/styles";
 
+// import react-roter-dom
 import { Outlet } from 'react-router-dom';
 
 const ScrollToTopButton = () => {

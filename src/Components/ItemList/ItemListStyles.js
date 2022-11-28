@@ -1,12 +1,10 @@
-import { createStyles, makeStyles } from '@mui/styles';
+import { makeStyles } from '@mui/styles';
 
 export const useItemStyles = makeStyles((theme) =>
-    createStyles({
+    ({
         root: {
             width: '100%', 
-            background: theme.palette.background.deliveryCard, 
-            // color: '#ffffff',
-            borderTop:'1px solid #979797'
+            // background: theme.palette.background.deliveryCard, 
         },
         itemList: {
             // height: 28, 
@@ -16,7 +14,6 @@ export const useItemStyles = makeStyles((theme) =>
             "&:hover": {
                 background: theme.palette.background.hoverItemList, 
             }
-            // height: 28
         },
         flexStart: {
             display: "flex",
@@ -28,7 +25,6 @@ export const useItemStyles = makeStyles((theme) =>
             alignItems:'center',
             justifyContent:'space-between',
             width:'100%',
-            // backgroundColor:'red'
         }
     }),
 );

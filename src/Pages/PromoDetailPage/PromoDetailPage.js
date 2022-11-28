@@ -6,15 +6,13 @@ import { useTheme } from "@mui/material/styles";
 
 // import Component
 import PromoCard from "../../Components/PromoCard/PromoCard";
-import DeliveryCard from "../../Components/DeliveryCard/DeliveryCard";
-import WarningComponent from "../../Components/WarningComponent/WarningComponent";
-import ItemList from "../../Components/ItemList/ItemList";
-import DeliveryCardDetail from "../../Components/DeveliveryCardDetail/DeliveryCardDetail";
 
 import { useParams } from 'react-router-dom';
 
 // import AppContext
 import { AppContext } from "../../App";
+
+import { useNavigate, useLocation } from "react-router-dom";
 
 const PromoDetailPage = () => {
 
@@ -22,7 +20,7 @@ const PromoDetailPage = () => {
     const theme = useTheme()
 
     // state from contex
-    const { warning, deliveryDumpData, promoDumpData } = useContext(AppContext)
+    const { warning, deliveryDumpData, promoDumpData, setHistoryStack } = useContext(AppContext)
 
     useEffect(() => {
         window.scrollTo({
@@ -30,6 +28,13 @@ const PromoDetailPage = () => {
             // behavior: 'smooth'
         })
     }, [])
+
+    let navigate = useNavigate();
+    const location = useLocation()
+    const handlePromoDetailPage = (promoId) => {
+        navigate(`/promoDetail/${promoId}`)
+        setHistoryStack((stack) => stack.concat(location))
+    }
 
    
     let { promoId } = useParams()
@@ -48,7 +53,7 @@ const PromoDetailPage = () => {
                     </div>
                     {promoDumpData.filter(dumpPromo=> dumpPromo.id != promoId).map((promo, index) => (
                         <div style={{ marginTop: 10 }}>
-                            <PromoCard key={index} promo={promo} openDetailPromo={false} />
+                            <PromoCard key={index} promo={promo} openDetailPromo={false} onClickOpenPromoDetail={()=>handlePromoDetailPage(promo.id)}/>
                         </div>
 
                     ))}

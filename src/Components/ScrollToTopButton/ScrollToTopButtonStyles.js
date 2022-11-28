@@ -1,7 +1,7 @@
-import { createStyles, makeStyles } from '@mui/styles';
+import { makeStyles } from '@mui/styles';
 
 export const useScrollToTopButton = makeStyles((theme) =>
-    createStyles({
+    ({
         root: {
             position: 'fixed',
             zIndex: 1000,

@@ -1,11 +1,12 @@
 import React from "react";
 
-// import Components
+// import Material component
 import { Typography } from "@mui/material";
 
 // import Icons
 import LocalShippingIcon from '@mui/icons-material/LocalShipping';
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
+import DoneAllIcon from '@mui/icons-material/DoneAll';
 
 // import Styles
 import { deliveryChipStatusStyles } from "./DeliveryChipStatusStyles";
@@ -16,8 +17,10 @@ const getIconChipStatus = tourStatus => {
             return <LocalShippingIcon style={{ color:'#ffffff', width:14, height:14, marginTop:6 }} />
         case 'Too Early':
             return <ArrowDropUpIcon style={{ color:'#ffffff', width:16, height:16, marginTop:6}} />
+        case 'Done':
+            return <DoneAllIcon style={{ color:'#ffffff', width:16, height:16, marginTop:6}} />
         default:
-            return <></>
+            return <>-</>
     }
 }
 
@@ -27,6 +30,8 @@ const getColorChipStatus = tourStatus => {
             return '#0cb74d'
         case 'Too Early':
             return '#d4b305'
+        case 'Done':
+            return '#9e8df0'
         default:
             return ''
     }

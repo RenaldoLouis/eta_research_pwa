@@ -39,3 +39,11 @@ code {
   url("./fonts/Eina04/Eina04-LightItalic.ttf") format("trueType")
   ;
 }
+
+
+@font-face {
+  font-family: "RobotoMono-Regular";
+  src: local("RobotoMono-Regular"),
+  url("./fonts/RobotoMono/RobotoMono-Regular.ttf") format("trueType")
+  ;
+}

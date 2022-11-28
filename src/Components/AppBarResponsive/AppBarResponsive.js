@@ -16,6 +16,7 @@ import { useNavigate } from "react-router-dom"
 
 // Dark and Light Mode
 import { AppContext } from '../../App';
+import { useTheme } from "@mui/material/styles";
 
 import { Outlet } from 'react-router-dom';
 
@@ -25,11 +26,23 @@ const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 
 
-
+const getThemeChangeText = (theme) => {
+  switch(theme){
+    case 'dark':
+      return 'Light Theme'
+    default :
+      return 'Dark Theme'
+  }
+}
 
 const AppBarResponsive = () => {
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
+
+  const theme = useTheme()
+
+  // Dark and Light Mode
+  const { handleChangeTheme, mode, historyStack, setHistoryStack } = useContext(AppContext);
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -47,17 +60,23 @@ const AppBarResponsive = () => {
   };
 
 
-  // Dark and Light Mode
-  const { handleChangeTheme, mode } = useContext(AppContext);
-
   const navigate = useNavigate();
+  const handleBackPrevPage = () => {
+    navigate(-1)
+    setHistoryStack((stack) => stack.slice(0,-1))
+  }
+
+
+  
+
+  // const navigate = useNavigate();
 
   return (
     <div>
-      <AppBar position="static" sx={{ background: '#221f2f', position: 'sticky', top: 0, zIndex: 1000, width:'100%' }}>
-        <Container maxWidth="xl">
+      <AppBar position="static" sx={{ background: theme.palette.background.appBar, position: 'sticky', top: 0, zIndex: 1000, width:'100%' }}>
+        <Container maxWidth="100vw">
           <Toolbar disableGutters>
-            <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
+            <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1, color: theme.palette.background.deliveryCard, }} />
             <Typography
               variant="h6"
               noWrap
@@ -69,7 +88,7 @@ const AppBarResponsive = () => {
                 fontFamily: 'monospace',
                 fontWeight: 700,
                 letterSpacing: '.3rem',
-                color: 'inherit',
+                color: theme.palette.background.deliveryCard,
                 textDecoration: 'none',
               }}
             >
@@ -82,14 +101,15 @@ const AppBarResponsive = () => {
                 aria-label="account of current user"
                 aria-controls="menu-appbar"
                 aria-haspopup="true"
-                onClick={() => navigate(-1)}
+                // onClick={handleBackPrevPage}
                 color="inherit"
               >
-                <ArrowBackIosIcon />
+                { historyStack.length > 0 && <ArrowBackIosIcon onClick={handleBackPrevPage} sx={{ color:theme.palette.background.default }} /> }
+              
               </IconButton>
 
             </Box>
-            <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
+            <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1, color: theme.palette.background.deliveryCard, }} />
             <Typography
               variant="h5"
               noWrap
@@ -102,22 +122,13 @@ const AppBarResponsive = () => {
                 fontFamily: 'monospace',
                 fontWeight: 700,
                 letterSpacing: '.3rem',
-                color: 'inherit',
+                color: theme.palette.background.deliveryCard,
                 textDecoration: 'none',
               }}
             >
               LOGO
             </Typography>
             <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-              {/* {pages.map((page) => (
-                <Button
-                  key={page}
-                  onClick={handleCloseNavMenu}
-                  sx={{ my: 2, color: 'white', display: 'block' }}
-                >
-                  {page}
-                </Button>
-              ))} */}
             </Box>
 
             <Box sx={{ flexGrow: 0 }}>
@@ -140,13 +151,8 @@ const AppBarResponsive = () => {
                 open={Boolean(anchorElUser)}
                 onClose={handleCloseUserMenu}
               >
-                {/* {settings.map((setting) => (
-                  <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                    <Typography textAlign="center">{setting}</Typography>
-                  </MenuItem>
-                ))} */}
                 <MenuItem onClick={handleChangeTheme}>
-                  <Typography sx={{textTransform:'capitalize',}} textAlign="center">{mode} Theme</Typography>
+                  <Typography sx={{textTransform:'capitalize',}} textAlign="center">{getThemeChangeText(mode)} </Typography>
                 </MenuItem>
 
               </Menu>

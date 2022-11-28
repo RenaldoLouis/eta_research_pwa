@@ -8,20 +8,14 @@ import { Typography } from "@mui/material";
 // import Icons
 import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
+import { ArrowDropDown, ArrowDropUp } from "@mui/icons-material";
 
 // import components
 import DeliveryChipStatus from "../ChipStatus/DeliveryChipStatus";
 import StopChipStatus from "../ChipStatus/StopChipStatus";
 import PlatDriver from "../PlatDriver/PlatDriver";
 import ItemList from "../ItemList/ItemList";
-import DeliveryCardDetail from "../DeveliveryCardDetail/DeliveryCardDetail";
 
-import List from '@mui/material/List';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
-
-import { AppContext } from "../../App";
-import { ArrowDropDown, ArrowDropUp } from "@mui/icons-material";
 
 const DeliveryCard = (props) => {
 
@@ -29,15 +23,17 @@ const DeliveryCard = (props) => {
         totalDelivery,
         numberOfDeliver,
         data,
-        onClickOpenDetail
+        onClickOpenDetail,
+        isMobile
     } = props
 
+    // theme color
     const theme = useTheme()
 
+    // custom styles
     const classes = useStyles(theme)
 
-    const { isMobile } = useContext(AppContext)
-
+    // local state
     const [openDetail, setOpenDetail] = useState(false)
 
     return (
@@ -86,7 +82,7 @@ const DeliveryCard = (props) => {
                             height: 14,
                             marginRight: 6,
                             marginTop: -3,
-                            color: theme.palette.text.secondary
+                            color: '#959499'
                         }} />
                         <div>
                             <Typography fontSize={16} color={theme.palette.text.primary} sx={{ fontFamily: 'Eina04-SemiBold' }}>
@@ -96,7 +92,7 @@ const DeliveryCard = (props) => {
                     </div>
 
                 </div>
-                {
+                {/* {
                     data.isCanceled && (
                         <div className={classes.flexSpaceBetween}>
                             <div className={classes.flexStart} style={{ marginLeft: 20 }}>
@@ -107,7 +103,7 @@ const DeliveryCard = (props) => {
 
                         </div>
                     )
-                }
+                } */}
 
                 <div className={classes.flexSpaceBetween}>
                     <div className={classes.flexStart}>
@@ -116,7 +112,7 @@ const DeliveryCard = (props) => {
                             height: 16,
                             marginRight: 6,
                             marginTop: -3,
-                            color: theme.palette.text.secondary
+                            color: '#959499'
                         }} />
                         <div>
                             <Typography fontSize={16} color={theme.palette.text.secondary} sx={{ fontFamily: 'Eina04-SemiBold' }}>
@@ -125,25 +121,21 @@ const DeliveryCard = (props) => {
                         </div>
                     </div>
 
+                    {isMobile ? (<></>) : (<>
+                        <div className={classes.flexEnd} onClick={() => setOpenDetail(!openDetail)} style={{ cursor: 'pointer' }}>
+                            {openDetail ? <ArrowDropUp style={{ color:'#959499' }} /> : <ArrowDropDown  style={{ color:'#959499' }} />}
+                        </div>
+                    </>)}
+
                 </div>
-                {isMobile ? (<></>) : (<>
-                    <div className={classes.flexEnd} onClick={() => setOpenDetail(!openDetail)} style={{ cursor: 'pointer' }}>
-                        {openDetail ? <ArrowDropUp /> : <ArrowDropDown />}
-                    </div>
-                </>)}
-
-
-
             </div>
 
             {
                 isMobile ? (<></>) : (<>
                     {openDetail && (
-                        <div
-                        // style={{ width: '100%', height: 200, backgroundColor: 'blue', zIndex: 1, position: 'relative' }}
-                        >
+                        <div>
                             {data.itemList.map((product, index) => (
-                                <ItemList item={product} key={index} />
+                                <ItemList item={product} key={index} index={index} itemLength={data.itemList.length} isMobile={false} />
                             ))}
                         </div>
                     )}

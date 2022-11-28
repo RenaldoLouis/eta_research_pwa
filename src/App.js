@@ -3,7 +3,7 @@ import './App.css';
 import { PwaContextProvider } from "./context/PwaContext";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route} from "react-router-dom";
 import Login from './Pages/Login';
 import Verify from './Pages/Verify';
 import PublicRoute from './PublicRoute';
@@ -13,8 +13,7 @@ import { useMediaQuery } from "@mui/material";
 // Dummy 
 import logo from '../src/assets/Images/dummy-promo-lemonade.jpg'
 
-// Components
-import NewPageComponent from './Components/NewPageComponent';
+//import Components
 
 import AppBarResponsive from './Components/AppBarResponsive/AppBarResponsive';
 import ScrollToTopButton from './Components/ScrollToTopButton/ScrollToTopButton';
@@ -46,7 +45,6 @@ const Main = () => {
       <Route path="*" element={<PublicRoute />} />
       <Route element={<AppBarResponsive />} >
         <Route element={<ScrollToTopButton />} >
-          <Route path="/new" element={<NewPageComponent />} />
           <Route path="/delivery" element={<DeliveryPage />} />
           <Route path="/deliveryDetail/:deliveryId" element={<DeliveryDetailPage />} />
           <Route path="/promoDetail/:promoId" element={<PromoDetailPage />} />
@@ -99,13 +97,16 @@ function App() {
                 deliveryCard: '  #ffffff',
                 promoCard: '#fdf6f6',
                 hoverItemList: '#e6e6e6',
-                scrollToTop: '#262626'
+                scrollToTop: '#262626',
+                appBar: '#221f2f',
+                itemListDesktop: '#ffffff'
               },
               text: {
                 primary: '#26242e',
                 secondary: '#27252f',
                 text3: '#fafafa',
                 text4: '#1a1919',
+                heading1: '#616161'
               },
             }
             : {
@@ -114,13 +115,16 @@ function App() {
                 deliveryCard: '#2b2b2b',
                 promoCard: '#2b2b2b',
                 hoverItemList: '#404040',
-                scrollToTop: '#ffffff'
+                scrollToTop: '#ffffff',
+                appBar: '#ffffff',
+                itemListDesktop: '#363636'
               },
               text: {
                 primary: "#fff",
                 secondary: '#fff',
                 text3: '#fafafa',
-                text4: '#ffffff'
+                text4: '#ffffff',
+                heading1: '#959499'
               }
             })
         }
@@ -136,28 +140,28 @@ function App() {
 
   const promoDumpData = [
     {
-      id:1,
+      id: 1,
       image: logo,
       title: 'Lemonade Promo November 2021',
       detail: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
 
     },
     {
-      id:2,
+      id: 2,
       image: logo,
       title: 'Lemonade Promo Desember 2021',
       detail: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
 
     },
     {
-      id:3,
+      id: 3,
       image: logo,
       title: 'Lemonade Promo January 2022',
       detail: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
 
     },
     {
-      id:4,
+      id: 4,
       image: logo,
       title: 'Lemonade Promo February 2022',
       detail: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
@@ -167,7 +171,7 @@ function App() {
   const deliveryDumpData = [
     {
       id: 1,
-      tourStatus: 'On Delivery',
+      tourStatus: 'Done',
       stopStatus: 'All OK',
       date: 'Mon, 19 Jan 2021',
       twStart: '11.00',
@@ -183,37 +187,45 @@ function App() {
         {
           productName: 'Product Name 1',
           amount: 12,
-          unit: 'FAS',
+          unit: 'Fas',
           onTruck: 12,
-          ordered: 8
+          ordered: 8,
+          disable: false,
+          warning: true
         },
         {
           productName: 'Product Name 2',
           amount: 10,
-          unit: 'FAS',
+          unit: 'Fas',
           onTruck: 12,
-          ordered: 8
+          ordered: 8,
+          disable: true,
+          warning: false
         },
         {
-          productName: 'Product Name 1',
+          productName: 'Product Name 3',
           amount: 12,
-          unit: 'FAS',
+          unit: 'Fas',
           onTruck: 12,
-          ordered: 8
+          ordered: 8,
+          disable: true,
+          warning: false
         },
         {
-          productName: 'Product Name 2',
+          productName: 'Product Name 4',
           amount: 10,
-          unit: 'FAS',
+          unit: 'Fas',
           onTruck: 12,
-          ordered: 8
+          ordered: 8,
+          disable: false,
+          warning: false
         },
       ]
     },
 
     {
       id: 2,
-      tourStatus: 'Too Early',
+      tourStatus: 'Done',
       stopStatus: 'Discrepancy',
       date: 'Mon, 20 Jan 2021',
       twStart: '11.00',
@@ -225,20 +237,25 @@ function App() {
       products: [0, 1, 2, 3],
       address: 'Lindenstraße 6, 14467 Potsdam, Germany',
       clientName: 'Genossenschaft Migros Zürich',
+      isCanceled: true,
       itemList: [
         {
           productName: 'Product Name 1',
           amount: 12,
-          unit: 'FAS',
+          unit: 'Fas',
           onTruck: 12,
-          ordered: 8
+          ordered: 8,
+          disable: false,
+          warning: true
         },
         {
           productName: 'Product Name 2',
           amount: 10,
-          unit: 'FAS',
+          unit: 'Fas',
           onTruck: 12,
-          ordered: 8
+          ordered: 8,
+          disable: false,
+          warning: false
         },
       ]
     },
@@ -261,9 +278,11 @@ function App() {
         {
           productName: 'Product Name 1',
           amount: 12,
-          unit: 'FAS',
+          unit: 'Fas',
           onTruck: 12,
-          ordered: 8
+          ordered: 8,
+          disable: false,
+          warning: false
         },
 
       ]
@@ -286,25 +305,42 @@ function App() {
         {
           productName: 'Product Name 1',
           amount: 12,
-          unit: 'FAS',
+          unit: 'Fas',
           onTruck: 12,
-          ordered: 8
+          ordered: 8,
+          disable: false,
+          warning: true
         },
         {
           productName: 'Product Name 2',
           amount: 10,
-          unit: 'FAS',
+          unit: 'Fas',
           onTruck: 12,
-          ordered: 8
+          ordered: 8,
+          disable: false,
+          warning: false
         },
       ]
     },
   ]
+
+
+  // dump link status
+  const [isLinkExpired, setIsLinkExpired] = useState(false)
   /* =========End Of Dummy Data ============ */
+
+
+
+  /* =========stack history============ */
+  const [historyStack, setHistoryStack] = useState([])
+
+  /* =========End of stack history============ */
+
 
   const isDesktop = useMediaQuery(theme.breakpoints.up('md'));
   const isTablet = useMediaQuery(theme.breakpoints.only('sm'))
   const isMobile = useMediaQuery(theme.breakpoints.only('xs'))
+
 
 
   const AppContextValue = {
@@ -313,8 +349,19 @@ function App() {
     isMobile,
     warning,
     promoDumpData,
-    deliveryDumpData
+    deliveryDumpData,
+    isLinkExpired,
+    historyStack,
+    setHistoryStack
   };
+
+  useEffect(() => {
+    window.scrollTo({
+        top: 0,
+        // behavior: 'smooth'
+    })
+    console.log('historystack', historyStack)
+},[historyStack])
 
   /* ====================State==================== */
 

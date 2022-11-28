@@ -11,7 +11,7 @@ import WarningComponent from "../../Components/WarningComponent/WarningComponent
 import ItemList from "../../Components/ItemList/ItemList";
 import DeliveryCardDetail from "../../Components/DeveliveryCardDetail/DeliveryCardDetail";
 
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate, useLocation } from 'react-router-dom';
 
 // import AppContext
 import { AppContext } from "../../App";
@@ -22,7 +22,7 @@ const DeliveryDetailPage = () => {
     const theme = useTheme()
 
     // state from contex
-    const { warning, deliveryDumpData, promoDumpData } = useContext(AppContext)
+    const {isMobile,  warning, deliveryDumpData, promoDumpData, setHistoryStack } = useContext(AppContext)
 
     useEffect(() => {
         window.scrollTo({
@@ -31,6 +31,12 @@ const DeliveryDetailPage = () => {
         })
     },[])
 
+    let navigate = useNavigate();
+    const location = useLocation()
+    const handlePromoDetailPage = (promoId) => {
+        navigate(`/promoDetail/${promoId}`)
+        setHistoryStack((stack) => stack.concat(location))
+    }
    
 
     let { deliveryId } = useParams()
@@ -39,28 +45,32 @@ const DeliveryDetailPage = () => {
         <>
             {
                 warning && (
-                    <WarningComponent />
+                    <WarningComponent isMobile={isMobile} />
                 )
             }
             <div style={{}}>
                 <div>
                     <DeliveryCardDetail data = {deliveryDumpData.filter(dumpData=> dumpData.id == deliveryId)[0]} />
+                    <div style={{  backgroundColor: theme.palette.background.deliveryCard, borderTop:'1px solid #979797', padding:'10px 20px 0px 20px', display:'flex', justifyContent:'space-between'  }}>
+                        <Typography fontSize={14} sx={{textTransform:'uppercase', fontFamily: 'Eina04-Bold'}} >Item List</Typography>
+                        <Typography fontSize={14} sx={{fontFamily: 'Eina04-Regular'}}> {`${deliveryDumpData.filter(dumpData=> dumpData.id == deliveryId)[0].itemList.length} Products`}</Typography>
+                    </div>
                     <div style={{ marginTop: 0 }}>
                         {deliveryDumpData.filter(dumpData=> dumpData.id == deliveryId)[0].itemList.map((product, index) => (
-                            <ItemList item={product} key={index} />
+                            <ItemList item={product} key={index} index={index} itemLength={deliveryDumpData.filter(dumpData=> dumpData.id == deliveryId)[0].itemList.length} isMobile={true}/>
                         ))}
 
                     </div>
                 </div>
                 <div style={{ padding: 20 }}>
                     <div style={{ width: '100%', marginTop: 24 }}>
-                        <Typography fontSize={14} color={theme.palette.text.primary}>
+                        <Typography fontSize={14} color={theme.palette.text.heading1} sx={{ fontFamily:'Eina04-SemiBold' }}>
                             PROMO FOR YOU
                         </Typography>
                     </div>
                     {promoDumpData.map((promo, index) => (
                         <div style={{ marginTop: 10 }}>
-                            <PromoCard openDetailPromo={false} key={index} index={index} promo={promo} />
+                            <PromoCard openDetailPromo={false} key={index}  promo={promo} onClickOpenPromoDetail={()=>handlePromoDetailPage(promo.id)} />
                         </div>
 
                     ))}

@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 
 // import material UI
-import { Typography, Grid, Dialog, Tabs, Tab } from "@mui/material";
+import { Typography, Grid, Dialog, Tabs, Divider } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 
 // import Component
@@ -9,8 +9,12 @@ import PromoCard from "../../Components/PromoCard/PromoCard";
 import DeliveryCard from "../../Components/DeliveryCard/DeliveryCard";
 import WarningComponent from "../../Components/WarningComponent/WarningComponent";
 import ItemList from "../../Components/ItemList/ItemList";
+import DoneDeliveryStatus from "../../Components/DoneDeliveryStatus/DoneDeliveryStatus";
+import LinkExpiredStatus from "../../Components/LinkExpiredStatus/LinkExpiredStatus";
 
-import { useNavigate } from "react-router-dom";
+import DoneAllIcon from '@mui/icons-material/DoneAll';
+
+import { useNavigate, useLocation } from "react-router-dom";
 
 // import AppContext
 import { AppContext } from "../../App";
@@ -25,7 +29,7 @@ const DeliveryPage = () => {
     const theme = useTheme()
 
     // state from contex
-    const { isMobile, warning, promoDumpData, deliveryDumpData } = useContext(AppContext)
+    const { isMobile, warning, promoDumpData, deliveryDumpData, isLinkExpired,historyStack,setHistoryStack  } = useContext(AppContext)
 
     const classes = useDeliveryPage()
 
@@ -38,13 +42,15 @@ const DeliveryPage = () => {
     }
 
     let navigate = useNavigate();
+    const location = useLocation()
     const handleDeliveryDetailPage = (deliveryId) => {
-        navigate(`/deliveryDetail/${deliveryId}`)
+        navigate(`/deliveryDetail/1`)
+        setHistoryStack((stack) => stack.concat(location))
     }
 
     const handlePromoDetailPage = (promoId) => {
         navigate(`/promoDetail/${promoId}`)
-
+        setHistoryStack((stack) => stack.concat(location))
     }
 
     const handleOpenPromoDialog = (promoId) => {
@@ -57,58 +63,78 @@ const DeliveryPage = () => {
         <>
             {
                 warning && (
-                    <WarningComponent />
+                    <WarningComponent isMobile={isMobile} />
                 )
             }
             <div style={{ marginTop: 20, padding: 20 }}>
-                <div style={{ width: '100%', display: 'flex', justifyContent: 'flex-start' }}>
-                    {deliveryDumpData.length > 1 ? (
-                        <>
-                            <Typography fontSize={14} color={theme.palette.text.primary} sx={{ textTransform: 'uppercase', fontFamily: 'Eina04-SemiBold' }}>
-                                there are
-                            </Typography>
-                            <div style={{ border: '1px solid #979797', borderRadius: 5, padding: '0px 5px 0px 5px', margin: '0 10px' }}>
-                                <Typography fontSize={14} color={theme.palette.text.primary} sx={{ fontFamily: 'Eina04-SemiBold' }}>
-                                    {deliveryDumpData.length}
-                                </Typography>
-                            </div>
-                            <Typography fontSize={14} color={theme.palette.text.primary} sx={{ textTransform: 'uppercase', fontFamily: 'Eina04-SemiBold' }}>
-                                delivery today
-                            </Typography>
-                        </>
-                    ) : (
-                        <Typography fontSize={14} color={theme.palette.text.primary} sx={{ textTransform: 'uppercase' }}>
-                            TODAY'S DELIVERY
-                        </Typography>
-                    )}
+                {isLinkExpired ? (<LinkExpiredStatus isMobile={isMobile} />) :
+                    (
+                        <div style={{ position: isMobile ? undefined : "fixed", zIndex: isMobile ? undefined : 10, padding: isMobile ? undefined : '0px 0px 5px 0px', }}>
+                            <div style={{ width: '100%', display: 'flex', justifyContent: 'flex-start' }}>
+                                {deliveryDumpData.length > 1 ? (
+                                    <>
+                                        <Typography fontSize={14} color={theme.palette.text.heading1} sx={{ textTransform: 'uppercase', fontFamily: 'Eina04-SemiBold' }}>
+                                            there are
+                                        </Typography>
+                                        <div style={{ border: '1px solid #979797', borderRadius: 5, padding: '0px 5px 0px 5px', margin: '0 10px' }}>
+                                            <Typography fontSize={14} color={theme.palette.text.heading1} sx={{ fontFamily: 'Eina04-SemiBold' }}>
+                                                {deliveryDumpData.length}
+                                            </Typography>
+                                        </div>
+                                        <Typography fontSize={14} color={theme.palette.text.heading1} sx={{ textTransform: 'uppercase', fontFamily: 'Eina04-SemiBold' }}>
+                                            delivery today
+                                        </Typography>
+                                    </>
+                                ) : (
+                                    <Typography fontSize={14} color={theme.palette.text.heading1} sx={{ textTransform: 'uppercase' }}>
+                                        TODAY'S DELIVERY
+                                    </Typography>
+                                )}
 
-                </div>
-                {isMobile ? (<>
-                    {deliveryDumpData.map((data, index) => (
-                        <div key={index} style={{ marginTop: 16 }} >
-                            <DeliveryCard key={index} data={data} totalDelivery={deliveryDumpData.length} numberOfDeliver={index + 1} onClickOpenDetail={() => handleDeliveryDetailPage(data.id)} />
+                            </div>
+                            {isMobile ? (<>
+                                {
+                                    deliveryDumpData.every((v) => { return v.tourStatus == "Done" }) ? (
+                                        <DoneDeliveryStatus isMobile={true} />
+                                    ) : <></>
+                                }
+                                {deliveryDumpData.map((data, index) => (
+                                    <div key={index} style={{ marginTop: 16 }} >
+                                        <DeliveryCard key={index} data={data} totalDelivery={deliveryDumpData.length} numberOfDeliver={index + 1} onClickOpenDetail={() => handleDeliveryDetailPage(data.id)} isMobile={true} />
+                                    </div>
+                                ))}
+                            </>) : (<>
+                                <Tabs
+                                    variant="scrollable"
+                                    scrollButtons={false}
+                                    value={false}
+                                    // sx={{ backgroundColor: 'red' }}
+                                    style={{ width: 'calc(100vw - 40px)' }}
+                                >
+                                    {
+                                        deliveryDumpData.every((v) => { return v.tourStatus == "Done" }) ? (
+                                            <DoneDeliveryStatus />
+                                        ) : <div></div>
+                                    }
+                                    {deliveryDumpData.map((data, index) => (
+                                        <div key={index} style={{ marginTop: 16, display: 'inline-block', marginLeft: index > 0 ? 20 : '', }}>
+                                            <DeliveryCard key={index} data={data} totalDelivery={deliveryDumpData.length} numberOfDeliver={index + 1} />
+                                        </div>
+                                    ))}
+                                </Tabs>
+                            </>)}
                         </div>
-                    ))}
-                </>) : (<>
-                    <Tabs
-                        variant="scrollable"
-                        scrollButtons={false}
-                        value={false}
-                        // sx={{ backgroundColor: 'red' }}
-                    >
-                        {deliveryDumpData.map((data, index) => (
-                            <div key={index} style={{ marginTop: 16, display: 'inline-block', marginLeft: index > 0 ? 20 : '', }}>
-                                <DeliveryCard key={index} data={data} totalDelivery={deliveryDumpData.length} numberOfDeliver={index + 1} />
-                            </div>
-                        ))}
-                    </Tabs>
-                </>)}
+                    )}
+                
+                {isMobile && (<Divider sx={{ marginTop:5, }} color={'#979797'} style={{ marginLeft:-20, marginRight:-20 }} />)}
+                
 
-
-
-                <div style={{ width: '100%', marginTop: 24 }}>
-                    <Typography fontSize={14} color={theme.palette.text.primary} sx={{ fontFamily: 'Eina04-SemiBold' }}>
-                        NEWS AND PROMO
+                {isMobile ? (<></>) : (
+                    <div style={{ width: '100%', height: warning? 365 : 290, backgroundColor: theme.palette.background.default, position: 'fixed', zIndex: 5, top:65}} />
+                )}
+                <div style={{ width: '100%', marginTop: isMobile ? 34 : 300, marginBottom: 12 }}>
+                    <Typography fontSize={14} color={theme.palette.text.heading1} sx={{ fontFamily: 'Eina04-SemiBold', textTransform: 'uppercase' }}>
+                        Promo For You
                     </Typography>
                 </div>
 
@@ -122,7 +148,7 @@ const DeliveryPage = () => {
             </div>
             <Dialog open={openPromoDialog} onClose={handleClosePromoDialog}>
                 <div style={{ width: 412 }}>
-                    <PromoCard openDetailPromo={true} promo={promoDumpData.filter(dumpPromo => dumpPromo.id == idPromoDialog)[0]} />
+                    <PromoCard openDetailPromo={true} promo={promoDumpData.filter(dumpPromo => dumpPromo.id == idPromoDialog)[0]} isDesktop={true}/>
                 </div>
             </Dialog>
         </>
