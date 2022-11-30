@@ -1,5 +1,7 @@
 import React, { useContext, useEffect } from "react";
 
+import { useParams, useNavigate, useLocation } from 'react-router-dom';
+
 // import material UI
 import { Typography } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
@@ -11,7 +13,8 @@ import WarningComponent from "../../Components/WarningComponent/WarningComponent
 import ItemList from "../../Components/ItemList/ItemList";
 import DeliveryCardDetail from "../../Components/DeveliveryCardDetail/DeliveryCardDetail";
 
-import { useParams, useNavigate, useLocation } from 'react-router-dom';
+// import reusable component
+import DivFlexSpaceBetween from "../../Components/ReusableComponents/DivFlexSpacebetween";
 
 // import AppContext
 import { AppContext } from "../../App";
@@ -49,10 +52,10 @@ const DeliveryDetailPage = () => {
 
             <div>
                 <DeliveryCardDetail data={deliveryDumpData.filter(dumpData => dumpData.id == deliveryId)[0]} />
-                <div style={{ backgroundColor: theme.palette.background.deliveryCard, borderTop: '1px solid #979797', padding: '10px 20px 0px 20px', display: 'flex', justifyContent: 'space-between' }}>
+                <DivFlexSpaceBetween sx={{ backgroundColor: theme.palette.background.deliveryCard, borderTop: '1px solid #979797', padding: '10px 20px 0px 20px'}}>
                     <Typography fontSize={14} sx={{ textTransform: 'uppercase', fontFamily: 'Eina04-Bold' }} >Item List</Typography>
                     <Typography fontSize={14} sx={{ fontFamily: 'Eina04-Regular' }}> {`${deliveryDumpData.filter(dumpData => dumpData.id == deliveryId)[0].itemList.length} Products`}</Typography>
-                </div>
+                </DivFlexSpaceBetween>
 
                 {deliveryDumpData.filter(dumpData => dumpData.id == deliveryId)[0].itemList.map((product, index) => (
                     <ItemList item={product} key={index} index={index} itemLength={deliveryDumpData.filter(dumpData => dumpData.id == deliveryId)[0].itemList.length} isMobile={true} />

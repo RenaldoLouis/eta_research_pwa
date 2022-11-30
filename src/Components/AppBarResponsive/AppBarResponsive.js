@@ -101,10 +101,10 @@ const AppBarResponsive = () => {
                 aria-label="account of current user"
                 aria-controls="menu-appbar"
                 aria-haspopup="true"
-                // onClick={handleBackPrevPage}
+                onClick={historyStack.length > 0 ? handleBackPrevPage : undefined}
                 color="inherit"
               >
-                {historyStack.length > 0 && <ArrowBackIosIcon onClick={handleBackPrevPage} sx={{ color: theme.palette.background.default }} />}
+                {historyStack.length > 0 && <ArrowBackIosIcon  sx={{ color: theme.palette.background.default }} />}
 
               </IconButton>
 
