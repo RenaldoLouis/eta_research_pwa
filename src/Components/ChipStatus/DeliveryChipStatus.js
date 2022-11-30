@@ -8,17 +8,17 @@ import LocalShippingIcon from '@mui/icons-material/LocalShipping';
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
 import DoneAllIcon from '@mui/icons-material/DoneAll';
 
-// import Styles
-import { deliveryChipStatusStyles } from "./DeliveryChipStatusStyles";
+// import reusable component
+import Chip from "../ReusableComponents/Chip";
 
 const getIconChipStatus = tourStatus => {
     switch (tourStatus) {
         case 'On Delivery':
-            return <LocalShippingIcon style={{ color:'#ffffff', width:14, height:14, marginTop:6 }} />
+            return <LocalShippingIcon sx={{ color: '#ffffff', width: 14, height: 14, mr: 1 }} />
         case 'Too Early':
-            return <ArrowDropUpIcon style={{ color:'#ffffff', width:16, height:16, marginTop:6}} />
+            return <ArrowDropUpIcon sx={{ color: '#ffffff', width: 16, height: 16, mr: 1 }} />
         case 'Done':
-            return <DoneAllIcon style={{ color:'#ffffff', width:16, height:16, marginTop:6}} />
+            return <DoneAllIcon sx={{ color: '#ffffff', width: 16, height: 16, mr: 1 }} />
         default:
             return <>-</>
     }
@@ -41,19 +41,15 @@ const DeliveryChipStatus = props => {
 
     const { tourStatus } = props
 
-    const classes = deliveryChipStatusStyles()
-
     return (
-        <div className={classes.chip} style={{ backgroundColor : getColorChipStatus(tourStatus) }}>
-            <div style={{ marginRight: 6 }}>
-                {getIconChipStatus(tourStatus)}
-            </div>
-            <div>
-                <Typography fontSize={11} sx={{ color:'#ffffff', fontFamily:'Eina04-Bold' }}>
-                    {tourStatus}
-                </Typography>
-            </div>
-        </div>
+        <Chip sx={{ backgroundColor: getColorChipStatus(tourStatus) }}>
+
+            {getIconChipStatus(tourStatus)}
+            
+            <Typography fontSize={11} sx={{ color: '#ffffff', fontFamily: 'Eina04-Bold' }}>
+                {tourStatus}
+            </Typography>
+        </Chip>
     )
 }
 

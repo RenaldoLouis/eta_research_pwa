@@ -5,6 +5,10 @@ import { Typography, FormControl, TextField } from "@mui/material";
 // dark mode and light mode
 import { useTheme } from "@mui/material/styles";
 
+// import reusbale component
+import DivFlexCenter from "../ReusableComponents/DivFlexCenter";
+import ButtonSecondary from "../ReusableComponents/ButtonSecondary";
+
 import { useNavigate } from "react-router-dom";
 
 
@@ -22,21 +26,21 @@ const InputTrackingNumber = () => {
     }
 
     return (
-        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop:100, padding:20 }}>
+        <DivFlexCenter sx={{ mt:15, padding:0 }}>
             <div style={{ width: 306, maxHeight: 330, backgroundColor: theme.palette.background.promoCard, padding: 20 }}>
                 <Typography sx={{ fontSize: 14, fontFamily: 'Eina04-SemiBold' }}>
                     Tracking Number
                 </Typography>
-                <FormControl sx={{ width: '100%', marginTop: 2, }}>
+                <FormControl sx={{ width: '100%', mt: 2, }}>
                     <TextField id="basic" placeholder="Input your tracking Number" onChange={handleChangeInput} sx={{ input: { fontSize: 14, fontFamily: 'Eina04-Regular' } }} />
                 </FormControl>
-                <div onClick={onClickSubmit} style={{ width: '100%', height: 52, backgroundColor: theme.palette.text.text4, display: 'flex', alignItems: 'center', justifyContent: 'center', marginTop: 60, cursor: 'pointer' }}>
+                <ButtonSecondary onClick={onClickSubmit} sx={{ marginTop: 7}}>
                     <Typography sx={{ color: theme.palette.background.deliveryCard, fontSize: 14, fontFamily: 'Eina04-SemiBold' }}>
                         Submit
                     </Typography>
-                </div>
+                </ButtonSecondary>
             </div>
-        </div>
+        </DivFlexCenter>
     )
 }
 

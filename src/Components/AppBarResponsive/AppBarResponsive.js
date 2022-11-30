@@ -27,10 +27,10 @@ const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 
 const getThemeChangeText = (theme) => {
-  switch(theme){
+  switch (theme) {
     case 'dark':
       return 'Light Theme'
-    default :
+    default:
       return 'Dark Theme'
   }
 }
@@ -63,17 +63,17 @@ const AppBarResponsive = () => {
   const navigate = useNavigate();
   const handleBackPrevPage = () => {
     navigate(-1)
-    setHistoryStack((stack) => stack.slice(0,-1))
+    setHistoryStack((stack) => stack.slice(0, -1))
   }
 
 
-  
+
 
   // const navigate = useNavigate();
 
   return (
-    <div>
-      <AppBar position="static" sx={{ background: theme.palette.background.appBar, position: 'sticky', top: 0, zIndex: 1000, width:'100%' }}>
+    <>
+      <AppBar position="static" sx={{ background: theme.palette.background.appBar, position: 'sticky', top: 0, zIndex: 1000, width: '100%' }}>
         <Container maxWidth="100vw">
           <Toolbar disableGutters>
             <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1, color: theme.palette.background.deliveryCard, }} />
@@ -104,8 +104,8 @@ const AppBarResponsive = () => {
                 // onClick={handleBackPrevPage}
                 color="inherit"
               >
-                { historyStack.length > 0 && <ArrowBackIosIcon onClick={handleBackPrevPage} sx={{ color:theme.palette.background.default }} /> }
-              
+                {historyStack.length > 0 && <ArrowBackIosIcon onClick={handleBackPrevPage} sx={{ color: theme.palette.background.default }} />}
+
               </IconButton>
 
             </Box>
@@ -152,7 +152,7 @@ const AppBarResponsive = () => {
                 onClose={handleCloseUserMenu}
               >
                 <MenuItem onClick={handleChangeTheme}>
-                  <Typography sx={{textTransform:'capitalize',}} textAlign="center">{getThemeChangeText(mode)} </Typography>
+                  <Typography sx={{ textTransform: 'capitalize', }} textAlign="center">{getThemeChangeText(mode)} </Typography>
                 </MenuItem>
 
               </Menu>
@@ -160,10 +160,9 @@ const AppBarResponsive = () => {
           </Toolbar>
         </Container>
       </AppBar>
-      <div>
-        <Outlet />
-      </div>
-    </div>
+
+      <Outlet />
+    </>
   );
 }
 export default AppBarResponsive;

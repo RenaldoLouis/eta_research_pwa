@@ -9,6 +9,10 @@ import { Typography } from "@mui/material";
 // import Icons
 import DoneAllIcon from '@mui/icons-material/DoneAll';
 
+// import reusable component
+import DivFlexCenter from "../ReusableComponents/DivFlexCenter";
+
+
 const DoneDeliveryStatus = props => {
 
     const { isMobile } = props
@@ -18,10 +22,10 @@ const DoneDeliveryStatus = props => {
 
     return (
         <div style={{ marginTop: 80, display: 'inline-block', marginRight: 20, width: isMobile ? '100%' : 800 }}>
-            <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                <DoneAllIcon style={{ color: '#9e8df0', width: 67, height: 61 }} />
-            </div>
-            <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+            <DivFlexCenter>
+                <DoneAllIcon sx={{ color: '#9e8df0', width: 67, height: 61 }} />
+            </DivFlexCenter>
+            <DivFlexCenter>
                 <Typography fontSize={isMobile ? 20 : 40} color={theme.palette.text.primary} sx={{ fontFamily: 'Eina04-SemiBold' }}>
                     {`Delivery for today is`}
                 </Typography>
@@ -33,7 +37,7 @@ const DoneDeliveryStatus = props => {
                 <Typography fontSize={isMobile ? 20 : 40} color={theme.palette.text.primary} sx={{ fontFamily: 'Eina04-SemiBold' }}>
                     {`!`}
                 </Typography>
-            </div>
+            </DivFlexCenter>
 
         </div>
     )

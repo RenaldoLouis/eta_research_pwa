@@ -1,10 +1,9 @@
 import React, { useState } from "react";
 
+import { styled } from '@mui/system'
+
 // import Icon
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
-
-// import custom styles
-import { useScrollToTopButton } from "./ScrollToTopButtonStyles";
 
 // import color theme
 import { useTheme } from "@mui/material/styles";
@@ -12,11 +11,26 @@ import { useTheme } from "@mui/material/styles";
 // import react-roter-dom
 import { Outlet } from 'react-router-dom';
 
+
+const ButtonToTop = styled('div')((props) => ({
+    position: 'fixed',
+    zIndex: 1000,
+    color: props.theme.palette.background.default,
+    bottom: 40,
+    right: 10,
+    height: 50,
+    width: 50,
+    backgroundColor: props.theme.palette.background.scrollToTop,
+    borderRadius: '50%',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    cursor: 'pointer'
+}));
+
 const ScrollToTopButton = () => {
 
     const theme = useTheme()
-
-    const classes = useScrollToTopButton(theme)
 
     const [showButton, setShowButton] = useState(false)
 
@@ -41,13 +55,12 @@ const ScrollToTopButton = () => {
     return (
         <>
             {showButton && (
-                <div className={classes.root} onClick={scrollToTop}>
+                <ButtonToTop onClick={scrollToTop}>
                     <ArrowUpwardIcon />
-                </div>
+                </ButtonToTop>
             )}
-            <div>
-                <Outlet />
-            </div>
+
+            <Outlet />
         </>
     )
 }

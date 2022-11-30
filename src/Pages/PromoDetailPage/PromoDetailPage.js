@@ -36,28 +36,22 @@ const PromoDetailPage = () => {
         setHistoryStack((stack) => stack.concat(location))
     }
 
-   
+
     let { promoId } = useParams()
 
     return (
         <>
-            <div style={{}}>
-                <div>
-                    <PromoCard promo={promoDumpData.filter(dumpPromo=> dumpPromo.id == promoId)[0]} openDetailPromo={true} />
-                </div>
-                <div style={{ padding: 20 }}>
-                    <div style={{ width: '100%', marginTop: 24 }}>
-                        <Typography fontSize={14} color={theme.palette.text.primary}>
-                            PROMO FOR YOU
-                        </Typography>
+            <PromoCard promo={promoDumpData.filter(dumpPromo => dumpPromo.id == promoId)[0]} openDetailPromo={true} />
+            <div style={{ padding: 20 }}>
+                <Typography fontSize={14} color={theme.palette.text.primary} sx={{ mt: 3 }}>
+                    PROMO FOR YOU
+                </Typography>
+                {promoDumpData.filter(dumpPromo => dumpPromo.id != promoId).map((promo, index) => (
+                    <div style={{ marginTop: 10 }}>
+                        <PromoCard key={index} promo={promo} openDetailPromo={false} onClickOpenPromoDetail={() => handlePromoDetailPage(promo.id)} />
                     </div>
-                    {promoDumpData.filter(dumpPromo=> dumpPromo.id != promoId).map((promo, index) => (
-                        <div style={{ marginTop: 10 }}>
-                            <PromoCard key={index} promo={promo} openDetailPromo={false} onClickOpenPromoDetail={()=>handlePromoDetailPage(promo.id)}/>
-                        </div>
 
-                    ))}
-                </div>
+                ))}
             </div>
         </>
     )

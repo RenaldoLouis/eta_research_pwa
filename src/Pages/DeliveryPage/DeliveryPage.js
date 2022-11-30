@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
+import { styled } from '@mui/system'
 
 // import material UI
 import { Typography, Grid, Dialog, Tabs, Divider } from "@mui/material";
@@ -19,8 +20,9 @@ import { useNavigate, useLocation } from "react-router-dom";
 // import AppContext
 import { AppContext } from "../../App";
 
-import { useDeliveryPage } from "./DelveryPageStyles";
 
+// import reusable component
+import DivFlexStart from "../../Components/ReusableComponents/DivFlexStart";
 
 
 const DeliveryPage = () => {
@@ -29,9 +31,7 @@ const DeliveryPage = () => {
     const theme = useTheme()
 
     // state from contex
-    const { isMobile, warning, promoDumpData, deliveryDumpData, isLinkExpired,historyStack,setHistoryStack  } = useContext(AppContext)
-
-    const classes = useDeliveryPage()
+    const { isMobile, warning, promoDumpData, deliveryDumpData, isLinkExpired, historyStack, setHistoryStack } = useContext(AppContext)
 
     const [openPromoDialog, setOpenPromoDialog] = useState(false)
 
@@ -58,29 +58,33 @@ const DeliveryPage = () => {
         setIdPromoDialog(promoId)
     }
 
+    const ChipTotalDelivery = styled('div')((props) => ({
+        border: '1px solid #979797',
+        borderRadius: 5, 
+        padding: '0px 5px 0px 5px', 
+        margin: '0 10px'
+    }));
+
 
     return (
         <>
-            {
-                warning && (
-                    <WarningComponent isMobile={isMobile} />
-                )
-            }
+            {warning && (<WarningComponent isMobile={isMobile} />)}
+
             <div style={{ marginTop: 20, padding: 20 }}>
                 {isLinkExpired ? (<LinkExpiredStatus isMobile={isMobile} />) :
                     (
                         <div style={{ position: isMobile ? undefined : "fixed", zIndex: isMobile ? undefined : 10, padding: isMobile ? undefined : '0px 0px 5px 0px', }}>
-                            <div style={{ width: '100%', display: 'flex', justifyContent: 'flex-start' }}>
+                            <DivFlexStart>
                                 {deliveryDumpData.length > 1 ? (
                                     <>
                                         <Typography fontSize={14} color={theme.palette.text.heading1} sx={{ textTransform: 'uppercase', fontFamily: 'Eina04-SemiBold' }}>
                                             there are
                                         </Typography>
-                                        <div style={{ border: '1px solid #979797', borderRadius: 5, padding: '0px 5px 0px 5px', margin: '0 10px' }}>
+                                        <ChipTotalDelivery>
                                             <Typography fontSize={14} color={theme.palette.text.heading1} sx={{ fontFamily: 'Eina04-SemiBold' }}>
                                                 {deliveryDumpData.length}
                                             </Typography>
-                                        </div>
+                                        </ChipTotalDelivery>
                                         <Typography fontSize={14} color={theme.palette.text.heading1} sx={{ textTransform: 'uppercase', fontFamily: 'Eina04-SemiBold' }}>
                                             delivery today
                                         </Typography>
@@ -91,7 +95,7 @@ const DeliveryPage = () => {
                                     </Typography>
                                 )}
 
-                            </div>
+                            </DivFlexStart>
                             {isMobile ? (<>
                                 {
                                     deliveryDumpData.every((v) => { return v.tourStatus == "Done" }) ? (
@@ -125,14 +129,17 @@ const DeliveryPage = () => {
                             </>)}
                         </div>
                     )}
-                
-                {isMobile && (<Divider sx={{ marginTop:5, }} color={'#979797'} style={{ marginLeft:-20, marginRight:-20 }} />)}
-                
+
+                {isMobile && (<Divider sx={{ marginTop: 5, }} color={'#979797'} style={{ marginLeft: -20, marginRight: -20 }} />)}
+
 
                 {isMobile ? (<></>) : (
-                    <div style={{ width: '100%', height: warning? 365 : 290, backgroundColor: theme.palette.background.default, position: 'fixed', zIndex: 5, top:65}} />
+                    isLinkExpired ? (<></>) : (
+                        <div style={{ width: '100%', height: warning ? 365 : 290, backgroundColor: theme.palette.background.default, position: 'fixed', zIndex: 5, top: 65 }} />
+                    )
                 )}
-                <div style={{ width: '100%', marginTop: isMobile ? 34 : 300, marginBottom: 12 }}>
+
+                <div style={{ width: '100%', marginTop: isMobile ? 34 : isLinkExpired ? 34 : 300, marginBottom: 12 }}>
                     <Typography fontSize={14} color={theme.palette.text.heading1} sx={{ fontFamily: 'Eina04-SemiBold', textTransform: 'uppercase' }}>
                         Promo For You
                     </Typography>
@@ -148,7 +155,7 @@ const DeliveryPage = () => {
             </div>
             <Dialog open={openPromoDialog} onClose={handleClosePromoDialog}>
                 <div style={{ width: 412 }}>
-                    <PromoCard openDetailPromo={true} promo={promoDumpData.filter(dumpPromo => dumpPromo.id == idPromoDialog)[0]} isDesktop={true}/>
+                    <PromoCard openDetailPromo={true} promo={promoDumpData.filter(dumpPromo => dumpPromo.id == idPromoDialog)[0]} isDesktop={true} />
                 </div>
             </Dialog>
         </>

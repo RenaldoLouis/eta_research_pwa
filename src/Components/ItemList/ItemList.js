@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { styled } from '@mui/material/styles'
 
 // import material Component
 import { Typography } from '@mui/material';
@@ -13,13 +14,21 @@ import ExpandLess from '@mui/icons-material/ExpandLess';
 import ExpandMore from '@mui/icons-material/ExpandMore';
 import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
 
-
-// import Styles
-import { useItemStyles } from './ItemListStyles';
+// import reusable component 
+import DivFlexStart from '../ReusableComponents/DivFlexStart';
+import DivFlexSpaceBetween from '../ReusableComponents/DivFlexSpacebetween'
 
 
 // import theme color
 import { useTheme } from "@mui/material/styles";
+
+const ItemSubList = styled('div')((props) => ({
+    marginLeft: 45,
+    ":hover": {
+        background: props.theme.palette.background.hoverItemList,
+    }
+}));
+
 
 
 const ItemList = (props) => {
@@ -28,9 +37,6 @@ const ItemList = (props) => {
 
     // color theme
     const theme = useTheme()
-
-    // custom styles
-    const classes = useItemStyles(theme)
 
     // local state
     const [open, setOpen] = useState(false);
@@ -43,8 +49,8 @@ const ItemList = (props) => {
 
     return (
         <>
-            <List className={classes.root} style={{ borderBottom: index == itemLength - 1 ? '' : '1px solid #979797', background:isMobile?theme.palette.background.deliveryCard :theme.palette.background.itemListDesktop}}>
-                <ListItemButton onClick={item.disable ? undefined : handleClickExpandList} className={classes.itemList} >
+            <List sx={{ width: '100%', borderBottom: index == itemLength - 1 ? '' : '1px solid #979797', background: isMobile ? theme.palette.background.deliveryCard : theme.palette.background.itemListDesktop }}>
+                <ListItemButton onClick={item.disable ? undefined : handleClickExpandList} >
                     <ListItemIcon sx={{ color: '#ffffff', marginRight: -3 }}>
                         {item.disable == false && (
                             <>
@@ -52,43 +58,43 @@ const ItemList = (props) => {
                             </>
                         )}
                     </ListItemIcon>
-                    <div className={classes.listItemText}>
-                        <Typography sx={{ fontSize: 14, fontFamily: 'Eina04-SemiBold'  }} color={theme.palette.text.text4}>
+                    <DivFlexSpaceBetween sx={{ width: '100%' }}>
+                        <Typography sx={{ fontSize: 14, fontFamily: 'Eina04-SemiBold' }} color={theme.palette.text.text4}>
                             {item.productName}
                         </Typography>
-                        <div className={classes.flexStart}>
+                        <DivFlexStart>
                             {item.warning && (<ErrorOutlineIcon style={{ color: '#ea0000', width: 15, height: 15, marginRight: 6 }} />)}
-                            <Typography sx={{ fontSize: 14, fontFamily: 'Eina04-Regular'  }} color={theme.palette.text.text4} >
+                            <Typography sx={{ fontSize: 14, fontFamily: 'Eina04-Regular' }} color={theme.palette.text.text4} >
                                 {`${item.amount} ${item.unit}`}
                             </Typography>
-                        </div>
-                    </div>
+                        </DivFlexStart>
+                    </DivFlexSpaceBetween>
                 </ListItemButton>
                 <Collapse in={open} timeout="auto" unmountOnExit>
-                    <div className={classes.itemSubList}>
-                        <ListItemButton className={classes.itemList}>
-                            <div className={classes.listItemText}>
+                    <ItemSubList>
+                        <ListItemButton>
+                            <DivFlexSpaceBetween sx={{ width: '100%' }}>
                                 <Typography sx={{ fontSize: 14, fontFamily: 'Eina04-Regular' }} color={theme.palette.text.text4} >
                                     On Truck
                                 </Typography>
                                 <Typography sx={{ fontSize: 14, fontFamily: 'Eina04-Regular' }} color={theme.palette.text.text4} >
                                     {`${item.onTruck} Fas`}
                                 </Typography>
-                            </div>
+                            </DivFlexSpaceBetween>
                         </ListItemButton>
-                    </div>
-                    <div className={classes.itemSubList} >
-                        <ListItemButton className={classes.itemList}  >
-                            <div className={classes.listItemText}>
+                    </ItemSubList>
+                    <ItemSubList>
+                        <ListItemButton >
+                            <DivFlexSpaceBetween sx={{ width: '100%' }}>
                                 <Typography sx={{ fontSize: 14, fontFamily: 'Eina04-Regular' }} color={theme.palette.text.text4} >
                                     Ordered
                                 </Typography>
                                 <Typography sx={{ fontSize: 14, fontFamily: 'Eina04-Regular' }} color={theme.palette.text.text4} >
                                     {`${item.ordered} Fas`}
                                 </Typography>
-                            </div>
+                            </DivFlexSpaceBetween>
                         </ListItemButton>
-                    </div>
+                    </ItemSubList>
                 </Collapse>
             </List>
         </>
