@@ -20,6 +20,14 @@ code {
 }
 
 @font-face {
+  font-family: "Eina04-SemiBold";
+  src: local("Eina04-SemiBold"),
+  url("./fonts/Eina04/Eina04-SemiBold.ttf") format("trueType")
+  ;
+}
+
+
+@font-face {
   font-family: "Eina04-Regular";
   src: local("Eina04-Regular"),
   url("./fonts/Eina04/Eina04-Regular.ttf") format("trueType")
@@ -27,11 +35,20 @@ code {
 }
 
 @font-face {
-  font-family: "Eina04-SemiBold";
-  src: local("Eina04-SemiBold"),
-  url("./fonts/Eina04/Eina04-SemiBold.ttf") format("trueType")
+  font-family: "Eina04-RegularItalic";
+  src: local("Eina04-RegularItalic"),
+  url("./fonts/Eina04/Eina04-RegularItalic.ttf") format("trueType")
   ;
 }
+
+
+@font-face {
+  font-family: "Eina04-Light";
+  src: local("Eina04-Light"),
+  url("./fonts/Eina04/Eina04-Light.ttf") format("trueType")
+  ;
+}
+
 
 @font-face {
   font-family: "Eina04-LightItalic";
@@ -45,5 +62,12 @@ code {
   font-family: "RobotoMono-Regular";
   src: local("RobotoMono-Regular"),
   url("./fonts/RobotoMono/RobotoMono-Regular.ttf") format("trueType")
+  ;
+}
+
+@font-face {
+  font-family: "RobotoMono-Light";
+  src: local("RobotoMono-Light"),
+  url("./fonts/RobotoMono/RobotoMono-Light.ttf") format("trueType")
   ;
 }

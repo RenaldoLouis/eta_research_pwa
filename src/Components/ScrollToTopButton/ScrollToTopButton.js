@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext} from "react";
 
 import { styled } from '@mui/system'
 
@@ -11,6 +11,7 @@ import { useTheme } from "@mui/material/styles";
 // import react-roter-dom
 import { Outlet } from 'react-router-dom';
 
+import { AppContext } from "../../App";
 
 const ButtonToTop = styled('div')((props) => ({
     position: 'fixed',
@@ -32,29 +33,31 @@ const ScrollToTopButton = () => {
 
     const theme = useTheme()
 
-    const [showButton, setShowButton] = useState(false)
+    const { scrollDown, scrollToTop } = useContext(AppContext)
 
-    const toggleVisible = () => {
-        const scrolled = document.documentElement.scrollTop;
-        if (scrolled > 20) {
-            setShowButton(true)
-        } else if (scrolled <= 20) {
-            setShowButton(false)
-        }
-    }
+    // const [showButton, setShowButton] = useState(false)
 
-    const scrollToTop = () => {
-        window.scrollTo({
-            top: 0,
-            behavior: 'smooth'
-        })
-    }
+    // const toggleVisible = () => {
+    //     const scrolled = document.documentElement.scrollTop;
+    //     if (scrolled > 20) {
+    //         setShowButton(true)
+    //     } else if (scrolled <= 20) {
+    //         setShowButton(false)
+    //     }
+    // }
 
-    window.addEventListener('scroll', toggleVisible)
+    // const scrollToTop = () => {
+    //     window.scrollTo({
+    //         top: 0,
+    //         behavior: 'smooth'
+    //     })
+    // }
+
+    // window.addEventListener('scroll', toggleVisible)
 
     return (
         <>
-            {showButton && (
+            {scrollDown && (
                 <ButtonToTop onClick={scrollToTop}>
                     <ArrowUpwardIcon />
                 </ButtonToTop>

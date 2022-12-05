@@ -6,22 +6,16 @@ import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import Menu from '@mui/material/Menu';
 import Container from '@mui/material/Container';
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
 
-import { useNavigate } from "react-router-dom"
+import { useNavigate, Outlet } from "react-router-dom"
 
 // Dark and Light Mode
 import { AppContext } from '../../App';
 import { useTheme } from "@mui/material/styles";
-
-import { Outlet } from 'react-router-dom';
-
-const pages = ['Products', 'Pricing', 'Blog'];
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 
 
@@ -36,47 +30,35 @@ const getThemeChangeText = (theme) => {
 }
 
 const AppBarResponsive = () => {
-  const [anchorElNav, setAnchorElNav] = useState(null);
-  const [anchorElUser, setAnchorElUser] = useState(null);
+  const [anchorElUser, setAnchorElSetting] = useState(null);
 
   const theme = useTheme()
 
   // Dark and Light Mode
   const { handleChangeTheme, mode, historyStack, setHistoryStack } = useContext(AppContext);
 
-  const handleOpenNavMenu = (event) => {
-    setAnchorElNav(event.currentTarget);
-  };
-  const handleOpenUserMenu = (event) => {
-    setAnchorElUser(event.currentTarget);
-  };
-
-  const handleCloseNavMenu = () => {
-    setAnchorElNav(null);
+  // handle open and close menu
+  const handleOpenSettingMenu = (event) => {
+    setAnchorElSetting(event.currentTarget);
   };
 
   const handleCloseUserMenu = () => {
-    setAnchorElUser(null);
+    setAnchorElSetting(null);
   };
 
-
+  // const navigate = useNavigate();
   const navigate = useNavigate();
   const handleBackPrevPage = () => {
     navigate(-1)
     setHistoryStack((stack) => stack.slice(0, -1))
   }
 
-
-
-
-  // const navigate = useNavigate();
-
   return (
     <>
-      <AppBar position="static" sx={{ background: theme.palette.background.appBar, position: 'sticky', top: 0, zIndex: 1000, width: '100%' }}>
+      <AppBar position="static" sx={{ background: theme.palette.background.appBar, position: 'fixed', top: 0, zIndex: 1000, width: '100%' }}>
         <Container maxWidth="100vw">
           <Toolbar disableGutters>
-            <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1, color: theme.palette.background.deliveryCard, }} />
+            <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1, color: theme.palette.text.heading1 }} />
             <Typography
               variant="h6"
               noWrap
@@ -88,7 +70,7 @@ const AppBarResponsive = () => {
                 fontFamily: 'monospace',
                 fontWeight: 700,
                 letterSpacing: '.3rem',
-                color: theme.palette.background.deliveryCard,
+                color: theme.palette.text.heading1,
                 textDecoration: 'none',
               }}
             >
@@ -104,12 +86,12 @@ const AppBarResponsive = () => {
                 onClick={historyStack.length > 0 ? handleBackPrevPage : undefined}
                 color="inherit"
               >
-                {historyStack.length > 0 && <ArrowBackIosIcon  sx={{ color: theme.palette.background.default }} />}
+                {historyStack.length > 0 && <ArrowBackIosIcon  sx={{ color: theme.palette.text.heading1 }} />}
 
               </IconButton>
 
             </Box>
-            <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1, color: theme.palette.background.deliveryCard, }} />
+            <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1, color: theme.palette.text.heading1, }} />
             <Typography
               variant="h5"
               noWrap
@@ -122,7 +104,7 @@ const AppBarResponsive = () => {
                 fontFamily: 'monospace',
                 fontWeight: 700,
                 letterSpacing: '.3rem',
-                color: theme.palette.background.deliveryCard,
+                color: theme.palette.text.heading1,
                 textDecoration: 'none',
               }}
             >
@@ -132,11 +114,11 @@ const AppBarResponsive = () => {
             </Box>
 
             <Box sx={{ flexGrow: 0 }}>
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="" />
+              <IconButton onClick={handleOpenSettingMenu} sx={{ p: 0 }}>
+                <SettingsOutlinedIcon alt="Settings" src="" sx={{ color: theme.palette.text.heading1 }} />
               </IconButton>
               <Menu
-                sx={{ mt: '45px' }}
+                sx={{ mt: '25px' }}
                 id="menu-appbar"
                 anchorEl={anchorElUser}
                 anchorOrigin={{
@@ -152,7 +134,7 @@ const AppBarResponsive = () => {
                 onClose={handleCloseUserMenu}
               >
                 <MenuItem onClick={handleChangeTheme}>
-                  <Typography sx={{ textTransform: 'capitalize', }} textAlign="center">{getThemeChangeText(mode)} </Typography>
+                  <Typography fontSize={12} sx={{ textTransform: 'capitalize', }} textAlign="center">{getThemeChangeText(mode)} </Typography>
                 </MenuItem>
 
               </Menu>

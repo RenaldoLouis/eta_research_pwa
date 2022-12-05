@@ -3,7 +3,7 @@ import './App.css';
 import { PwaContextProvider } from "./context/PwaContext";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { BrowserRouter as Router, Routes, Route} from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Login from './Pages/Login';
 import Verify from './Pages/Verify';
 import PublicRoute from './PublicRoute';
@@ -14,27 +14,20 @@ import { useMediaQuery } from "@mui/material";
 import logo from '../src/assets/Images/dummy-promo-lemonade.jpg'
 
 //import Components
-
 import AppBarResponsive from './Components/AppBarResponsive/AppBarResponsive';
 import ScrollToTopButton from './Components/ScrollToTopButton/ScrollToTopButton';
-
 import InputTrackingNumber from './Components/InputTrackingNumber/InputTrackingNumber';
 
 // import page
 import DeliveryPage from './Pages/DeliveryPage/DeliveryPage';
-import DeliveryDetailPage from './Pages/DeliveryDetailPage/DeliveryDetailPage';
-import PromoDetailPage from './Pages/PromoDetailPage/PromoDetailPage';
 
 
 // Dark and Light Mode
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { CssBaseline } from '@mui/material';
 
-
-
+// AppContext
 export const AppContext = createContext({});
-
-
 
 
 const Main = () => {
@@ -44,12 +37,8 @@ const Main = () => {
       <Route path="/verify" element={<Verify />} />
       <Route path="*" element={<PublicRoute />} />
       <Route element={<AppBarResponsive />} >
-        <Route element={<ScrollToTopButton />} >
-          <Route path="/delivery" element={<DeliveryPage />} />
-          <Route path="/deliveryDetail/:deliveryId" element={<DeliveryDetailPage />} />
-          <Route path="/promoDetail/:promoId" element={<PromoDetailPage />} />
-          <Route path="/inputTrackingNumber" element={<InputTrackingNumber />} />
-        </Route>
+        <Route path="/delivery" element={<DeliveryPage />} />
+        <Route path="/inputTrackingNumber" element={<InputTrackingNumber />} />
       </Route>
     </Routes>
   );
@@ -93,20 +82,22 @@ function App() {
           ...(mode === "light"
             ? {
               background: {
-                default: "#e6e6e6",
-                deliveryCard: '  #ffffff',
-                promoCard: '#fdf6f6',
-                hoverItemList: '#e6e6e6',
+                default: "#ffffff",
+                deliveryCard: '#f3f3f3',
+                promoCard: '#f3f3f3',
+                hoverItemList: '#f3f3f3',
                 scrollToTop: '#262626',
-                appBar: '#221f2f',
-                itemListDesktop: '#ffffff'
+                appBar: '#ebebeb',
+                itemListDesktop: '#ffffff',
+                hoverDeliveryCard: '#f7f5f5'
               },
               text: {
-                primary: '#26242e',
-                secondary: '#27252f',
+                primary: '#626262',
+                secondary: '#2b2b2b',
                 text3: '#fafafa',
                 text4: '#1a1919',
-                heading1: '#616161'
+                text5: '#2b2b2b',
+                heading1: '#959499'
               },
             }
             : {
@@ -117,13 +108,15 @@ function App() {
                 hoverItemList: '#404040',
                 scrollToTop: '#ffffff',
                 appBar: '#ffffff',
-                itemListDesktop: '#363636'
+                itemListDesktop: '#363636',
+                hoverDeliveryCard: '#363636'
               },
               text: {
                 primary: "#fff",
                 secondary: '#fff',
                 text3: '#fafafa',
                 text4: '#ffffff',
+                text5: '#ffffff',
                 heading1: '#959499'
               }
             })
@@ -171,8 +164,8 @@ function App() {
   const deliveryDumpData = [
     {
       id: 1,
-      tourStatus: 'Done',
-      stopStatus: 'All OK',
+      tourStatus: '',
+      stopStatus: 'Discrepancy',
       date: 'Mon, 19 Jan 2021',
       twStart: '11.00',
       twEnd: '11.00',
@@ -183,6 +176,7 @@ function App() {
       products: [0, 1, 2],
       address: 'Lindenstraße 6, 14467 Potsdam, Germany',
       clientName: 'Genossenschaft Migros Zürich',
+      plateDriver: '1234567890AB',
       itemList: [
         {
           productName: 'Product Name 1',
@@ -190,7 +184,6 @@ function App() {
           unit: 'Fas',
           onTruck: 12,
           ordered: 8,
-          disable: false,
           warning: true
         },
         {
@@ -199,7 +192,6 @@ function App() {
           unit: 'Fas',
           onTruck: 12,
           ordered: 8,
-          disable: true,
           warning: false
         },
         {
@@ -208,8 +200,7 @@ function App() {
           unit: 'Fas',
           onTruck: 12,
           ordered: 8,
-          disable: true,
-          warning: false
+          warning: true
         },
         {
           productName: 'Product Name 4',
@@ -217,7 +208,6 @@ function App() {
           unit: 'Fas',
           onTruck: 12,
           ordered: 8,
-          disable: false,
           warning: false
         },
       ]
@@ -238,6 +228,7 @@ function App() {
       address: 'Lindenstraße 6, 14467 Potsdam, Germany',
       clientName: 'Genossenschaft Migros Zürich',
       isCanceled: true,
+      plateDriver: '1234567890AB',
       itemList: [
         {
           productName: 'Product Name 1',
@@ -254,7 +245,6 @@ function App() {
           unit: 'Fas',
           onTruck: 12,
           ordered: 8,
-          disable: false,
           warning: false
         },
       ]
@@ -263,7 +253,7 @@ function App() {
     {
       id: 3,
       tourStatus: 'Too Early',
-      stopStatus: 'Discrepancy',
+      stopStatus: 'Early',
       date: 'Mon, 19 Jan 2021',
       twStart: '11.00',
       twEnd: '11.00',
@@ -274,6 +264,7 @@ function App() {
       products: [0, 1, 2, 3],
       address: 'Lindenstraße 6, 14467 Potsdam, Germany',
       clientName: 'Genossenschaft Migros Zürich',
+      plateDriver: '1234567890AB',
       itemList: [
         {
           productName: 'Product Name 1',
@@ -281,7 +272,6 @@ function App() {
           unit: 'Fas',
           onTruck: 12,
           ordered: 8,
-          disable: false,
           warning: false
         },
 
@@ -290,7 +280,7 @@ function App() {
     {
       id: 4,
       tourStatus: 'On Delivery',
-      stopStatus: 'All OK',
+      stopStatus: 'Done',
       date: 'Mon, 19 Jan 2021',
       twStart: '11.00',
       twEnd: '11.00',
@@ -301,6 +291,7 @@ function App() {
       products: [0, 1, 2],
       address: 'Lindenstraße 6, 14467 Potsdam, Germany',
       clientName: 'Genossenschaft Migros Zürich',
+      plateDriver: '1234567890AB',
       itemList: [
         {
           productName: 'Product Name 1',
@@ -308,8 +299,7 @@ function App() {
           unit: 'Fas',
           onTruck: 12,
           ordered: 8,
-          disable: false,
-          warning: true
+          warning: false
         },
         {
           productName: 'Product Name 2',
@@ -317,7 +307,6 @@ function App() {
           unit: 'Fas',
           onTruck: 12,
           ordered: 8,
-          disable: false,
           warning: false
         },
       ]
@@ -343,27 +332,66 @@ function App() {
 
 
 
+  /* =========Scrolling State============ */
+
+  // handle scroll page delivery section
+  const [scrollDown, setScrollDown] = useState(false)
+
+  const toggleVisible = () => {
+    const scrolled = document.documentElement.scrollTop;
+    if (scrolled > 50) {
+      setScrollDown(true)
+    } else if (scrolled <= 50) {
+      setScrollDown(false)
+    }
+  }
+
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    })
+  }
+  window.addEventListener('scroll', toggleVisible)
+
+
+  // handle scroll page to promo section
+  const [isScrollToPromo, setIsScrollToPromo] = useState(false)
+
+  const scrollToPromo = () => {
+    if (document.documentElement.scrollTop >= (document.getElementById('deliverSection').clientHeight - 40)) {
+      setIsScrollToPromo(true)
+    } else {
+      setIsScrollToPromo(false)
+    }
+  }
+  window.addEventListener('scroll', scrollToPromo);
+
+
+  const goToPromo = () => {
+    document.getElementById("promo").scrollIntoView({ behavior: 'smooth' })
+  }
+  /* =========Scrolling State============ */
+
+
+
   const AppContextValue = {
     mode,
     handleChangeTheme,
     isMobile,
+    isTablet,
+    isDesktop,
     warning,
     promoDumpData,
     deliveryDumpData,
     isLinkExpired,
     historyStack,
-    setHistoryStack
+    setHistoryStack,
+    scrollDown,
+    scrollToTop,
+    goToPromo,
+    isScrollToPromo
   };
-
-  useEffect(() => {
-    window.scrollTo({
-        top: 0,
-        // behavior: 'smooth'
-    })
-    console.log('historystack', historyStack)
-},[historyStack])
-
-  /* ====================State==================== */
 
   return (
     <div >

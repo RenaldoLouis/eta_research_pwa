@@ -6,6 +6,7 @@ import { Typography } from "@mui/material";
 // import Icons
 import CheckIcon from '@mui/icons-material/Check';
 import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
+import DoneIcon from '@mui/icons-material/Done';
 
 // import reusable Component
 import Chip from "../ReusableComponents/Chip";
@@ -16,6 +17,8 @@ const getIconChipStatus = tourStatus => {
             return <CheckIcon sx={{ color: '#7a64e5', width: 14, height: 14, mr: 1 }} />
         case 'Discrepancy':
             return <ErrorOutlineIcon sx={{ color: '#ea0000', width: 14, height: 14, mr: 1 }} />
+        case 'Done':
+            return <DoneIcon sx={{ color: '#979797', width: 14, height: 14, mr: 0.3, mt:-0.1 }} />
         default:
             return <></>
     }
@@ -26,7 +29,7 @@ const getColorChipStatus = tourStatus => {
         case 'All OK':
             return '#cec4ff'
         case 'Discrepancy':
-            return '#ffa4a4'
+            return '#f4c8c8'
         default:
             return ''
     }
@@ -38,6 +41,30 @@ const getTextStatusColor = tourStatus => {
             return '#7a64e5'
         case 'Discrepancy':
             return '#ea0000'
+        case 'Done':
+            return '#626262'
+        default:
+            return ''
+    }
+}
+
+const getTextStatus = tourStatus => {
+    switch (tourStatus) {
+        case 'Discrepancy':
+            return 'Discrepancy'
+        case 'Done':
+            return 'DONE'
+        default:
+            return ''
+    }
+}
+
+const getTextFont = tourStatus => {
+    switch (tourStatus) {
+        case 'Discrepancy':
+            return 'Eina04-Bold'
+        case 'Done':
+            return 'Eina04-Regular'
         default:
             return ''
     }
@@ -49,11 +76,11 @@ const StopChipStatus = props => {
 
     return (
         <Chip sx={{ backgroundColor: getColorChipStatus(stopStatus) }}>
-            
+
             {getIconChipStatus(stopStatus)}
 
-            <Typography fontSize={11} sx={{ fontFamily: 'Eina04-Bold', color: getTextStatusColor(stopStatus) }} >
-                {stopStatus}
+            <Typography fontSize={11} sx={{ fontFamily: getTextFont(stopStatus), color: getTextStatusColor(stopStatus) }} >
+                {getTextStatus(stopStatus)}
             </Typography>
         </Chip>
     )
