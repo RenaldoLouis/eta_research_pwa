@@ -50,7 +50,7 @@ const ItemList = (props) => {
 
     return (
         <>
-            <List sx={{ width: '100%', borderBottom: index == itemLength - 1 ? '' : '1px solid #979797', background: isDesktop ? theme.palette.background.default : theme.palette.background.deliveryCard }}>
+            <List sx={{ width: '100%', borderBottom: index == itemLength - 1 ? '' : '1px solid #979797', background: isDesktop ? isOpenItemList ? theme.palette.background.deliveryCard : theme.palette.background.default : theme.palette.background.deliveryCard }}>
                 <ListItemButton onClick={item.warning ? handleClickExpandList : undefined} >
                     <DivFlexSpaceBetween sx={{ width: '100%' }}>
                         <DivFlexStart>

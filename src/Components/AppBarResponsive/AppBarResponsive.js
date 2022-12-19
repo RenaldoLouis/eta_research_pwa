@@ -35,16 +35,31 @@ const AppBarResponsive = () => {
   const theme = useTheme()
 
   // Dark and Light Mode
-  const { handleChangeTheme, mode, historyStack, setHistoryStack } = useContext(AppContext);
+  const { handleChangeTheme, mode, historyStack, setHistoryStack, handleLoginDialog, handleOtpDialog, handleEmailListDialog } = useContext(AppContext);
 
   // handle open and close menu
   const handleOpenSettingMenu = (event) => {
     setAnchorElSetting(event.currentTarget);
   };
 
-  const handleCloseUserMenu = () => {
+  const handleCloseSettingMenu = () => {
     setAnchorElSetting(null);
   };
+
+  const handleChangeThemeMenu = () => {
+    handleChangeTheme()
+    handleCloseSettingMenu()
+  }
+
+  const handleLoginDialogMenu = () => {
+    handleLoginDialog()
+    handleCloseSettingMenu()
+  }
+
+  const handleOtpDialogMenu = () => {
+    handleOtpDialog()
+    handleCloseSettingMenu()
+  }
 
   // const navigate = useNavigate();
   const navigate = useNavigate();
@@ -86,7 +101,7 @@ const AppBarResponsive = () => {
                 onClick={historyStack.length > 0 ? handleBackPrevPage : undefined}
                 color="inherit"
               >
-                {historyStack.length > 0 && <ArrowBackIosIcon  sx={{ color: theme.palette.text.heading1 }} />}
+                {historyStack.length > 0 && <ArrowBackIosIcon sx={{ color: theme.palette.text.heading1 }} />}
 
               </IconButton>
 
@@ -131,12 +146,20 @@ const AppBarResponsive = () => {
                   horizontal: 'right',
                 }}
                 open={Boolean(anchorElUser)}
-                onClose={handleCloseUserMenu}
+                onClose={handleCloseSettingMenu}
               >
-                <MenuItem onClick={handleChangeTheme}>
+                <MenuItem onClick={handleChangeThemeMenu}>
                   <Typography fontSize={12} sx={{ textTransform: 'capitalize', }} textAlign="center">{getThemeChangeText(mode)} </Typography>
                 </MenuItem>
-
+                <MenuItem onClick={handleLoginDialogMenu}>
+                  <Typography fontSize={12} textAlign="center">Login</Typography>
+                </MenuItem>
+                <MenuItem onClick={handleOtpDialogMenu}>
+                  <Typography fontSize={12} textAlign="center">Send OTP</Typography>
+                </MenuItem>
+                <MenuItem onClick={handleEmailListDialog}>
+                  <Typography fontSize={12} textAlign="center">Email List</Typography>
+                </MenuItem>
               </Menu>
             </Box>
           </Toolbar>

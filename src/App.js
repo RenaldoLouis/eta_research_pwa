@@ -18,8 +18,18 @@ import AppBarResponsive from './Components/AppBarResponsive/AppBarResponsive';
 import ScrollToTopButton from './Components/ScrollToTopButton/ScrollToTopButton';
 import InputTrackingNumber from './Components/InputTrackingNumber/InputTrackingNumber';
 
+// import Dialog
+import LoginDialog from './Components/DialogComponent/LoginDialog';
+import OtpDialog from './Components/DialogComponent/OtpDialog/OtpDialog'
+import EmailsListDialog from './Components/DialogComponent/EmailsListDialog';
+import AddNewEmailDialog from './Components/DialogComponent/AddNewEmailDialog';
+import DeleteEmailDialog from './Components/DialogComponent/DeleteEmailDialog';
+import EditEmailDialog from './Components/DialogComponent/EditEmailDialog';
+
+
 // import page
 import DeliveryPage from './Pages/DeliveryPage/DeliveryPage';
+import LinkExpiredStatus from './Components/LinkExpiredStatus/LinkExpiredStatus';
 
 
 // Dark and Light Mode
@@ -30,17 +40,32 @@ import { CssBaseline } from '@mui/material';
 export const AppContext = createContext({});
 
 
-const Main = () => {
+const Main = (props) => {
   return (
     <Routes>
       <Route path="/login" element={<Login />} />
       <Route path="/verify" element={<Verify />} />
       <Route path="*" element={<PublicRoute />} />
       <Route element={<AppBarResponsive />} >
-        <Route path="/delivery" element={<DeliveryPage />} />
-        <Route path="/inputTrackingNumber" element={<InputTrackingNumber />} />
+        <Route element={<LoginDialog />}>
+          <Route element={<OtpDialog />}>
+            <Route element={<EmailsListDialog />}>
+              <Route element={<AddNewEmailDialog />} >
+                <Route element={<DeleteEmailDialog />} >
+                  <Route element={<EditEmailDialog />}>
+                    {/* <Route element={<OtpSendStatus />} > */}
+                    <Route path="/delivery" element={props.isLinkExpired ? <InputTrackingNumber /> : <DeliveryPage />} />
+                    <Route path="/inputTrackingNumber" element={<InputTrackingNumber />} />
+                    {/* <Route path='/linkExpired' element={<LinkExpiredStatus /> }/> */}
+                  </Route>
+                </Route>
+              </Route>
+            </Route>
+          </Route>
+        </Route>
+        {/* </Route> */}
       </Route>
-    </Routes>
+    </Routes >
   );
 }
 
@@ -97,7 +122,8 @@ function App() {
                 text3: '#fafafa',
                 text4: '#1a1919',
                 text5: '#2b2b2b',
-                heading1: '#959499'
+                heading1: '#959499',
+                resendOtp: '#b4b4b4'
               },
             }
             : {
@@ -117,7 +143,8 @@ function App() {
                 text3: '#fafafa',
                 text4: '#ffffff',
                 text5: '#ffffff',
-                heading1: '#959499'
+                heading1: '#959499',
+                resendOtp: '#ffffff'
               }
             })
         }
@@ -129,7 +156,9 @@ function App() {
 
   const [warning, setWarning] = useState(false)
 
-  /* =========Dummy Data ============ */
+
+
+  /* ==================Dummy Data ===================== */
 
   const promoDumpData = [
     {
@@ -142,8 +171,8 @@ function App() {
     {
       id: 2,
       image: logo,
-      title: 'Lemonade Promo Desember 2021',
-      detail: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+      title: 'Example of very long headline for a Promo Lemonade Promo November',
+      detail: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
 
     },
     {
@@ -164,8 +193,7 @@ function App() {
   const deliveryDumpData = [
     {
       id: 1,
-      tourStatus: '',
-      stopStatus: 'Discrepancy',
+      deliveryStatus: 'Late',
       date: 'Mon, 19 Jan 2021',
       twStart: '11.00',
       twEnd: '11.00',
@@ -215,8 +243,7 @@ function App() {
 
     {
       id: 2,
-      tourStatus: 'Done',
-      stopStatus: 'Discrepancy',
+      deliveryStatus: 'Done',
       date: 'Mon, 20 Jan 2021',
       twStart: '11.00',
       twEnd: '11.00',
@@ -252,8 +279,7 @@ function App() {
 
     {
       id: 3,
-      tourStatus: 'Too Early',
-      stopStatus: 'Early',
+      deliveryStatus: 'Early',
       date: 'Mon, 19 Jan 2021',
       twStart: '11.00',
       twEnd: '11.00',
@@ -279,8 +305,7 @@ function App() {
     },
     {
       id: 4,
-      tourStatus: 'On Delivery',
-      stopStatus: 'Done',
+      deliveryStatus: 'Done',
       date: 'Mon, 19 Jan 2021',
       twStart: '11.00',
       twEnd: '11.00',
@@ -313,6 +338,23 @@ function App() {
     },
   ]
 
+  const EmailList = [
+    {
+      id: 1,
+      email: 'Email@example.com',
+      roles: 'admin'
+    },
+    {
+      id: 2,
+      email: 'Email2@example.com',
+      roles: 'standard'
+    }
+  ]
+  /* =====================EOL Dummy Data ===================== */
+
+
+
+
 
   // dump link status
   const [isLinkExpired, setIsLinkExpired] = useState(false)
@@ -339,9 +381,9 @@ function App() {
 
   const toggleVisible = () => {
     const scrolled = document.documentElement.scrollTop;
-    if (scrolled > 50) {
+    if (scrolled > 75) {
       setScrollDown(true)
-    } else if (scrolled <= 50) {
+    } else if (scrolled <= 75) {
       setScrollDown(false)
     }
   }
@@ -359,10 +401,14 @@ function App() {
   const [isScrollToPromo, setIsScrollToPromo] = useState(false)
 
   const scrollToPromo = () => {
-    if (document.documentElement.scrollTop >= (document.getElementById('deliverSection').clientHeight - 40)) {
-      setIsScrollToPromo(true)
-    } else {
-      setIsScrollToPromo(false)
+    if (!isLinkExpired) {
+
+
+      if (document.documentElement.scrollTop >= (document.getElementById('deliverSection').clientHeight - 40)) {
+        setIsScrollToPromo(true)
+      } else {
+        setIsScrollToPromo(false)
+      }
     }
   }
   window.addEventListener('scroll', scrollToPromo);
@@ -371,7 +417,148 @@ function App() {
   const goToPromo = () => {
     document.getElementById("promo").scrollIntoView({ behavior: 'smooth' })
   }
-  /* =========Scrolling State============ */
+  /* =========EOL Scrolling State============ */
+
+
+
+  /** ===============Login Dialog =============== */
+  const [openLoginDialog, setOpenLoginDialog] = useState(false)
+
+  const handleLoginDialog = () => {
+    setOpenLoginDialog(!openLoginDialog)
+  }
+  /** ===============EOL Login Dialog =============== */
+
+
+
+  /** ==========================OTP Dialog ========================== */
+  const [openOtpDialog, setOpenOtpDialog] = useState(false)
+
+  const handleOtpDialog = () => {
+    setOpenOtpDialog(true)
+  }
+
+  const [sendOtp, setSendOtp] = useState(false)
+
+  // otp sending status 
+  const [sendOtpStatus, setSendOtpStatus] = useState(false)
+
+  const handleSendOtp = () => {
+    setSendOtp(true)
+    setSendOtpStatus(true)
+  }
+
+  const hanldeCloseOtpDialog = () => {
+    setOpenOtpDialog(false)
+    setSendOtp(false)
+  }
+
+  const handleCloseSendOtpStatus = () => {
+    setSendOtpStatus(false)
+  }
+
+  const handleCloseSendOtp = () => {
+    setSendOtp(false)
+  }
+  /** ==========================EOL OTP Dialog ========================== */
+
+
+
+  /** ==========================Dummy Email List ========================== */
+  const [emailDumpList, setEmailDumpList] = useState(EmailList)
+
+
+  /** ==========================Email List Dialog ========================== */
+  const [emailListDialog, setEmailListDialog] = useState(false)
+
+  const handleEmailListDialog = () => {
+    setEmailListDialog(!emailListDialog)
+  }
+  /** ==========================EOL Email List Dialog ========================== */
+
+
+
+  // dialog for add new email list
+  const [addNewEmailDialog, setAddNewEmailDialog] = useState(false)
+
+  // dialog for delete email
+  const [deleteEmailDialog, setDeleteEmailDialog] = useState(false)
+
+  // dialog for edit email
+  const [editEmailDialog, setEditEmailDialog] = useState(false)
+
+
+
+  /** ==========================Add new Email ========================== */
+  // open dialog for add new email
+  const handleOpenAddNewEmailDialog = () => {
+    handleEmailListDialog()
+    setAddNewEmailDialog(true)
+  }
+  // close dialog for add new email
+  const handleCloseNewEmailDialog = () => {
+    setAddNewEmailDialog(false)
+    handleEmailListDialog()
+  }
+  // add new email function
+  const addNewEmail = email => {
+    email.id = emailDumpList.length + 1
+    setEmailDumpList([...emailDumpList, email])
+  }
+  /** ==========================Eol Add new Email ========================== */
+
+
+
+  // selected email for edit or delete
+  const [currentEmail, setCurrnetEmail] = useState({ id: null, email: '', roles: '' })
+
+
+
+  /** ==========================Delete Email ========================== */
+  // select email for deleted and open dialog
+  const handleSetCurrentEmailForDelete = email => {
+    setCurrnetEmail(email)
+    setEmailListDialog(false)
+    setEditEmailDialog(false)
+    setDeleteEmailDialog(true)
+  }
+  // delete selected email
+  const deleteNewEmail = id => {
+    setEmailDumpList(emailDumpList.filter(email => email.id !== id))
+    setDeleteEmailDialog(false)
+    handleEmailListDialog()
+  }
+  // close dialog for delete email
+  const handleCloseDeleteEmailDialog = () => {
+    setDeleteEmailDialog(false)
+    handleEmailListDialog()
+  }
+  /** ==========================Eol Delete Email ========================== */
+
+
+
+  /** ==========================Update or Edit Email ========================== */
+  // select email for updated and open dialog
+  const handleSetCurrentEmailForEdit = email => {
+    setCurrnetEmail(email)
+    setEmailListDialog(false)
+    setDeleteEmailDialog(false)
+    setEditEmailDialog(true)
+  }
+  // update selected email
+  const editNewEmail = newEmail => {
+    setEmailDumpList(emailDumpList.map(email => (email.id == currentEmail.id ? newEmail : email)))
+    setDeleteEmailDialog(false)
+    setEditEmailDialog(false)
+    setEmailListDialog(true)
+  }
+  // close dialog for update email
+  const handleCloseEditEmailDialog = () => {
+    setEditEmailDialog(false)
+    handleEmailListDialog()
+  }
+  /** ==========================Eol Update or Edit Email ========================== */
+
 
 
 
@@ -383,6 +570,7 @@ function App() {
     isDesktop,
     warning,
     promoDumpData,
+    emailDumpList,
     deliveryDumpData,
     isLinkExpired,
     historyStack,
@@ -390,7 +578,42 @@ function App() {
     scrollDown,
     scrollToTop,
     goToPromo,
-    isScrollToPromo
+    isScrollToPromo,
+
+    openLoginDialog,
+    handleLoginDialog,
+
+    openOtpDialog,
+    handleOtpDialog,
+    hanldeCloseOtpDialog,
+
+    sendOtp,
+    handleSendOtp,
+    handleCloseSendOtp,
+
+    sendOtpStatus,
+    handleCloseSendOtpStatus,
+
+    emailListDialog,
+    handleEmailListDialog,
+
+    addNewEmailDialog,
+    handleOpenAddNewEmailDialog,
+    handleCloseNewEmailDialog,
+    addNewEmail,
+
+    currentEmail,
+    deleteNewEmail,
+    handleSetCurrentEmailForDelete,
+
+    deleteEmailDialog,
+    handleCloseDeleteEmailDialog,
+
+    editEmailDialog,
+    handleSetCurrentEmailForEdit,
+
+    editNewEmail,
+    handleCloseEditEmailDialog
   };
 
   return (
@@ -411,7 +634,7 @@ function App() {
                 position="bottom-left"
 
               />
-              <Main />
+              <Main isLinkExpired={isLinkExpired} />
             </Router>
           </ThemeProvider>
         </AppContext.Provider>

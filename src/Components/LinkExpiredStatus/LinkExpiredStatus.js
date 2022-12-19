@@ -11,6 +11,7 @@ import AccessTimeIcon from '@mui/icons-material/AccessTime';
 
 // import reusable component
 import DivFlexCenter from "../ReusableComponents/DivFlexCenter";
+import DivFlexStart from "../ReusableComponents/DivFlexStart";
 
 const LinkExpiredStatus = props => {
 
@@ -20,16 +21,20 @@ const LinkExpiredStatus = props => {
     const theme = useTheme()
     
     return (
-        <div style={{ marginTop:80, marginBottom:isMobile?80:100 }}>
-            <DivFlexCenter>
-                <AccessTimeIcon style={{ color: '#9e8df0', width: isMobile? 37:67, height: isMobile?31:61 }} />
-            </DivFlexCenter>
-            <DivFlexCenter>
-                <Typography fontSize={isMobile ? 20 : 40} color={theme.palette.text.primary} sx={{ fontFamily: 'Eina04-SemiBold' }}>
+        <DivFlexCenter sx={{ mt:15, width:'100%', flexWrap:'wrap', padding:'0px 10px 0px 10px' }}>
+            <div style={{ width:335 }}>
+            <DivFlexStart sx={{ width:'100%' }}>
+                <Typography fontSize={32} color={theme.palette.text.primary} sx={{ fontFamily: 'Eina04-Regular' }}>
+                    {`:(`}
+                </Typography>
+            </DivFlexStart>
+            <DivFlexCenter sx={{ width:'100%' }}>
+                <Typography fontSize={32} color={theme.palette.text.primary} sx={{ fontFamily: 'Eina04-Regular' }}>
                     Your Link has Expired
                 </Typography>
             </DivFlexCenter>
-        </div>
+            </div>
+        </DivFlexCenter>
     )
 }
 

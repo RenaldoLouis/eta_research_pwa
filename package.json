@@ -16,7 +16,11 @@
     "bootstrap": "^5.2.2",
     "lodash": "^4.17.21",
     "react": "^18.2.0",
+<<<<<<< HEAD
     "react-bootstrap": "^2.6.0",
+=======
+    "react-countdown": "^2.3.5",
+>>>>>>> based on Style exploration3
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.4.3",
     "react-scripts": "5.0.1",

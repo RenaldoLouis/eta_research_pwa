@@ -26,10 +26,17 @@ import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
 import EmailOutlinedIcon from '@mui/icons-material/EmailOutlined';
 import LocalPhoneIcon from '@mui/icons-material/LocalPhone';
 
+function truncate(string, length) {
+    if (string.length > 40)
+        return string.substring(0, 40) + '...';
+    else
+        return string;
+};
+
 
 const PromoCard = (props) => {
 
-    const { promo, openDetailPromo, isDesktop, isMobile } = props
+    const { promo, openDetailPromo, isDialog, isMobile } = props
 
     // color theme
     const theme = useTheme()
@@ -38,38 +45,48 @@ const PromoCard = (props) => {
     const [openDetail, setOpenDetail] = useState(openDetailPromo)
 
     return (
-        <Card onClick={isMobile ? () => setOpenDetail(!openDetail) : undefined} sx={{ width: openDetail ? '100%' : 'calc(100% - 40px)', backgroundColor: isMobile ? theme.palette.background.promoCard : theme.palette.background.default, borderRadius: 0, cursor:'pointer','&:hover': {backgroundColor:theme.palette.background.hoverDeliveryCard}  }} elevation={0}>
+        <Card onClick={isMobile ? () => setOpenDetail(!openDetail) : undefined} sx={{ width: openDetail ? '100%' : 'calc(100% - 40px)', backgroundColor: isMobile ? openDetail ? theme.palette.background.default : theme.palette.background.promoCard : theme.palette.background.default, borderRadius: 0, cursor: 'pointer', }} elevation={0}>
             <CardMedia
                 component="img"
-                height="210"
+                height={isMobile ? 210 : isDialog ? 290 : 210}
                 image={promo.image}
                 alt="promo"
                 sx={{ objectFit: 'fill' }}
             />
-            <CardContent style={{ paddingBottom: 10, paddingLeft: isDesktop ? 35 : '', paddingRight: isDesktop ? 35 : '' }}>
+            <CardContent style={{
+                padding: isMobile ? '10px 20px 10px 20px' : isDialog ? '35px 75px 20px 75px' : '10px 0px 20px 0px'
+            }}>
                 <Typography color={theme.palette.text.secondary} sx={{ fontSize: 18, fontFamily: 'Eina04-SemiBold' }}>
-                    {`${promo.title}`}
+                    {isDialog || openDetail ? promo.title : truncate(promo.title)}
+                    {/* {promo.title} */}
                 </Typography>
             </CardContent>
 
-            <Collapse in={openDetail} timeout="auto" unmountOnExit>
-                <div style={{ padding: isDesktop == true ? '0px 35px 15px 35px' : '0px 15px 15px 15px', marginTop: -5 }}>
+            <Collapse in={openDetail} timeout="auto" unmountOnExit >
+                <div style={{ padding: isDialog == true ? '0px 75px 5px 75px' : '0px 20px 10px 20px', marginTop: -5, maxHeight: 190, overflowY: 'scroll' }}>
                     <Typography sx={{ color: theme.palette.text.text4, fontSize: 12, fontFamily: 'Eina04-Regular' }}>
                         {promo.detail}
                     </Typography>
-                    {isDesktop ?
+                </div>
+                <div style={{ padding: isMobile ? '10px 20px 20px 20px' : '30px 75px 30px 75px' }}>
+                    {isDialog ?
                         (<>
-                            <ButtonSecondary sx={{ width: '100%', mt: 3 }}>
+                            <DivFlexCenter>
+                                <Typography fontSize={12} sx={{ fontFamily:'Eina04-SemiBold' }}>
+                                    Phone +62 123 4567 89
+                                </Typography>
+                            </DivFlexCenter>
+                            <ButtonSecondary sx={{ width: '100%', position: 'sticky', mt:1 }}>
                                 <EmailOutlinedIcon sx={{ color: theme.palette.background.deliveryCard }} />
-                                <Typography fontSize={12} sx={{ fontFamily: 'Eina04-SemiBold', ml:1 }} color={ theme.palette.background.deliveryCard } >
+                                <Typography fontSize={12} sx={{ fontFamily: 'Eina04-SemiBold', ml: 1 }} color={theme.palette.background.deliveryCard} >
                                     Contact our Sales Rep.
                                 </Typography>
                             </ButtonSecondary>
 
                         </>) :
                         (<>
-                            <DivFlexCenter sx={{ mt: 3, mb:0.5 }}>
-                                <Typography fontSize={12} sx={{ fontFamily: 'Eina04-SemiBold', }}  color={ theme.palette.text.secondary } >
+                            <DivFlexCenter sx={{ mb: 0.5 }}>
+                                <Typography fontSize={12} sx={{ fontFamily: 'Eina04-SemiBold', }} color={theme.palette.text.secondary} >
                                     Contact our Sales Rep.
                                 </Typography>
                             </DivFlexCenter>
