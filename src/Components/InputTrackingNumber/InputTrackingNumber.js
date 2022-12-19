@@ -66,18 +66,23 @@ const InputTrackingNumber = () => {
 
 
     let navigate = useNavigate();
+
+    const onClick = () => {
+        navigate("/delivery")
+    } 
+
     const onClickSubmit = () => {
         // navigate("/delivery")
-        setIsLoading(true)
-        setTimeout(() => {
-            if (searchTrackingNumber == '123456890AB') {
-                setWarning(false)
-            } else {
-                setWarning(true)
-            }
-            setIsLoading(false)
-        }, 1000);
-
+        // setIsLoading(true)
+        // setTimeout(() => {
+        //     if (searchTrackingNumber == '123456890AB') {
+        //         setWarning(false)
+        //     } else {
+        //         setWarning(true)
+        //     }
+        //     setIsLoading(false)
+        // }, 1000);
+        onClick()
     }
 
 
@@ -95,7 +100,6 @@ const InputTrackingNumber = () => {
         setOpenPromoDialog(true)
         setIdPromoDialog(promoId)
     }
-
 
 
 
