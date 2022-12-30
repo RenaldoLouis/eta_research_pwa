@@ -3,12 +3,15 @@ import { styled } from '@mui/system';
 
 import { Dialog } from '@mui/material'
 
-const CustomDialog = styled(Dialog)((props) => ({
+export const CustomDialog = styled(Dialog)((props) => ({
     "& .MuiDialog-container": {
         "& .MuiPaper-root": {
-            width: "100%",
-            maxWidth: props.width,  // Set your width here
+            width: props.width ? props.width : "100%",
+            maxWidth: props.width,
+            borderRadius:0,
+            // backgroundColor:props.backgroundColor
         },
+        
     },
    
 }))

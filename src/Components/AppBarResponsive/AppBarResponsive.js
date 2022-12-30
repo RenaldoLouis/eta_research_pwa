@@ -9,13 +9,23 @@ import Container from '@mui/material/Container';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
-import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
+import { Tooltip } from '@mui/material';
+
+// import icon
+import ListIcon from '../../assets/icons/ListIcon';
+import LogoutIcon from '../../assets/icons/LogoutIcon';
+import LoginIcon from '../../assets/icons/LoginIcon';
+
+// temporary icon
+import { DarkMode, LightMode } from '@mui/icons-material';
+
 
 import { useNavigate, Outlet } from "react-router-dom"
 
 // Dark and Light Mode
 import { AppContext } from '../../App';
 import { useTheme } from "@mui/material/styles";
+import DivFlexEnd from '../ReusableComponents/DivFlexEnd';
 
 
 
@@ -34,32 +44,20 @@ const AppBarResponsive = () => {
 
   const theme = useTheme()
 
-  // Dark and Light Mode
-  const { handleChangeTheme, mode, historyStack, setHistoryStack, handleLoginDialog, handleOtpDialog, handleEmailListDialog } = useContext(AppContext);
-
-  // handle open and close menu
-  const handleOpenSettingMenu = (event) => {
-    setAnchorElSetting(event.currentTarget);
-  };
-
-  const handleCloseSettingMenu = () => {
-    setAnchorElSetting(null);
-  };
-
-  const handleChangeThemeMenu = () => {
-    handleChangeTheme()
-    handleCloseSettingMenu()
-  }
-
-  const handleLoginDialogMenu = () => {
-    handleLoginDialog()
-    handleCloseSettingMenu()
-  }
-
-  const handleOtpDialogMenu = () => {
-    handleOtpDialog()
-    handleCloseSettingMenu()
-  }
+  // state from context
+  const {
+    handleChangeTheme,
+    mode,
+    historyStack,
+    setHistoryStack,
+    handleLoginDialog,
+    handleOpenLoginDialog,
+    handleOtpDialog,
+    handleEmailListDialog,
+    dumpLoginState,
+    dumpAuthrorization,
+    isMobile,
+    handleLogout } = useContext(AppContext);
 
   // const navigate = useNavigate();
   const navigate = useNavigate();
@@ -70,98 +68,72 @@ const AppBarResponsive = () => {
 
   return (
     <>
-      <AppBar position="static" sx={{ background: theme.palette.background.appBar, position: 'fixed', top: 0, zIndex: 1000, width: '100%' }}>
+      <AppBar position="static" sx={{ background: theme.palette.background.appBar, position: 'fixed', top: 0, zIndex: 1000, width: '100%' }} elevation={0}>
         <Container maxWidth="100vw">
+
           <Toolbar disableGutters>
-            <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1, color: theme.palette.text.heading1 }} />
-            <Typography
-              variant="h6"
-              noWrap
-              component="a"
-              href="/"
-              sx={{
-                mr: 2,
-                display: { xs: 'none', md: 'flex' },
-                fontFamily: 'monospace',
-                fontWeight: 700,
-                letterSpacing: '.3rem',
-                color: theme.palette.text.heading1,
-                textDecoration: 'none',
-              }}
-            >
-              LOGO
-            </Typography>
 
-            <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
-              <IconButton
-                size="large"
-                aria-label="account of current user"
-                aria-controls="menu-appbar"
-                aria-haspopup="true"
-                onClick={historyStack.length > 0 ? handleBackPrevPage : undefined}
-                color="inherit"
-              >
-                {historyStack.length > 0 && <ArrowBackIosIcon sx={{ color: theme.palette.text.heading1 }} />}
-
-              </IconButton>
-
-            </Box>
-            <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1, color: theme.palette.text.heading1, }} />
-            <Typography
-              variant="h5"
-              noWrap
-              component="a"
-              href=""
-              sx={{
-                mr: 2,
-                display: { xs: 'flex', md: 'none' },
-                flexGrow: 1,
-                fontFamily: 'monospace',
-                fontWeight: 700,
-                letterSpacing: '.3rem',
-                color: theme.palette.text.heading1,
-                textDecoration: 'none',
-              }}
-            >
-              LOGO
-            </Typography>
-            <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+            <Box sx={{ flexGrow: 0, display: { xs: 'none', md: 'flex' }, alignItems: 'center' }}>
+              <Typography sx={{ fontFamily: 'Eina04-Light', color: theme.palette.background.iconColor, fontFamily: 'Eina04-Bold' }} fontSize={25}>
+                LOGO
+              </Typography>
             </Box>
 
-            <Box sx={{ flexGrow: 0 }}>
-              <IconButton onClick={handleOpenSettingMenu} sx={{ p: 0 }}>
-                <SettingsOutlinedIcon alt="Settings" src="" sx={{ color: theme.palette.text.heading1 }} />
-              </IconButton>
-              <Menu
-                sx={{ mt: '25px' }}
-                id="menu-appbar"
-                anchorEl={anchorElUser}
-                anchorOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right',
-                }}
-                keepMounted
-                transformOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right',
-                }}
-                open={Boolean(anchorElUser)}
-                onClose={handleCloseSettingMenu}
-              >
-                <MenuItem onClick={handleChangeThemeMenu}>
-                  <Typography fontSize={12} sx={{ textTransform: 'capitalize', }} textAlign="center">{getThemeChangeText(mode)} </Typography>
-                </MenuItem>
-                <MenuItem onClick={handleLoginDialogMenu}>
-                  <Typography fontSize={12} textAlign="center">Login</Typography>
-                </MenuItem>
-                <MenuItem onClick={handleOtpDialogMenu}>
-                  <Typography fontSize={12} textAlign="center">Send OTP</Typography>
-                </MenuItem>
-                <MenuItem onClick={handleEmailListDialog}>
-                  <Typography fontSize={12} textAlign="center">Email List</Typography>
-                </MenuItem>
-              </Menu>
+            <Box sx={{ flexGrow: 0, display: { xs: 'flex', md: 'flex' }, }}>
+              <div style={{ width: isMobile ? 56 : undefined }}>
+                <Tooltip title="Temporary Button">
+                  <IconButton
+                    // onClick={historyStack.length > 0 ? handleBackPrevPage : undefined}
+                    onClick={handleChangeTheme}
+                  >
+                    {historyStack.length > 0 && <ArrowBackIosIcon sx={{ color: theme.palette.text.heading1 }} />}
+                    {
+                      mode == 'light' ? (
+                        <DarkMode sx={{ color: theme.palette.background.iconColor, fontSize: 20, mt: -0.5 }} />
+                      ) : mode == 'dark' ? (
+                        <LightMode sx={{ color: theme.palette.background.iconColor, fontSize: 20, mt: -0.5 }} />
+                      ) : (
+                        <></>
+                      )
+                    }
+                  </IconButton>
+                </Tooltip>
+              </div>
             </Box>
+
+            <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' }, justifyContent: 'center', alignItems: 'center' }}>
+              <Typography sx={{ fontFamily: 'Eina04-Light', color: theme.palette.background.iconColor, fontFamily: 'Eina04-Bold' }} fontSize={25}>
+                LOGO
+              </Typography>
+            </Box>
+
+            <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' }, justifyContent: 'center' }}>
+              <Typography sx={{ fontFamily: 'Eina04-Light', color: theme.palette.text.text4 }} fontSize={12}>
+                Delivery Tracking
+              </Typography>
+            </Box>
+
+            <Box sx={{ flexGrow: 0, width: 56, display:'flex',justifyContent:'flex-end' }}>
+              {
+                dumpLoginState ? (
+                  <>
+                    {dumpAuthrorization == 'admin' || dumpAuthrorization == 'superadmin' ?
+                      <IconButton onClick={handleEmailListDialog}>
+                        <ListIcon color={theme.palette.background.iconColor} sx={{ height: 18, width: 18 }} />
+                      </IconButton>
+                      : (<></>)}
+                    <IconButton sx={{ p: 0, mt: 1 }} onClick={handleLogout}>
+                      <LogoutIcon color={theme.palette.background.iconColor} sx={{ width: 22, height: 20 }} />
+                    </IconButton>
+
+                  </>) : (
+                  <IconButton sx={{ p: 0, mt: 1 }} onClick={handleOpenLoginDialog} >
+                    <LoginIcon sx={{ width: 22, height: 20 }} color={theme.palette.background.iconColor} />
+                  </IconButton>
+                )
+              }
+            </Box>
+
           </Toolbar>
         </Container>
       </AppBar>

@@ -16,7 +16,7 @@ const getIconChipStatus = tourStatus => {
         case 'All OK':
             return <CheckIcon sx={{ color: '#7a64e5', width: 14, height: 14, mr: 1 }} />
         case 'Discrepancy':
-            return <ErrorOutlineIcon sx={{ color: '#ea0000', width: 14, height: 14, mr: 1 }} />
+            return <ErrorOutlineIcon sx={{ color: '#da1e28', width: 14, height: 14, mr: 1 }} />
         case 'Done':
             return <DoneIcon sx={{ color: '#979797', width: 14, height: 14, mr: 0.3, mt:-0.1 }} />
         default:

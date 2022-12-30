@@ -24,7 +24,7 @@ import DiscrepancyChip from "../ChipStatus/DiscrepancyChip";
 
 const RootDeliveryCard = styled('div')((props) => ({
     backgroundColor: props.isDesktop ? props.data.id == props.deliveryId ? props.theme.palette.background.deliveryCard : props.isOpenItemList ? props.theme.palette.background.deliveryCard : props.theme.palette.background.default : props.theme.palette.background.deliveryCard,
-    padding: props.isDesktop ? props.data.id == props.deliveryId ? 10 : props.isOpenItemList ? 10 : 0 : 10,
+    padding: props.isDesktop ? props.data.id == props.deliveryId ? 10 : props.isOpenItemList ? 10 : 0 : props.openDetail ? 20 : 10,
     cursor: 'pointer',
     ":hover": {
         backgroundColor: props.isDesktop ? props.isOpenItemList ? undefined : props.theme.palette.background.hoverDeliveryCard : undefined,
@@ -40,9 +40,9 @@ const getStatusChip = (data, theme) => {
 
             {
                 data.deliveryStatus == 'Done' &&
-                <DivFlexStart sx={{ml:0.5}}>
-                    <DoneIcon sx={{ fontSize: 14, mt: -0.4 }} />
-                    <Typography fontSize={12} color={theme.palette.text.primary} sx={{ fontFamily: 'Eina04-Regular' }}>
+                <DivFlexStart sx={{ ml: 0.5 }}>
+                    <DoneIcon sx={{ fontSize: 14, mt: -0.4, color: theme.palette.text.doneText }} />
+                    <Typography fontSize={12} color={theme.palette.text.doneText} sx={{ fontFamily: 'Eina04-Regular' }}>
                         Done
                     </Typography>
                 </DivFlexStart>
@@ -79,17 +79,17 @@ const DeliveryCard = (props) => {
 
     return (
         <div style={{ width: openDetail && isMobile ? '100%' : 'calc(100% - 40px)' }}  >
-            <RootDeliveryCard onClick={isDesktop ? undefined : () => setOpenDetail(!openDetail)} isDesktop={isDesktop} isOpenItemList={isOpenItemList} deliveryId={deliveryId} data={data}  >
+            <RootDeliveryCard onClick={isDesktop ? undefined : () => setOpenDetail(!openDetail)} isDesktop={isDesktop} isOpenItemList={isOpenItemList} deliveryId={deliveryId} data={data} openDetail={openDetail} >
                 {isMobile &&
                     <DivFlexSpaceBetween sx={{ mb: 1 }}>
-                        <Typography fontSize={12} color={theme.palette.text.primary} sx={{ fontFamily: 'Eina04-RegularItalic', textDecoration: 'underline' }}>
+                        <Typography fontSize={12} color={theme.palette.text.secondary} sx={{ fontFamily: 'Eina04-RegularItalic', textDecoration: 'underline' }}>
                             {`${numberOfDeliver} of ${totalDelivery}`}
                         </Typography>
                         {getStatusChip(data, theme)}
                     </DivFlexSpaceBetween>
                 }
                 <DivFlexSpaceBetween sx={{ mb: isDesktop ? 1 : undefined, flexWrap: 'wrap' }}>
-                    <Typography fontSize={12} sx={{ fontFamily: 'RobotoMono-Light', }} >
+                    <Typography fontSize={12} sx={{ fontFamily: 'RobotoMono-Light', }} color={theme.palette.text.primary} >
                         {data.plateDriver}
                     </Typography>
                     <div style={{ display: isDesktop ? 'block' : 'none' }} >
@@ -108,7 +108,16 @@ const DeliveryCard = (props) => {
                     </Typography>
                 </DivFlexStart>
 
-                <DivFlexStart sx={{ width: 160, mt: 1 }}>
+                {data.deliveryStatus == 'Late' &&
+                    <DivFlexStart sx={{ mt:1 }}>
+                        <Typography fontSize={10} color={theme.palette.text.secondary} sx={{ fontFamily: 'Eina04-Light', textDecoration:'line-through' }}>
+                            {data.twStart} - {data.twEnd}
+                        </Typography>
+                    </DivFlexStart>
+                }
+
+                <DivFlexStart sx={{ width: 160, mt:data.deliveryStatus == 'Late'? 0 : 1 }}>
+
                     <AccessTimeIcon sx={{
                         width: 13,
                         height: 13,
@@ -120,18 +129,19 @@ const DeliveryCard = (props) => {
                     </Typography>
                     {data.deliveryStatus == 'Late' ? (
                         <DivFlexStart>
-                            <ArrowDropDownIcon sx={{ width: 20, height: 20, color: '#ea0000', mt:-0.4 }} />
-                            <Typography fontSize={10} color={'#ea0000'} sx={{ fontFamily: 'Eina04-Light', textTransform: 'uppercase' }}>
+                            <ArrowDropDownIcon sx={{ width: 20, height: 20, color: '#da1e28',  }} />
+                            <Typography fontSize={10} color={'#da1e28'} sx={{ fontFamily: 'Eina04-Light', textTransform: 'uppercase', mt:0.1 }}>
                                 Late
                             </Typography>
                         </DivFlexStart>
                     ) : data.deliveryStatus == 'Early' ? (<>
-                        <DivFlexStart>
+                        {/* <DivFlexStart>
                             <ArrowDropUpIcon sx={{ width: 20, height: 20, color: '#58d632' }} />
                             <Typography fontSize={10} color={'#31711e'} sx={{ fontFamily: 'Eina04-Light', textTransform: 'uppercase' }}>
                                 Early
                             </Typography>
-                        </DivFlexStart>
+                        </DivFlexStart> */}
+                        <></>
                     </>) : (<></>)}
                 </DivFlexStart>
 

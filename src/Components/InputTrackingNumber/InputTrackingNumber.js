@@ -27,6 +27,8 @@ import LinkExpiredStatus from "../LinkExpiredStatus/LinkExpiredStatus";
 import DivFlexStart from "../ReusableComponents/DivFlexStart";
 import DivFlexSpaceBetween from "../ReusableComponents/DivFlexSpacebetween";
 import PromoCard from "../PromoCard/PromoCard";
+import TextFieldStyled from "../ReusableComponents/TextFieldStyle";
+import DivFlexEnd from "../ReusableComponents/DivFlexEnd";
 
 
 // Root for input tracking number component
@@ -35,20 +37,33 @@ const RootInputTrackingNumber = styled('div')((props) => ({
     backgroundSize: '100% 100%',
     backgroundRepeat: 'no-repeat',
     paddingTop: props.isLinkExpired ? 5 : 120,
-    paddingBottom: 220
+    paddingBottom: props.isMobile ? 70 : 220,
+    marginBottom: 20,
+    opacity: props.mode == 'dark' ? 0.5 : undefined,
+    height: props.isMobile? 400 : 600
 }))
 
 // warning component
 const Warning = styled('div')((props) => ({
-    width: '100%',
+    width: props.isMobile ? 'calc(100% - 10%)' : 'calc(100% - 6%)',
     padding: 10,
     backgroundColor: '#af1d1d',
     marginTop: 25
 }));
 
+// input tracking number component
+const TrackingNumberInput = styled('div')((props) => ({
+    position:'absolute', 
+    left:0, 
+    right:0, 
+    marginLeft:'auto', 
+    marginRight:'auto',
+    top:props.isMobile? 100 :150
+}));
+
 const InputTrackingNumber = () => {
 
-    const { isLinkExpired, isMobile, promoDumpData, isDesktop } = useContext(AppContext)
+    const { isLinkExpired, isMobile, promoDumpData, isDesktop, mode } = useContext(AppContext)
 
     const theme = useTheme()
 
@@ -67,22 +82,23 @@ const InputTrackingNumber = () => {
 
     let navigate = useNavigate();
 
-    const onClick = () => {
+    const jumpToDeliveryPage = () => {
         navigate("/delivery")
-    } 
+    }
 
     const onClickSubmit = () => {
-        // navigate("/delivery")
-        // setIsLoading(true)
-        // setTimeout(() => {
-        //     if (searchTrackingNumber == '123456890AB') {
-        //         setWarning(false)
-        //     } else {
-        //         setWarning(true)
-        //     }
-        //     setIsLoading(false)
-        // }, 1000);
-        onClick()
+        setIsLoading(true)
+        setTimeout(() => {
+            if (searchTrackingNumber == '123456890AB') {
+                setWarning(false)
+                jumpToDeliveryPage()
+                setSearchTrackingNumber('')
+            } else {
+                setWarning(true)
+            }
+            setIsLoading(false)
+        }, 1000);
+        // jumpToDeliveryPage()
     }
 
 
@@ -105,32 +121,37 @@ const InputTrackingNumber = () => {
 
     return (
         <>
-            <RootInputTrackingNumber isLinkExpired={isLinkExpired} dumpMap={dumpMap} >
+            <RootInputTrackingNumber isLinkExpired={isLinkExpired} dumpMap={dumpMap} isMobile={isMobile} mode={mode} >
+            </RootInputTrackingNumber>
+            <TrackingNumberInput isMobile={isMobile}>
                 {
                     isLinkExpired &&
                     <LinkExpiredStatus isMobile={isMobile} />
                 }
                 <DivFlexCenter sx={{}}>
-                    <DivFlexSpaceBetween sx={{ width: isMobile ? '90%' : 700, border: '1px solid #979797', padding: 4, flexWrap: 'wrap', backgroundColor: '#ffffff' }}>
+                    <DivFlexSpaceBetween sx={{ width: isMobile ? '90%' : 700, border: '1px solid #979797', padding: '50px 10px 50px 40px', flexWrap: 'wrap', backgroundColor: theme.palette.background.dialog, borderColor: theme.palette.background.borderTrackingNumber, }}>
                         <DivFlexStart sx={{ width: isMobile ? '100%' : '20%' }}>
                             <Typography sx={{ fontSize: 14, fontFamily: 'Eina04-SemiBold', }}>
                                 Tracking Number
                             </Typography>
                         </DivFlexStart>
-                        <DivFlexStart sx={{ width: isMobile ? !isLoading ? '65%' : '50%' : '40%' }} >
+                        <DivFlexStart sx={{ width: isMobile ? '60%' : '40%' }} >
                             <FormControl sx={{ width: '100%' }}>
-                                <TextField id="basic" placeholder="Up to 12 codes" onChange={handleChangeInput} sx={{ input: { fontSize: 14, fontFamily: 'Eina04-Regular' } }} />
+                                <TextFieldStyled id="inputTrackingNumber" placeholder="Up to 12 codes" onChange={handleChangeInput} warning={warning} theme={theme} />
                             </FormControl>
                         </DivFlexStart>
-                        <ButtonSecondary onClick={onClickSubmit} sx={{ width: '30%' }} >
-                            <Typography sx={{ color: theme.palette.background.deliveryCard, fontSize: 14, fontFamily: 'Eina04-SemiBold' }}>
+                        <ButtonSecondary onClick={onClickSubmit} sx={{ width: isMobile ? '25%' : '30%' }} >
+                            <Typography sx={{ color: theme.palette.text.buttonSecondary, fontSize: 14, fontFamily: 'Eina04-SemiBold' }}>
                                 Track
                             </Typography>
                         </ButtonSecondary>
-                        {isLoading && <CircularProgress sx={{ color: "black", width: '2%' }} />}
+                        <DivFlexCenter sx={{ width: isMobile ? '7%' : '5%' }}>
+                            {isLoading && <CircularProgress size={isMobile ? '20px' : '30px'} sx={{ color: theme.palette.background.buttonSecondary }} />}
+                        </DivFlexCenter>
+
 
                         {warning &&
-                            <Warning >
+                            <Warning isMobile={isMobile}>
                                 <DivFlexCenter >
                                     <ErrorOutlineIcon style={{ color: '#959499', width: 26, height: 26, marginRight: 10 }} />
                                     <Typography sx={{ color: '#ffffff', fontSize: 12, fontFamily: 'Eina04-SemiBold' }}>
@@ -142,7 +163,8 @@ const InputTrackingNumber = () => {
 
                     </DivFlexSpaceBetween>
                 </DivFlexCenter>
-            </RootInputTrackingNumber>
+            </TrackingNumberInput>
+
             {
                 isDesktop ? (
                     <>
@@ -159,7 +181,7 @@ const InputTrackingNumber = () => {
                 ) : (
                     <>
                         {promoDumpData.map((promo, index) => (
-                            <DivFlexCenter key={promo.id} sx={{ mt: 2 }}>
+                            <DivFlexCenter key={promo.id} sx={{ mb: 2, mt: isMobile ? '' : 2 }}>
                                 <PromoCard promo={promo} openDetailPromo={false} isMobile={isDesktop ? false : true} removePadding={isDesktop ? !openPromoDialog : false} />
                             </DivFlexCenter>
                         ))}

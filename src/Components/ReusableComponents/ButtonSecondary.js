@@ -6,7 +6,7 @@ const ButtonSecondary = styled('div')((props) =>({
     alignItems: 'center',
     justifyContent: 'center',
     height:52,
-    backgroundColor:props.theme.palette.text.text4,
+    backgroundColor:props.theme.palette.background.buttonSecondary,
     cursor:'pointer',
 }));
 

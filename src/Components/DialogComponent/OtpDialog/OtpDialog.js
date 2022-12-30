@@ -1,9 +1,9 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 
 import Countdown from "react-countdown";
 
 // import material UI
-import { Typography, Dialog, TextField, FormControl, Snackbar } from "@mui/material";
+import { Typography, Snackbar } from "@mui/material";
 
 import CloseIcon from '@mui/icons-material/Close';
 
@@ -13,13 +13,14 @@ import { AppContext } from "../../../App";
 
 import ButtonSecondary from "../../ReusableComponents/ButtonSecondary";
 
+// import reusable component
 import DivFlexCenter from "../../ReusableComponents/DivFlexCenter";
-import DivFlexSpaceBetween from "../../ReusableComponents/DivFlexSpacebetween";
 import DivFlexEnd from "../../ReusableComponents/DivFlexEnd";
+import CustomDialog from "../../ReusableComponents/CustomDialog";
 
 // dark mode and light mode
 import { useTheme, styled } from "@mui/material/styles";
-import DivFlexStart from "../../ReusableComponents/DivFlexStart";
+import CustomDialogContent from "../../ReusableComponents/CustomDialogContent";
 
 // Renderer callback with condition
 const renderer = ({ hours, minutes, seconds, completed }) => {
@@ -33,19 +34,27 @@ const renderer = ({ hours, minutes, seconds, completed }) => {
 };
 
 const InputOtp = styled('input')((props) => ({
-    width: props.isMobile? 25 :'15%',
-    height: props.isMobile? 35 :  60,
-    borderRadius: 5,
-    border: ' 1px solid rgb(151, 151, 151)',
-    marginLeft: props.isMobile? 2: 5,
-    marginRight: props.isMobile? 2:  5,
-    textAlign:'center'
+    width: '15%',
+    height: props.isMobile ? 35 : 60,
+    border: props.isOtpFalse ? `1px solid #da1e28` : `1px solid ${props.theme.palette.background.borderForm}`,
+    marginLeft: props.isMobile ? 2 : 5,
+    marginRight: props.isMobile ? 2 : 5,
+    textAlign: 'center',
+    fontFamily: 'Eina04-Regular',
+    fontSize: props.isMobile ? 12 : 20,
+    color: props.theme.palette.text.inputText,
+    backgroundColor: props.theme.palette.background.dialog,
+    ":focus": {
+        outline:'none',
+        border: props.isOtpFalse ? `1px solid #da1e28` : `1px solid ${props.theme.palette.background.borderFormActive}`,
+    }
 }))
+
 
 
 const OtpDialog = () => {
 
-    const { isMobile, openOtpDialog, sendOtp, handleSendOtp, hanldeCloseOtpDialog, handleCloseSendOtp } = useContext(AppContext)
+    const { isMobile, openOtpDialog, sendOtp, handleCloseOtpDialog, handleLogin } = useContext(AppContext)
 
     const theme = useTheme()
 
@@ -68,183 +77,183 @@ const OtpDialog = () => {
         setK((i) => !i);
     };
 
+    const [initialTime, setInitialTime] = useState(Date.now() + 59000)
+    const [otpCountdown, setOtpCountdown] = useState(true)
 
-    const [openStatus, setOpenStatus] = useState(false)
+    const [isOtpFalse, setIsOtpFalse] = useState(false)
 
-    const handleCloseStatus = () => {
-        setOpenStatus(false)
+    const handleButtonLogin = () => {
+        if (Object.values(inputOtp).includes('')) {
+            console.log('please input the otp')
+            setIsOtpFalse(true)
+        } else {
+            handleSubmitOtp()
+            handleCloseOtpDialog()
+            handleLogin()
+            setInputOtp(otpChar)
+            setIsOtpFalse(false)
+        }
     }
-
-    const [initialTime, setInitialTime] = useState(Date.now() + 15000)
-
-    const handleSendOtpButton = () => {
-        handleSubmitOtp()
-        handleSendOtp()
-        setOpenStatus(true)
-        setInitialTime(Date.now() + 15000)
-    }
+    
+    useEffect(() => {
+        setInitialTime(Date.now() + 59000)
+        setOtpCountdown(true)
+    }, [sendOtp])
 
     const handleAfterFinsihCountdown = () => {
-        handleCloseSendOtp()
-        setOpenStatus(false)
+        setOtpCountdown(false)
     }
 
     const inputfocus = (elmnt) => {
         if (elmnt.key === "Delete" || elmnt.key === "Backspace") {
             const next = elmnt.target.tabIndex - 2;
             if (next > -1) {
-
                 elmnt.target.form.elements[next].focus()
             }
         }
         else {
-            console.log("next");
-
             const next = elmnt.target.tabIndex;
             if (next < 8) {
                 elmnt.target.form.elements[next].focus()
             }
         }
-
-        console.log(elmnt.target.tabIndex)
-
     }
 
+    const handleCloseDialog = () => {
+        handleCloseOtpDialog()
+        setIsOtpFalse(false)
+    }
 
 
     return (
         <>
-            <Dialog open={openOtpDialog} >
-                <DivFlexEnd sx={{ pr: 2, pt: 2 }} >
-                    <CloseIcon onClick={hanldeCloseOtpDialog} />
-                </DivFlexEnd>
-                <div style={{ padding: '5px 20px 50px 20px', width: isMobile ? '100%' : 600 }}>
-                    <DivFlexCenter sx={{ mb: 2 }}>
-                        <Typography sx={{ color: theme.palette.text.heading1, fontSize: 40, fontFamily: 'Eina04-Regular' }}>
-                            OTP
-                        </Typography>
-                    </DivFlexCenter>
-                    <form >
-                        <DivFlexCenter>
-
-                            <InputOtp
-                                name="otp1"
-                                type="text"
-                                autoComplete="off"
-                                className="otpInput"
-                                // onKeyPress={keyPressed}
-                                onChange={handleChangeInput}
-                                tabIndex="1" maxLength="1" onKeyUp={e => inputfocus(e)}
-                                isMobile={isMobile}
-
-                            />
-                            <InputOtp
-                                name="otp2"
-                                type="text"
-                                autoComplete="off"
-                                className="otpInput"
-                                onChange={handleChangeInput}
-                                tabIndex="2" maxLength="1" onKeyUp={e => inputfocus(e)}
-                                isMobile={isMobile}
-                            />
-                            <InputOtp
-                                name="otp3"
-                                type="text"
-                                autoComplete="off"
-                                className="otpInput"
-                                onChange={handleChangeInput}
-                                tabIndex="3" maxLength="1" onKeyUp={e => inputfocus(e)}
-                                isMobile={isMobile}
-                            />
-                            <InputOtp
-                                name="otp4"
-                                type="text"
-                                autoComplete="off"
-                                className="otpInput"
-                                onChange={handleChangeInput}
-                                tabIndex="4" maxLength="1" onKeyUp={e => inputfocus(e)}
-                                isMobile={isMobile}
-                            />
-
-                            <InputOtp
-                                name="otp5"
-                                type="text"
-                                autoComplete="off"
-                                className="otpInput"
-                                onChange={handleChangeInput}
-                                tabIndex="5" maxLength="1" onKeyUp={e => inputfocus(e)}
-                                isMobile={isMobile}
-                            />
-
-                            <InputOtp
-                                name="otp6"
-                                type="text"
-                                autoComplete="off"
-                                className="otpInput"
-                                onChange={handleChangeInput}
-                                tabIndex="6" maxLength="1" onKeyUp={e => inputfocus(e)}
-                                isMobile={isMobile}
-                            />
-
-                            <InputOtp
-                                name="otp7"
-                                type="text"
-                                autoComplete="off"
-                                className="otpInput"
-                                onChange={handleChangeInput}
-                                tabIndex="7" maxLength="1" onKeyUp={e => inputfocus(e)}
-                                isMobile={isMobile}
-                            />
-
-                            <InputOtp
-                                name="otp8"
-                                type="text"
-                                autoComplete="off"
-                                className="otpInput"
-                                onChange={handleChangeInput}
-                                tabIndex="8" maxLength="1" onKeyUp={e => inputfocus(e)}
-                                isMobile={isMobile}
-                            />
-                        </DivFlexCenter>
-
-                    </form>
-                    {sendOtp && (
-                        <DivFlexCenter sx={{ mb: 3, mt: 3 }}>
-                            <Typography sx={{ color: theme.palette.text.resendOtp, textDecoration: 'underline', fontSize: 20 }}>
-                                Resent OTP Code (<Countdown key={k} date={initialTime} renderer={renderer} onComplete={handleAfterFinsihCountdown} />)
+            <CustomDialog open={openOtpDialog} theme={theme} >
+                <div style={{ backgroundColor: theme.palette.background.dialog }}>
+                    <DivFlexEnd sx={{ pr: 2, pt: 2 }} >
+                        <CloseIcon onClick={handleCloseDialog} />
+                    </DivFlexEnd>
+                    <CustomDialogContent>
+                        <DivFlexCenter sx={{ mb: 2 }}>
+                            <Typography sx={{ color: theme.palette.text.heading1, fontSize: isMobile ? 20 : 40, fontFamily: 'Eina04-Regular' }}>
+                                OTP
                             </Typography>
                         </DivFlexCenter>
-                    )}
-                    <ButtonSecondary onClick={handleSendOtpButton} sx={{ mt: 3 }}>
-                        <Typography sx={{ color: theme.palette.background.deliveryCard, fontSize: 20, fontFamily: 'Eina04-SemiBold' }}>
-                            Login
-                        </Typography>
-                    </ButtonSecondary>
-                </div>
-            </Dialog>
+                        <form >
+                            <DivFlexCenter>
 
-            <Snackbar
-                open={openStatus}
-                onClose={handleCloseStatus}
-                message={<Typography sx={{ color: '#131415', fontSize: 14, fontFamily: 'Eina04-Regular' }}>
-                    OTP code has been sent to <span style={{ fontFamily: 'Eina04-SemiBold' }}>example@email.com </span>
-                </Typography>}
-                anchorOrigin={{
-                    vertical: "top",
-                    horizontal: "center"
-                }}
-                sx={{ mt: 10 }}
-                ContentProps={{
-                    sx: {
-                        background: "#ffffff",
-                        width: isMobile ? '100%' : 600,
-                        display: 'flex',
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                        height: 72
-                    }
-                }}
-            />
+                                <InputOtp
+                                    name="otp1"
+                                    type="text"
+                                    autoComplete="off"
+                                    className="otpInput"
+                                    // onKeyPress={keyPressed}
+                                    onChange={handleChangeInput}
+                                    tabIndex="1" maxLength="1" onKeyUp={e => inputfocus(e)}
+                                    isMobile={isMobile}
+                                    theme={theme}
+                                    isOtpFalse={isOtpFalse}
+                                />
+                                <InputOtp
+                                    name="otp2"
+                                    type="text"
+                                    autoComplete="off"
+                                    className="otpInput"
+                                    onChange={handleChangeInput}
+                                    tabIndex="2" maxLength="1" onKeyUp={e => inputfocus(e)}
+                                    isMobile={isMobile}
+                                    theme={theme}
+                                    isOtpFalse={isOtpFalse}
+                                />
+                                <InputOtp
+                                    name="otp3"
+                                    type="text"
+                                    autoComplete="off"
+                                    className="otpInput"
+                                    onChange={handleChangeInput}
+                                    tabIndex="3" maxLength="1" onKeyUp={e => inputfocus(e)}
+                                    isMobile={isMobile}
+                                    theme={theme}
+                                    isOtpFalse={isOtpFalse}
+                                />
+                                <InputOtp
+                                    name="otp4"
+                                    type="text"
+                                    autoComplete="off"
+                                    className="otpInput"
+                                    onChange={handleChangeInput}
+                                    tabIndex="4" maxLength="1" onKeyUp={e => inputfocus(e)}
+                                    isMobile={isMobile}
+                                    theme={theme}
+                                    isOtpFalse={isOtpFalse}
+                                />
+
+                                <InputOtp
+                                    name="otp5"
+                                    type="text"
+                                    autoComplete="off"
+                                    className="otpInput"
+                                    onChange={handleChangeInput}
+                                    tabIndex="5" maxLength="1" onKeyUp={e => inputfocus(e)}
+                                    isMobile={isMobile}
+                                    theme={theme}
+                                    isOtpFalse={isOtpFalse}
+                                />
+
+                                <InputOtp
+                                    name="otp6"
+                                    type="text"
+                                    autoComplete="off"
+                                    className="otpInput"
+                                    onChange={handleChangeInput}
+                                    tabIndex="6" maxLength="1" onKeyUp={e => inputfocus(e)}
+                                    isMobile={isMobile}
+                                    theme={theme}
+                                    isOtpFalse={isOtpFalse}
+                                />
+
+                                <InputOtp
+                                    name="otp7"
+                                    type="text"
+                                    autoComplete="off"
+                                    className="otpInput"
+                                    onChange={handleChangeInput}
+                                    tabIndex="7" maxLength="1" onKeyUp={e => inputfocus(e)}
+                                    isMobile={isMobile}
+                                    theme={theme}
+                                    isOtpFalse={isOtpFalse}
+                                />
+
+                                <InputOtp
+                                    name="otp8"
+                                    type="text"
+                                    autoComplete="off"
+                                    className="otpInput"
+                                    onChange={handleChangeInput}
+                                    tabIndex="8" maxLength="1" onKeyUp={e => inputfocus(e)}
+                                    isMobile={isMobile}
+                                    theme={theme}
+                                    isOtpFalse={isOtpFalse}
+                                />
+                            </DivFlexCenter>
+
+                        </form>
+                        {otpCountdown && (
+                            <DivFlexCenter sx={{ mb: 3, mt: 3 }}>
+                                <Typography sx={{ color: theme.palette.text.resendOtp, textDecoration: 'underline', fontSize: isMobile ? 12 : 20 }}>
+                                    Resent OTP Code (<Countdown key={k} date={initialTime} renderer={renderer} onComplete={handleAfterFinsihCountdown} />)
+                                </Typography>
+                            </DivFlexCenter>
+                        )}
+                        <ButtonSecondary onClick={handleButtonLogin} sx={{ mt: 3 }}>
+                            <Typography sx={{ color: theme.palette.text.buttonSecondary, fontSize: isMobile ? 14 : 20, fontFamily: 'Eina04-SemiBold' }}>
+                                Login
+                            </Typography>
+                        </ButtonSecondary>
+                    </CustomDialogContent>
+                </div>
+            </CustomDialog>
+
+
             <Outlet />
         </>
 

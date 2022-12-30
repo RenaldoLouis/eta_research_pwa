@@ -10,6 +10,10 @@ import PublicRoute from './PublicRoute';
 import { useMediaQuery } from "@mui/material";
 
 
+// import color
+import Color from './Components/Constants/Color';
+
+
 // Dummy 
 import logo from '../src/assets/Images/dummy-promo-lemonade.jpg'
 
@@ -40,6 +44,7 @@ import { CssBaseline } from '@mui/material';
 export const AppContext = createContext({});
 
 
+
 const Main = (props) => {
   return (
     <Routes>
@@ -54,7 +59,7 @@ const Main = (props) => {
                 <Route element={<DeleteEmailDialog />} >
                   <Route element={<EditEmailDialog />}>
                     {/* <Route element={<OtpSendStatus />} > */}
-                    <Route path="/delivery" element={props.isLinkExpired ? <InputTrackingNumber /> : <DeliveryPage />} />
+                    <Route path="/delivery" element={<DeliveryPage />} />
                     <Route path="/inputTrackingNumber" element={<InputTrackingNumber />} />
                     {/* <Route path='/linkExpired' element={<LinkExpiredStatus /> }/> */}
                   </Route>
@@ -107,44 +112,128 @@ function App() {
           ...(mode === "light"
             ? {
               background: {
+
+                // body
                 default: "#ffffff",
+
+                // delivery card
                 deliveryCard: '#f3f3f3',
+                hoverDeliveryCard: '#f7f5f5',
+
+                // promo card
                 promoCard: '#f3f3f3',
                 hoverItemList: '#f3f3f3',
-                scrollToTop: '#262626',
+
+                // appbar and icon
                 appBar: '#ebebeb',
-                itemListDesktop: '#ffffff',
-                hoverDeliveryCard: '#f7f5f5'
+                iconColor: '#000000',
+
+                // dialog
+                dialog: '#ffffff',
+                headDialog: "#ffffff",
+
+                // form
+                borderForm: '#a8a8a8',
+                borderFormActive: '#525252',
+
+                // button
+                buttonSecondary: '#262626',
+
+                // tracking numbercontainer
+                borderTrackingNumber: '#979797',
+
+                // scroll to top button
+                scrollToTop: '#262626',
+
               },
               text: {
-                primary: '#626262',
-                secondary: '#2b2b2b',
-                text3: '#fafafa',
+                primary: '#2b2b2b',
+                secondary: '#626262',
                 text4: '#1a1919',
-                text5: '#2b2b2b',
+
                 heading1: '#959499',
-                resendOtp: '#b4b4b4'
+                highlightHeading1: '#000000',
+                highlithText: '#626262',
+
+                // text for chip delivery card
+                doneText: '#626262',
+
+                // button
+                buttonSecondary: '#ffffff',
+                buttonText: '#ffffff',
+
+                // text in dialog
+                dialogHeadingText: '#959499',
+                emailListText: '#000000',
+                titleFormText: '#131415',
+                inputText: '#8D8D8D',
+                inputTextActive: '#000000',
+                resendOtp: '#b4b4b4',
+                emailListRole: '#909090',
+
               },
             }
             : {
               background: {
-                default: "#000000",
-                deliveryCard: '#2b2b2b',
-                promoCard: '#2b2b2b',
+
+                // body
+                default: "#262626",
+
+                // delivery card
+                deliveryCard: '#393939',
+                hoverDeliveryCard: '#4c4c4c',
+
+                // promo card
+                promoCard: '#393939',
                 hoverItemList: '#404040',
+
+                // appbar and icon
+                appBar: '#353535',
+                iconColor: '#e0e0e0',
+
+                // dialog
+                dialog: '#393939',
+                headDialog: "#393939",
+
+                // form
+                borderForm: '#a8a8a8',
+                borderFormActive: '#E0E0E0',
+
+                // button
+                buttonSecondary: '#ffffff',
+
+                // tracking numbercontainer
+                borderTrackingNumber: 'transparent',
+
+                // scroll to top button
                 scrollToTop: '#ffffff',
-                appBar: '#ffffff',
-                itemListDesktop: '#363636',
-                hoverDeliveryCard: '#363636'
+
               },
               text: {
-                primary: "#fff",
-                secondary: '#fff',
-                text3: '#fafafa',
+                primary: "#f4f4f4",
+                secondary: '#f4f4f4',
                 text4: '#ffffff',
-                text5: '#ffffff',
-                heading1: '#959499',
-                resendOtp: '#ffffff'
+
+                heading1: '#f4f4f4',
+                highlightHeading1: '#ffffff',
+                highlithText: '#ffffff',
+
+                // text for chip delivery card
+                doneText: '#c6c6c6',
+
+                // button
+                buttonSecondary: '#262626',
+                buttonText: '#262626',
+
+                // text dialog
+                dialogHeadingText: '#e0e0e0',
+                emailListText: '#f4f4f4',
+                titleFormText: '#f4f4f4',
+                inputText: '#e0e0e0',
+                inputTextActive: '#F4F4F4',
+                resendOtp: '#ffffff',
+                emailListRole: '#ffffff',
+
               }
             })
         }
@@ -171,7 +260,7 @@ function App() {
     {
       id: 2,
       image: logo,
-      title: 'Example of very long headline for a Promo Lemonade Promo November',
+      title: 'Example of a Promo Lemonade Promo November',
       detail: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
 
     },
@@ -196,7 +285,7 @@ function App() {
       deliveryStatus: 'Late',
       date: 'Mon, 19 Jan 2021',
       twStart: '11.00',
-      twEnd: '11.00',
+      twEnd: '12.30',
       vehicle: 'BCY-1111',
       tourSorted: '',
       totalStops: 0,
@@ -246,7 +335,7 @@ function App() {
       deliveryStatus: 'Done',
       date: 'Mon, 20 Jan 2021',
       twStart: '11.00',
-      twEnd: '11.00',
+      twEnd: '12.30',
       vehicle: 'BCY-1111',
       tourSorted: '',
       totalStops: 0,
@@ -282,7 +371,7 @@ function App() {
       deliveryStatus: 'Early',
       date: 'Mon, 19 Jan 2021',
       twStart: '11.00',
-      twEnd: '11.00',
+      twEnd: '12.30',
       vehicle: 'BCY-1111',
       tourSorted: '',
       totalStops: 0,
@@ -308,7 +397,7 @@ function App() {
       deliveryStatus: 'Done',
       date: 'Mon, 19 Jan 2021',
       twStart: '11.00',
-      twEnd: '11.00',
+      twEnd: '12.30',
       vehicle: 'BCY-1111',
       tourSorted: '',
       totalStops: 0,
@@ -348,6 +437,36 @@ function App() {
       id: 2,
       email: 'Email2@example.com',
       roles: 'standard'
+    },
+    {
+      id: 3,
+      email: 'Email@example.com',
+      roles: 'admin'
+    },
+    {
+      id: 4,
+      email: 'Email2@example.com',
+      roles: 'standard'
+    },
+    {
+      id: 5,
+      email: 'Email@example.com',
+      roles: 'admin'
+    },
+    {
+      id: 6,
+      email: 'Email2@example.com',
+      roles: 'standard'
+    },
+    {
+      id: 7,
+      email: 'Email@example.com',
+      roles: 'admin'
+    },
+    {
+      id: 8,
+      email: 'Email2@example.com',
+      roles: 'standard'
     }
   ]
   /* =====================EOL Dummy Data ===================== */
@@ -381,9 +500,14 @@ function App() {
 
   const toggleVisible = () => {
     const scrolled = document.documentElement.scrollTop;
-    if (scrolled > 75) {
+    // if (scrolled > 75) {
+    //   setScrollDown(true)
+    // } else if (scrolled <= 75) {
+    //   setScrollDown(false)
+    // }
+    if (document.documentElement.scrollTop >= (document.getElementById('titleDeliveryPage').clientHeight - 50)) {
       setScrollDown(true)
-    } else if (scrolled <= 75) {
+    } else {
       setScrollDown(false)
     }
   }
@@ -424,42 +548,33 @@ function App() {
   /** ===============Login Dialog =============== */
   const [openLoginDialog, setOpenLoginDialog] = useState(false)
 
-  const handleLoginDialog = () => {
-    setOpenLoginDialog(!openLoginDialog)
+  const handleOpenLoginDialog = () => {
+    setOpenLoginDialog(true)
   }
-  /** ===============EOL Login Dialog =============== */
+  const handleCloseLoginDialog = () => {
+    setOpenLoginDialog(false)
+  }
 
+  /** ===============EOL Login Dialog =============== */
 
 
   /** ==========================OTP Dialog ========================== */
   const [openOtpDialog, setOpenOtpDialog] = useState(false)
 
-  const handleOtpDialog = () => {
-    setOpenOtpDialog(true)
-  }
-
   const [sendOtp, setSendOtp] = useState(false)
 
-  // otp sending status 
-  const [sendOtpStatus, setSendOtpStatus] = useState(false)
 
-  const handleSendOtp = () => {
+  const handleButtonOtpDialog = () => {
+    setOpenOtpDialog(true)
     setSendOtp(true)
-    setSendOtpStatus(true)
+    handleCloseLoginDialog()
   }
 
-  const hanldeCloseOtpDialog = () => {
+  const handleCloseOtpDialog = () => {
     setOpenOtpDialog(false)
     setSendOtp(false)
   }
 
-  const handleCloseSendOtpStatus = () => {
-    setSendOtpStatus(false)
-  }
-
-  const handleCloseSendOtp = () => {
-    setSendOtp(false)
-  }
   /** ==========================EOL OTP Dialog ========================== */
 
 
@@ -560,11 +675,26 @@ function App() {
   /** ==========================Eol Update or Edit Email ========================== */
 
 
+  /** ==========================Dummy State for Authentication========================== */
+  const [dumpLoginState, setDumpLoginState] = useState(false)
+  const [dumpAuthrorization, setDumpAuthrorization] = useState('superadmin')
+
+  const handleLogin = () => {
+    setDumpLoginState(true)
+  }
+
+  const handleLogout = () => {
+    setDumpLoginState(false)
+  }
+
+
+  /** ==========================EOL Dummy State for Authentication========================== */
 
 
   const AppContextValue = {
     mode,
     handleChangeTheme,
+
     isMobile,
     isTablet,
     isDesktop,
@@ -573,26 +703,24 @@ function App() {
     emailDumpList,
     deliveryDumpData,
     isLinkExpired,
+
     historyStack,
     setHistoryStack,
+
     scrollDown,
     scrollToTop,
-    goToPromo,
+
     isScrollToPromo,
+    goToPromo,
 
     openLoginDialog,
-    handleLoginDialog,
-
-    openOtpDialog,
-    handleOtpDialog,
-    hanldeCloseOtpDialog,
+    handleOpenLoginDialog,
+    handleCloseLoginDialog,
 
     sendOtp,
-    handleSendOtp,
-    handleCloseSendOtp,
-
-    sendOtpStatus,
-    handleCloseSendOtpStatus,
+    openOtpDialog,
+    handleButtonOtpDialog,
+    handleCloseOtpDialog,
 
     emailListDialog,
     handleEmailListDialog,
@@ -613,7 +741,12 @@ function App() {
     handleSetCurrentEmailForEdit,
 
     editNewEmail,
-    handleCloseEditEmailDialog
+    handleCloseEditEmailDialog,
+
+    dumpLoginState,
+    dumpAuthrorization,
+    handleLogin,
+    handleLogout
   };
 
   return (

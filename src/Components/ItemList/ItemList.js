@@ -54,12 +54,12 @@ const ItemList = (props) => {
                 <ListItemButton onClick={item.warning ? handleClickExpandList : undefined} >
                     <DivFlexSpaceBetween sx={{ width: '100%' }}>
                         <DivFlexStart>
-                            <Typography sx={{ fontSize: 12, fontFamily: 'Eina04-Regular' }} color={item.warning ? '#ea0000' : theme.palette.text.text5}>
+                            <Typography sx={{ fontSize: 12, fontFamily: 'Eina04-Regular' }} color={item.warning ? '#da1e28' : theme.palette.text.primary}>
                                 {item.productName}
                             </Typography>
-                            {item.warning && (<ErrorOutlineIcon sx={{ color: '#ea0000', width: 15, height: 15, ml: 1 }} />)}
+                            {item.warning && (<ErrorOutlineIcon sx={{ color: '#da1e28', width: 15, height: 15, ml: 1 }} />)}
                         </DivFlexStart>
-                        <Typography sx={{ fontSize: 12, fontFamily: 'Eina04-Regular' }} color={theme.palette.text.text5} >
+                        <Typography sx={{ fontSize: 12, fontFamily: 'Eina04-Regular' }} color={theme.palette.text.primary} >
                             {`${item.amount} ${item.unit}`}
                         </Typography>
                     </DivFlexSpaceBetween>
@@ -71,10 +71,10 @@ const ItemList = (props) => {
                                 <ItemSubList>
                                     <ListItemButton>
                                         <DivFlexSpaceBetween sx={{ width: '100%' }}>
-                                            <Typography sx={{ fontSize: 12, fontFamily: 'Eina04-Regular' }} color={theme.palette.text.text5} >
+                                            <Typography sx={{ fontSize: 12, fontFamily: 'Eina04-Regular' }} color={theme.palette.text.primary} >
                                                 On Truck
                                             </Typography>
-                                            <Typography sx={{ fontSize: 12, fontFamily: 'Eina04-Regular' }} color={theme.palette.text.text5} >
+                                            <Typography sx={{ fontSize: 12, fontFamily: 'Eina04-Regular' }} color={theme.palette.text.primary} >
                                                 {`${item.onTruck} Fas`}
                                             </Typography>
                                         </DivFlexSpaceBetween>
@@ -83,10 +83,10 @@ const ItemList = (props) => {
                                 <ItemSubList>
                                     <ListItemButton >
                                         <DivFlexSpaceBetween sx={{ width: '100%' }}>
-                                            <Typography sx={{ fontSize: 12, fontFamily: 'Eina04-Regular' }} color={theme.palette.text.text5} >
+                                            <Typography sx={{ fontSize: 12, fontFamily: 'Eina04-Regular' }} color={theme.palette.text.primary} >
                                                 Ordered
                                             </Typography>
-                                            <Typography sx={{ fontSize: 12, fontFamily: 'Eina04-Regular' }} color={theme.palette.text.text5} >
+                                            <Typography sx={{ fontSize: 12, fontFamily: 'Eina04-Regular' }} color={theme.palette.text.primary} >
                                                 {`${item.ordered} Fas`}
                                             </Typography>
                                         </DivFlexSpaceBetween>
