@@ -2,14 +2,18 @@ import React, { useContext, useState } from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
-import IconButton from '@mui/material/IconButton';
+// import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import Menu from '@mui/material/Menu';
 import Container from '@mui/material/Container';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+// import Grid from '@mui/material';
+import { Grid } from '@mui/material';
 import { Tooltip } from '@mui/material';
+
+import { styled } from '@mui/system'
 
 // import icon
 import ListIcon from '../../assets/icons/ListIcon';
@@ -26,8 +30,21 @@ import { useNavigate, Outlet } from "react-router-dom"
 import { AppContext } from '../../App';
 import { useTheme } from "@mui/material/styles";
 import DivFlexEnd from '../ReusableComponents/DivFlexEnd';
+import DivFlexCenter from '../ReusableComponents/DivFlexCenter';
+import DivFlexStart from '../ReusableComponents/DivFlexStart';
 
-
+const IconButton = styled('div')((props) => ({
+  display: 'flex',
+  alignItems: 'center',
+  cursor: 'pointer',
+  width: 30,
+  height: 30,
+  marginLeft: 10,
+  borderRadius: '50%',
+  ":hover": {
+    backgroundColor: props.theme.palette.background.hoverDeliveryCard,
+  }
+}));
 
 
 const getThemeChangeText = (theme) => {
@@ -57,6 +74,8 @@ const AppBarResponsive = () => {
     dumpLoginState,
     dumpAuthrorization,
     isMobile,
+    isDesktop,
+    handleOpenLogoutDialog,
     handleLogout } = useContext(AppContext);
 
   // const navigate = useNavigate();
@@ -68,71 +87,99 @@ const AppBarResponsive = () => {
 
   return (
     <>
-      <AppBar position="static" sx={{ background: theme.palette.background.appBar, position: 'fixed', top: 0, zIndex: 1000, width: '100%' }} elevation={0}>
+      <AppBar position="static" sx={{ background: theme.palette.background.appBar, position: 'fixed', top: 0, zIndex: 2000, width: '100%', height:58 }} elevation={0}>
         <Container maxWidth="100vw">
 
           <Toolbar disableGutters>
 
-            <Box sx={{ flexGrow: 0, display: { xs: 'none', md: 'flex' }, alignItems: 'center' }}>
-              <Typography sx={{ fontFamily: 'Eina04-Light', color: theme.palette.background.iconColor, fontFamily: 'Eina04-Bold' }} fontSize={25}>
-                LOGO
-              </Typography>
-            </Box>
-
-            <Box sx={{ flexGrow: 0, display: { xs: 'flex', md: 'flex' }, }}>
-              <div style={{ width: isMobile ? 56 : undefined }}>
-                <Tooltip title="Temporary Button">
-                  <IconButton
-                    // onClick={historyStack.length > 0 ? handleBackPrevPage : undefined}
-                    onClick={handleChangeTheme}
-                  >
-                    {historyStack.length > 0 && <ArrowBackIosIcon sx={{ color: theme.palette.text.heading1 }} />}
-                    {
-                      mode == 'light' ? (
-                        <DarkMode sx={{ color: theme.palette.background.iconColor, fontSize: 20, mt: -0.5 }} />
-                      ) : mode == 'dark' ? (
-                        <LightMode sx={{ color: theme.palette.background.iconColor, fontSize: 20, mt: -0.5 }} />
-                      ) : (
-                        <></>
-                      )
-                    }
-                  </IconButton>
-                </Tooltip>
-              </div>
-            </Box>
-
-            <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' }, justifyContent: 'center', alignItems: 'center' }}>
-              <Typography sx={{ fontFamily: 'Eina04-Light', color: theme.palette.background.iconColor, fontFamily: 'Eina04-Bold' }} fontSize={25}>
-                LOGO
-              </Typography>
-            </Box>
-
-            <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' }, justifyContent: 'center' }}>
-              <Typography sx={{ fontFamily: 'Eina04-Light', color: theme.palette.text.text4 }} fontSize={12}>
-                Delivery Tracking
-              </Typography>
-            </Box>
-
-            <Box sx={{ flexGrow: 0, width: 56, display:'flex',justifyContent:'flex-end' }}>
-              {
-                dumpLoginState ? (
-                  <>
-                    {dumpAuthrorization == 'admin' || dumpAuthrorization == 'superadmin' ?
-                      <IconButton onClick={handleEmailListDialog}>
-                        <ListIcon color={theme.palette.background.iconColor} sx={{ height: 18, width: 18 }} />
+            <Grid container sx={{ height: 58 }} style={{ paddingLeft: isDesktop ? 40 : '', paddingRight: isDesktop ? 40 : '' }}>
+              <Grid item xs={4} md={3}>
+                <DivFlexStart sx={{ height: '100%', alignItems: 'center' }} >
+                  {isMobile ? (
+                    <>
+                      <Tooltip title="Temporary Button">
+                        <IconButton
+                          // onClick={historyStack.length > 0 ? handleBackPrevPage : undefined}
+                          onClick={handleChangeTheme}
+                          style={{ }}
+                        >
+                          {historyStack.length > 0 && <ArrowBackIosIcon sx={{ color: theme.palette.text.heading1 }} />}
+                          {
+                            mode == 'light' ? (
+                              <DarkMode sx={{ color: theme.palette.background.iconColor, fontSize: 20, ml:0.5, mb:0.3  }} />
+                            ) : mode == 'dark' ? (
+                              <LightMode sx={{ color: theme.palette.background.iconColor, fontSize: 20, ml:0.5, mb:0.3  }} />
+                            ) : (
+                              <></>
+                            )
+                          }
+                        </IconButton>
+                      </Tooltip>
+                    </>
+                  ) : (<>
+                    <Typography sx={{ fontFamily: 'Eina04-Light', color: theme.palette.background.iconColor, fontFamily: 'Eina04-Bold' }} fontSize={25}>
+                      LOGO
+                    </Typography>
+                    <Tooltip title="Temporary Button">
+                      <IconButton
+                        // onClick={historyStack.length > 0 ? handleBackPrevPage : undefined}
+                        onClick={handleChangeTheme}
+                      >
+                        {historyStack.length > 0 && <ArrowBackIosIcon sx={{ color: theme.palette.text.heading1 }} />}
+                        {
+                          mode == 'light' ? (
+                            <DarkMode sx={{ color: theme.palette.background.iconColor, fontSize: 20, ml:0.5, mb:0.3 }} />
+                          ) : mode == 'dark' ? (
+                            <LightMode sx={{ color: theme.palette.background.iconColor, fontSize: 20, ml:0.5, mb:0.3 }} />
+                          ) : (
+                            <></>
+                          )
+                        }
                       </IconButton>
-                      : (<></>)}
-                    <IconButton sx={{ p: 0, mt: 1 }} onClick={handleLogout}>
-                      <LogoutIcon color={theme.palette.background.iconColor} sx={{ width: 22, height: 20 }} />
-                    </IconButton>
+                    </Tooltip>
+                  </>
+                  )}
 
-                  </>) : (
-                  <IconButton sx={{ p: 0, mt: 1 }} onClick={handleOpenLoginDialog} >
-                    <LoginIcon sx={{ width: 22, height: 20 }} color={theme.palette.background.iconColor} />
-                  </IconButton>
-                )
-              }
-            </Box>
+                </DivFlexStart>
+
+              </Grid>
+              <Grid item xs={4} md={6}>
+                <DivFlexCenter style={{ alignItems: 'top', height: '100%' }} >
+                  {isMobile ? (
+                    <Typography sx={{ fontFamily: 'Eina04-Light', color: theme.palette.background.iconColor, fontFamily: 'Eina04-Bold' }} fontSize={25}>
+                      LOGO
+                    </Typography>
+                  ) : (
+                    <Typography sx={{ fontFamily: 'Eina04-SemiBold', color: theme.palette.text.text4 }} fontSize={14}>
+                      Delivery Tracking
+                    </Typography>
+                  )}
+
+                </DivFlexCenter>
+              </Grid>
+              <Grid item xs={4} md={3} >
+                <DivFlexEnd style={{ alignItems: 'center', height: '100%' }}>
+                  {
+                    dumpLoginState ? (
+                      <>
+                        {dumpAuthrorization == 'admin' || dumpAuthrorization == 'superadmin' ?
+                          <IconButton onClick={handleEmailListDialog} theme={theme} >
+                            <ListIcon color={theme.palette.background.iconColor} sx={{ height: 18, width: 18, ml: 1.11, mt: 0.2 }} />
+                          </IconButton>
+                          : (<></>)}
+                        <IconButton onClick={handleOpenLogoutDialog} theme={theme}  >
+                          <LogoutIcon color={theme.palette.background.iconColor} sx={{ width: 22, height: 22, ml: 1.1, mt: 1.1 }} />
+                        </IconButton>
+
+                      </>) : (
+                      <IconButton theme={theme} onClick={handleOpenLoginDialog} >
+                        <LoginIcon color={theme.palette.background.iconColor} sx={{ width: 22, height: 22, ml: 0.9, mt: 1.2 }} />
+                      </IconButton>
+                    )
+                  }
+                </DivFlexEnd>
+              </Grid>
+            </Grid>
 
           </Toolbar>
         </Container>

@@ -51,39 +51,71 @@ const AddNewEmailDialog = () => {
 
     const [email, setEmail] = useState(initEmail)
 
+    // validation for email
+    const [isEmailEmpty, setIsEmailEmpty] = useState(false)
+    const [isEmailInvalid, setIsEmailInvalid] = useState(false)
+
+    function isValidEmail(email) {
+        return /\S+@\S+\.\S+/.test(email);
+    }
+
     const handleChangeInput = (e) => {
         const { name, value } = e.target
         setEmail({ ...email, [name]: value })
     }
 
     const handleSubmit = (e) => {
-        console.log('email', email)
-        e.preventDefault()
-        addNewEmail(email)
+        if (email.email == '') {
+            setIsEmailEmpty(true)
+        }
+        if(email.email != '') {
+            setIsEmailEmpty(false)
+            if (isValidEmail(email.email)) {
+                e.preventDefault()
+                addNewEmail(email)
+                handleCloseNewEmailDialog()
+                setEmail(initEmail)
+                setIsEmailInvalid(false)
+                setIsEmailEmpty(false)
+            }
+            else {
+                setIsEmailInvalid(true)
+            }
+
+        }
+
+
+    }
+
+    const handleCloseDialog = () => {
+        setEmail(initEmail)
         handleCloseNewEmailDialog()
+        setIsEmailInvalid(false)
+        setIsEmailEmpty(false)
+
     }
 
 
     return (
         <>
-            <CustomDialog width={900} open={addNewEmailDialog} onClose={handleCloseNewEmailDialog} theme={theme} >
+            <CustomDialog width={900} open={addNewEmailDialog} onClose={handleCloseDialog} theme={theme} >
                 <div style={{ backgroundColor: theme.palette.background.dialog }}>
                     <DivFlexEnd sx={{ pr: 2, pt: 2 }} >
-                        <CloseIcon onClick={handleCloseNewEmailDialog} />
+                        <CloseIcon onClick={handleCloseDialog} style={{ cursor: 'pointer' }} />
                     </DivFlexEnd>
                     <CustomDialogContent>
-                        <DivFlexCenter>
+                        <DivFlexCenter style={{ height: isMobile ? 20 : 40, marginBottom: isMobile ? 24 : 64 }}>
                             <Typography sx={{ color: theme.palette.text.dialogHeadingText, fontSize: isMobile ? 20 : 40, fontFamily: 'Eina04-Regular' }}>
-                                Add new Email
+                                Add New Email
                             </Typography>
                         </DivFlexCenter>
                         <FormControl sx={{ width: '100%' }} >
-                            <DivFlexSpaceBetween sx={{ flexWrap: 'wrap', mt: 3, width: '100%', }}>
+                            <DivFlexSpaceBetween sx={{ flexWrap: 'wrap', width: '100%' }}>
                                 <DivFlexStart sx={{ width: isMobile ? '100%' : '60%', mb: 2, }}>
                                     <Typography sx={{ fontSize: isMobile ? 12 : 20, fontFamily: 'Eina04-SemiBold', mr: 2, color: theme.palette.text.titleFormText }}>
                                         Email
                                     </Typography>
-                                    <TextFieldStyled onChange={handleChangeInput} id="basic" placeholder="" name="email" sx={{ input: { fontSize: isMobile ? 12 : 20, fontFamily: 'Eina04-Regular', height: isMobile ? 5 : 20, color: theme.palette.text.inputText }, width: isMobile ? '100%' : '80%', }} />
+                                    <TextFieldStyled onChange={handleChangeInput} id="basic" placeholder="example@mail.com" name="email" sx={{ width: isMobile ? '100%' : '80%', }} isMobile={isMobile} />
                                 </DivFlexStart>
 
                                 <DivFlexStart sx={{ width: isMobile ? '100%' : '35%', mb: 2 }}>
@@ -103,9 +135,11 @@ const AddNewEmailDialog = () => {
                                                 height: isMobile ? 40 : 55,
                                                 width: '100%',
                                                 alignItems: 'center',
-                                                color: theme.palette.text.inputText
+                                                color: theme.palette.text.inputTextActive,
+                                                paddingTop: isMobile ? 0.8 : ''
                                             }
                                         }}
+                                        isMobile={isMobile}
                                     >
                                         {Roles.map((option) => (
                                             <MenuItem key={option.value} value={option.value}>
@@ -118,8 +152,21 @@ const AddNewEmailDialog = () => {
                                 </DivFlexStart>
                             </DivFlexSpaceBetween>
                         </FormControl>
-                        <DivFlexSpaceBetween sx={{ mt: 5 }}>
-                            <Typography sx={{ fontSize: isMobile ? 14 : 20, textDecoration: 'underline', fontFamily: 'Eina04-Regular', cursor: 'pointer', color: theme.palette.text.titleFormText }} onClick={handleCloseNewEmailDialog} >
+
+                        <DivFlexCenter style={{ width: isMobile ? '100%' : '60%' }}>
+                            {isEmailEmpty ? (
+                                <Typography sx={{ fontSize: isMobile ?12 : 14, fontFamily: 'Eina04-Regular' }} color={'#da1e28'}>
+                                    Email is Empty
+                                </Typography>
+                            ) : isEmailInvalid ? (
+                                <Typography sx={{ fontSize: isMobile ?12 : 14, fontFamily: 'Eina04-Regular' }} color={'#da1e28'}>
+                                    Email is Invalid
+                                </Typography>
+                            ) : (<></>)
+                            }
+                        </DivFlexCenter>
+                        <DivFlexSpaceBetween sx={{ mt: isMobile ? 3 : 5 }}>
+                            <Typography sx={{ fontSize: isMobile ? 14 : 20, textDecoration: 'underline', fontFamily: 'Eina04-Regular', cursor: 'pointer', color: theme.palette.text.titleFormText }} onClick={handleCloseDialog} >
                                 Cancel
                             </Typography>
                             <ButtonSecondary sx={{ width: '35%' }} onClick={handleSubmit}>

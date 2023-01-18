@@ -5,27 +5,33 @@ import { styled } from '@mui/system';
 
 
 const TextFieldStyled = styled(TextField)((props) => ({
+    
     input: {
-        fontSize: 14, fontFamily: 'Eina04-Regular', color: props.theme.palette.text.inputText,
+        fontSize: props.isMobile ? 12 : 20, 
+        fontFamily: 'Eina04-Regular', 
+        color: props.theme.palette.text.inputTextActive,
+        height: props.isMobile ? 5 : 20,
         "&:-webkit-autofill": {
             WebkitBoxShadow: `0 0 0 1000px ${props.theme.palette.background.dialog} inset`,
-            WebkitTextFillColor: props.theme.palette.text.inputText
+            WebkitTextFillColor: props.theme.palette.text.inputTextActive,
         },
     },
     '& .MuiOutlinedInput-root': {
         '& fieldset': {
-            borderColor: props.warning ? '#da1e28' : props.theme.palette.background.borderForm,
+            border: props.warning ? '1px solid #da1e28' : `1px solid ${props.theme.palette.background.borderForm}`,
             borderRadius: 0
         },
         '&:hover fieldset': {
-            borderColor: props.warning ? '#da1e28' : props.theme.palette.background.borderForm,
-            borderRadius: 0
+            border: props.warning ? '1px solid #da1e28' : `1px solid ${props.theme.palette.background.borderFormHover}`,
+            borderRadius: 0,
         },
         '&.Mui-focused fieldset': {
-            borderColor: props.warning ? '#da1e28' : props.theme.palette.background.borderFormActive,
-            borderRadius: 0
+            border: props.warning ? '1px solid #da1e28' : `1px solid ${props.theme.palette.background.borderFormActive}`,
+            borderRadius: 0,
         },
+       
     },
+   
 }))
 
 export default TextFieldStyled;

@@ -29,6 +29,7 @@ import EmailsListDialog from './Components/DialogComponent/EmailsListDialog';
 import AddNewEmailDialog from './Components/DialogComponent/AddNewEmailDialog';
 import DeleteEmailDialog from './Components/DialogComponent/DeleteEmailDialog';
 import EditEmailDialog from './Components/DialogComponent/EditEmailDialog';
+import LogoutConfirmationDialog from './Components/DialogComponent/LogoutConfirmationDialog';
 
 
 // import page
@@ -53,15 +54,17 @@ const Main = (props) => {
       <Route path="*" element={<PublicRoute />} />
       <Route element={<AppBarResponsive />} >
         <Route element={<LoginDialog />}>
-          <Route element={<OtpDialog />}>
-            <Route element={<EmailsListDialog />}>
-              <Route element={<AddNewEmailDialog />} >
-                <Route element={<DeleteEmailDialog />} >
-                  <Route element={<EditEmailDialog />}>
-                    {/* <Route element={<OtpSendStatus />} > */}
-                    <Route path="/delivery" element={<DeliveryPage />} />
-                    <Route path="/inputTrackingNumber" element={<InputTrackingNumber />} />
-                    {/* <Route path='/linkExpired' element={<LinkExpiredStatus /> }/> */}
+          <Route element={<LogoutConfirmationDialog />}>
+            <Route element={<OtpDialog />}>
+              <Route element={<EmailsListDialog />}>
+                <Route element={<AddNewEmailDialog />} >
+                  <Route element={<DeleteEmailDialog />} >
+                    <Route element={<EditEmailDialog />}>
+                      {/* <Route element={<OtpSendStatus />} > */}
+                      <Route path="/delivery" element={<DeliveryPage />} />
+                      <Route path="/inputTrackingNumber" element={<InputTrackingNumber />} />
+                      {/* <Route path='/linkExpired' element={<LinkExpiredStatus /> }/> */}
+                    </Route>
                   </Route>
                 </Route>
               </Route>
@@ -133,7 +136,8 @@ function App() {
                 headDialog: "#ffffff",
 
                 // form
-                borderForm: '#a8a8a8',
+                borderForm: '#A8A8A8',
+                borderFormHover: '#A8A8A8',
                 borderFormActive: '#525252',
 
                 // button
@@ -144,6 +148,10 @@ function App() {
 
                 // scroll to top button
                 scrollToTop: '#262626',
+
+                // itemlist
+                oddItemList: '#E7E7E7',
+
 
               },
               text: {
@@ -167,7 +175,7 @@ function App() {
                 emailListText: '#000000',
                 titleFormText: '#131415',
                 inputText: '#8D8D8D',
-                inputTextActive: '#000000',
+                inputTextActive: '#1A1919',
                 resendOtp: '#b4b4b4',
                 emailListRole: '#909090',
 
@@ -196,8 +204,9 @@ function App() {
                 headDialog: "#393939",
 
                 // form
-                borderForm: '#a8a8a8',
-                borderFormActive: '#E0E0E0',
+                borderForm: '#A8A8A8',
+                borderFormHover: '#C6C6C6',
+                borderFormActive: '#F4F4F4',
 
                 // button
                 buttonSecondary: '#ffffff',
@@ -207,6 +216,9 @@ function App() {
 
                 // scroll to top button
                 scrollToTop: '#ffffff',
+
+                // itemlist
+                oddItemList: '#525252',
 
               },
               text: {
@@ -230,7 +242,7 @@ function App() {
                 emailListText: '#f4f4f4',
                 titleFormText: '#f4f4f4',
                 inputText: '#e0e0e0',
-                inputTextActive: '#F4F4F4',
+                inputTextActive: '#FFFFFF',
                 resendOtp: '#ffffff',
                 emailListRole: '#ffffff',
 
@@ -440,32 +452,32 @@ function App() {
     },
     {
       id: 3,
-      email: 'Email@example.com',
+      email: 'Email3@example.com',
       roles: 'admin'
     },
     {
       id: 4,
-      email: 'Email2@example.com',
+      email: 'Email4@example.com',
       roles: 'standard'
     },
     {
       id: 5,
-      email: 'Email@example.com',
+      email: 'Email5@example.com',
       roles: 'admin'
     },
     {
       id: 6,
-      email: 'Email2@example.com',
+      email: 'Email6@example.com',
       roles: 'standard'
     },
     {
       id: 7,
-      email: 'Email@example.com',
+      email: 'Email7@example.com',
       roles: 'admin'
     },
     {
       id: 8,
-      email: 'Email2@example.com',
+      email: 'Email8@example.com',
       roles: 'standard'
     }
   ]
@@ -556,6 +568,9 @@ function App() {
   }
 
   /** ===============EOL Login Dialog =============== */
+
+
+
 
 
   /** ==========================OTP Dialog ========================== */
@@ -676,16 +691,34 @@ function App() {
 
 
   /** ==========================Dummy State for Authentication========================== */
-  const [dumpLoginState, setDumpLoginState] = useState(false)
+  const [dumpLoginState, setDumpLoginState] = useState(true)
   const [dumpAuthrorization, setDumpAuthrorization] = useState('superadmin')
 
   const handleLogin = () => {
     setDumpLoginState(true)
   }
 
+  /** ===============Logout Dialog =============== */
+  const [openLogoutDialog, setOpenLogoutDialog] = useState(false)
+
+  const handleOpenLogoutDialog = () => {
+    setOpenLogoutDialog(true)
+  }
+
+  const handleCloseLogoutDialog = () => {
+    setOpenLogoutDialog(false)
+  }
+
   const handleLogout = () => {
+    setOpenLogoutDialog(false)
     setDumpLoginState(false)
   }
+
+
+
+
+
+  /** ===============EOL Logout Dialog =============== */
 
 
   /** ==========================EOL Dummy State for Authentication========================== */
@@ -716,6 +749,10 @@ function App() {
     openLoginDialog,
     handleOpenLoginDialog,
     handleCloseLoginDialog,
+
+    openLogoutDialog,
+    handleOpenLogoutDialog,
+    handleCloseLogoutDialog,
 
     sendOtp,
     openOtpDialog,

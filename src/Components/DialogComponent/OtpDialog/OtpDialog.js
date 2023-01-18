@@ -133,7 +133,7 @@ const OtpDialog = () => {
                         <CloseIcon onClick={handleCloseDialog} />
                     </DivFlexEnd>
                     <CustomDialogContent>
-                        <DivFlexCenter sx={{ mb: 2 }}>
+                        <DivFlexCenter style={{ height: isMobile ? 20 : 40, marginBottom: isMobile ? 24 : 64 }} >
                             <Typography sx={{ color: theme.palette.text.heading1, fontSize: isMobile ? 20 : 40, fontFamily: 'Eina04-Regular' }}>
                                 OTP
                             </Typography>
@@ -244,7 +244,7 @@ const OtpDialog = () => {
                                 </Typography>
                             </DivFlexCenter>
                         )}
-                        <ButtonSecondary onClick={handleButtonLogin} sx={{ mt: 3 }}>
+                        <ButtonSecondary onClick={handleButtonLogin} sx={{ mt: isMobile ? 3 : 5 }}>
                             <Typography sx={{ color: theme.palette.text.buttonSecondary, fontSize: isMobile ? 14 : 20, fontFamily: 'Eina04-SemiBold' }}>
                                 Login
                             </Typography>

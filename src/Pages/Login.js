@@ -60,6 +60,10 @@ function Login() {
         setShow(true);
     }
 
+    const onClickTrackingNumber = () => {
+        navigate("/inputTrackingNumber")
+    } 
+
     return (
         <div className="App">
             <header className="App-header">

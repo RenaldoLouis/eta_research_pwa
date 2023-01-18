@@ -31,7 +31,7 @@ const DoneDeliveryStatus = props => {
                 </Typography>
                 <div style={{ borderRadius: 5, border: '1px solid #9e8df0', padding:'0px 10px 0px 10px', marginLeft:10, marginRight:10,backgroundColor:'#9e8df0' }}>
                     <Typography fontSize={isMobile ? 20 : 40} color={theme.palette.text.primary} sx={{ fontFamily: 'Eina04-SemiBold' }}>
-                        {`Done`}
+                        {`DONE`}
                     </Typography>
                 </div>
                 <Typography fontSize={isMobile ? 20 : 40} color={theme.palette.text.primary} sx={{ fontFamily: 'Eina04-SemiBold' }}>

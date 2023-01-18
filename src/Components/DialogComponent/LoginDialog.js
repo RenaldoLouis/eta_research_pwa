@@ -30,6 +30,8 @@ const LoginDialog = () => {
 
     const theme = useTheme()
 
+    // email validation
+
     const [email, setEmail] = useState('')
     const [emailSubmit, setEmailSubmit] = useState('')
 
@@ -39,6 +41,7 @@ const LoginDialog = () => {
     function isValidEmail(email) {
         return /\S+@\S+\.\S+/.test(email);
     }
+
 
     const handleChangeInput = (e) => {
         const { name, value } = e.target
@@ -50,6 +53,8 @@ const LoginDialog = () => {
     const handleCloseDialog = () => {
         handleCloseLoginDialog()
         setEmail('')
+        setIsEmailEmpty(false)
+        setIsEmailInvalid(false)
     }
 
     const handlePressSendOtp = () => {
@@ -77,20 +82,20 @@ const LoginDialog = () => {
             <CustomDialog open={openLoginDialog} onClose={handleCloseDialog} theme={theme}>
                 <div style={{ backgroundColor: theme.palette.background.dialog }}>
                     <DivFlexEnd sx={{ pr: 2, pt: 2 }} >
-                        <CloseIcon onClick={handleCloseDialog} />
+                        <CloseIcon onClick={handleCloseDialog} style={{ cursor : 'pointer' }} />
                     </DivFlexEnd>
                     <CustomDialogContent sx={{ backgroundColor: theme.palette.background.dialog }}>
-                        <DivFlexCenter>
+                        <DivFlexCenter  style={{ height: isMobile ? 20 : 40, marginBottom: isMobile ? 24 : 64 }}>
                             <Typography sx={{ color: theme.palette.text.heading1, fontSize: isMobile ? 20 : 40, fontFamily: 'Eina04-Regular' }}>
                                 Sign In
                             </Typography>
                         </DivFlexCenter>
-                        <DivFlexSpaceBetween sx={{ flexWrap: 'wrap', mt: 3 }}>
+                        <DivFlexSpaceBetween sx={{ flexWrap: 'wrap' }}>
                             <Typography sx={{ fontSize: isMobile ? 12 : 14, fontFamily: 'Eina04-SemiBold', color: theme.palette.text.titleFormText }}>
                                 Email
                             </Typography>
                             <FormControl sx={{ width: isMobile ? '100%' : '90%' }}>
-                                <TextFieldStyled id="email" placeholder="example@email.com" value={email} onChange={handleChangeInput} sx={{ input: { fontSize: isMobile ? 12 : 20, fontFamily: 'Eina04-Regular', height: isMobile ? 5 : 20 } }} />
+                                <TextFieldStyled id="email" placeholder="example@email.com" value={email} onChange={handleChangeInput} isMobile={isMobile}/>
                             </FormControl>
                         </DivFlexSpaceBetween>
 
@@ -107,7 +112,7 @@ const LoginDialog = () => {
                             }
                         </DivFlexCenter>
 
-                        <ButtonSecondary onClick={handlePressSendOtp} sx={{ mt: 3 }}>
+                        <ButtonSecondary onClick={handlePressSendOtp} sx={{ mt: isMobile ? 3 : 5 }}>
                             <Typography sx={{ color: theme.palette.text.buttonSecondary, fontSize: isMobile ? 12 : 14, fontFamily: 'Eina04-SemiBold' }}>
                                 Send OTP
                             </Typography>

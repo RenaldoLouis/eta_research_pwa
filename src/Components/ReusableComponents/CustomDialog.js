@@ -9,10 +9,11 @@ export const CustomDialog = styled(Dialog)((props) => ({
             width: props.width ? props.width : "100%",
             maxWidth: props.width,
             borderRadius:0,
-            // backgroundColor:props.backgroundColor
+            // backgroundColor: props.isPromoDialog ? 'transparent' : ''
         },
         
     },
+    backdropFilter: "blur(18px)" 
    
 }))
 

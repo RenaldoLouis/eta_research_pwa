@@ -4,6 +4,8 @@ import { styled } from '@mui/system'
 // import material UI
 import { Typography, Grid, Dialog, Tabs, Divider } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
+import { Backdrop } from "@mui/material";
+
 
 // import Component
 import PromoCard from "../../Components/PromoCard/PromoCard";
@@ -11,7 +13,11 @@ import DeliveryCard from "../../Components/DeliveryCard/DeliveryCard";
 import WarningComponent from "../../Components/WarningComponent/WarningComponent";
 
 
+// import Icon
 import DoneIcon from '@mui/icons-material/Done';
+import CloseIcon from '@mui/icons-material/Close';
+import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 
 // import AppContext
 import { AppContext } from "../../App";
@@ -20,8 +26,10 @@ import { AppContext } from "../../App";
 // import reusable component
 import DivFlexStart from "../../Components/ReusableComponents/DivFlexStart";
 import DivFlexCenter from "../../Components/ReusableComponents/DivFlexCenter";
+import DivFlexEnd from "../../Components/ReusableComponents/DivFlexEnd";
 import { Navigate } from "react-router-dom";
 import CustomDialog from "../../Components/ReusableComponents/CustomDialog";
+import DivFlexSpaceBetween from "../../Components/ReusableComponents/DivFlexSpacebetween";
 
 
 // sticky div as button
@@ -72,9 +80,31 @@ const DeliveryPage = () => {
     // state for pass promo id to open the detail - desktop
     const [idPromoDialog, setIdPromoDialog] = useState('')
 
+    const [promoDetail, setPromoDetail] = useState(0)
+
     const handleOpenPromoDialog = (promoId) => {
         setOpenPromoDialog(true)
-        setIdPromoDialog(promoId)
+        // setIdPromoDialog(promoId)
+
+        setPromoDetail(promoId)
+        console.log(promoId)
+
+    }
+
+    const handleNextPromoDetail = (promoLength) => {
+        if(promoDetail != promoLength-1){
+            setPromoDetail(promoDetail + 1)
+
+            console.log(`${promoDetail} of ${promoLength}`)
+        }
+    }
+
+    const handlePrevPromoDetail = (promoLength) => {
+        if(promoDetail > 0){
+            setPromoDetail(promoDetail - 1)
+
+            console.log(`${promoDetail} of ${promoLength}`)
+        }
     }
 
 
@@ -90,7 +120,7 @@ const DeliveryPage = () => {
         <>
             {warning && (<WarningComponent isMobile={isMobile} />)}
 
-            <Grid container mt={8}>
+            <Grid container style={{ paddingLeft: isDesktop ? 40 : '', paddingRight: isDesktop ? 40 : '', marginTop: 58 }}>
                 <Grid item xs={12} md={3} id="deliverSection">
                     <>
                         {deliveryDumpData.length > 1 ? (
@@ -111,12 +141,12 @@ const DeliveryPage = () => {
                                         deliveryDumpData.every((v) => { return v.deliveryStatus == "Done" }) ? (
                                             <div style={{ padding: '0px 20px 0px 20px', marginTop: isDesktop ? 20 : undefined }}>
                                                 <Typography fontSize={30} color={theme.palette.text.heading1} sx={{ fontFamily: 'Eina04-Regular' }} >
-                                                    Your Delivery for {deliveryDumpData[0].date} is All <span> <DivFlexStart sx={{ color: theme.palette.text.highlightHeading1}}> <DoneIcon sx={{ fontSize: 30, mb:0.5 }} /> DONE</DivFlexStart> </span>
+                                                    Your Delivery <br/> for {deliveryDumpData[0].date} <br/> is All <span style={{color: theme.palette.text.highlightHeading1}}>  <DoneIcon sx={{ height:26, width:32, mr: -1.5 }} /> DONE </span>
                                                 </Typography>
                                             </div>
                                         ) : <div style={{ padding: '0px 20px 0px 20px', marginTop: isDesktop ? 20 : undefined }}>
                                             <Typography fontSize={30} color={theme.palette.text.heading1} sx={{ fontFamily: 'Eina04-Regular' }} >
-                                                Good Morning! <br /> There are <span style={{ textDecoration: 'underline', fontFamily: 'Eina04-RegularItalic', color: theme.palette.text.highlithText }}>{deliveryDumpData.length}</span>  Today Delivery
+                                                Good Morning! <br /> There are <span style={{ textDecoration: 'underline', fontFamily: 'Eina04-RegularItalic', color: theme.palette.text.highlithText }}>{deliveryDumpData.length}</span> <br />  Today Delivery
                                             </Typography>
                                         </div>
                                     }
@@ -147,7 +177,7 @@ const DeliveryPage = () => {
                         )}
 
                         {deliveryDumpData.map((data, index) => (
-                            <DivFlexCenter key={index} sx={{ mt: 2, }} onClick={() => handleClickDeliveryDesktop(data.id)} >
+                            <DivFlexCenter key={index} style={{ marginTop: 24 }} onClick={() => handleClickDeliveryDesktop(data.id)} >
                                 <DeliveryCard data={data} totalDelivery={deliveryDumpData.length} numberOfDeliver={index + 1} deliveryId={deliveryId} />
                             </DivFlexCenter>
                         ))}
@@ -160,7 +190,7 @@ const DeliveryPage = () => {
                     </DivFlexCenter>
                 </Grid>
 
-                <Grid item xs={12} md={3}>
+                <Grid item xs={12} md={3} style={{ paddingTop: isMobile ? '' : 12 }}>
                     <DivFlexStart id="promo" sx={{ padding: '0px 20px 0px 20px', mt: 3, mb: 2, display: isDesktop ? 'none' : '', scrollMarginTop: 142 }}>
                         <Typography fontSize={32} color={theme.palette.text.heading1} sx={{ fontFamily: 'Eina04-Regular', }}>
                             Promo and News
@@ -175,7 +205,7 @@ const DeliveryPage = () => {
                     )}
 
                     {promoDumpData.map((promo, index) => (
-                        <DivFlexCenter key={index} sx={{ mb: 2, mt: isMobile ? '' : 2 }} onClick={isDesktop ? () => handleOpenPromoDialog(promo.id) : undefined}>
+                        <DivFlexCenter key={index} style={{ marginBottom: 24 }} onClick={isDesktop ? () => handleOpenPromoDialog(index) : undefined}>
                             <PromoCard promo={promo} openDetailPromo={false} isMobile={isDesktop ? false : true} removePadding={isDesktop ? !openPromoDialog : false} />
                         </DivFlexCenter>
                     ))}
@@ -183,9 +213,29 @@ const DeliveryPage = () => {
 
             </Grid>
 
-            <CustomDialog open={openPromoDialog} onClose={handleClosePromoDialog} theme={theme}>
-                <PromoCard openDetailPromo={true} promo={promoDumpData.filter(dumpPromo => dumpPromo.id == idPromoDialog)[0]} isDialog={true} />
-            </CustomDialog>
+            <Backdrop open={openPromoDialog} style={{ backdropFilter: "blur(18px)" }}>
+                <DivFlexSpaceBetween>
+                    <div style={{ paddingRight: 80 }} onClick={() => handlePrevPromoDetail(promoDumpData.length)}>
+                        <ArrowBackIosIcon style={{ color: '#f4f4f4', fontSize: 40, cursor:'pointer' }} />
+                    </div>
+                    <div style={{ width: 600 }}>
+                        <div style={{ position: 'fixed', width: 600 }} >
+                            <div style={{ float: 'right' }}>
+                                <DivFlexCenter style={{ backgroundColor: 'rgba(26, 25, 25, 0.4)', padding: 4, marginTop: 8, marginRight: 8, borderRadius: '50%', cursor: 'pointer' }}>
+                                    <CloseIcon onClick={handleClosePromoDialog} style={{ color: '#ffffff', fontSize: 20 }} />
+                                </DivFlexCenter>
+                            </div>
+
+                        </div>
+                        <PromoCard openDetailPromo={true} promo={promoDumpData[promoDetail]} isDialog={true} />
+
+                    </div>
+                    <div style={{ paddingLeft: 80 }} onClick={() => handleNextPromoDetail(promoDumpData.length)}>
+                        <ArrowForwardIosIcon style={{ color: '#f4f4f4', fontSize: 40, cursor:'pointer' }} />
+                    </div>
+                </DivFlexSpaceBetween>
+            </Backdrop>
+
         </>
     )
 }

@@ -20,10 +20,11 @@ import DivFlexSpaceBetween from '../ReusableComponents/DivFlexSpacebetween'
 // import theme color
 import { useTheme } from "@mui/material/styles";
 
-const ItemSubList = styled('div')((props) => ({
-    marginLeft: 10,
+const ItemSubList = styled(ListItemButton)((props) => ({
+    marginLeft: 16,
+    paddingLeft: 20,
     ":hover": {
-        background: props.theme.palette.background.hoverItemList,
+        cursor: 'default'
     }
 }));
 
@@ -51,13 +52,13 @@ const ItemList = (props) => {
     return (
         <>
             <List sx={{ width: '100%', borderBottom: index == itemLength - 1 ? '' : '1px solid #979797', background: isDesktop ? isOpenItemList ? theme.palette.background.deliveryCard : theme.palette.background.default : theme.palette.background.deliveryCard }}>
-                <ListItemButton onClick={item.warning ? handleClickExpandList : undefined} >
+                <ListItemButton onClick={item.warning ? handleClickExpandList : undefined} sx={{ "&:hover": { backgroundColor: "transparent", cursor: !item.warning ? 'default' : '' } }} disableRipple >
                     <DivFlexSpaceBetween sx={{ width: '100%' }}>
                         <DivFlexStart>
                             <Typography sx={{ fontSize: 12, fontFamily: 'Eina04-Regular' }} color={item.warning ? '#da1e28' : theme.palette.text.primary}>
                                 {item.productName}
                             </Typography>
-                            {item.warning && (<ErrorOutlineIcon sx={{ color: '#da1e28', width: 15, height: 15, ml: 1 }} />)}
+                            {item.warning && (<ErrorOutlineIcon sx={{ color: '#da1e28', width: 15, height: 15, ml: 1, mt:-0.5 }} />)}
                         </DivFlexStart>
                         <Typography sx={{ fontSize: 12, fontFamily: 'Eina04-Regular' }} color={theme.palette.text.primary} >
                             {`${item.amount} ${item.unit}`}
@@ -67,30 +68,26 @@ const ItemList = (props) => {
                 {
                     item.warning && (
                         <>
-                            <Collapse in={open } timeout="auto" unmountOnExit>
-                                <ItemSubList>
-                                    <ListItemButton>
-                                        <DivFlexSpaceBetween sx={{ width: '100%' }}>
-                                            <Typography sx={{ fontSize: 12, fontFamily: 'Eina04-Regular' }} color={theme.palette.text.primary} >
-                                                On Truck
-                                            </Typography>
-                                            <Typography sx={{ fontSize: 12, fontFamily: 'Eina04-Regular' }} color={theme.palette.text.primary} >
-                                                {`${item.onTruck} Fas`}
-                                            </Typography>
-                                        </DivFlexSpaceBetween>
-                                    </ListItemButton>
+                            <Collapse in={open} timeout="auto" unmountOnExit>
+                                <ItemSubList sx={{ backgroundColor: theme.palette.background.oddItemList, "&:hover": { backgroundColor: theme.palette.background.oddItemList } }} disableRipple >
+                                    <DivFlexSpaceBetween sx={{ width: '100%' }}>
+                                        <Typography sx={{ fontSize: 12, fontFamily: 'Eina04-Regular' }} color={theme.palette.text.primary} >
+                                            On Truck
+                                        </Typography>
+                                        <Typography sx={{ fontSize: 12, fontFamily: 'Eina04-Regular' }} color={theme.palette.text.primary} >
+                                            {`${item.onTruck} Fas`}
+                                        </Typography>
+                                    </DivFlexSpaceBetween>
                                 </ItemSubList>
-                                <ItemSubList>
-                                    <ListItemButton >
-                                        <DivFlexSpaceBetween sx={{ width: '100%' }}>
-                                            <Typography sx={{ fontSize: 12, fontFamily: 'Eina04-Regular' }} color={theme.palette.text.primary} >
-                                                Ordered
-                                            </Typography>
-                                            <Typography sx={{ fontSize: 12, fontFamily: 'Eina04-Regular' }} color={theme.palette.text.primary} >
-                                                {`${item.ordered} Fas`}
-                                            </Typography>
-                                        </DivFlexSpaceBetween>
-                                    </ListItemButton>
+                                <ItemSubList sx={{ "&:hover": { backgroundColor: "transparent" } }} disableRipple>
+                                    <DivFlexSpaceBetween sx={{ width: '100%' }}>
+                                        <Typography sx={{ fontSize: 12, fontFamily: 'Eina04-Regular' }} color={theme.palette.text.primary} >
+                                            Ordered
+                                        </Typography>
+                                        <Typography sx={{ fontSize: 12, fontFamily: 'Eina04-Regular' }} color={theme.palette.text.primary} >
+                                            {`${item.ordered} Fas`}
+                                        </Typography>
+                                    </DivFlexSpaceBetween>
                                 </ItemSubList>
                             </Collapse>
                         </>

@@ -2,7 +2,7 @@ import React, { useContext, useState } from "react";
 
 import { styled } from '@mui/system'
 
-import { Typography, FormControl, TextField, Grid, Dialog, CircularProgress } from "@mui/material";
+import { Typography, FormControl, TextField, Grid, Dialog, CircularProgress, Backdrop } from "@mui/material";
 
 // dark mode and light mode
 import { useTheme } from "@mui/material/styles";
@@ -18,6 +18,10 @@ import { AppContext } from "../../App";
 
 // import icon
 import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
+import CloseIcon from '@mui/icons-material/Close';
+import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+
 
 // import dummy map
 import dumpMap from '../../../src/assets/Images/dumpMap.png'
@@ -29,6 +33,7 @@ import DivFlexSpaceBetween from "../ReusableComponents/DivFlexSpacebetween";
 import PromoCard from "../PromoCard/PromoCard";
 import TextFieldStyled from "../ReusableComponents/TextFieldStyle";
 import DivFlexEnd from "../ReusableComponents/DivFlexEnd";
+import CustomDialog from "../ReusableComponents/CustomDialog";
 
 
 // Root for input tracking number component
@@ -37,10 +42,10 @@ const RootInputTrackingNumber = styled('div')((props) => ({
     backgroundSize: '100% 100%',
     backgroundRepeat: 'no-repeat',
     paddingTop: props.isLinkExpired ? 5 : 120,
-    paddingBottom: props.isMobile ? 70 : 220,
-    marginBottom: 20,
+    paddingBottom: props.isMobile ? 70 : '',
+    // marginBottom: 20,
     opacity: props.mode == 'dark' ? 0.5 : undefined,
-    height: props.isMobile? 400 : 600
+    height: props.isMobile ? 400 : '100vh'
 }))
 
 // warning component
@@ -53,12 +58,12 @@ const Warning = styled('div')((props) => ({
 
 // input tracking number component
 const TrackingNumberInput = styled('div')((props) => ({
-    position:'absolute', 
-    left:0, 
-    right:0, 
-    marginLeft:'auto', 
-    marginRight:'auto',
-    top:props.isMobile? 100 :150
+    position: 'absolute',
+    left: 0,
+    right: 0,
+    marginLeft: 'auto',
+    marginRight: 'auto',
+    top: props.isMobile ? 100 : 150
 }));
 
 const InputTrackingNumber = () => {
@@ -112,10 +117,31 @@ const InputTrackingNumber = () => {
     // state for pass promo id to open the detail - desktop
     const [idPromoDialog, setIdPromoDialog] = useState('')
 
+    const [promoDetail, setPromoDetail] = useState(0)
+
     const handleOpenPromoDialog = (promoId) => {
         setOpenPromoDialog(true)
-        setIdPromoDialog(promoId)
+        // setIdPromoDialog(promoId)
+        setPromoDetail(promoId)
+
     }
+
+    const handleNextPromoDetail = (promoLength) => {
+        if(promoDetail != promoLength-1){
+            setPromoDetail(promoDetail + 1)
+
+            console.log(`${promoDetail} of ${promoLength}`)
+        }
+    }
+
+    const handlePrevPromoDetail = (promoLength) => {
+        if(promoDetail > 0){
+            setPromoDetail(promoDetail - 1)
+
+            console.log(`${promoDetail} of ${promoLength}`)
+        }
+    }
+
 
 
 
@@ -137,10 +163,10 @@ const InputTrackingNumber = () => {
                         </DivFlexStart>
                         <DivFlexStart sx={{ width: isMobile ? '60%' : '40%' }} >
                             <FormControl sx={{ width: '100%' }}>
-                                <TextFieldStyled id="inputTrackingNumber" placeholder="Up to 12 codes" onChange={handleChangeInput} warning={warning} theme={theme} />
+                                <TextFieldStyled id="inputTrackingNumber" placeholder="Up to 12 codes" onChange={handleChangeInput} warning={warning} theme={theme} sx={{ input: { fontSize: 14, height: isMobile ? 5 : 14 } }} />
                             </FormControl>
                         </DivFlexStart>
-                        <ButtonSecondary onClick={onClickSubmit} sx={{ width: isMobile ? '25%' : '30%' }} >
+                        <ButtonSecondary onClick={onClickSubmit} sx={{ width: isMobile ? '25%' : '30%', height: isMobile ? 38 : 46 }} >
                             <Typography sx={{ color: theme.palette.text.buttonSecondary, fontSize: 14, fontFamily: 'Eina04-SemiBold' }}>
                                 Track
                             </Typography>
@@ -163,34 +189,63 @@ const InputTrackingNumber = () => {
 
                     </DivFlexSpaceBetween>
                 </DivFlexCenter>
-            </TrackingNumberInput>
-
-            {
-                isDesktop ? (
-                    <>
-                        <Grid container>
-                            {promoDumpData.map((promo, index) => (
+                {isDesktop &&
+                    <div style={{ width: '100%', height: '', backgroundColor: theme.palette.background.default, position: 'fixed', bottom: 0, padding: '32px 40px' }}>
+                        <Grid container >
+                            {promoDumpData.slice(0, 3).map((promo, index) => (
                                 <Grid item md={4} key={promo.id} >
-                                    <DivFlexCenter sx={{ mt: 2 }} onClick={() => handleOpenPromoDialog(promo.id)} >
-                                        <PromoCard promo={promo} openDetailPromo={false} isMobile={isDesktop ? false : true} removePadding={isDesktop ? !openPromoDialog : false} />
+                                    <DivFlexCenter sx={{}} onClick={() => handleOpenPromoDialog(index)} >
+                                        <PromoCard promo={promo} openDetailPromo={false} trackingNumberPage={true} />
                                     </DivFlexCenter>
                                 </Grid>
                             ))}
                         </Grid>
-                    </>
-                ) : (
-                    <>
-                        {promoDumpData.map((promo, index) => (
-                            <DivFlexCenter key={promo.id} sx={{ mb: 2, mt: isMobile ? '' : 2 }}>
-                                <PromoCard promo={promo} openDetailPromo={false} isMobile={isDesktop ? false : true} removePadding={isDesktop ? !openPromoDialog : false} />
-                            </DivFlexCenter>
-                        ))}
-                    </>
-                )
-            }
-            <Dialog open={openPromoDialog} onClose={handleClosePromoDialog}>
+                    </div>}
+            </TrackingNumberInput>
+
+            {isMobile && (
+                <div style={{ marginTop: 24 }}>
+                    {promoDumpData.slice(0, 3).map((promo, index) => (
+                        <DivFlexCenter key={promo.id} sx={{ mb: 3, mt: isMobile ? '' : 2 }}>
+                            <PromoCard promo={promo} openDetailPromo={false} isMobile={isDesktop ? false : true} removePadding={isDesktop ? !openPromoDialog : false} />
+                        </DivFlexCenter>
+                    ))}
+                </div>
+            )}
+
+            {/* <CustomDialog open={openPromoDialog} onClose={handleClosePromoDialog} theme={theme}>
+                <div style={{ position: 'fixed', width: 600 }} >
+                    <div style={{ float: 'right' }}>
+                        <DivFlexCenter style={{ backgroundColor: 'rgba(26, 25, 25, 0.4)', padding: 4, marginTop: 8, marginRight: 8, borderRadius: '50%', cursor: 'pointer' }}>
+                            <CloseIcon onClick={handleClosePromoDialog} style={{ color: '#ffffff', fontSize: 20 }} />
+                        </DivFlexCenter>
+                    </div>
+
+                </div>
                 <PromoCard openDetailPromo={true} promo={promoDumpData.filter(dumpPromo => dumpPromo.id == idPromoDialog)[0]} isDialog={true} />
-            </Dialog>
+            </CustomDialog> */}
+            <Backdrop open={openPromoDialog} style={{ backdropFilter: "blur(18px)" }}>
+                <DivFlexSpaceBetween>
+                    <div style={{ paddingRight: 80 }} onClick={() => handlePrevPromoDetail(promoDumpData.length)}>
+                        <ArrowBackIosIcon style={{ color: '#f4f4f4', fontSize: 40, cursor:'pointer' }} />
+                    </div>
+                    <div style={{ width: 600 }}>
+                        <div style={{ position: 'fixed', width: 600 }} >
+                            <div style={{ float: 'right' }}>
+                                <DivFlexCenter style={{ backgroundColor: 'rgba(26, 25, 25, 0.4)', padding: 4, marginTop: 8, marginRight: 8, borderRadius: '50%', cursor: 'pointer' }}>
+                                    <CloseIcon onClick={handleClosePromoDialog} style={{ color: '#ffffff', fontSize: 20 }} />
+                                </DivFlexCenter>
+                            </div>
+
+                        </div>
+                        <PromoCard openDetailPromo={true} promo={promoDumpData[promoDetail]} isDialog={true} />
+
+                    </div>
+                    <div style={{ paddingLeft: 80 }} onClick={() => handleNextPromoDetail(promoDumpData.length)}>
+                        <ArrowForwardIosIcon style={{ color: '#f4f4f4', fontSize: 40, cursor:'pointer' }} />
+                    </div>
+                </DivFlexSpaceBetween>
+            </Backdrop>
         </>
     )
 }
