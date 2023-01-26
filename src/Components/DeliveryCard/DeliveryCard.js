@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { styled, useTheme } from "@mui/material/styles";
 
 // import material component
-import { Collapse, Typography } from "@mui/material";
+import { Box, Collapse, Typography } from "@mui/material";
 
 import { AppContext } from "../../App";
 
@@ -41,7 +41,7 @@ const getStatusChip = (data, theme) => {
 
             {
                 data.deliveryStatus == 'Done' &&
-                <DivFlexStart style={{ marginLeft: 8, marginTop:4 }}>
+                <DivFlexStart sx={{ ml:1 , mt:0.5 }}>
                     <DoneIcon sx={{ fontSize: 14, mt: -0.4, color: theme.palette.text.doneText }} />
                     <Typography fontSize={12} color={theme.palette.text.doneText} sx={{ fontFamily: 'Eina04-Regular' }}>
                         DONE
@@ -79,7 +79,7 @@ const DeliveryCard = (props) => {
     }, [totalDelivery])
 
     return (
-        <div style={{ width: openDetail && !isDesktop ? '100%' : 'calc(100% - 40px)' }}  >
+        <Box sx={{ width: openDetail || isDesktop ? '100%' : 'calc(100% - 48px)' }}  >
             <RootDeliveryCard onClick={isDesktop ? undefined : () => setOpenDetail(!openDetail)} isDesktop={isDesktop} isOpenItemList={isOpenItemList} deliveryId={deliveryId} data={data} openDetail={openDetail} >
                 {isMobile &&
                     <DivFlexSpaceBetween sx={{ mb: 1 }}>
@@ -93,9 +93,9 @@ const DeliveryCard = (props) => {
                     <Typography fontSize={12} sx={{ fontFamily: 'RobotoMono-Light', }} color={theme.palette.text.primary} >
                         {data.plateDriver}
                     </Typography>
-                    <div style={{ display: isDesktop ? 'block' : 'none' }} >
+                    <Box sx={{ display: isDesktop ? 'block' : 'none' }} >
                         {getStatusChip(data, theme)}
-                    </div>
+                    </Box>
                 </DivFlexSpaceBetween>
                 <DivFlexStart>
                     <Typography fontSize={14} color={theme.palette.text.secondary} sx={{ fontFamily: 'Eina04-SemiBold' }}>
@@ -119,7 +119,7 @@ const DeliveryCard = (props) => {
 
                 <DivFlexStart sx={{ mt: data.deliveryStatus == 'Late' ? 0 : 1, flexWrap: 'wrap' }}>
 
-                    <DivFlexStart style={{ marginRight: 16, }}>
+                    <DivFlexStart sx={{ mr: 2, }}>
                         <AccessTimeIcon sx={{
                             width: 13,
                             height: 13,
@@ -148,7 +148,7 @@ const DeliveryCard = (props) => {
 
                     </DivFlexStart>
 
-                    <DivFlexStart style={{ display: isOpenItemList || openDetail ? '' : 'none'}}>
+                    <DivFlexStart sx={{ display: isOpenItemList || openDetail ? '' : 'none'}}>
                         <CalendarTodayIcon sx={{
                             width: 13,
                             height: 13,
@@ -163,7 +163,7 @@ const DeliveryCard = (props) => {
                     </DivFlexStart>
                 </DivFlexStart>
 
-                <DivFlexSpaceBetween style={{ display: isOpenItemList || openDetail ? 'none' : '' }}>
+                <DivFlexSpaceBetween sx={{ display: isOpenItemList || openDetail ? 'none' : '', flexWrap:'wrap' }}>
                     <DivFlexStart>
                         <CalendarTodayIcon sx={{
                             width: 10,
@@ -189,7 +189,7 @@ const DeliveryCard = (props) => {
                 ))}
             </Collapse>
 
-        </div>
+        </Box>
     )
 
 }

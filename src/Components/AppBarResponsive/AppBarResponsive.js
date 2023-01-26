@@ -1,13 +1,7 @@
 import React, { useContext, useState } from 'react';
 import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-// import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
-import Menu from '@mui/material/Menu';
 import Container from '@mui/material/Container';
-import MenuItem from '@mui/material/MenuItem';
-import AdbIcon from '@mui/icons-material/Adb';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 // import Grid from '@mui/material';
 import { Grid } from '@mui/material';
@@ -33,28 +27,20 @@ import DivFlexEnd from '../ReusableComponents/DivFlexEnd';
 import DivFlexCenter from '../ReusableComponents/DivFlexCenter';
 import DivFlexStart from '../ReusableComponents/DivFlexStart';
 
+
+// icon button component
 const IconButton = styled('div')((props) => ({
   display: 'flex',
   alignItems: 'center',
   cursor: 'pointer',
   width: 30,
   height: 30,
-  marginLeft: 10,
   borderRadius: '50%',
   ":hover": {
     backgroundColor: props.theme.palette.background.hoverDeliveryCard,
   }
 }));
 
-
-const getThemeChangeText = (theme) => {
-  switch (theme) {
-    case 'dark':
-      return 'Light Theme'
-    default:
-      return 'Dark Theme'
-  }
-}
 
 const AppBarResponsive = () => {
   const [anchorElUser, setAnchorElSetting] = useState(null);
@@ -87,21 +73,17 @@ const AppBarResponsive = () => {
 
   return (
     <>
-      <AppBar position="static" sx={{ background: theme.palette.background.appBar, position: 'fixed', top: 0, zIndex: 2000, width: '100%', height:58 }} elevation={0}>
-        <Container maxWidth="100vw">
-
-          <Toolbar disableGutters>
-
-            <Grid container sx={{ height: 58 }} style={{ paddingLeft: isDesktop ? 40 : '', paddingRight: isDesktop ? 40 : '' }}>
-              <Grid item xs={4} md={3}>
-                <DivFlexStart sx={{ height: '100%', alignItems: 'center' }} >
+      <AppBar position="static" sx={{ background: theme.palette.background.appBar, position: 'fixed', top: 0, zIndex: 2000, width: '100%', height:58, }} elevation={0}>
+        <Container maxWidth="100vw" >
+            <Grid container sx={{ height: 58, pl: isDesktop ? 2  : '', pr: isDesktop ? 1.4 : 0.4 }} >
+              <Grid item xs={4} md={3} >
+                <DivFlexStart sx={{ height: '100%', alignItems: 'center',  }} >
                   {isMobile ? (
                     <>
                       <Tooltip title="Temporary Button">
                         <IconButton
                           // onClick={historyStack.length > 0 ? handleBackPrevPage : undefined}
                           onClick={handleChangeTheme}
-                          style={{ }}
                         >
                           {historyStack.length > 0 && <ArrowBackIosIcon sx={{ color: theme.palette.text.heading1 }} />}
                           {
@@ -144,7 +126,7 @@ const AppBarResponsive = () => {
 
               </Grid>
               <Grid item xs={4} md={6}>
-                <DivFlexCenter style={{ alignItems: 'top', height: '100%' }} >
+                <DivFlexCenter sx={{ alignItems: 'top', height: '100%' }} >
                   {isMobile ? (
                     <Typography sx={{ fontFamily: 'Eina04-Light', color: theme.palette.background.iconColor, fontFamily: 'Eina04-Bold' }} fontSize={25}>
                       LOGO
@@ -158,12 +140,12 @@ const AppBarResponsive = () => {
                 </DivFlexCenter>
               </Grid>
               <Grid item xs={4} md={3} >
-                <DivFlexEnd style={{ alignItems: 'center', height: '100%' }}>
+                <DivFlexEnd sx={{ alignItems: 'center', height: '100%',  }}>
                   {
                     dumpLoginState ? (
                       <>
                         {dumpAuthrorization == 'admin' || dumpAuthrorization == 'superadmin' ?
-                          <IconButton onClick={handleEmailListDialog} theme={theme} >
+                          <IconButton onClick={handleEmailListDialog} theme={theme} sx={{ mr:1 }} >
                             <ListIcon color={theme.palette.background.iconColor} sx={{ height: 18, width: 18, ml: 1.11, mt: 0.2 }} />
                           </IconButton>
                           : (<></>)}
@@ -181,7 +163,6 @@ const AppBarResponsive = () => {
               </Grid>
             </Grid>
 
-          </Toolbar>
         </Container>
       </AppBar>
 

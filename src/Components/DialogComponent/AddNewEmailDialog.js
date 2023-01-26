@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 
 // import material UI
-import { Typography, TextField, FormControl, MenuItem } from "@mui/material";
+import { Typography, TextField, FormControl, MenuItem, Box } from "@mui/material";
 
 // import icon
 import CloseIcon from '@mui/icons-material/Close';
@@ -68,7 +68,7 @@ const AddNewEmailDialog = () => {
         if (email.email == '') {
             setIsEmailEmpty(true)
         }
-        if(email.email != '') {
+        if (email.email != '') {
             setIsEmailEmpty(false)
             if (isValidEmail(email.email)) {
                 e.preventDefault()
@@ -81,10 +81,7 @@ const AddNewEmailDialog = () => {
             else {
                 setIsEmailInvalid(true)
             }
-
         }
-
-
     }
 
     const handleCloseDialog = () => {
@@ -92,19 +89,18 @@ const AddNewEmailDialog = () => {
         handleCloseNewEmailDialog()
         setIsEmailInvalid(false)
         setIsEmailEmpty(false)
-
     }
 
 
     return (
         <>
             <CustomDialog width={900} open={addNewEmailDialog} onClose={handleCloseDialog} theme={theme} >
-                <div style={{ backgroundColor: theme.palette.background.dialog }}>
+                <Box sx={{ backgroundColor: theme.palette.background.dialog }}>
                     <DivFlexEnd sx={{ pr: 2, pt: 2 }} >
-                        <CloseIcon onClick={handleCloseDialog} style={{ cursor: 'pointer' }} />
+                        <CloseIcon onClick={handleCloseDialog} sx={{ cursor: 'pointer' }} />
                     </DivFlexEnd>
                     <CustomDialogContent>
-                        <DivFlexCenter style={{ height: isMobile ? 20 : 40, marginBottom: isMobile ? 24 : 64 }}>
+                        <DivFlexCenter sx={{ height: isMobile ? 20 : 40, mb: isMobile ? 3 : 8 }}>
                             <Typography sx={{ color: theme.palette.text.dialogHeadingText, fontSize: isMobile ? 20 : 40, fontFamily: 'Eina04-Regular' }}>
                                 Add New Email
                             </Typography>
@@ -132,11 +128,11 @@ const AddNewEmailDialog = () => {
                                         sx={{
                                             alignItems: 'center',
                                             "& .MuiInputBase-root": {
-                                                height: isMobile ? 40 : 55,
+                                                height: isMobile ? 40 : 53,
                                                 width: '100%',
                                                 alignItems: 'center',
                                                 color: theme.palette.text.inputTextActive,
-                                                paddingTop: isMobile ? 0.8 : ''
+                                                paddingTop: isMobile ? 0.8 : 0.4
                                             }
                                         }}
                                         isMobile={isMobile}
@@ -153,13 +149,13 @@ const AddNewEmailDialog = () => {
                             </DivFlexSpaceBetween>
                         </FormControl>
 
-                        <DivFlexCenter style={{ width: isMobile ? '100%' : '60%' }}>
+                        <DivFlexCenter sx={{ width: isMobile ? '100%' : '60%' }}>
                             {isEmailEmpty ? (
-                                <Typography sx={{ fontSize: isMobile ?12 : 14, fontFamily: 'Eina04-Regular' }} color={'#da1e28'}>
+                                <Typography sx={{ fontSize: isMobile ? 12 : 14, fontFamily: 'Eina04-Regular' }} color={'#da1e28'}>
                                     Email is Empty
                                 </Typography>
                             ) : isEmailInvalid ? (
-                                <Typography sx={{ fontSize: isMobile ?12 : 14, fontFamily: 'Eina04-Regular' }} color={'#da1e28'}>
+                                <Typography sx={{ fontSize: isMobile ? 12 : 14, fontFamily: 'Eina04-Regular' }} color={'#da1e28'}>
                                     Email is Invalid
                                 </Typography>
                             ) : (<></>)
@@ -176,7 +172,7 @@ const AddNewEmailDialog = () => {
                             </ButtonSecondary>
                         </DivFlexSpaceBetween>
                     </CustomDialogContent>
-                </div>
+                </Box>
             </CustomDialog>
             <Outlet />
         </>

@@ -3,7 +3,7 @@ import React, { useContext, useEffect, useState } from "react";
 import Countdown from "react-countdown";
 
 // import material UI
-import { Typography, Snackbar } from "@mui/material";
+import { Typography, Snackbar, Box } from "@mui/material";
 
 import CloseIcon from '@mui/icons-material/Close';
 
@@ -128,12 +128,12 @@ const OtpDialog = () => {
     return (
         <>
             <CustomDialog open={openOtpDialog} theme={theme} >
-                <div style={{ backgroundColor: theme.palette.background.dialog }}>
+                <Box sx={{ backgroundColor: theme.palette.background.dialog }}>
                     <DivFlexEnd sx={{ pr: 2, pt: 2 }} >
                         <CloseIcon onClick={handleCloseDialog} />
                     </DivFlexEnd>
                     <CustomDialogContent>
-                        <DivFlexCenter style={{ height: isMobile ? 20 : 40, marginBottom: isMobile ? 24 : 64 }} >
+                        <DivFlexCenter sx={{ height: isMobile ? 20 : 40, mb: isMobile ? 3 : 8 }} >
                             <Typography sx={{ color: theme.palette.text.heading1, fontSize: isMobile ? 20 : 40, fontFamily: 'Eina04-Regular' }}>
                                 OTP
                             </Typography>
@@ -250,7 +250,7 @@ const OtpDialog = () => {
                             </Typography>
                         </ButtonSecondary>
                     </CustomDialogContent>
-                </div>
+                </Box>
             </CustomDialog>
 
 

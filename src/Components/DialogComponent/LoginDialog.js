@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 
 // import material UI
-import { Typography, TextField, FormControl, Snackbar } from "@mui/material";
+import { Typography, TextField, FormControl, Snackbar, Box } from "@mui/material";
 
 // import icon
 import CloseIcon from '@mui/icons-material/Close';
@@ -80,12 +80,12 @@ const LoginDialog = () => {
     return (
         <>
             <CustomDialog open={openLoginDialog} onClose={handleCloseDialog} theme={theme}>
-                <div style={{ backgroundColor: theme.palette.background.dialog }}>
+                <Box sx={{ backgroundColor: theme.palette.background.dialog }}>
                     <DivFlexEnd sx={{ pr: 2, pt: 2 }} >
-                        <CloseIcon onClick={handleCloseDialog} style={{ cursor : 'pointer' }} />
+                        <CloseIcon onClick={handleCloseDialog} sx={{ cursor: 'pointer' }} />
                     </DivFlexEnd>
                     <CustomDialogContent sx={{ backgroundColor: theme.palette.background.dialog }}>
-                        <DivFlexCenter  style={{ height: isMobile ? 20 : 40, marginBottom: isMobile ? 24 : 64 }}>
+                        <DivFlexCenter sx={{ height: isMobile ? 20 : 40, mb: isMobile ? 3 : 8 }}>
                             <Typography sx={{ color: theme.palette.text.heading1, fontSize: isMobile ? 20 : 40, fontFamily: 'Eina04-Regular' }}>
                                 Sign In
                             </Typography>
@@ -95,7 +95,7 @@ const LoginDialog = () => {
                                 Email
                             </Typography>
                             <FormControl sx={{ width: isMobile ? '100%' : '90%' }}>
-                                <TextFieldStyled id="email" placeholder="example@email.com" value={email} onChange={handleChangeInput} isMobile={isMobile}/>
+                                <TextFieldStyled id="email" placeholder="example@email.com" value={email} onChange={handleChangeInput} isMobile={isMobile} />
                             </FormControl>
                         </DivFlexSpaceBetween>
 
@@ -118,7 +118,7 @@ const LoginDialog = () => {
                             </Typography>
                         </ButtonSecondary>
                     </CustomDialogContent>
-                </div>
+                </Box>
             </CustomDialog>
             <Snackbar
                 open={sendOtp}

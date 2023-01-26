@@ -34,10 +34,10 @@ const DeleteEmailDialog = () => {
         <>
             <CustomDialog width={700} open={deleteEmailDialog} onClose={handleCloseDeleteEmailDialog} theme={theme}>
                 <DivFlexEnd sx={{ pr: 2, pt: 2 }} >
-                    <CloseIcon onClick={handleCloseDeleteEmailDialog} style={{ cursor : 'pointer' }} />
+                    <CloseIcon onClick={handleCloseDeleteEmailDialog} sx={{ cursor : 'pointer' }} />
                 </DivFlexEnd>
                 <CustomDialogContent>
-                    <DivFlexCenter style={{ height: isMobile ? 20 : 40, marginBottom: isMobile ? 24 : 64 }}>
+                    <DivFlexCenter sx={{ height: isMobile ? 20 : 40, mb: isMobile ? 3 : 8 }}>
                         <Typography sx={{ color: theme.palette.text.dialogHeadingText, fontSize: isMobile ? 20 : 40, fontFamily: 'Eina04-Regular' }}>
                             Delete Email
                         </Typography>

@@ -1,7 +1,7 @@
 import React, { useContext, useState, useEffect } from "react";
 
 // import material UI
-import { Typography, TextField, FormControl, MenuItem } from "@mui/material";
+import { Typography, TextField, FormControl, MenuItem, Box } from "@mui/material";
 
 // import icon
 import CloseIcon from '@mui/icons-material/Close';
@@ -100,12 +100,12 @@ const EditEmailDialog = () => {
     return (
         <>
             <CustomDialog width={900} open={editEmailDialog} onClose={handleCloseDialog} theme={theme} >
-                <div style={{ backgroundColor: theme.palette.background.dialog }}>
+                <Box sx={{ backgroundColor: theme.palette.background.dialog }}>
                     <DivFlexEnd sx={{ pr: 2, pt: 2 }} >
-                        <CloseIcon onClick={handleCloseDialog} style={{ cursor: 'pointer' }} />
+                        <CloseIcon onClick={handleCloseDialog} sx={{ cursor: 'pointer' }} />
                     </DivFlexEnd>
                     <CustomDialogContent>
-                        <DivFlexCenter style={{ height: isMobile ? 20 : 40, marginBottom: isMobile ? 24 : 64 }}>
+                        <DivFlexCenter sx={{ height: isMobile ? 20 : 40, marginBottom: isMobile ? 3 : 8 }}>
                             <Typography sx={{ color: theme.palette.text.dialogHeadingText, fontSize: isMobile ? 20 : 40, fontFamily: 'Eina04-Regular' }}>
                                 Edit Email
                             </Typography>
@@ -133,10 +133,10 @@ const EditEmailDialog = () => {
                                         sx={{
                                             alignItems: 'center',
                                             "& .MuiInputBase-root": {
-                                                height: isMobile ? 40 : 55,
+                                                height: isMobile ? 40 : 53,
                                                 width: '100%',
                                                 color: theme.palette.text.inputTextActive,
-                                                paddingTop: isMobile ? 0.8 : ''
+                                                paddingTop: isMobile ? 0.8 : 0.4
                                             },
                                         }}
                                         isMobile={isMobile}
@@ -155,7 +155,7 @@ const EditEmailDialog = () => {
                             </DivFlexSpaceBetween>
                         </FormControl>
 
-                        <DivFlexCenter style={{ width: isMobile ? '100%' : '60%' }}>
+                        <DivFlexCenter sx={{ width: isMobile ? '100%' : '60%' }}>
                             {isEmailEmpty ? (
                                 <Typography sx={{ fontSize: isMobile ?12 : 14, fontFamily: 'Eina04-Regular' }} color={'#da1e28'}>
                                     Email is Empty
@@ -179,7 +179,7 @@ const EditEmailDialog = () => {
                             </ButtonSecondary>
                         </DivFlexSpaceBetween>
                     </CustomDialogContent>
-                </div>
+                </Box>
             </CustomDialog>
             <Outlet />
         </>

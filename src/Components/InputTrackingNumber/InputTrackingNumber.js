@@ -2,7 +2,10 @@ import React, { useContext, useState } from "react";
 
 import { styled } from '@mui/system'
 
-import { Typography, FormControl, TextField, Grid, Dialog, CircularProgress, Backdrop } from "@mui/material";
+import { Typography, FormControl, TextField, Grid, Dialog, CircularProgress, Backdrop, Box } from "@mui/material";
+
+// Lottie Animation
+import Lottie from "react-lottie";
 
 // dark mode and light mode
 import { useTheme } from "@mui/material/styles";
@@ -23,8 +26,13 @@ import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 
 
+
 // import dummy map
 import dumpMap from '../../../src/assets/Images/dumpMap.png'
+
+// import animation assets
+import lightModeAnimation from '../../../src/assets/animations/Light Mode_Fixed.json'
+import darkModeAnimation from '../../../src/assets/animations/Dark Mode_Fixed.json'
 
 // import component
 import LinkExpiredStatus from "../LinkExpiredStatus/LinkExpiredStatus";
@@ -32,39 +40,34 @@ import DivFlexStart from "../ReusableComponents/DivFlexStart";
 import DivFlexSpaceBetween from "../ReusableComponents/DivFlexSpacebetween";
 import PromoCard from "../PromoCard/PromoCard";
 import TextFieldStyled from "../ReusableComponents/TextFieldStyle";
-import DivFlexEnd from "../ReusableComponents/DivFlexEnd";
-import CustomDialog from "../ReusableComponents/CustomDialog";
 
 
-// Root for input tracking number component
-const RootInputTrackingNumber = styled('div')((props) => ({
-    backgroundImage: !props.isLinkExpired ? `url(${props.dumpMap})` : '',
-    backgroundSize: '100% 100%',
-    backgroundRepeat: 'no-repeat',
-    paddingTop: props.isLinkExpired ? 5 : 120,
-    paddingBottom: props.isMobile ? 70 : '',
-    // marginBottom: 20,
-    opacity: props.mode == 'dark' ? 0.5 : undefined,
-    height: props.isMobile ? 400 : '100vh'
-}))
+
 
 // warning component
 const Warning = styled('div')((props) => ({
-    width: props.isMobile ? 'calc(100% - 10%)' : 'calc(100% - 6%)',
+    width: props.isMobile ? 'calc(100% - 11.5%)' : 'calc(100% - 6.5%)',
     padding: 10,
-    backgroundColor: '#af1d1d',
-    marginTop: 25
+    backgroundColor: '#DA1E28',
+    marginTop: 25,
 }));
 
+
 // input tracking number component
-const TrackingNumberInput = styled('div')((props) => ({
-    position: 'absolute',
-    left: 0,
-    right: 0,
-    marginLeft: 'auto',
-    marginRight: 'auto',
-    top: props.isMobile ? 100 : 150
-}));
+const InputTrackingNumberContainer = styled('div')((props) => ({
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    width: props.isDesktop ? 680 : '100%',
+    marginTop: props.isDesktop ? 56 : 16,
+    border: `1px solid ${props.theme.palette.background.borderTrackingNumber}`,
+    padding: props.isDesktop ? '48px 24px 48px 40px' : '24px 8px 24px 24px',
+    flexWrap: 'wrap',
+    backgroundColor: props.theme.palette.background.dialog,
+}))
+
+
+
 
 const InputTrackingNumber = () => {
 
@@ -103,7 +106,6 @@ const InputTrackingNumber = () => {
             }
             setIsLoading(false)
         }, 1000);
-        // jumpToDeliveryPage()
     }
 
 
@@ -127,7 +129,7 @@ const InputTrackingNumber = () => {
     }
 
     const handleNextPromoDetail = (promoLength) => {
-        if(promoDetail != promoLength-1){
+        if (promoDetail != promoLength - 1) {
             setPromoDetail(promoDetail + 1)
 
             console.log(`${promoDetail} of ${promoLength}`)
@@ -135,29 +137,46 @@ const InputTrackingNumber = () => {
     }
 
     const handlePrevPromoDetail = (promoLength) => {
-        if(promoDetail > 0){
+        if (promoDetail > 0) {
             setPromoDetail(promoDetail - 1)
 
             console.log(`${promoDetail} of ${promoLength}`)
         }
     }
 
+    // Light Mode Animation
+    const lightAnimation = {
+        loop: true,
+        autoplay: true,
+        animationData: lightModeAnimation,
+        rendererSettings: {
+            preserveAspectRatio: "xMidYMid slice"
+        }
+    }
 
-
+    const darkAnimation = {
+        loop: true,
+        autoplay: true,
+        animationData: darkModeAnimation,
+        rendererSettings: {
+            preserveAspectRatio: "xMidYMid slice"
+        }
+    }
 
     return (
         <>
-            <RootInputTrackingNumber isLinkExpired={isLinkExpired} dumpMap={dumpMap} isMobile={isMobile} mode={mode} >
-            </RootInputTrackingNumber>
-            <TrackingNumberInput isMobile={isMobile}>
-                {
-                    isLinkExpired &&
-                    <LinkExpiredStatus isMobile={isMobile} />
-                }
-                <DivFlexCenter sx={{}}>
-                    <DivFlexSpaceBetween sx={{ width: isMobile ? '90%' : 700, border: '1px solid #979797', padding: '50px 10px 50px 40px', flexWrap: 'wrap', backgroundColor: theme.palette.background.dialog, borderColor: theme.palette.background.borderTrackingNumber, }}>
+            <Grid container sx={{ pt: '58px' }}>
+                <Grid item xs={12} md={9} sx={{ pl: isDesktop ? 5 : 3, pr: 3, }}>
+                    {
+                        isLinkExpired ?
+                            <LinkExpiredStatus /> :
+                            <Typography fontSize={isMobile ? 32 : 32} sx={{ width: '100%', fontFamily: 'Eina04-Regular', mt: isDesktop ? 15 : 3, color: theme.palette.text.tex4 }}>
+                                Please insert your tracking number
+                            </Typography>
+                    }
+                    <InputTrackingNumberContainer isDesktop={isDesktop} theme={theme}>
                         <DivFlexStart sx={{ width: isMobile ? '100%' : '20%' }}>
-                            <Typography sx={{ fontSize: 14, fontFamily: 'Eina04-SemiBold', }}>
+                            <Typography sx={{ fontSize: 14, fontFamily: 'Eina04-SemiBold', mb: isDesktop ? '' : 1 }}>
                                 Tracking Number
                             </Typography>
                         </DivFlexStart>
@@ -171,15 +190,14 @@ const InputTrackingNumber = () => {
                                 Track
                             </Typography>
                         </ButtonSecondary>
-                        <DivFlexCenter sx={{ width: isMobile ? '7%' : '5%' }}>
+                        <DivFlexCenter sx={{ width: isMobile ? '8%' : '5%' }}>
                             {isLoading && <CircularProgress size={isMobile ? '20px' : '30px'} sx={{ color: theme.palette.background.buttonSecondary }} />}
                         </DivFlexCenter>
 
-
                         {warning &&
-                            <Warning isMobile={isMobile}>
+                            <Warning isMobile={isMobile} >
                                 <DivFlexCenter >
-                                    <ErrorOutlineIcon style={{ color: '#959499', width: 26, height: 26, marginRight: 10 }} />
+                                    <ErrorOutlineIcon sx={{ color: '#FF8389', width: 26, height: 26, marginRight: 1 }} />
                                     <Typography sx={{ color: '#ffffff', fontSize: 12, fontFamily: 'Eina04-SemiBold' }}>
                                         {`Sorry your tracking attempt was not succesfull. Please check your tracking number.`}
                                     </Typography>
@@ -187,63 +205,45 @@ const InputTrackingNumber = () => {
                             </Warning>
                         }
 
-                    </DivFlexSpaceBetween>
-                </DivFlexCenter>
-                {isDesktop &&
-                    <div style={{ width: '100%', height: '', backgroundColor: theme.palette.background.default, position: 'fixed', bottom: 0, padding: '32px 40px' }}>
-                        <Grid container >
-                            {promoDumpData.slice(0, 3).map((promo, index) => (
-                                <Grid item md={4} key={promo.id} >
-                                    <DivFlexCenter sx={{}} onClick={() => handleOpenPromoDialog(index)} >
-                                        <PromoCard promo={promo} openDetailPromo={false} trackingNumberPage={true} />
-                                    </DivFlexCenter>
-                                </Grid>
-                            ))}
-                        </Grid>
-                    </div>}
-            </TrackingNumberInput>
+                    </InputTrackingNumberContainer>
+                </Grid>
 
-            {isMobile && (
-                <div style={{ marginTop: 24 }}>
-                    {promoDumpData.slice(0, 3).map((promo, index) => (
-                        <DivFlexCenter key={promo.id} sx={{ mb: 3, mt: isMobile ? '' : 2 }}>
-                            <PromoCard promo={promo} openDetailPromo={false} isMobile={isDesktop ? false : true} removePadding={isDesktop ? !openPromoDialog : false} />
-                        </DivFlexCenter>
-                    ))}
-                </div>
-            )}
+                <Grid item xs={12} md={3} sx={{ zIndex: 10, pl: isDesktop ? 1 : '', mt: isDesktop ? '' : 5 }} >
+                    <Box sx={{ height: isDesktop ? 'calc(100vh - 58px)' : '', overflowY: isDesktop ? 'scroll' : '', pt: 3, pr: isDesktop ? 5 : '' }}>
+                        {promoDumpData.map((promo, index) => (
+                            <DivFlexCenter key={index} sx={{ mb: 3 }} onClick={isDesktop ? () => handleOpenPromoDialog(index) : undefined}>
+                                <PromoCard promo={promo} openDetailPromo={false} isMobile={isDesktop ? false : true} removePadding={isDesktop ? !openPromoDialog : false} />
+                            </DivFlexCenter>
+                        ))}
+                    </Box>
+                </Grid>
 
-            {/* <CustomDialog open={openPromoDialog} onClose={handleClosePromoDialog} theme={theme}>
-                <div style={{ position: 'fixed', width: 600 }} >
-                    <div style={{ float: 'right' }}>
-                        <DivFlexCenter style={{ backgroundColor: 'rgba(26, 25, 25, 0.4)', padding: 4, marginTop: 8, marginRight: 8, borderRadius: '50%', cursor: 'pointer' }}>
-                            <CloseIcon onClick={handleClosePromoDialog} style={{ color: '#ffffff', fontSize: 20 }} />
-                        </DivFlexCenter>
-                    </div>
+            </Grid>
 
-                </div>
-                <PromoCard openDetailPromo={true} promo={promoDumpData.filter(dumpPromo => dumpPromo.id == idPromoDialog)[0]} isDialog={true} />
-            </CustomDialog> */}
-            <Backdrop open={openPromoDialog} style={{ backdropFilter: "blur(18px)" }}>
+            {isDesktop
+                && <Box sx={{ width: '100%', position: 'absolute', bottom: 0, paddingBottom: 0, lineHeight: 0 }}>
+                    <Lottie options={mode == 'light' ? lightAnimation : darkAnimation} />
+                </Box>
+            }
+
+            <Backdrop open={openPromoDialog} sx={{ backdropFilter: "blur(18px)", zIndex: 1000 }}>
                 <DivFlexSpaceBetween>
-                    <div style={{ paddingRight: 80 }} onClick={() => handlePrevPromoDetail(promoDumpData.length)}>
-                        <ArrowBackIosIcon style={{ color: '#f4f4f4', fontSize: 40, cursor:'pointer' }} />
-                    </div>
-                    <div style={{ width: 600 }}>
-                        <div style={{ position: 'fixed', width: 600 }} >
-                            <div style={{ float: 'right' }}>
-                                <DivFlexCenter style={{ backgroundColor: 'rgba(26, 25, 25, 0.4)', padding: 4, marginTop: 8, marginRight: 8, borderRadius: '50%', cursor: 'pointer' }}>
-                                    <CloseIcon onClick={handleClosePromoDialog} style={{ color: '#ffffff', fontSize: 20 }} />
+                    <Box sx={{ pr: 10 }} onClick={() => handlePrevPromoDetail(promoDumpData.length)}>
+                        <ArrowBackIosIcon sx={{ color: '#f4f4f4', fontSize: 40, cursor: 'pointer' }} />
+                    </Box>
+                    <Box sx={{ width: 600 }}>
+                        <Box sx={{ position: 'fixed', width: 600 }} >
+                            <Box sx={{ float: 'right' }}>
+                                <DivFlexCenter sx={{ backgroundColor: 'rgba(26, 25, 25, 0.4)', padding: 0.5, marginTop: 1, marginRight: 1, borderRadius: '50%', cursor: 'pointer' }}>
+                                    <CloseIcon onClick={handleClosePromoDialog} sx={{ color: '#ffffff', fontSize: 20 }} />
                                 </DivFlexCenter>
-                            </div>
-
-                        </div>
+                            </Box>
+                        </Box>
                         <PromoCard openDetailPromo={true} promo={promoDumpData[promoDetail]} isDialog={true} />
-
-                    </div>
-                    <div style={{ paddingLeft: 80 }} onClick={() => handleNextPromoDetail(promoDumpData.length)}>
-                        <ArrowForwardIosIcon style={{ color: '#f4f4f4', fontSize: 40, cursor:'pointer' }} />
-                    </div>
+                    </Box>
+                    <Box sx={{ pl: 10 }} onClick={() => handleNextPromoDetail(promoDumpData.length)}>
+                        <ArrowForwardIosIcon sx={{ color: '#f4f4f4', fontSize: 40, cursor: 'pointer' }} />
+                    </Box>
                 </DivFlexSpaceBetween>
             </Backdrop>
         </>

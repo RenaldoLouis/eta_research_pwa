@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { styled } from '@mui/system'
 
 // import material UI
-import { Typography, Grid, Dialog, Tabs, Divider } from "@mui/material";
+import { Typography, Grid, Box } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import { Backdrop } from "@mui/material";
 
@@ -10,7 +10,6 @@ import { Backdrop } from "@mui/material";
 // import Component
 import PromoCard from "../../Components/PromoCard/PromoCard";
 import DeliveryCard from "../../Components/DeliveryCard/DeliveryCard";
-import WarningComponent from "../../Components/WarningComponent/WarningComponent";
 
 
 // import Icon
@@ -27,12 +26,10 @@ import { AppContext } from "../../App";
 import DivFlexStart from "../../Components/ReusableComponents/DivFlexStart";
 import DivFlexCenter from "../../Components/ReusableComponents/DivFlexCenter";
 import DivFlexEnd from "../../Components/ReusableComponents/DivFlexEnd";
-import { Navigate } from "react-router-dom";
-import CustomDialog from "../../Components/ReusableComponents/CustomDialog";
 import DivFlexSpaceBetween from "../../Components/ReusableComponents/DivFlexSpacebetween";
 
 
-// sticky div as button
+// delivery title div as button
 const DeliverStickyTitle = styled('div')((props) => ({
     display: 'flex',
     position: 'fixed',
@@ -42,10 +39,10 @@ const DeliverStickyTitle = styled('div')((props) => ({
     width: '100%',
     height: 60,
     backgroundColor: props.theme.palette.background.default,
-    zIndex: 1000
+    zIndex: 1000,
 }));
 
-// sticky div as button
+// promo title div as button
 const PromoStickyTitle = styled('div')((props) => ({
     display: 'flex',
     position: 'fixed',
@@ -57,7 +54,7 @@ const PromoStickyTitle = styled('div')((props) => ({
     backgroundColor: props.theme.palette.background.default,
     borderTop: '1px solid #979797',
     zIndex: 1000,
-    padding: '0px 20px 0px 22px'
+    padding: '0px 24px'
 }));
 
 
@@ -92,7 +89,7 @@ const DeliveryPage = () => {
     }
 
     const handleNextPromoDetail = (promoLength) => {
-        if(promoDetail != promoLength-1){
+        if (promoDetail != promoLength - 1) {
             setPromoDetail(promoDetail + 1)
 
             console.log(`${promoDetail} of ${promoLength}`)
@@ -100,7 +97,7 @@ const DeliveryPage = () => {
     }
 
     const handlePrevPromoDetail = (promoLength) => {
-        if(promoDetail > 0){
+        if (promoDetail > 0) {
             setPromoDetail(promoDetail - 1)
 
             console.log(`${promoDetail} of ${promoLength}`)
@@ -118,9 +115,7 @@ const DeliveryPage = () => {
 
     return (
         <>
-            {warning && (<WarningComponent isMobile={isMobile} />)}
-
-            <Grid container style={{ paddingLeft: isDesktop ? 40 : '', paddingRight: isDesktop ? 40 : '', marginTop: 58 }}>
+            <Grid container sx={{ pl: isDesktop ? 5 : '', pr: isDesktop ? 5 : '', marginTop: '58px' }}>
                 <Grid item xs={12} md={3} id="deliverSection">
                     <>
                         {deliveryDumpData.length > 1 ? (
@@ -136,21 +131,21 @@ const DeliveryPage = () => {
                                     </DeliverStickyTitle>
 
                                 )}
-                                <div id='titleDeliveryPage'>
+                                <Box id='titleDeliveryPage'>
                                     {
                                         deliveryDumpData.every((v) => { return v.deliveryStatus == "Done" }) ? (
-                                            <div style={{ padding: '0px 20px 0px 20px', marginTop: isDesktop ? 20 : undefined }}>
+                                            <DivFlexStart sx={{ padding: isDesktop ? '' : '24px 24px 0px 24px', mt: isDesktop ? 3 : undefined }}>
                                                 <Typography fontSize={30} color={theme.palette.text.heading1} sx={{ fontFamily: 'Eina04-Regular' }} >
-                                                    Your Delivery <br/> for {deliveryDumpData[0].date} <br/> is All <span style={{color: theme.palette.text.highlightHeading1}}>  <DoneIcon sx={{ height:26, width:32, mr: -1.5 }} /> DONE </span>
+                                                    Your Delivery <br /> for {deliveryDumpData[0].date} <br /> is All <span style={{ color: theme.palette.text.highlightHeading1 }}>  <DoneIcon sx={{ height: 26, width: 32, mr: -1.5 }} /> DONE </span>
                                                 </Typography>
-                                            </div>
-                                        ) : <div style={{ padding: '0px 20px 0px 20px', marginTop: isDesktop ? 20 : undefined }}>
+                                            </DivFlexStart>
+                                        ) : <DivFlexStart sx={{ padding: isDesktop ? '' : '24px 24px 0px 24px', mt: isDesktop ? 3 : undefined }}>
                                             <Typography fontSize={30} color={theme.palette.text.heading1} sx={{ fontFamily: 'Eina04-Regular' }} >
                                                 Good Morning! <br /> There are <span style={{ textDecoration: 'underline', fontFamily: 'Eina04-RegularItalic', color: theme.palette.text.highlithText }}>{deliveryDumpData.length}</span> <br />  Today Delivery
                                             </Typography>
-                                        </div>
+                                        </DivFlexStart>
                                     }
-                                </div>
+                                </Box>
 
                             </>
                         ) : (
@@ -166,32 +161,32 @@ const DeliveryPage = () => {
                                     </DeliverStickyTitle>
 
                                 )}
-                                <div id='titleDeliveryPage'>
-                                    <div style={{ padding: 20 }}>
+                                <Box id='titleDeliveryPage'>
+                                    <DivFlexStart sx={{ padding: isDesktop ? '' : '24px 24px 0px 24px' }}>
                                         <Typography fontSize={32} color={theme.palette.text.heading1} sx={{ textTransform: 'capitalized', fontFamily: 'Eina04-Regular' }}>
                                             Good Morning! <br /> This is your Today Delivery
                                         </Typography>
-                                    </div>
-                                </div>
+                                    </DivFlexStart>
+                                </Box>
                             </>
                         )}
 
                         {deliveryDumpData.map((data, index) => (
-                            <DivFlexCenter key={index} style={{ marginTop: 24 }} onClick={() => handleClickDeliveryDesktop(data.id)} >
+                            <DivFlexCenter key={index} sx={{ mt: 3, pr: isDesktop ? 3 : '' }} onClick={() => handleClickDeliveryDesktop(data.id)} >
                                 <DeliveryCard data={data} totalDelivery={deliveryDumpData.length} numberOfDeliver={index + 1} deliveryId={deliveryId} />
                             </DivFlexCenter>
                         ))}
                     </>
                 </Grid>
 
-                <Grid item xs={0} md={6} display={{ xs: 'none', md: 'block' }} bgcolor={{ md: theme.palette.background.deliveryCard }} padding={{ md: '20px 40px 0px 40px' }} >
+                <Grid item xs={0} md={6} display={{ xs: 'none', md: 'block' }} bgcolor={{ md: theme.palette.background.deliveryCard }} padding={{ md: '16px 80px 0px 80px' }} >
                     <DivFlexCenter>
                         <DeliveryCard data={deliveryDumpData.filter(dumpDelivery => dumpDelivery.id == deliveryId)[0]} isOpenItemList={true} />
                     </DivFlexCenter>
                 </Grid>
 
-                <Grid item xs={12} md={3} style={{ paddingTop: isMobile ? '' : 12 }}>
-                    <DivFlexStart id="promo" sx={{ padding: '0px 20px 0px 20px', mt: 3, mb: 2, display: isDesktop ? 'none' : '', scrollMarginTop: 142 }}>
+                <Grid item xs={12} md={3} sx={{ paddingTop: isMobile ? '' : 3 }}>
+                    <DivFlexStart id="promo" sx={{ padding: isDesktop ? '' : '0px 24px', mt: 3, mb: 2, display: isDesktop ? 'none' : '', scrollMarginTop: 142 }}>
                         <Typography fontSize={32} color={theme.palette.text.heading1} sx={{ fontFamily: 'Eina04-Regular', }}>
                             Promo and News
                         </Typography>
@@ -205,37 +200,33 @@ const DeliveryPage = () => {
                     )}
 
                     {promoDumpData.map((promo, index) => (
-                        <DivFlexCenter key={index} style={{ marginBottom: 24 }} onClick={isDesktop ? () => handleOpenPromoDialog(index) : undefined}>
+                        <DivFlexCenter key={index} sx={{ mb: 3, pl: isDesktop ? 3 : '' }} onClick={isDesktop ? () => handleOpenPromoDialog(index) : undefined}>
                             <PromoCard promo={promo} openDetailPromo={false} isMobile={isDesktop ? false : true} removePadding={isDesktop ? !openPromoDialog : false} />
                         </DivFlexCenter>
                     ))}
                 </Grid>
-
             </Grid>
 
-            <Backdrop open={openPromoDialog} style={{ backdropFilter: "blur(18px)" }}>
+            <Backdrop open={openPromoDialog} sx={{ backdropFilter: "blur(18px)" }}>
                 <DivFlexSpaceBetween>
-                    <div style={{ paddingRight: 80 }} onClick={() => handlePrevPromoDetail(promoDumpData.length)}>
-                        <ArrowBackIosIcon style={{ color: '#f4f4f4', fontSize: 40, cursor:'pointer' }} />
-                    </div>
-                    <div style={{ width: 600 }}>
-                        <div style={{ position: 'fixed', width: 600 }} >
-                            <div style={{ float: 'right' }}>
-                                <DivFlexCenter style={{ backgroundColor: 'rgba(26, 25, 25, 0.4)', padding: 4, marginTop: 8, marginRight: 8, borderRadius: '50%', cursor: 'pointer' }}>
-                                    <CloseIcon onClick={handleClosePromoDialog} style={{ color: '#ffffff', fontSize: 20 }} />
+                    <Box sx={{ pr: 10 }} onClick={() => handlePrevPromoDetail(promoDumpData.length)}>
+                        <ArrowBackIosIcon sx={{ color: '#f4f4f4', fontSize: 40, cursor: 'pointer' }} />
+                    </Box>
+                    <Box sx={{ width: 600 }}>
+                        <Box sx={{ position: 'fixed', width: 600 }} >
+                            <Box sx={{ float: 'right' }}>
+                                <DivFlexCenter sx={{ backgroundColor: 'rgba(26, 25, 25, 0.4)', padding: 0.5, marginTop: 1, marginRight: 1, borderRadius: '50%', cursor: 'pointer' }}>
+                                    <CloseIcon onClick={handleClosePromoDialog} sx={{ color: '#ffffff', fontSize: 20 }} />
                                 </DivFlexCenter>
-                            </div>
-
-                        </div>
+                            </Box>
+                        </Box>
                         <PromoCard openDetailPromo={true} promo={promoDumpData[promoDetail]} isDialog={true} />
-
-                    </div>
-                    <div style={{ paddingLeft: 80 }} onClick={() => handleNextPromoDetail(promoDumpData.length)}>
-                        <ArrowForwardIosIcon style={{ color: '#f4f4f4', fontSize: 40, cursor:'pointer' }} />
-                    </div>
+                    </Box>
+                    <Box sx={{ pl: 10 }} onClick={() => handleNextPromoDetail(promoDumpData.length)}>
+                        <ArrowForwardIosIcon sx={{ color: '#f4f4f4', fontSize: 40, cursor: 'pointer' }} />
+                    </Box>
                 </DivFlexSpaceBetween>
             </Backdrop>
-
         </>
     )
 }

@@ -25,7 +25,7 @@ import { useTheme } from "@mui/material/styles";
 
 const LogoutConfirmationDialog = () => {
 
-    const { isMobile, openLogoutDialog,  handleOpenLogoutDialog, handleCloseLogoutDialog, handleLogout } = useContext(AppContext)
+    const { isMobile, openLogoutDialog, handleOpenLogoutDialog, handleCloseLogoutDialog, handleLogout } = useContext(AppContext)
 
     const theme = useTheme()
 
@@ -34,24 +34,24 @@ const LogoutConfirmationDialog = () => {
         <>
             <CustomDialog open={openLogoutDialog} onClose={handleCloseLogoutDialog} theme={theme}>
                 <DivFlexEnd sx={{ pr: 2, pt: 2 }} >
-                    <CloseIcon onClick={handleCloseLogoutDialog} style={{ cursor : 'pointer' }} />
+                    <CloseIcon onClick={handleCloseLogoutDialog} sx={{ cursor: 'pointer' }} />
                 </DivFlexEnd>
                 <CustomDialogContent>
-                    <DivFlexCenter style={{ height: isMobile ? 20 : 40, marginBottom: isMobile ? 24 : 64 }}>
+                    <DivFlexCenter sx={{ height: isMobile ? 20 : 40, mb: isMobile ? 3 : 8 }}>
                         <Typography sx={{ color: theme.palette.text.dialogHeadingText, fontSize: isMobile ? 20 : 40, fontFamily: 'Eina04-Regular' }}>
                             Sign Out
                         </Typography>
                     </DivFlexCenter>
-                    <Typography sx={{ fontSize:isMobile?12: 20, fontFamily: 'Eina04-Regular',color: theme.palette.text.titleFormText  }}>
-                       Are you sure you want to sign out ?
+                    <Typography sx={{ fontSize: isMobile ? 12 : 20, fontFamily: 'Eina04-Regular', color: theme.palette.text.titleFormText }}>
+                        Are you sure you want to sign out ?
                     </Typography>
 
                     <DivFlexSpaceBetween sx={{ mt: isMobile ? 3 : 5 }}>
-                        <Typography sx={{ textDecoration: 'underline', fontFamily: 'Eina04-Regular', cursor: 'pointer', fontSize:isMobile?14:20, color: theme.palette.text.titleFormText  }} onClick={handleCloseLogoutDialog} >
+                        <Typography sx={{ textDecoration: 'underline', fontFamily: 'Eina04-Regular', cursor: 'pointer', fontSize: isMobile ? 14 : 20, color: theme.palette.text.titleFormText }} onClick={handleCloseLogoutDialog} >
                             Cancel
                         </Typography>
                         <ButtonSecondary sx={{ width: '35%' }} onClick={handleLogout}>
-                            <Typography sx={{ color: theme.palette.text.buttonSecondary, fontSize:isMobile?14:20 , fontFamily: 'Eina04-SemiBold' }}>
+                            <Typography sx={{ color: theme.palette.text.buttonSecondary, fontSize: isMobile ? 14 : 20, fontFamily: 'Eina04-SemiBold' }}>
                                 Sign Out
                             </Typography>
                         </ButtonSecondary>

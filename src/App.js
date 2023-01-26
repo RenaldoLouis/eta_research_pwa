@@ -19,7 +19,7 @@ import logo from '../src/assets/Images/dummy-promo-lemonade.jpg'
 
 //import Components
 import AppBarResponsive from './Components/AppBarResponsive/AppBarResponsive';
-import ScrollToTopButton from './Components/ScrollToTopButton/ScrollToTopButton';
+// import ScrollToTopButton from './Components/ScrollToTopButton/ScrollToTopButton';
 import InputTrackingNumber from './Components/InputTrackingNumber/InputTrackingNumber';
 
 // import Dialog
@@ -126,6 +126,7 @@ function App() {
                 // promo card
                 promoCard: '#f3f3f3',
                 hoverItemList: '#f3f3f3',
+                hoverPromoCard: '#f7f5f5',
 
                 // appbar and icon
                 appBar: '#ebebeb',
@@ -194,6 +195,7 @@ function App() {
                 // promo card
                 promoCard: '#393939',
                 hoverItemList: '#404040',
+                hoverPromoCard: '#4c4c4c',
 
                 // appbar and icon
                 appBar: '#353535',
@@ -787,7 +789,7 @@ function App() {
   };
 
   return (
-    <div >
+    <>
       <PwaContextProvider>
         <AppContext.Provider value={AppContextValue}>
           <ThemeProvider theme={theme}>
@@ -809,7 +811,7 @@ function App() {
           </ThemeProvider>
         </AppContext.Provider>
       </PwaContextProvider>
-    </div>
+    </>
   );
 }
 
