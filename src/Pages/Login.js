@@ -5,8 +5,8 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 
 
-import firstStep from "../assets/images/1st_step.png";
-import addLogo from "../assets/images/add_to_home_screen.png";
+import firstStep from "../assets/Images/1st_step.png";
+import addLogo from "../assets/Images/add_to_home_screen.png";
 
 // Opera 8.0+
 var isOpera = (!!window.opr && (navigator.userAgent.indexOf("Opera") || navigator.userAgent.indexOf('OPR')) !== -1) || !!window.opera || navigator.userAgent.indexOf(' OPR/') >= 0;
