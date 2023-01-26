@@ -234,7 +234,7 @@ const InputTrackingNumber = () => {
                     <Box sx={{ width: 600 }}>
                         <Box sx={{ position: 'fixed', width: 600 }} >
                             <Box sx={{ float: 'right' }}>
-                                <DivFlexCenter sx={{ backgroundColor: 'rgba(26, 25, 25, 0.4)', padding: 0.5, marginTop: 1, marginRight: 1, borderRadius: '50%', cursor: 'pointer' }}>
+                                <DivFlexCenter sx={{ backgroundColor: 'rgba(26, 25, 25, 0.4)', padding: 0.5, marginTop: 2, marginRight: 2, borderRadius: '50%', cursor: 'pointer' }}>
                                     <CloseIcon onClick={handleClosePromoDialog} sx={{ color: '#ffffff', fontSize: 20 }} />
                                 </DivFlexCenter>
                             </Box>

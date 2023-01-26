@@ -141,7 +141,7 @@ const DeliveryPage = () => {
                                             </DivFlexStart>
                                         ) : <DivFlexStart sx={{ padding: isDesktop ? '' : '24px 24px 0px 24px', mt: isDesktop ? 3 : undefined }}>
                                             <Typography fontSize={30} color={theme.palette.text.heading1} sx={{ fontFamily: 'Eina04-Regular' }} >
-                                                Good Morning! <br /> There are <span style={{ textDecoration: 'underline', fontFamily: 'Eina04-RegularItalic', color: theme.palette.text.highlithText }}>{deliveryDumpData.length}</span> <br />  Today Delivery
+                                                Good Morning! <br /> There are <span style={{ textDecoration: 'underline', fontFamily: 'Eina04-RegularItalic', color: theme.palette.text.highlithText }}>{deliveryDumpData.length}</span> <br />  Today's Delivery
                                             </Typography>
                                         </DivFlexStart>
                                     }
@@ -172,7 +172,7 @@ const DeliveryPage = () => {
                         )}
 
                         {deliveryDumpData.map((data, index) => (
-                            <DivFlexCenter key={index} sx={{ mt: 3, pr: isDesktop ? 3 : '' }} onClick={() => handleClickDeliveryDesktop(data.id)} >
+                            <DivFlexCenter key={index} sx={{ mt: 2, pr: isDesktop ? 3 : '' }} onClick={() => handleClickDeliveryDesktop(data.id)} >
                                 <DeliveryCard data={data} totalDelivery={deliveryDumpData.length} numberOfDeliver={index + 1} deliveryId={deliveryId} />
                             </DivFlexCenter>
                         ))}
@@ -200,7 +200,7 @@ const DeliveryPage = () => {
                     )}
 
                     {promoDumpData.map((promo, index) => (
-                        <DivFlexCenter key={index} sx={{ mb: 3, pl: isDesktop ? 3 : '' }} onClick={isDesktop ? () => handleOpenPromoDialog(index) : undefined}>
+                        <DivFlexCenter key={index} sx={{ mb: 2, pl: isDesktop ? 3 : '' }} onClick={isDesktop ? () => handleOpenPromoDialog(index) : undefined}>
                             <PromoCard promo={promo} openDetailPromo={false} isMobile={isDesktop ? false : true} removePadding={isDesktop ? !openPromoDialog : false} />
                         </DivFlexCenter>
                     ))}
@@ -215,7 +215,7 @@ const DeliveryPage = () => {
                     <Box sx={{ width: 600 }}>
                         <Box sx={{ position: 'fixed', width: 600 }} >
                             <Box sx={{ float: 'right' }}>
-                                <DivFlexCenter sx={{ backgroundColor: 'rgba(26, 25, 25, 0.4)', padding: 0.5, marginTop: 1, marginRight: 1, borderRadius: '50%', cursor: 'pointer' }}>
+                                <DivFlexCenter sx={{ backgroundColor: 'rgba(26, 25, 25, 0.4)', padding: 0.5, marginTop: 2, marginRight: 2, borderRadius: '50%', cursor: 'pointer' }}>
                                     <CloseIcon onClick={handleClosePromoDialog} sx={{ color: '#ffffff', fontSize: 20 }} />
                                 </DivFlexCenter>
                             </Box>
