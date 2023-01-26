@@ -693,7 +693,7 @@ function App() {
 
 
   /** ==========================Dummy State for Authentication========================== */
-  const [dumpLoginState, setDumpLoginState] = useState(true)
+  const [dumpLoginState, setDumpLoginState] = useState(false)
   const [dumpAuthrorization, setDumpAuthrorization] = useState('superadmin')
 
   const handleLogin = () => {

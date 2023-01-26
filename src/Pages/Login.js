@@ -5,6 +5,10 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 
 
+// router
+import { useNavigate, Outlet } from "react-router-dom"
+
+
 import firstStep from "../assets/Images/1st_step.png";
 import addLogo from "../assets/Images/add_to_home_screen.png";
 
@@ -60,8 +64,15 @@ function Login() {
         setShow(true);
     }
 
+
+    const navigate = useNavigate();
+
     const onClickTrackingNumber = () => {
         navigate("/inputTrackingNumber")
+    } 
+
+    const onClickDeliveryPage = () => {
+        navigate("/delivery")
     } 
 
     return (
@@ -88,6 +99,12 @@ function Login() {
                 )}
                 <div className="mt-3">
                     <button onClick={allowNotification}>Allow Notification</button>
+                </div>
+                <div className="mt-3">
+                    <button onClick={onClickTrackingNumber}>Temporary Link Tracking Number</button>
+                </div>
+                <div className="mt-3">
+                    <button onClick={onClickDeliveryPage}>Temporary Link Delivery Page</button>
                 </div>
                 <Modal show={show} onHide={handleClose}>
                     <Modal.Header closeButton>
