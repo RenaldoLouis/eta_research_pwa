@@ -3,8 +3,33 @@
   "name": "Ontego ETA ",
   "icons": [
     {
+      "src": "favicon.ico",
+      "sizes": "64x64 32x32 24x24 16x16",
+      "type": "image/x-icon"
+    },
+    {
       "src": "apple-icon-128.png",
       "sizes": "128x128"
+    },
+    {
+      "src": "otg192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "otg256.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "otg384.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "otg512.png",
+      "type": "image/png",
+      "sizes": "192x192"
     },
     {
       "src": "144x144.png",
@@ -15,7 +40,8 @@
     {
       "src": "manifest-icon-192.maskable.png",
       "type": "image/png",
-      "sizes": "192x192"
+      "sizes": "192x192",
+      "purpose": "maskable"
     },
     {
       "src": "manifest-icon-512.maskable.png",
