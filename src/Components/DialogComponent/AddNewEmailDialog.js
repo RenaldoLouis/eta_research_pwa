@@ -5,6 +5,8 @@ import { Typography, TextField, FormControl, MenuItem, Box } from "@mui/material
 
 // import icon
 import CloseIcon from '@mui/icons-material/Close';
+import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
+
 
 // import react router dom
 import { Outlet } from "react-router-dom";
@@ -28,7 +30,7 @@ import { useTheme, styled } from "@mui/material/styles";
 
 const AddNewEmailDialog = () => {
 
-    const { isMobile, addNewEmailDialog, handleCloseNewEmailDialog, addNewEmail } = useContext(AppContext)
+    const { isMobile, isDesktop, addNewEmailDialog, handleCloseNewEmailDialog, addNewEmail } = useContext(AppContext)
 
     const theme = useTheme()
 
@@ -108,14 +110,14 @@ const AddNewEmailDialog = () => {
                         <FormControl sx={{ width: '100%' }} >
                             <DivFlexSpaceBetween sx={{ flexWrap: 'wrap', width: '100%' }}>
                                 <DivFlexStart sx={{ width: isMobile ? '100%' : '60%', mb: 2, }}>
-                                    <Typography sx={{ fontSize: isMobile ? 12 : 20, fontFamily: 'Eina04-SemiBold', mr: 2, color: theme.palette.text.titleFormText }}>
+                                    <Typography sx={{ fontSize: isMobile ? 12 : 20, fontFamily: 'Eina04-SemiBold', mr: 2, color: theme.palette.text.titleFormText,  width:isMobile ? 34 : 56 }}>
                                         Email
                                     </Typography>
                                     <TextFieldStyled onChange={handleChangeInput} id="basic" placeholder="example@mail.com" name="email" sx={{ width: isMobile ? '100%' : '80%', }} isMobile={isMobile} />
                                 </DivFlexStart>
 
                                 <DivFlexStart sx={{ width: isMobile ? '100%' : '35%', mb: 2 }}>
-                                    <Typography sx={{ fontSize: isMobile ? 12 : 20, fontFamily: 'Eina04-SemiBold', mr: 2, color: theme.palette.text.titleFormText }}>
+                                    <Typography sx={{ fontSize: isMobile ? 12 : 20, fontFamily: 'Eina04-SemiBold', mr: 2, color: theme.palette.text.titleFormText,  width:isMobile ? 34 : 56 }}>
                                         Roles
                                     </Typography>
                                     <TextFieldStyled
@@ -149,18 +151,28 @@ const AddNewEmailDialog = () => {
                             </DivFlexSpaceBetween>
                         </FormControl>
 
-                        <DivFlexCenter sx={{ width: isMobile ? '100%' : '60%' }}>
-                            {isEmailEmpty ? (
-                                <Typography sx={{ fontSize: isMobile ? 12 : 14, fontFamily: 'Eina04-Regular' }} color={'#da1e28'}>
-                                    Email is Empty
-                                </Typography>
-                            ) : isEmailInvalid ? (
-                                <Typography sx={{ fontSize: isMobile ? 12 : 14, fontFamily: 'Eina04-Regular' }} color={'#da1e28'}>
-                                    Email is Invalid
-                                </Typography>
-                            ) : (<></>)
-                            }
-                        </DivFlexCenter>
+                        <DivFlexStart sx={{ width: isMobile ? '100%' : '60%' }}>
+                            <>
+                                <Box sx={{ color: theme.palette.text.titleFormText, width:isMobile ? 34 : 56, mr:2 }} />
+                                  
+                                {isEmailEmpty ? (
+                                    <DivFlexStart>
+                                        <ErrorOutlineIcon sx={{ color: '#da1e28', fontSize: isMobile ? 16 : 18, mr: 0.5, mt: -0.3 }} />
+                                        <Typography sx={{ fontSize: isMobile ? 12 : 14, fontFamily: 'Eina04-Regular' }} color={'#da1e28'}>
+                                            Email is empty
+                                        </Typography>
+                                    </DivFlexStart>
+                                ) : isEmailInvalid ? (
+                                    <DivFlexStart>
+                                        <ErrorOutlineIcon sx={{ color: '#da1e28', fontSize: isMobile ? 16 : 18, mr: 0.5, mt: -0.3 }} />
+                                        <Typography sx={{ fontSize: isMobile ? 12 : 14, fontFamily: 'Eina04-Regular' }} color={'#da1e28'}>
+                                            Email is invalid
+                                        </Typography>
+                                    </DivFlexStart>
+                                ) : (<></>)
+                                }
+                            </>
+                        </DivFlexStart>
                         <DivFlexSpaceBetween sx={{ mt: isMobile ? 3 : 5 }}>
                             <Typography sx={{ fontSize: isMobile ? 14 : 20, textDecoration: 'underline', fontFamily: 'Eina04-Regular', cursor: 'pointer', color: theme.palette.text.titleFormText }} onClick={handleCloseDialog} >
                                 Cancel

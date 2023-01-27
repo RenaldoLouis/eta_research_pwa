@@ -77,13 +77,14 @@ const AppBarResponsive = () => {
         <Container maxWidth="100vw" >
             <Grid container sx={{ height: 58, pl: isDesktop ? 2  : '', pr: isDesktop ? 1.4 : 0.4 }} >
               <Grid item xs={4} md={3} >
-                <DivFlexStart sx={{ height: '100%', alignItems: 'center',  }} >
+                <DivFlexStart sx={{ height: '100%', alignItems: 'center', height:'100%'  }} >
                   {isMobile ? (
                     <>
                       <Tooltip title="Temporary Button">
                         <IconButton
                           // onClick={historyStack.length > 0 ? handleBackPrevPage : undefined}
                           onClick={handleChangeTheme}
+                          sx={{ ml:'2px' }}
                         >
                           {historyStack.length > 0 && <ArrowBackIosIcon sx={{ color: theme.palette.text.heading1 }} />}
                           {
@@ -106,6 +107,7 @@ const AppBarResponsive = () => {
                       <IconButton
                         // onClick={historyStack.length > 0 ? handleBackPrevPage : undefined}
                         onClick={handleChangeTheme}
+                        sx={{ ml:2, mt:-0.5 }}
                       >
                         {historyStack.length > 0 && <ArrowBackIosIcon sx={{ color: theme.palette.text.heading1 }} />}
                         {

@@ -5,7 +5,10 @@ import Countdown from "react-countdown";
 // import material UI
 import { Typography, Snackbar, Box } from "@mui/material";
 
+// import Icon
 import CloseIcon from '@mui/icons-material/Close';
+import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
+
 
 import { Outlet } from "react-router-dom";
 
@@ -21,6 +24,7 @@ import CustomDialog from "../../ReusableComponents/CustomDialog";
 // dark mode and light mode
 import { useTheme, styled } from "@mui/material/styles";
 import CustomDialogContent from "../../ReusableComponents/CustomDialogContent";
+import DivFlexStart from "../../ReusableComponents/DivFlexStart";
 
 // Renderer callback with condition
 const renderer = ({ hours, minutes, seconds, completed }) => {
@@ -45,7 +49,7 @@ const InputOtp = styled('input')((props) => ({
     color: props.theme.palette.text.inputText,
     backgroundColor: props.theme.palette.background.dialog,
     ":focus": {
-        outline:'none',
+        outline: 'none',
         border: props.isOtpFalse ? `1px solid #da1e28` : `1px solid ${props.theme.palette.background.borderFormActive}`,
     }
 }))
@@ -59,6 +63,8 @@ const OtpDialog = () => {
     const theme = useTheme()
 
     const otpChar = { otp1: '', otp2: '', otp3: '', otp4: '', otp5: '', otp6: '', otp7: '', otp8: '' }
+
+    const otpValue = { otp1: '0', otp2: '0', otp3: '0', otp4: '0', otp5: '0', otp6: '0', otp7: '0', otp8: '0' }
 
     const [inputOtp, setInputOtp] = useState(otpChar)
 
@@ -83,18 +89,31 @@ const OtpDialog = () => {
     const [isOtpFalse, setIsOtpFalse] = useState(false)
 
     const handleButtonLogin = () => {
-        if (Object.values(inputOtp).includes('')) {
-            console.log('please input the otp')
-            setIsOtpFalse(true)
-        } else {
+        // if (Object.values(inputOtp).includes('')) {
+        //     console.log('please input the otp')
+        //     setIsOtpFalse(true)
+        // } else if( JSON.stringify(inputOtp) === JSON.stringify(otpValue) ) {
+        //     handleSubmitOtp()
+        //     handleCloseOtpDialog()
+        //     handleLogin()
+        //     setInputOtp(otpChar)
+        //     setIsOtpFalse(false)
+        // }
+        // else{
+        //     console.log('OTP code is incorrect')
+        // }
+
+        if (JSON.stringify(inputOtp) === JSON.stringify(otpValue)) {
             handleSubmitOtp()
             handleCloseOtpDialog()
             handleLogin()
             setInputOtp(otpChar)
             setIsOtpFalse(false)
+        } else {
+            setIsOtpFalse(true)
         }
     }
-    
+
     useEffect(() => {
         setInitialTime(Date.now() + 59000)
         setOtpCountdown(true)
@@ -237,6 +256,14 @@ const OtpDialog = () => {
                             </DivFlexCenter>
 
                         </form>
+                        {isOtpFalse &&
+                            <DivFlexStart sx={{ mt: 2, pl: 0.5 }}>
+                                <ErrorOutlineIcon sx={{ color: '#da1e28', fontSize: isMobile ? 16 : 18, mr: 0.5, mt: -0.5 }} />
+                                <Typography sx={{ fontSize: isMobile ? 12 : 14, fontFamily: 'Eina04-Regular' }} color={'#da1e28'}>
+                                    OTP code is incorrect
+                                </Typography>
+                            </DivFlexStart>
+                        }
                         {otpCountdown && (
                             <DivFlexCenter sx={{ mb: 3, mt: 3 }}>
                                 <Typography sx={{ color: theme.palette.text.resendOtp, textDecoration: 'underline', fontSize: isMobile ? 12 : 20 }}>

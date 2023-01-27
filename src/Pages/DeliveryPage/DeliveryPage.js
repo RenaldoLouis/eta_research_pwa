@@ -13,10 +13,12 @@ import DeliveryCard from "../../Components/DeliveryCard/DeliveryCard";
 
 
 // import Icon
-import DoneIcon from '@mui/icons-material/Done';
+// import DoneIcon from '@mui/icons-material/Done';
 import CloseIcon from '@mui/icons-material/Close';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import DoneIcon from "../../assets/icons/DoneIcon";
+
 
 // import AppContext
 import { AppContext } from "../../App";
@@ -72,12 +74,19 @@ const DeliveryPage = () => {
 
     const handleClosePromoDialog = () => {
         setOpenPromoDialog(false)
+        // setIsLastPromo(false)
+        setPromoDetail(0)
     }
 
     // state for pass promo id to open the detail - desktop
     const [idPromoDialog, setIdPromoDialog] = useState('')
 
     const [promoDetail, setPromoDetail] = useState(0)
+
+    const [isLastPromo, setIsLastPromo] = useState(false)
+
+    const [isFirstPromo, setIsFirstPromo] = useState(false)
+
 
     const handleOpenPromoDialog = (promoId) => {
         setOpenPromoDialog(true)
@@ -91,18 +100,32 @@ const DeliveryPage = () => {
     const handleNextPromoDetail = (promoLength) => {
         if (promoDetail != promoLength - 1) {
             setPromoDetail(promoDetail + 1)
-
             console.log(`${promoDetail} of ${promoLength}`)
         }
+
     }
 
     const handlePrevPromoDetail = (promoLength) => {
         if (promoDetail > 0) {
             setPromoDetail(promoDetail - 1)
-
             console.log(`${promoDetail} of ${promoLength}`)
         }
     }
+
+    useEffect(() => {
+        if (promoDetail == promoDumpData.length - 1) {
+            setIsLastPromo(true)
+        } else {
+            setIsLastPromo(false)
+        }
+
+        if(promoDetail == 0){
+            setIsFirstPromo(true)
+        } else {
+            setIsFirstPromo(false)
+        }
+
+    }, [promoDetail])
 
 
     // state for pass delivery id to open the detail  - desktop
@@ -136,7 +159,7 @@ const DeliveryPage = () => {
                                         deliveryDumpData.every((v) => { return v.deliveryStatus == "Done" }) ? (
                                             <DivFlexStart sx={{ padding: isDesktop ? '' : '24px 24px 0px 24px', mt: isDesktop ? 3 : undefined }}>
                                                 <Typography fontSize={30} color={theme.palette.text.heading1} sx={{ fontFamily: 'Eina04-Regular' }} >
-                                                    Your Delivery <br /> for {deliveryDumpData[0].date} <br /> is All <span style={{ color: theme.palette.text.highlightHeading1 }}>  <DoneIcon sx={{ height: 26, width: 32, mr: -1.5 }} /> DONE </span>
+                                                    Your Delivery <br /> for {deliveryDumpData[0].date} <br /> is All <span style={{ color: theme.palette.text.highlightHeading1 }}>  <DoneIcon sx={{ height: 28, width: 32, mr: -1.5, mt:0.5 }} color= {theme.palette.text.highlightHeading1} /> DONE </span>
                                                 </Typography>
                                             </DivFlexStart>
                                         ) : <DivFlexStart sx={{ padding: isDesktop ? '' : '24px 24px 0px 24px', mt: isDesktop ? 3 : undefined }}>
@@ -210,7 +233,7 @@ const DeliveryPage = () => {
             <Backdrop open={openPromoDialog} sx={{ backdropFilter: "blur(18px)" }}>
                 <DivFlexSpaceBetween>
                     <Box sx={{ pr: 10 }} onClick={() => handlePrevPromoDetail(promoDumpData.length)}>
-                        <ArrowBackIosIcon sx={{ color: '#f4f4f4', fontSize: 40, cursor: 'pointer' }} />
+                        <ArrowBackIosIcon sx={{ color: isFirstPromo ? '#F4F4F466' : '#f4f4f4', fontSize: 40, cursor: isFirstPromo ? 'default' : 'pointer' }} />
                     </Box>
                     <Box sx={{ width: 600 }}>
                         <Box sx={{ position: 'fixed', width: 600 }} >
@@ -223,7 +246,7 @@ const DeliveryPage = () => {
                         <PromoCard openDetailPromo={true} promo={promoDumpData[promoDetail]} isDialog={true} />
                     </Box>
                     <Box sx={{ pl: 10 }} onClick={() => handleNextPromoDetail(promoDumpData.length)}>
-                        <ArrowForwardIosIcon sx={{ color: '#f4f4f4', fontSize: 40, cursor: 'pointer' }} />
+                        <ArrowForwardIosIcon sx={{ color: isLastPromo ? '#F4F4F466' : '#f4f4f4', fontSize: 40, cursor: isLastPromo ? 'default' : 'pointer' }} />
                     </Box>
                 </DivFlexSpaceBetween>
             </Backdrop>

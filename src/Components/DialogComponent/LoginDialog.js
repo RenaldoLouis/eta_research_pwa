@@ -5,6 +5,8 @@ import { Typography, TextField, FormControl, Snackbar, Box } from "@mui/material
 
 // import icon
 import CloseIcon from '@mui/icons-material/Close';
+import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
+
 
 // import react router dom
 import { Outlet } from "react-router-dom";
@@ -23,6 +25,7 @@ import TextFieldStyled from "../ReusableComponents/TextFieldStyle";
 
 // import style and theme
 import { useTheme } from "@mui/material/styles";
+import DivFlexStart from "../ReusableComponents/DivFlexStart";
 
 const LoginDialog = () => {
 
@@ -91,7 +94,7 @@ const LoginDialog = () => {
                             </Typography>
                         </DivFlexCenter>
                         <DivFlexSpaceBetween sx={{ flexWrap: 'wrap' }}>
-                            <Typography sx={{ fontSize: isMobile ? 12 : 14, fontFamily: 'Eina04-SemiBold', color: theme.palette.text.titleFormText }}>
+                            <Typography sx={{ fontSize: isMobile ? 12 : 14, fontFamily: 'Eina04-SemiBold', color: theme.palette.text.titleFormText}}>
                                 Email
                             </Typography>
                             <FormControl sx={{ width: isMobile ? '100%' : '90%' }}>
@@ -99,18 +102,26 @@ const LoginDialog = () => {
                             </FormControl>
                         </DivFlexSpaceBetween>
 
-                        <DivFlexCenter sx={{ mt: 2 }}>
+                        <DivFlexStart sx={{ mt: 2 }}>
+                            <Box sx={{ color: theme.palette.text.titleFormText, width: isMobile ? '' : 55 }} />
+
                             {isEmailEmpty ? (
-                                <Typography sx={{ fontSize: 14, fontFamily: 'Eina04-Regular' }} color={'#da1e28'}>
-                                    Email is Empty
-                                </Typography>
+                                <DivFlexStart>
+                                    <ErrorOutlineIcon sx={{ color: '#da1e28', fontSize: isMobile ? 16 : 18, mr: 0.5, mt: -0.3 }} />
+                                    <Typography sx={{ fontSize: isMobile ? 12 : 14, fontFamily: 'Eina04-Regular' }} color={'#da1e28'}>
+                                        Email is empty
+                                    </Typography>
+                                </DivFlexStart>
                             ) : isEmailInvalid ? (
-                                <Typography sx={{ fontSize: 14, fontFamily: 'Eina04-Regular' }} color={'#da1e28'}>
-                                    Email is Invalid
-                                </Typography>
+                                <DivFlexStart>
+                                    <ErrorOutlineIcon sx={{ color: '#da1e28', fontSize: isMobile ? 16 : 18, mr: 0.5, mt: -0.3 }} />
+                                    <Typography sx={{ fontSize: isMobile ? 12 : 14, fontFamily: 'Eina04-Regular' }} color={'#da1e28'}>
+                                        Email is invalid
+                                    </Typography>
+                                </DivFlexStart>
                             ) : (<></>)
                             }
-                        </DivFlexCenter>
+                        </DivFlexStart>
 
                         <ButtonSecondary onClick={handlePressSendOtp} sx={{ mt: isMobile ? 3 : 5 }}>
                             <Typography sx={{ color: theme.palette.text.buttonSecondary, fontSize: isMobile ? 12 : 14, fontFamily: 'Eina04-SemiBold' }}>
@@ -129,7 +140,7 @@ const LoginDialog = () => {
                     vertical: "top",
                     horizontal: "center"
                 }}
-                sx={{ mt: isMobile ? 1 : 10 }}
+                sx={{ mt: isMobile ? 8 : 10, zIndex: 3000 }}
                 ContentProps={{
                     sx: {
                         background: theme.palette.background.dialog,
@@ -137,7 +148,8 @@ const LoginDialog = () => {
                         display: 'flex',
                         justifyContent: 'center',
                         alignItems: 'center',
-                        height: 72
+                        height: 72,
+                        borderRadius: 0
                     }
                 }}
             />
