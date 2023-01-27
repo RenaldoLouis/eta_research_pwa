@@ -296,7 +296,7 @@ function App() {
   const deliveryDumpData = [
     {
       id: 1,
-      deliveryStatus: 'Late',
+      deliveryStatus: 'Done',
       date: 'Mon, 19 Jan 2021',
       twStart: '11.00',
       twEnd: '12.30',

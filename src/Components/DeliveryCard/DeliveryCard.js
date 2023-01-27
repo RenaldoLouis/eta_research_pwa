@@ -11,8 +11,7 @@ import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
-// import DoneIcon from '@mui/icons-material/Done';
-import DoneIcon from "../../assets/icons/DoneIcon";
+import DoneIcon from '@mui/icons-material/Done';
 
 // import components
 import ItemList from "../ItemList/ItemList";
@@ -43,7 +42,7 @@ const getStatusChip = (data, theme) => {
             {
                 data.deliveryStatus == 'Done' &&
                 <DivFlexStart sx={{ ml:1 , mt:0.5 }}>
-                    <DoneIcon color = {'#979797'}  sx={{ fontSize: 14, mt: 0.2}} />
+                    <DoneIcon sx={{ fontSize: 14, mt: -0.4, color: theme.palette.text.doneText }} />
                     <Typography fontSize={12} color={theme.palette.text.doneText} sx={{ fontFamily: 'Eina04-Regular' }}>
                         DONE
                     </Typography>

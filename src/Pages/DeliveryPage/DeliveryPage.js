@@ -13,11 +13,10 @@ import DeliveryCard from "../../Components/DeliveryCard/DeliveryCard";
 
 
 // import Icon
-// import DoneIcon from '@mui/icons-material/Done';
+import DoneIcon from '@mui/icons-material/Done';
 import CloseIcon from '@mui/icons-material/Close';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
-import DoneIcon from "../../assets/icons/DoneIcon";
 
 
 // import AppContext
@@ -159,7 +158,7 @@ const DeliveryPage = () => {
                                         deliveryDumpData.every((v) => { return v.deliveryStatus == "Done" }) ? (
                                             <DivFlexStart sx={{ padding: isDesktop ? '' : '24px 24px 0px 24px', mt: isDesktop ? 3 : undefined }}>
                                                 <Typography fontSize={30} color={theme.palette.text.heading1} sx={{ fontFamily: 'Eina04-Regular' }} >
-                                                    Your Delivery <br /> for {deliveryDumpData[0].date} <br /> is All <span style={{ color: theme.palette.text.highlightHeading1 }}>  <DoneIcon sx={{ height: 28, width: 32, mr: -1.5, mt:0.5 }} color= {theme.palette.text.highlightHeading1} /> DONE </span>
+                                                    Your Delivery <br /> for {deliveryDumpData[0].date} <br /> is All <span style={{ color: theme.palette.text.highlightHeading1 }}>  <DoneIcon sx={{ height: 30, width: 32, mr: -1.5, mt:-0.5 }} /> DONE </span>
                                                 </Typography>
                                             </DivFlexStart>
                                         ) : <DivFlexStart sx={{ padding: isDesktop ? '' : '24px 24px 0px 24px', mt: isDesktop ? 3 : undefined }}>
