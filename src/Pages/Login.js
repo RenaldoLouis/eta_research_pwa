@@ -1,6 +1,23 @@
 import React, { useState, useEffect, useContext, useMemo } from "react";
 import { PwaContext } from "../context/PwaContext";
 
+// import mui
+import { Typography } from "@mui/material";
+
+// import icon
+import CloseIcon from '@mui/icons-material/Close';
+
+// import Styled
+import { useTheme, styled } from "@mui/material";
+
+// import Reusable Component
+import ButtonSecondary from "../Components/ReusableComponents/ButtonSecondary";
+import CustomDialog from "../Components/ReusableComponents/CustomDialog";
+import CustomDialogContent from "../Components/ReusableComponents/CustomDialogContent";
+
+// import context
+import { AppContext } from "../App";
+
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 
@@ -11,6 +28,9 @@ import { useNavigate, Outlet } from "react-router-dom"
 
 import firstStep from "../assets/Images/1st_step.png";
 import addLogo from "../assets/Images/add_to_home_screen.png";
+import DivFlexEnd from "../Components/ReusableComponents/DivFlexEnd";
+import DivFlexCenter from "../Components/ReusableComponents/DivFlexCenter";
+import DivFlexStart from "../Components/ReusableComponents/DivFlexStart";
 
 // Opera 8.0+
 var isOpera = (!!window.opr && (navigator.userAgent.indexOf("Opera") || navigator.userAgent.indexOf('OPR')) !== -1) || !!window.opera || navigator.userAgent.indexOf(' OPR/') >= 0;
@@ -30,8 +50,24 @@ var isEdge = !isIE && !!window.StyleMedia;
 // Chrome 1 - 79
 var isChrome = navigator.userAgent.indexOf("Chrome") !== -1;
 
+
+export const Container = styled('div')((props) => ({
+    width: '100vw',
+    paddingLeft: 24,
+    paddingRight: 24,
+    height: '100vh',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+}))
+
 function Login() {
     const { downloadApp, supportsPWA, showInstallMessage } = useContext(PwaContext);
+
+    const theme = useTheme()
+
+    const { isMobile, isDesktop } = useContext(AppContext)
 
     const [show, setShow] = useState(false);
 
@@ -69,83 +105,89 @@ function Login() {
 
     const onClickTrackingNumber = () => {
         navigate("/inputTrackingNumber")
-    } 
+    }
 
     const onClickDeliveryPage = () => {
         navigate("/delivery")
-    } 
+    }
 
     return (
-        <div className="App">
-            <header className="App-header">
-                <p>
-                    Ver 1.2
-                </p>
-                {supportsPWA ? (
+        <Container>
+            <Typography sx={{ color: theme.palette.text.primary, fontSize: isMobile ? 14 : 20, fontFamily: 'Eina04-SemiBold', mb:3 }}>
+                PWA Configuration Ver 1.2
+            </Typography>
+            {supportsPWA ? (
+                <ButtonSecondary onClick={(e) => downloadApp(e)} sx={{ padding: '0px 16px 0px 16px', mb: 3, maxWidth: '100%' }}>
+                    <Typography sx={{ color: theme.palette.text.buttonSecondary, fontSize: isMobile ? 14 : 20, fontFamily: 'Eina04-SemiBold' }}>
+                        Install to Home Screen
+                    </Typography>
+                </ButtonSecondary>
+            ) : null}
+            {isChrome ? null : (
 
-                    <div className="mt-3">
-                        <button onClick={(e) => downloadApp(e)}>install_to_homescreen</button>
-                    </div>
-                ) : null}
-                {isChrome ? null : (
-                    <div>
-                        This Browser is not supported
-                    </div>
-                )}
-                {showInstallMessage && (
-                    <div className="mt-3">
-                        <button onClick={() => handleShow()}>Step to Install to homescreen</button>
-                    </div>
-                )}
-                <div className="mt-3">
-                    <button onClick={allowNotification}>Allow Notification</button>
-                </div>
-                <div className="mt-3">
-                    <button onClick={onClickTrackingNumber}>Temporary Link Tracking Number</button>
-                </div>
-                <div className="mt-3">
-                    <button onClick={onClickDeliveryPage}>Temporary Link Delivery Page</button>
-                </div>
-                <Modal show={show} onHide={handleClose}>
-                    <Modal.Header closeButton>
-                        <Modal.Title>How to install to Device</Modal.Title>
-                    </Modal.Header>
-                    <Modal.Body>
-                        <div className="navbar-modal-body">
-                            1.Install this webapp to your device: tap
-                            <img src={firstStep} alt="" style={{
-                                width: "100%",
-                                height: "100%"
-                            }} />
-                            <div className="mt-3">
-                                2.And then add to homescreen
-                                <img src={addLogo} alt="" style={{
-                                    width: "100%",
-                                    height: "100%"
-                                }} />
-                            </div>
-                        </div>
-                        <div className="m-3 d-flex justify-content-between">
-                            <Button
-                                design="Emphasized"
-                                style={{ visibility: "hidden" }}
-                            >
-                                Save
-                            </Button>
-                        </div>
-                    </Modal.Body>
-                    <Modal.Footer>
-                        <Button variant="secondary" onClick={handleClose}>
-                            Close
-                        </Button>
-                        <Button variant="primary" onClick={handleClose}>
-                            Save Changes
-                        </Button>
-                    </Modal.Footer>
-                </Modal>
-            </header>
+                <Typography sx={{ color: theme.palette.background.buttonSecondary, fontSize: isMobile ? 14 : 20, fontFamily: 'Eina04-SemiBold', mb: 2 }}>
+                    This Browser is not supported
+                </Typography>
+            )}
+            {showInstallMessage && (
 
-        </div>
+                <ButtonSecondary onClick={() => handleShow()} sx={{ padding: '0px 16px 0px 16px', mb: 2, maxWidth: '100%' }}>
+                    <Typography sx={{ color: theme.palette.text.buttonSecondary, fontSize: isMobile ? 14 : 20, fontFamily: 'Eina04-SemiBold' }}>
+                        Step to Install to homescreen
+                    </Typography>
+                </ButtonSecondary>
+            )}
+
+            <ButtonSecondary onClick={allowNotification} sx={{ padding: '0px 16px 0px 16px', mb: 2, maxWidth: '100%' }}>
+                <Typography sx={{ color: theme.palette.text.buttonSecondary, fontSize: isMobile ? 14 : 20, fontFamily: 'Eina04-SemiBold' }}>
+                    Allow Notification
+                </Typography>
+            </ButtonSecondary>
+
+            <ButtonSecondary onClick={onClickTrackingNumber} sx={{ padding: '0px 16px 0px 16px', mb: 2, maxWidth: '100%' }}>
+                <Typography sx={{ color: theme.palette.text.buttonSecondary, fontSize: isMobile ? 14 : 20, fontFamily: 'Eina04-SemiBold' }}>
+                    Temporary Link Tracking Number
+                </Typography>
+            </ButtonSecondary>
+
+            <ButtonSecondary onClick={onClickDeliveryPage} sx={{ padding: '0px 16px 0px 16px', mb: 2, maxWidth: '100%' }}>
+                <Typography sx={{ color: theme.palette.text.buttonSecondary, fontSize: isMobile ? 14 : 20, fontFamily: 'Eina04-SemiBold' }}>
+                    Temporary Link Delivery Page
+                </Typography>
+            </ButtonSecondary>
+            <CustomDialog open={show} onClose={handleClose} theme={theme}>
+                <DivFlexEnd sx={{ pr: 2, pt: 2 }} >
+                    <CloseIcon onClick={handleClose} sx={{ cursor: 'pointer' }} />
+                </DivFlexEnd>
+                <CustomDialogContent>
+                    <DivFlexCenter>
+                        <Typography sx={{ color: theme.palette.text.dialogHeadingText, fontSize: 20, fontFamily: 'Eina04-Regular' }}>
+                            How to install to Device
+                        </Typography>
+                    </DivFlexCenter>
+                    <DivFlexStart sx={{ mt: 2, mb: 1 }}>
+                        <Typography sx={{ color: theme.palette.text.titleFormText, fontSize: 14, fontFamily: 'Eina04-Regular' }}>
+                            1. Install this webapp to your device: tap
+                        </Typography>
+                    </DivFlexStart>
+                    <img src={firstStep} alt="" style={{
+                        width: "100%",
+                        height: "100%"
+                    }} />
+
+                    <DivFlexStart sx={{ mt: 3, mb: 1 }}>
+                        <Typography sx={{ color: theme.palette.text.titleFormText, fontSize: 14, fontFamily: 'Eina04-Regular' }}>
+                            2. And then add to homescreen
+                        </Typography>
+                    </DivFlexStart>
+                    <img src={addLogo} alt="" style={{
+                        width: "100%",
+                        height: "100%"
+                    }} />
+                </CustomDialogContent>
+            </CustomDialog>
+
+        </Container>
     );
 }
 
