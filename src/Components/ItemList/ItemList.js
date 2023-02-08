@@ -10,7 +10,7 @@ import Collapse from '@mui/material/Collapse';
 import { AppContext } from '../../App';
 
 // import Icons
-import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
+import ErrorIcon from '../../assets/icons/ErrorIcon';
 
 // import reusable component 
 import DivFlexStart from '../ReusableComponents/DivFlexStart';
@@ -52,8 +52,9 @@ const ItemList = (props) => {
     return (
         <>
             <List 
-            sx={{ width: '100%', borderBottom: index == itemLength - 1 ? '' : '1px solid #979797', 
+            sx={{ width: '100%', borderBottom: index == itemLength - 1 ? '' : `1px solid ${theme.palette.background.separatorTitle}`, 
             background: isDesktop ? isOpenItemList ? theme.palette.background.deliveryCard : theme.palette.background.default : theme.palette.background.deliveryCard,
+            paddingLeft:isDesktop ? undefined : 1, paddingRight:isDesktop ? undefined : 1
             }}>
                 <ListItemButton onClick={item.warning ? handleClickExpandList : undefined} sx={{ "&:hover": { backgroundColor: "transparent", cursor: !item.warning ? 'default' : '' } }} disableRipple >
                     <DivFlexSpaceBetween sx={{ width: '100%' }}>
@@ -61,7 +62,7 @@ const ItemList = (props) => {
                             <Typography sx={{ fontSize: 12, fontFamily: 'Eina04-Regular' }} color={item.warning ? '#da1e28' : theme.palette.text.primary}>
                                 {item.productName}
                             </Typography>
-                            {item.warning && (<ErrorOutlineIcon sx={{ color: '#da1e28', width: 15, height: 15, ml: 1, mt:-0.5 }} />)}
+                            {item.warning && (<ErrorIcon sx={{ color: '#da1e28', fontSize:14, ml: 1 }} />)}
                         </DivFlexStart>
                         <Typography sx={{ fontSize: 12, fontFamily: 'Eina04-Regular' }} color={theme.palette.text.primary} >
                             {`${item.amount} ${item.unit}`}

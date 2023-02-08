@@ -1,8 +1,8 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 
 import { styled } from '@mui/system'
 
-import { Typography, FormControl, TextField, Grid, Dialog, CircularProgress, Backdrop, Box } from "@mui/material";
+import { Typography, FormControl, Grid, CircularProgress, circularProgressClasses, Backdrop, Box } from "@mui/material";
 
 // Lottie Animation
 import Lottie from "react-lottie";
@@ -12,7 +12,7 @@ import { useTheme } from "@mui/material/styles";
 
 // import reusbale component
 import DivFlexCenter from "../ReusableComponents/DivFlexCenter";
-import ButtonSecondary from "../ReusableComponents/ButtonSecondary";
+import Button from "../ReusableComponents/Button";
 
 import { useNavigate } from "react-router-dom";
 
@@ -20,10 +20,10 @@ import { useNavigate } from "react-router-dom";
 import { AppContext } from "../../App";
 
 // import icon
-import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
-import CloseIcon from '@mui/icons-material/Close';
-import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
-import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import ErrorIcon from "../../assets/icons/ErrorIcon";
+import CloseIcon from "../../assets/icons/CloseIcon";
+import BackIcon from "../../assets/icons/BackIcon";
+import NextIcon from "../../assets/icons/NextIcon";
 
 
 
@@ -33,6 +33,8 @@ import dumpMap from '../../../src/assets/Images/dumpMap.png'
 // import animation assets
 import lightModeAnimation from '../../../src/assets/animations/Light Mode_Fixed.json'
 import darkModeAnimation from '../../../src/assets/animations/Dark Mode_Fixed.json'
+import lightModeAnimationFixed from '../../../src/assets/animations/Light Mode_Fixed_1.json'
+import darkModeAnimationFixed from '../../../src/assets/animations/Dark Mode_fixed_1.json'
 
 // import component
 import LinkExpiredStatus from "../LinkExpiredStatus/LinkExpiredStatus";
@@ -121,6 +123,10 @@ const InputTrackingNumber = () => {
 
     const [promoDetail, setPromoDetail] = useState(0)
 
+    const [isLastPromo, setIsLastPromo] = useState(false)
+
+    const [isFirstPromo, setIsFirstPromo] = useState(false)
+
     const handleOpenPromoDialog = (promoId) => {
         setOpenPromoDialog(true)
         // setIdPromoDialog(promoId)
@@ -131,7 +137,6 @@ const InputTrackingNumber = () => {
     const handleNextPromoDetail = (promoLength) => {
         if (promoDetail != promoLength - 1) {
             setPromoDetail(promoDetail + 1)
-
             console.log(`${promoDetail} of ${promoLength}`)
         }
     }
@@ -139,25 +144,40 @@ const InputTrackingNumber = () => {
     const handlePrevPromoDetail = (promoLength) => {
         if (promoDetail > 0) {
             setPromoDetail(promoDetail - 1)
-
             console.log(`${promoDetail} of ${promoLength}`)
         }
     }
+
+    useEffect(() => {
+        if (promoDetail == promoDumpData.length - 1) {
+            setIsLastPromo(true)
+        } else {
+            setIsLastPromo(false)
+        }
+
+        if (promoDetail == 0) {
+            setIsFirstPromo(true)
+        } else {
+            setIsFirstPromo(false)
+        }
+
+    }, [promoDetail])
 
     // Light Mode Animation
     const lightAnimation = {
         loop: true,
         autoplay: true,
-        animationData: lightModeAnimation,
+        animationData: lightModeAnimationFixed,
         rendererSettings: {
             preserveAspectRatio: "xMidYMid slice"
         }
     }
 
+    // dark mode animation
     const darkAnimation = {
         loop: true,
         autoplay: true,
-        animationData: darkModeAnimation,
+        animationData: darkModeAnimationFixed,
         rendererSettings: {
             preserveAspectRatio: "xMidYMid slice"
         }
@@ -185,19 +205,23 @@ const InputTrackingNumber = () => {
                                 <TextFieldStyled id="inputTrackingNumber" placeholder="Up to 12 codes" onChange={handleChangeInput} warning={warning} theme={theme} sx={{ input: { fontSize: 14, height: isMobile ? 5 : 14 } }} />
                             </FormControl>
                         </DivFlexStart>
-                        <ButtonSecondary onClick={onClickSubmit} sx={{ width: isMobile ? '25%' : '30%', height: isMobile ? 38 : 46 }} >
-                            <Typography sx={{ color: theme.palette.text.buttonSecondary, fontSize: 14, fontFamily: 'Eina04-SemiBold' }}>
-                                Track
-                            </Typography>
-                        </ButtonSecondary>
+                        <Button onClick={onClickSubmit} style={{ width: isMobile ? '25%' : '30%' }} height={isMobile ? 38 : 47} isLoading={isLoading} isPromo={true}>
+                            Track
+                        </Button>
                         <DivFlexCenter sx={{ width: isMobile ? '8%' : '5%' }}>
-                            {isLoading && <CircularProgress size={isMobile ? '20px' : '30px'} sx={{ color: theme.palette.background.buttonSecondary }} />}
+                            {isLoading && <CircularProgress size={isMobile ? '20px' : '30px'} sx={{
+                                color: theme.palette.background.buttonSecondary, 
+                                // animationDuration: "0ms",
+                                [`& .${circularProgressClasses.circle}`]: {
+                                    strokeLinecap: "round"
+                                }
+                            }} />}
                         </DivFlexCenter>
 
                         {warning &&
                             <Warning isMobile={isMobile} >
                                 <DivFlexCenter >
-                                    <ErrorOutlineIcon sx={{ color: '#FF8389', width: 26, height: 26, marginRight: 1 }} />
+                                    <ErrorIcon color={'#FF8389'} sx={{ mr: 1, fontSize: 24 }} />
                                     <Typography sx={{ color: '#ffffff', fontSize: 12, fontFamily: 'Eina04-SemiBold' }}>
                                         {`Sorry your tracking attempt was not succesfull. Please check your tracking number.`}
                                     </Typography>
@@ -229,20 +253,20 @@ const InputTrackingNumber = () => {
             <Backdrop open={openPromoDialog} sx={{ backdropFilter: "blur(18px)", zIndex: 1000 }}>
                 <DivFlexSpaceBetween>
                     <Box sx={{ pr: 10 }} onClick={() => handlePrevPromoDetail(promoDumpData.length)}>
-                        <ArrowBackIosIcon sx={{ color: '#f4f4f4', fontSize: 40, cursor: 'pointer' }} />
+                        <BackIcon color={isFirstPromo ? '#F4F4F466' : '#f4f4f4'} sx={{ fontSize: 56, cursor: isFirstPromo ? 'default' : 'pointer' }} />
                     </Box>
                     <Box sx={{ width: 600 }}>
                         <Box sx={{ position: 'fixed', width: 600 }} >
                             <Box sx={{ float: 'right' }}>
                                 <DivFlexCenter sx={{ backgroundColor: 'rgba(26, 25, 25, 0.4)', padding: 0.5, marginTop: 2, marginRight: 2, borderRadius: '50%', cursor: 'pointer' }}>
-                                    <CloseIcon onClick={handleClosePromoDialog} sx={{ color: '#ffffff', fontSize: 20 }} />
+                                    <CloseIcon onClick={handleClosePromoDialog} sx={{ color: '#ffffff', fontSize: 20, pr: 0.2 }} />
                                 </DivFlexCenter>
                             </Box>
                         </Box>
                         <PromoCard openDetailPromo={true} promo={promoDumpData[promoDetail]} isDialog={true} />
                     </Box>
-                    <Box sx={{ pl: 10 }} onClick={() => handleNextPromoDetail(promoDumpData.length)}>
-                        <ArrowForwardIosIcon sx={{ color: '#f4f4f4', fontSize: 40, cursor: 'pointer' }} />
+                    <Box sx={{ pl: 9.2 }} onClick={() => handleNextPromoDetail(promoDumpData.length)}>
+                        <NextIcon color={isLastPromo ? '#F4F4F466' : '#f4f4f4'} sx={{ fontSize: 56, cursor: isLastPromo ? 'default' : 'pointer' }} />
                     </Box>
                 </DivFlexSpaceBetween>
             </Backdrop>

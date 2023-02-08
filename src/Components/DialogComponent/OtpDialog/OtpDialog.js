@@ -6,36 +6,25 @@ import Countdown from "react-countdown";
 import { Typography, Snackbar, Box } from "@mui/material";
 
 // import Icon
-import CloseIcon from '@mui/icons-material/Close';
-import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
+import ErrorIcon from "../../../assets/icons/ErrorIcon";
 
 
 import { Outlet } from "react-router-dom";
 
+// import appContext
 import { AppContext } from "../../../App";
 
-import ButtonSecondary from "../../ReusableComponents/ButtonSecondary";
 
 // import reusable component
 import DivFlexCenter from "../../ReusableComponents/DivFlexCenter";
-import DivFlexEnd from "../../ReusableComponents/DivFlexEnd";
 import CustomDialog from "../../ReusableComponents/CustomDialog";
+import Button from "../../ReusableComponents/Button";
 
 // dark mode and light mode
 import { useTheme, styled } from "@mui/material/styles";
 import CustomDialogContent from "../../ReusableComponents/CustomDialogContent";
 import DivFlexStart from "../../ReusableComponents/DivFlexStart";
 
-// Renderer callback with condition
-const renderer = ({ hours, minutes, seconds, completed }) => {
-    if (completed) {
-        // Render a complete state
-        return 0;
-    } else {
-        // Render a countdown
-        return <span>{seconds}</span>;
-    }
-};
 
 const InputOtp = styled('input')((props) => ({
     width: '15%',
@@ -62,8 +51,10 @@ const OtpDialog = () => {
 
     const theme = useTheme()
 
+    // initiate otp value
     const otpChar = { otp1: '', otp2: '', otp3: '', otp4: '', otp5: '', otp6: '', otp7: '', otp8: '' }
 
+    // temporary valid otp value
     const otpValue = { otp1: '0', otp2: '0', otp3: '0', otp4: '0', otp5: '0', otp6: '0', otp7: '0', otp8: '0' }
 
     const [inputOtp, setInputOtp] = useState(otpChar)
@@ -83,26 +74,12 @@ const OtpDialog = () => {
         setK((i) => !i);
     };
 
-    const [initialTime, setInitialTime] = useState(Date.now() + 59000)
-    const [otpCountdown, setOtpCountdown] = useState(true)
+    const [initialTime, setInitialTime] = useState(Date.now() + 0)
+    const [otpCountdown, setOtpCountdown] = useState(false)
 
     const [isOtpFalse, setIsOtpFalse] = useState(false)
 
     const handleButtonLogin = () => {
-        // if (Object.values(inputOtp).includes('')) {
-        //     console.log('please input the otp')
-        //     setIsOtpFalse(true)
-        // } else if( JSON.stringify(inputOtp) === JSON.stringify(otpValue) ) {
-        //     handleSubmitOtp()
-        //     handleCloseOtpDialog()
-        //     handleLogin()
-        //     setInputOtp(otpChar)
-        //     setIsOtpFalse(false)
-        // }
-        // else{
-        //     console.log('OTP code is incorrect')
-        // }
-
         if (JSON.stringify(inputOtp) === JSON.stringify(otpValue)) {
             handleSubmitOtp()
             handleCloseOtpDialog()
@@ -115,8 +92,14 @@ const OtpDialog = () => {
     }
 
     useEffect(() => {
-        setInitialTime(Date.now() + 59000)
-        setOtpCountdown(true)
+        if (sendOtp == true) {
+            setInitialTime(Date.now() + 59000)
+            setOtpCountdown(true)
+        }
+        else {
+            setInitialTime(Date.now() + 0)
+            setOtpCountdown(false)
+        }
     }, [sendOtp])
 
     const handleAfterFinsihCountdown = () => {
@@ -143,15 +126,24 @@ const OtpDialog = () => {
         setIsOtpFalse(false)
     }
 
+    // Renderer callback with condition
+    const renderer = ({ hours, minutes, seconds, completed }) => {
+        if (completed) {
+            // Render a complete state
+            return 0;
+        } else {
+            // Render a countdown
+            return <span>{seconds}</span>;
+        }
+    };
+
+
 
     return (
         <>
-            <CustomDialog open={openOtpDialog} theme={theme} >
+            <CustomDialog open={openOtpDialog} theme={theme} onClose={handleCloseDialog} >
                 <Box sx={{ backgroundColor: theme.palette.background.dialog }}>
-                    <DivFlexEnd sx={{ pr: 2, pt: 2 }} >
-                        <CloseIcon onClick={handleCloseDialog} />
-                    </DivFlexEnd>
-                    <CustomDialogContent>
+                    <CustomDialogContent isMobile={isMobile}>
                         <DivFlexCenter sx={{ height: isMobile ? 20 : 40, mb: isMobile ? 3 : 8 }} >
                             <Typography sx={{ color: theme.palette.text.heading1, fontSize: isMobile ? 20 : 40, fontFamily: 'Eina04-Regular' }}>
                                 OTP
@@ -258,28 +250,25 @@ const OtpDialog = () => {
                         </form>
                         {isOtpFalse &&
                             <DivFlexStart sx={{ mt: 2, pl: 0.5 }}>
-                                <ErrorOutlineIcon sx={{ color: '#da1e28', fontSize: isMobile ? 16 : 18, mr: 0.5, mt: -0.5 }} />
+                                <ErrorIcon sx={{ color: '#da1e28', fontSize: isMobile ? 16 : 18, mr: 0.5 }} />
                                 <Typography sx={{ fontSize: isMobile ? 12 : 14, fontFamily: 'Eina04-Regular' }} color={'#da1e28'}>
                                     OTP code is incorrect
                                 </Typography>
                             </DivFlexStart>
                         }
                         {otpCountdown && (
-                            <DivFlexCenter sx={{ mb: 3, mt: 3 }}>
-                                <Typography sx={{ color: theme.palette.text.resendOtp, textDecoration: 'underline', fontSize: isMobile ? 12 : 20 }}>
+                            <DivFlexCenter sx={{ mb: 0, mt: 6 }}>
+                                <Typography sx={{ fontFamily: 'Eina04-Regular', color: theme.palette.text.primary, textDecoration: 'underline', fontSize: isMobile ? 12 : 20 }}>
                                     Resent OTP Code (<Countdown key={k} date={initialTime} renderer={renderer} onComplete={handleAfterFinsihCountdown} />)
                                 </Typography>
                             </DivFlexCenter>
                         )}
-                        <ButtonSecondary onClick={handleButtonLogin} sx={{ mt: isMobile ? 3 : 5 }}>
-                            <Typography sx={{ color: theme.palette.text.buttonSecondary, fontSize: isMobile ? 14 : 20, fontFamily: 'Eina04-SemiBold' }}>
-                                Login
-                            </Typography>
-                        </ButtonSecondary>
+                        <Button onClick={handleButtonLogin} style={{ mt: otpCountdown ? 2 : 5 }} >
+                            {`Login`}
+                        </Button>
                     </CustomDialogContent>
                 </Box>
             </CustomDialog>
-
 
             <Outlet />
         </>

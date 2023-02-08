@@ -10,12 +10,8 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 
 // import Icon
-import CloseIcon from '@mui/icons-material/Close';
-import DeleteIcon from '@mui/icons-material/Delete';
-import EditIcon from '@mui/icons-material/Edit';
-
-import Delete from "../../assets/icons/Delete";
-import Edit from "../../assets/icons/Edit";
+import DeleteIcon from "../../assets/icons/DeleteIcon";
+import EditIcon from "../../assets/icons/EditIcon";
 
 // import react router dom
 import { Outlet } from "react-router-dom";
@@ -24,12 +20,10 @@ import { Outlet } from "react-router-dom";
 import { AppContext } from "../../App";
 
 // import reusable component
-import ButtonSecondary from "../ReusableComponents/ButtonSecondary";
 import DivFlexCenter from "../ReusableComponents/DivFlexCenter";
 import DivFlexSpaceBetween from "../ReusableComponents/DivFlexSpacebetween";
-import DivFlexEnd from "../ReusableComponents/DivFlexEnd";
 import CustomDialog from "../ReusableComponents/CustomDialog";
-import CustomDialogContent from "../ReusableComponents/CustomDialogContent";
+import Button from "../ReusableComponents/Button";
 
 // import styled and theme
 import { styled, useTheme } from "@mui/material/styles";
@@ -42,16 +36,16 @@ const TableHeadCustom = styled(TableCell)((props) => ({
     // paddingLeft: 0,
     top: -1,
     backgroundColor: props.theme.palette.background.headDialog,
-    color: props.theme.palette.text.emailListText,
-    borderBottom:'none', 
-    padding:0, 
+    color: props.theme.palette.text.heading1,
+    borderBottom: 'none',
+    padding: 0,
 }))
 
 // table data container component
 const TableDataContainer = styled('div')((props) => ({
-    maxHeight: 300, 
-    overflowY: 'auto', 
-    paddingRight: 24 
+    maxHeight: 300,
+    overflowY: 'auto',
+    paddingRight: 24
 }))
 
 
@@ -78,15 +72,12 @@ const EmailsListDialog = () => {
         <>
             <CustomDialog width={800} open={emailListDialog} onClose={handleEmailListDialog} backgroundColor={theme.palette.background.dialog}  >
                 <Box sx={{ backgroundColor: theme.palette.background.dialog }}>
-                    <DivFlexEnd sx={{ pr: 2, pt: 2 }} >
-                        <CloseIcon onClick={handleEmailListDialog} sx={{ cursor:'pointer' }} />
-                    </DivFlexEnd>
-                    <Box sx={{ padding: '4px 0px 32px 24px' }}>
+                    <Box sx={{ padding: isMobile ? '4px 0px 32px 24px' : '4px 0px 64px 48px' }}>
                         {isMobile ? (
                             <>
-                                <DivFlexCenter sx={{ width:"calc(100% - 24px)" }}>
-                                    <Typography sx={{ color: theme.palette.text.dialogHeadingText, fontSize: 20, fontFamily: 'Eina04-Regular', textAlign: 'center' }}>
-                                        {`<KundenName>`} <br /> EmailListe
+                                <DivFlexCenter sx={{ width: "calc(100% - 24px)" }}>
+                                    <Typography sx={{ color: theme.palette.text.heading1, fontSize: 20, fontFamily: 'Eina04-Regular', textAlign: 'center' }}>
+                                        {`<KundenName>`} <br /> Emailliste
                                     </Typography>
                                 </DivFlexCenter>
 
@@ -94,39 +85,35 @@ const EmailsListDialog = () => {
                                 <TableDataContainer>
                                     {
                                         emailDumpList.map((list) => (
-                                            <>
-                                                <DivFlexSpaceBetween sx={{ mt: 2, borderBottom: '1px solid', pb: 1 }}>
-                                                    <Box >
-                                                        <Typography sx={{ fontFamily: 'Eina04-Regular', fontSize: 12, color: theme.palette.text.emailListText }}>{list.email}</Typography>
-                                                        <Typography sx={{ fontFamily: 'Eina04-Regular', fontSize: 12, color: theme.palette.text.emailListText }}>{getTextRoles(list.roles)}</Typography>
-                                                    </Box>
-                                                    <DivFlexCenter >
-                                                        <Edit color={theme.palette.background.iconColor} sx={{ width: 18, mr:3 }} onClick={() => handleSetCurrentEmailForEdit(list)} />
-                                                        <Delete color={theme.palette.background.iconColor} sx={{ width: 18 }} onClick={() => handleSetCurrentEmailForDelete(list)} />
-                                                    </DivFlexCenter>
-                                                </DivFlexSpaceBetween>
-                                            </>
+                                            <DivFlexSpaceBetween key={list.id} sx={{ mt: 2, borderBottom: `1px solid ${theme.palette.background.separatorTitle}`, pb: 1 }}>
+                                                <Box >
+                                                    <Typography sx={{ fontFamily: 'Eina04-Regular', fontSize: 12, color: theme.palette.text.primary }}>{list.email}</Typography>
+                                                    <Typography sx={{ fontFamily: 'Eina04-Regular', fontSize: 12, color: theme.palette.text.primary }}>{getTextRoles(list.roles)}</Typography>
+                                                </Box>
+                                                <DivFlexCenter >
+                                                    <EditIcon color={theme.palette.background.iconColor} sx={{ fontSize: 18, mr: 3 }} onClick={() => handleSetCurrentEmailForEdit(list)} />
+                                                    <DeleteIcon color={theme.palette.background.iconColor} sx={{ fontSize: 18 }} onClick={() => handleSetCurrentEmailForDelete(list)} />
+                                                </DivFlexCenter>
+                                            </DivFlexSpaceBetween>
                                         ))
                                     }
                                 </TableDataContainer>
-                                <Typography sx={{ textDecoration: 'underline', mt: 2, fontFamily: 'Eina04-Regular', cursor: 'pointer', fontSize: 12, width:"calc(100% - 24px)" }} onClick={handleOpenAddNewEmailDialog} >
+                                <Typography sx={{ textDecoration: 'underline', mt: 2, fontFamily: 'Eina04-Regular', cursor: 'pointer', fontSize: 12, width: "calc(100% - 24px)" }} onClick={handleOpenAddNewEmailDialog} >
                                     +Add New Email
                                 </Typography>
 
-                                <ButtonSecondary sx={{ mt: 3, width: 'calc(100% - 24px)' }} onClick={handleEmailListDialog}>
-                                    <Typography sx={{ color: theme.palette.text.buttonSecondary, fontSize: 14, fontFamily: 'Eina04-SemiBold' }}>
-                                        Save
-                                    </Typography>
-                                </ButtonSecondary>
+                                <Button style={{ mt: 8, width: 'calc(100% - 24px)' }} onClick={handleEmailListDialog}>
+                                    {`Save`}
+                                </Button>
                             </>
                         ) : (
                             <>
-                                <DivFlexCenter sx={{ width:"calc(100% - 24px)", height:40, mb: 8}}>
-                                    <Typography sx={{ color: theme.palette.text.dialogHeadingText, fontSize: 40, fontFamily: 'Eina04-Regular' }}>
+                                <DivFlexCenter sx={{ width: "calc(100% - 48px)", height: 40, mb: 8 }}>
+                                    <Typography sx={{ color: theme.palette.text.heading1, fontSize: 40, fontFamily: 'Eina04-Regular' }}>
                                         {`<KundenName> EmailListe`}
                                     </Typography>
                                 </DivFlexCenter>
-                                <TableContainer sx={{ maxHeight: 400, pr:3 }}>
+                                <TableContainer sx={{ maxHeight: 250, pr: 6 }}>
                                     <Table stickyHeader >
                                         <TableHead  >
                                             <TableRow  >
@@ -139,14 +126,14 @@ const EmailsListDialog = () => {
                                         <TableBody>
                                             {emailDumpList.map((list) => (
                                                 <TableRow key={list.id} >
-                                                    <TableCell component="th" scope="row" sx={{ fontFamily: 'Eina04-Regular', pl: 0, fontSize: 20, color: theme.palette.text.emailListText }} >
+                                                    <TableCell component="th" scope="row" sx={{ fontFamily: 'Eina04-Regular', pl: 0, fontSize: 20, color: theme.palette.text.primary }} >
                                                         {list.email}
                                                     </TableCell>
-                                                    <TableCell sx={{ fontFamily: 'Eina04-Regular', color: theme.palette.text.emailListRole, pl: 0, fontSize: 20 }} > {getTextRoles(list.roles)}</TableCell>
-                                                    <TableCell sx={{ width: 100 }}>
-                                                        <DivFlexSpaceBetween>
-                                                            <Edit sx={{ cursor: 'pointer', width: 22 }} color={theme.palette.background.iconColor} onClick={() => handleSetCurrentEmailForEdit(list)} />
-                                                            <Delete sx={{ cursor: 'pointer', width: 22 }} color={theme.palette.background.iconColor} onClick={() => handleSetCurrentEmailForDelete(list)} />
+                                                    <TableCell sx={{ fontFamily: 'Eina04-Regular', color: theme.palette.text.primary, pl: 0, fontSize: 20 }} > {getTextRoles(list.roles)}</TableCell>
+                                                    <TableCell sx={{ width: 90 }}>
+                                                        <DivFlexSpaceBetween sx={{ mr: -2 }}>
+                                                            <EditIcon sx={{ cursor: 'pointer', fontSize: 24 }} color={theme.palette.background.iconColor} onClick={() => handleSetCurrentEmailForEdit(list)} />
+                                                            <DeleteIcon sx={{ cursor: 'pointer', fontSize: 24 }} color={theme.palette.background.iconColor} onClick={() => handleSetCurrentEmailForDelete(list)} />
                                                         </DivFlexSpaceBetween>
                                                     </TableCell>
                                                 </TableRow>
@@ -155,19 +142,18 @@ const EmailsListDialog = () => {
                                         </TableBody>
                                     </Table>
                                 </TableContainer>
-                                <Typography sx={{ textDecoration: 'underline', mt: 3, fontFamily: 'Eina04-Regular', cursor: 'pointer', fontSize: 20, color: theme.palette.text.emailListText }} onClick={handleOpenAddNewEmailDialog} >
+                                <Typography sx={{ textDecoration: 'underline', mt: 3, fontFamily: 'Eina04-Regular', cursor: 'pointer', fontSize: 20, color: theme.palette.text.primary }} onClick={handleOpenAddNewEmailDialog} >
                                     +Add New Email
                                 </Typography>
-                                <ButtonSecondary sx={{ mt: 5, width: 'calc(100% - 20px)' }} onClick={handleEmailListDialog}>
-                                    <Typography sx={{ color: theme.palette.text.buttonSecondary, fontSize: 20, fontFamily: 'Eina04-SemiBold' }}>
-                                        Save
-                                    </Typography>
-                                </ButtonSecondary>
+                                <Button style={{ mt: 8, width: 'calc(100% - 48px)' }} onClick={handleEmailListDialog} >
+                                    {`Save`}
+                                </Button>
                             </>
                         )}
                     </Box>
                 </Box>
             </CustomDialog>
+
             <Outlet />
         </>
 

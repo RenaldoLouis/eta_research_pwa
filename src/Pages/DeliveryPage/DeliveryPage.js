@@ -13,10 +13,10 @@ import DeliveryCard from "../../Components/DeliveryCard/DeliveryCard";
 
 
 // import Icon
-import DoneIcon from '@mui/icons-material/Done';
-import CloseIcon from '@mui/icons-material/Close';
-import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
-import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import DoneIcon from "../../assets/icons/DoneIcon";
+import CloseIcon from "../../assets/icons/CloseIcon";
+import BackIcon from "../../assets/icons/BackIcon";
+import NextIcon from "../../assets/icons/NextIcon";
 
 
 // import AppContext
@@ -53,7 +53,7 @@ const PromoStickyTitle = styled('div')((props) => ({
     width: '100%',
     height: 60,
     backgroundColor: props.theme.palette.background.default,
-    borderTop: '1px solid #979797',
+    borderTop: `1px solid ${props.theme.palette.background.separatorTitle}`,
     zIndex: 1000,
     padding: '0px 24px'
 }));
@@ -144,10 +144,10 @@ const DeliveryPage = () => {
                             <>
                                 {scrollDown && !isDesktop && (
                                     <DeliverStickyTitle sx={{ pl: 3, pr: 3, }} onClick={scrollToTop}  >
-                                        <Typography fontSize={14} color={theme.palette.text.heading1} sx={{ fontFamily: 'Eina04-Regular' }} >
-                                            Today Delivery
+                                        <Typography fontSize={14} color={theme.palette.text.primary} sx={{ fontFamily: 'Eina04-Regular' }} >
+                                            Today's Delivery
                                         </Typography>
-                                        <Typography fontSize={14} color={theme.palette.text.heading1} sx={{ fontFamily: 'Eina04-Regular', textDecoration: 'underline' }} >
+                                        <Typography fontSize={14} color={theme.palette.text.highlithText} sx={{ fontFamily: 'Eina04-Regular', textDecoration: 'underline' }} >
                                             {deliveryDumpData.length}
                                         </Typography>
                                     </DeliverStickyTitle>
@@ -157,13 +157,13 @@ const DeliveryPage = () => {
                                     {
                                         deliveryDumpData.every((v) => { return v.deliveryStatus == "Done" }) ? (
                                             <DivFlexStart sx={{ padding: isDesktop ? '' : '24px 24px 0px 24px', mt: isDesktop ? 3 : undefined }}>
-                                                <Typography fontSize={30} color={theme.palette.text.heading1} sx={{ fontFamily: 'Eina04-Regular' }} >
-                                                    Your Delivery <br /> for {deliveryDumpData[0].date} <br /> is All <span style={{ color: theme.palette.text.highlightHeading1 }}>  <DoneIcon sx={{ height: 30, width: 32, mr: -1.5, mt:-0.5 }} /> DONE </span>
+                                                <Typography fontSize={30} color={theme.palette.text.primary} sx={{ fontFamily: 'Eina04-Regular' }} >
+                                                    Your Delivery <br /> for {deliveryDumpData[0].date} <br /> is All <span style={{ color: theme.palette.text.primary }}>  <DoneIcon sx={{ fontSize:36, mr: -1, mt:-0.6 }} /> DONE </span>
                                                 </Typography>
                                             </DivFlexStart>
                                         ) : <DivFlexStart sx={{ padding: isDesktop ? '' : '24px 24px 0px 24px', mt: isDesktop ? 3 : undefined }}>
-                                            <Typography fontSize={30} color={theme.palette.text.heading1} sx={{ fontFamily: 'Eina04-Regular' }} >
-                                                Good Morning! <br /> There are <span style={{ textDecoration: 'underline', fontFamily: 'Eina04-RegularItalic', color: theme.palette.text.highlithText }}>{deliveryDumpData.length}</span> <br />  Today's Delivery
+                                            <Typography fontSize={30} color={theme.palette.text.primary} sx={{ fontFamily: 'Eina04-Regular' }} >
+                                                Good Morning! <br /> There are <span style={{ textDecoration: 'underline', fontFamily: 'Eina04-RegularItalic', color: theme.palette.text.highlithText }}>{deliveryDumpData.length}</span> <br />  Today's Deliveries
                                             </Typography>
                                         </DivFlexStart>
                                     }
@@ -174,10 +174,10 @@ const DeliveryPage = () => {
                             <>
                                 {scrollDown && !isDesktop && (
                                     <DeliverStickyTitle sx={{ pl: 3, pr: 3, }} onClick={scrollToTop}  >
-                                        <Typography fontSize={14} color={theme.palette.text.heading1} sx={{ fontFamily: 'Eina04-Regular' }} >
-                                            Today Delivery
+                                        <Typography fontSize={14} color={theme.palette.text.primary} sx={{ fontFamily: 'Eina04-Regular' }} >
+                                            Today's Delivery
                                         </Typography>
-                                        <Typography fontSize={14} color={theme.palette.text.heading1} sx={{ fontFamily: 'Eina04-Regular', textDecoration: 'underline' }} >
+                                        <Typography fontSize={14} color={theme.palette.text.primary} sx={{ fontFamily: 'Eina04-Regular', textDecoration: 'underline' }} >
                                             {deliveryDumpData.length}
                                         </Typography>
                                     </DeliverStickyTitle>
@@ -185,8 +185,8 @@ const DeliveryPage = () => {
                                 )}
                                 <Box id='titleDeliveryPage'>
                                     <DivFlexStart sx={{ padding: isDesktop ? '' : '24px 24px 0px 24px' }}>
-                                        <Typography fontSize={32} color={theme.palette.text.heading1} sx={{ textTransform: 'capitalized', fontFamily: 'Eina04-Regular' }}>
-                                            Good Morning! <br /> This is your Today Delivery
+                                        <Typography fontSize={32} color={theme.palette.text.primary} sx={{ textTransform: 'capitalized', fontFamily: 'Eina04-Regular' }}>
+                                            Good Morning! <br /> This is your <br /> Today's Delivery
                                         </Typography>
                                     </DivFlexStart>
                                 </Box>
@@ -209,13 +209,13 @@ const DeliveryPage = () => {
 
                 <Grid item xs={12} md={3} sx={{ paddingTop: isMobile ? '' : 3 }}>
                     <DivFlexStart id="promo" sx={{ padding: isDesktop ? '' : '0px 24px', mt: 3, mb: 2, display: isDesktop ? 'none' : '', scrollMarginTop: 142 }}>
-                        <Typography fontSize={32} color={theme.palette.text.heading1} sx={{ fontFamily: 'Eina04-Regular', }}>
+                        <Typography fontSize={32} color={theme.palette.text.primary} sx={{ fontFamily: 'Eina04-Regular', }}>
                             Promo and News
                         </Typography>
                     </DivFlexStart>
                     {isScrollToPromo && (
                         <PromoStickyTitle onClick={goToPromo} >
-                            <Typography fontSize={14} color={theme.palette.text.heading1} sx={{ fontFamily: 'Eina04-Regular' }} >
+                            <Typography fontSize={14} color={theme.palette.text.primary} sx={{ fontFamily: 'Eina04-Regular' }} >
                                 Promo and News
                             </Typography>
                         </PromoStickyTitle>
@@ -232,20 +232,20 @@ const DeliveryPage = () => {
             <Backdrop open={openPromoDialog} sx={{ backdropFilter: "blur(18px)" }}>
                 <DivFlexSpaceBetween>
                     <Box sx={{ pr: 10 }} onClick={() => handlePrevPromoDetail(promoDumpData.length)}>
-                        <ArrowBackIosIcon sx={{ color: isFirstPromo ? '#F4F4F466' : '#f4f4f4', fontSize: 40, cursor: isFirstPromo ? 'default' : 'pointer' }} />
+                        <BackIcon color={isFirstPromo ? '#F4F4F466' : '#f4f4f4'} sx={{ fontSize: 56, cursor: isFirstPromo ? 'default' : 'pointer' }} />
                     </Box>
                     <Box sx={{ width: 600 }}>
                         <Box sx={{ position: 'fixed', width: 600 }} >
                             <Box sx={{ float: 'right' }}>
                                 <DivFlexCenter sx={{ backgroundColor: 'rgba(26, 25, 25, 0.4)', padding: 0.5, marginTop: 2, marginRight: 2, borderRadius: '50%', cursor: 'pointer' }}>
-                                    <CloseIcon onClick={handleClosePromoDialog} sx={{ color: '#ffffff', fontSize: 20 }} />
+                                    <CloseIcon onClick={handleClosePromoDialog} sx={{ color: '#ffffff', fontSize: 20, pr:0.2 }} />
                                 </DivFlexCenter>
                             </Box>
                         </Box>
                         <PromoCard openDetailPromo={true} promo={promoDumpData[promoDetail]} isDialog={true} />
                     </Box>
-                    <Box sx={{ pl: 10 }} onClick={() => handleNextPromoDetail(promoDumpData.length)}>
-                        <ArrowForwardIosIcon sx={{ color: isLastPromo ? '#F4F4F466' : '#f4f4f4', fontSize: 40, cursor: isLastPromo ? 'default' : 'pointer' }} />
+                    <Box sx={{ pl: 9.2 }} onClick={() => handleNextPromoDetail(promoDumpData.length)}>
+                        <NextIcon color={isLastPromo ? '#F4F4F466' : '#f4f4f4'} sx={{ fontSize: 56, cursor: isLastPromo ? 'default' : 'pointer' }} />
                     </Box>
                 </DivFlexSpaceBetween>
             </Backdrop>

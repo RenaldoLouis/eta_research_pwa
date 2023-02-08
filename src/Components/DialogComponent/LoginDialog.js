@@ -4,8 +4,7 @@ import React, { useContext, useState } from "react";
 import { Typography, TextField, FormControl, Snackbar, Box } from "@mui/material";
 
 // import icon
-import CloseIcon from '@mui/icons-material/Close';
-import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
+import ErrorIcon from "../../assets/icons/ErrorIcon";
 
 
 // import react router dom
@@ -15,13 +14,12 @@ import { Outlet } from "react-router-dom";
 import { AppContext } from "../../App";
 
 // import reusable component
-import ButtonSecondary from "../ReusableComponents/ButtonSecondary";
 import DivFlexCenter from "../ReusableComponents/DivFlexCenter";
 import DivFlexSpaceBetween from "../ReusableComponents/DivFlexSpacebetween";
-import DivFlexEnd from "../ReusableComponents/DivFlexEnd";
 import CustomDialog from "../ReusableComponents/CustomDialog";
 import CustomDialogContent from "../ReusableComponents/CustomDialogContent";
 import TextFieldStyled from "../ReusableComponents/TextFieldStyle";
+import Button from "../ReusableComponents/Button";
 
 // import style and theme
 import { useTheme } from "@mui/material/styles";
@@ -84,17 +82,14 @@ const LoginDialog = () => {
         <>
             <CustomDialog open={openLoginDialog} onClose={handleCloseDialog} theme={theme}>
                 <Box sx={{ backgroundColor: theme.palette.background.dialog }}>
-                    <DivFlexEnd sx={{ pr: 2, pt: 2 }} >
-                        <CloseIcon onClick={handleCloseDialog} sx={{ cursor: 'pointer' }} />
-                    </DivFlexEnd>
-                    <CustomDialogContent sx={{ backgroundColor: theme.palette.background.dialog }}>
+                    <CustomDialogContent isMobile={isMobile} sx={{ backgroundColor: theme.palette.background.dialog }}>
                         <DivFlexCenter sx={{ height: isMobile ? 20 : 40, mb: isMobile ? 3 : 8 }}>
                             <Typography sx={{ color: theme.palette.text.heading1, fontSize: isMobile ? 20 : 40, fontFamily: 'Eina04-Regular' }}>
                                 Sign In
                             </Typography>
                         </DivFlexCenter>
                         <DivFlexSpaceBetween sx={{ flexWrap: 'wrap' }}>
-                            <Typography sx={{ fontSize: isMobile ? 12 : 14, fontFamily: 'Eina04-SemiBold', color: theme.palette.text.titleFormText}}>
+                            <Typography sx={{ fontSize: isMobile ? 12 : 14, fontFamily: 'Eina04-SemiBold', color: theme.palette.text.primary }}>
                                 Email
                             </Typography>
                             <FormControl sx={{ width: isMobile ? '100%' : '90%' }}>
@@ -103,18 +98,18 @@ const LoginDialog = () => {
                         </DivFlexSpaceBetween>
 
                         <DivFlexStart sx={{ mt: 2 }}>
-                            <Box sx={{ color: theme.palette.text.titleFormText, width: isMobile ? '' : 55 }} />
+                            <Box sx={{ width: isMobile ? '' : 55 }} />
 
                             {isEmailEmpty ? (
                                 <DivFlexStart>
-                                    <ErrorOutlineIcon sx={{ color: '#da1e28', fontSize: isMobile ? 16 : 18, mr: 0.5, mt: -0.3 }} />
+                                    <ErrorIcon sx={{ color: '#da1e28', fontSize: isMobile ? 16 : 18, mr: 0.5}} />
                                     <Typography sx={{ fontSize: isMobile ? 12 : 14, fontFamily: 'Eina04-Regular' }} color={'#da1e28'}>
                                         Email is empty
                                     </Typography>
                                 </DivFlexStart>
                             ) : isEmailInvalid ? (
                                 <DivFlexStart>
-                                    <ErrorOutlineIcon sx={{ color: '#da1e28', fontSize: isMobile ? 16 : 18, mr: 0.5, mt: -0.3 }} />
+                                    <ErrorIcon sx={{ color: '#da1e28', fontSize: isMobile ? 16 : 18, mr: 0.5 }} />
                                     <Typography sx={{ fontSize: isMobile ? 12 : 14, fontFamily: 'Eina04-Regular' }} color={'#da1e28'}>
                                         Email is invalid
                                     </Typography>
@@ -123,17 +118,15 @@ const LoginDialog = () => {
                             }
                         </DivFlexStart>
 
-                        <ButtonSecondary onClick={handlePressSendOtp} sx={{ mt: isMobile ? 3 : 5 }}>
-                            <Typography sx={{ color: theme.palette.text.buttonSecondary, fontSize: isMobile ? 12 : 14, fontFamily: 'Eina04-SemiBold' }}>
-                                Send OTP
-                            </Typography>
-                        </ButtonSecondary>
+                        <Button onClick={handlePressSendOtp} style={{ marginTop: isMobile ? 3 : 5, width: '100%' }}>
+                            {`Send OTP`}
+                        </Button>
                     </CustomDialogContent>
                 </Box>
             </CustomDialog>
             <Snackbar
                 open={sendOtp}
-                message={<Typography sx={{ color: theme.palette.text.titleFormText, fontSize: isMobile ? 12 : 14, fontFamily: 'Eina04-Regular' }}>
+                message={<Typography sx={{ color: theme.palette.text.primary, fontSize: isMobile ? 12 : 14, fontFamily: 'Eina04-Regular' }}>
                     OTP code has been sent to <span style={{ fontFamily: 'Eina04-SemiBold' }}>{emailSubmit} </span>
                 </Typography>}
                 anchorOrigin={{

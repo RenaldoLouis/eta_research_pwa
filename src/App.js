@@ -153,31 +153,28 @@ function App() {
                 // itemlist
                 oddItemList: '#E7E7E7',
 
+                // separatorStickyTitle
+                separatorTitle: '#6F6F6F'
+
 
               },
               text: {
-                primary: '#2b2b2b',
-                secondary: '#626262',
-                text4: '#1a1919',
-
-                heading1: '#959499',
-                highlightHeading1: '#000000',
-                highlithText: '#626262',
+                primary: '#1A1919',
+                heading1: '#1A1919',
+                highlithText: '#000000',
 
                 // text for chip delivery card
-                doneText: '#626262',
+                doneText: '#6F6F6F',
+                doneIcon: '#A8A8A8',
 
                 // button
                 buttonSecondary: '#ffffff',
-                buttonText: '#ffffff',
 
                 // text in dialog
-                dialogHeadingText: '#959499',
+                dialogHeadingText: '#1A1919',
                 emailListText: '#000000',
-                titleFormText: '#131415',
                 inputText: '#8D8D8D',
                 inputTextActive: '#1A1919',
-                resendOtp: '#b4b4b4',
                 emailListRole: '#909090',
 
               },
@@ -222,30 +219,27 @@ function App() {
                 // itemlist
                 oddItemList: '#525252',
 
+                // separatorStickyTitle
+                separatorTitle: '#F4F4F4'
+
               },
               text: {
                 primary: "#f4f4f4",
-                secondary: '#f4f4f4',
-                text4: '#ffffff',
-
                 heading1: '#f4f4f4',
-                highlightHeading1: '#ffffff',
                 highlithText: '#ffffff',
 
                 // text for chip delivery card
-                doneText: '#c6c6c6',
+                doneText: '#FFFFFF',
+                doneIcon: '#A8A8A8',
 
                 // button
                 buttonSecondary: '#262626',
-                buttonText: '#262626',
 
                 // text dialog
                 dialogHeadingText: '#e0e0e0',
                 emailListText: '#f4f4f4',
-                titleFormText: '#f4f4f4',
                 inputText: '#e0e0e0',
                 inputTextActive: '#FFFFFF',
-                resendOtp: '#ffffff',
                 emailListRole: '#ffffff',
 
               }
@@ -296,7 +290,7 @@ function App() {
   const deliveryDumpData = [
     {
       id: 1,
-      deliveryStatus: 'Done',
+      deliveryStatus: 'Late',
       date: 'Mon, 19 Jan 2021',
       twStart: '11.00',
       twEnd: '12.30',
@@ -356,7 +350,7 @@ function App() {
       isCanceled: false,
       products: [0, 1, 2, 3],
       address: 'Lindenstraße 6, 14467 Potsdam, Germany',
-      clientName: 'Genossenschaft Migros Zürich',
+      clientName: 'Edeka',
       isCanceled: true,
       plateDriver: '1234567890AB',
       itemList: [
@@ -392,7 +386,7 @@ function App() {
       isCanceled: false,
       products: [0, 1, 2, 3],
       address: 'Lindenstraße 6, 14467 Potsdam, Germany',
-      clientName: 'Genossenschaft Migros Zürich',
+      clientName: 'Real',
       plateDriver: '1234567890AB',
       itemList: [
         {
@@ -418,7 +412,7 @@ function App() {
       isCanceled: false,
       products: [0, 1, 2],
       address: 'Lindenstraße 6, 14467 Potsdam, Germany',
-      clientName: 'Genossenschaft Migros Zürich',
+      clientName: 'Spar',
       plateDriver: '1234567890AB',
       itemList: [
         {
@@ -455,7 +449,7 @@ function App() {
     {
       id: 3,
       email: 'Email3@example.com',
-      roles: 'admin'
+      roles: 'superAdmin'
     },
     {
       id: 4,
@@ -467,21 +461,7 @@ function App() {
       email: 'Email5@example.com',
       roles: 'admin'
     },
-    {
-      id: 6,
-      email: 'Email6@example.com',
-      roles: 'standard'
-    },
-    {
-      id: 7,
-      email: 'Email7@example.com',
-      roles: 'admin'
-    },
-    {
-      id: 8,
-      email: 'Email8@example.com',
-      roles: 'standard'
-    }
+    
   ]
   /* =====================EOL Dummy Data ===================== */
 
@@ -514,16 +494,14 @@ function App() {
 
   const toggleVisible = () => {
     const scrolled = document.documentElement.scrollTop;
-    // if (scrolled > 75) {
-    //   setScrollDown(true)
-    // } else if (scrolled <= 75) {
-    //   setScrollDown(false)
-    // }
-    if (document.documentElement.scrollTop >= (document.getElementById('titleDeliveryPage').clientHeight - 50)) {
-      setScrollDown(true)
-    } else {
-      setScrollDown(false)
+    if (document.getElementById('titleDeliveryPage')) {
+      if (document.documentElement.scrollTop >= (document.getElementById('titleDeliveryPage').clientHeight - 50)) {
+        setScrollDown(true)
+      } else {
+        setScrollDown(false)
+      }
     }
+
   }
 
   const scrollToTop = () => {
@@ -539,15 +517,17 @@ function App() {
   const [isScrollToPromo, setIsScrollToPromo] = useState(false)
 
   const scrollToPromo = () => {
-    if (!isLinkExpired) {
-
-
-      if (document.documentElement.scrollTop >= (document.getElementById('deliverSection').clientHeight - 40)) {
+    // if (!isLinkExpired) {
+    if (document.getElementById('deliverSection')) {
+      if (document.documentElement.scrollTop >= (document.getElementById('deliverSection').clientHeight - 35)) {
         setIsScrollToPromo(true)
       } else {
         setIsScrollToPromo(false)
       }
     }
+
+
+    // }
   }
   window.addEventListener('scroll', scrollToPromo);
 

@@ -4,8 +4,7 @@ import React, { useContext, useState } from "react";
 import { Typography, TextField, FormControl, MenuItem, Box } from "@mui/material";
 
 // import icon
-import CloseIcon from '@mui/icons-material/Close';
-import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
+import ErrorIcon from "../../assets/icons/ErrorIcon";
 
 
 // import react router dom
@@ -16,14 +15,13 @@ import { AppContext } from "../../App";
 
 
 // import reusable component
-import ButtonSecondary from "../ReusableComponents/ButtonSecondary";
 import DivFlexCenter from "../ReusableComponents/DivFlexCenter";
 import DivFlexSpaceBetween from "../ReusableComponents/DivFlexSpacebetween";
-import DivFlexEnd from "../ReusableComponents/DivFlexEnd";
 import DivFlexStart from "../ReusableComponents/DivFlexStart";
 import CustomDialog from "../ReusableComponents/CustomDialog";
 import CustomDialogContent from "../ReusableComponents/CustomDialogContent";
 import TextFieldStyled from "../ReusableComponents/TextFieldStyle";
+import Button from "../ReusableComponents/Button";
 
 // import style and theme
 import { useTheme, styled } from "@mui/material/styles";
@@ -98,26 +96,23 @@ const AddNewEmailDialog = () => {
         <>
             <CustomDialog width={900} open={addNewEmailDialog} onClose={handleCloseDialog} theme={theme} >
                 <Box sx={{ backgroundColor: theme.palette.background.dialog }}>
-                    <DivFlexEnd sx={{ pr: 2, pt: 2 }} >
-                        <CloseIcon onClick={handleCloseDialog} sx={{ cursor: 'pointer' }} />
-                    </DivFlexEnd>
-                    <CustomDialogContent>
+                    <CustomDialogContent isMobile={isMobile}>
                         <DivFlexCenter sx={{ height: isMobile ? 20 : 40, mb: isMobile ? 3 : 8 }}>
-                            <Typography sx={{ color: theme.palette.text.dialogHeadingText, fontSize: isMobile ? 20 : 40, fontFamily: 'Eina04-Regular' }}>
+                            <Typography sx={{ color: theme.palette.text.heading1, fontSize: isMobile ? 20 : 40, fontFamily: 'Eina04-Regular' }}>
                                 Add New Email
                             </Typography>
                         </DivFlexCenter>
                         <FormControl sx={{ width: '100%' }} >
                             <DivFlexSpaceBetween sx={{ flexWrap: 'wrap', width: '100%' }}>
                                 <DivFlexStart sx={{ width: isMobile ? '100%' : '60%', mb: 2, }}>
-                                    <Typography sx={{ fontSize: isMobile ? 12 : 20, fontFamily: 'Eina04-SemiBold', mr: 2, color: theme.palette.text.titleFormText,  width:isMobile ? 34 : 56 }}>
+                                    <Typography sx={{ fontSize: isMobile ? 12 : 20, fontFamily: 'Eina04-SemiBold', mr: 2, color: theme.palette.text.primary, width: isMobile ? 34 : 56 }}>
                                         Email
                                     </Typography>
                                     <TextFieldStyled onChange={handleChangeInput} id="basic" placeholder="example@mail.com" name="email" sx={{ width: isMobile ? '100%' : '80%', }} isMobile={isMobile} />
                                 </DivFlexStart>
 
                                 <DivFlexStart sx={{ width: isMobile ? '100%' : '35%', mb: 2 }}>
-                                    <Typography sx={{ fontSize: isMobile ? 12 : 20, fontFamily: 'Eina04-SemiBold', mr: 2, color: theme.palette.text.titleFormText,  width:isMobile ? 34 : 56 }}>
+                                    <Typography sx={{ fontSize: isMobile ? 12 : 20, fontFamily: 'Eina04-SemiBold', mr: 2, color: theme.palette.text.primary, width: isMobile ? 34 : 56 }}>
                                         Roles
                                     </Typography>
                                     <TextFieldStyled
@@ -153,18 +148,18 @@ const AddNewEmailDialog = () => {
 
                         <DivFlexStart sx={{ width: isMobile ? '100%' : '60%' }}>
                             <>
-                                <Box sx={{ color: theme.palette.text.titleFormText, width:isMobile ? 34 : 56, mr:2 }} />
-                                  
+                                <Box sx={{ width: isMobile ? 34 : 56, mr: 2 }} />
+
                                 {isEmailEmpty ? (
                                     <DivFlexStart>
-                                        <ErrorOutlineIcon sx={{ color: '#da1e28', fontSize: isMobile ? 16 : 18, mr: 0.5, mt: -0.3 }} />
+                                        <ErrorIcon sx={{ color: '#da1e28', fontSize: isMobile ? 16 : 18, mr: 0.5 }} />
                                         <Typography sx={{ fontSize: isMobile ? 12 : 14, fontFamily: 'Eina04-Regular' }} color={'#da1e28'}>
                                             Email is empty
                                         </Typography>
                                     </DivFlexStart>
                                 ) : isEmailInvalid ? (
                                     <DivFlexStart>
-                                        <ErrorOutlineIcon sx={{ color: '#da1e28', fontSize: isMobile ? 16 : 18, mr: 0.5, mt: -0.3 }} />
+                                        <ErrorIcon sx={{ color: '#da1e28', fontSize: isMobile ? 16 : 18, mr: 0.5 }} />
                                         <Typography sx={{ fontSize: isMobile ? 12 : 14, fontFamily: 'Eina04-Regular' }} color={'#da1e28'}>
                                             Email is invalid
                                         </Typography>
@@ -174,14 +169,12 @@ const AddNewEmailDialog = () => {
                             </>
                         </DivFlexStart>
                         <DivFlexSpaceBetween sx={{ mt: isMobile ? 3 : 5 }}>
-                            <Typography sx={{ fontSize: isMobile ? 14 : 20, textDecoration: 'underline', fontFamily: 'Eina04-Regular', cursor: 'pointer', color: theme.palette.text.titleFormText }} onClick={handleCloseDialog} >
+                            <Typography sx={{ fontSize: isMobile ? 14 : 20, textDecoration: 'underline', fontFamily: 'Eina04-SemiBold', cursor: 'pointer', color: theme.palette.text.primary }} onClick={handleCloseDialog} >
                                 Cancel
                             </Typography>
-                            <ButtonSecondary sx={{ width: '35%' }} onClick={handleSubmit}>
-                                <Typography sx={{ color: theme.palette.text.buttonSecondary, fontSize: isMobile ? 14 : 20, fontFamily: 'Eina04-SemiBold' }}>
-                                    Save
-                                </Typography>
-                            </ButtonSecondary>
+                            <Button style={{ width: '35%' }} onClick={handleSubmit}>
+                                {`Save`}
+                            </Button>
                         </DivFlexSpaceBetween>
                     </CustomDialogContent>
                 </Box>
