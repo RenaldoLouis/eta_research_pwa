@@ -39,6 +39,7 @@ const TableHeadCustom = styled(TableCell)((props) => ({
     color: props.theme.palette.text.heading1,
     borderBottom: 'none',
     padding: 0,
+    paddingBottom:16
 }))
 
 // table data container component

@@ -99,7 +99,6 @@ const DeliveryPage = () => {
     const handleNextPromoDetail = (promoLength) => {
         if (promoDetail != promoLength - 1) {
             setPromoDetail(promoDetail + 1)
-            console.log(`${promoDetail} of ${promoLength}`)
         }
 
     }
@@ -107,7 +106,6 @@ const DeliveryPage = () => {
     const handlePrevPromoDetail = (promoLength) => {
         if (promoDetail > 0) {
             setPromoDetail(promoDetail - 1)
-            console.log(`${promoDetail} of ${promoLength}`)
         }
     }
 

@@ -27,7 +27,7 @@ import { useTheme } from "@mui/material/styles";
 
 const EditEmailDialog = () => {
 
-    const { isMobile, handleCloseNewEmailDialog, editEmailDialog, currentEmail, editNewEmail, handleCloseEditEmailDialog } = useContext(AppContext)
+    const { isMobile, handleCloseNewEmailDialog, editEmailDialog, currentEmail, editNewEmail, handleCloseEditEmailDialog, isDesktop } = useContext(AppContext)
 
     const theme = useTheme()
 
@@ -108,14 +108,14 @@ const EditEmailDialog = () => {
                         </DivFlexCenter>
                         <FormControl sx={{ width: '100%' }} >
                             <DivFlexSpaceBetween sx={{ flexWrap: 'wrap', width: '100%', }}>
-                                <DivFlexStart sx={{ width: isMobile ? '100%' : '60%', mb: 2 }}>
+                                <DivFlexStart sx={{ width: isDesktop ? '60%' : '100%', mb: 2 }}>
                                     <Typography sx={{ fontSize: isMobile ? 12 : 20, fontFamily: 'Eina04-SemiBold', mr: 2, color: theme.palette.text.primary, width: isMobile ? 34 : 56 }}>
                                         Email
                                     </Typography>
-                                    <TextFieldStyled onChange={handleChangeInput} id="basic" placeholder="" name="email" sx={{ width: isMobile ? '100%' : '80%' }} value={email.email} isMobile={isMobile} />
+                                    <TextFieldStyled onChange={handleChangeInput} id="basic" placeholder="" name="email" sx={{ width: isDesktop ? '80%' : '100%' }} value={email.email} isMobile={isMobile} />
                                 </DivFlexStart>
 
-                                <DivFlexStart sx={{ width: isMobile ? '100%' : '35%', mb: 2 }}>
+                                <DivFlexStart sx={{ width: isDesktop ? '35%' : '100%', mb: 2 }}>
                                     <Typography sx={{ fontSize: isMobile ? 12 : 20, fontFamily: 'Eina04-SemiBold', mr: 2, color: theme.palette.text.primary, width: isMobile ? 34 : 56 }}>
                                         Roles
                                     </Typography>
@@ -184,7 +184,7 @@ const EditEmailDialog = () => {
                     </CustomDialogContent>
                 </Box>
             </CustomDialog>
-            
+
             <Outlet />
         </>
 

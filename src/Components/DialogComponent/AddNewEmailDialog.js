@@ -104,14 +104,14 @@ const AddNewEmailDialog = () => {
                         </DivFlexCenter>
                         <FormControl sx={{ width: '100%' }} >
                             <DivFlexSpaceBetween sx={{ flexWrap: 'wrap', width: '100%' }}>
-                                <DivFlexStart sx={{ width: isMobile ? '100%' : '60%', mb: 2, }}>
+                                <DivFlexStart sx={{ width: isDesktop ? '60%' : '100%', mb: 2, }}>
                                     <Typography sx={{ fontSize: isMobile ? 12 : 20, fontFamily: 'Eina04-SemiBold', mr: 2, color: theme.palette.text.primary, width: isMobile ? 34 : 56 }}>
                                         Email
                                     </Typography>
-                                    <TextFieldStyled onChange={handleChangeInput} id="basic" placeholder="example@mail.com" name="email" sx={{ width: isMobile ? '100%' : '80%', }} isMobile={isMobile} />
+                                    <TextFieldStyled onChange={handleChangeInput} id="basic" placeholder="example@mail.com" name="email" sx={{ width: isDesktop ? '80%' : '100%', }} isMobile={isMobile} />
                                 </DivFlexStart>
 
-                                <DivFlexStart sx={{ width: isMobile ? '100%' : '35%', mb: 2 }}>
+                                <DivFlexStart sx={{ width: isDesktop ? '35%' : '100%', mb: 2 }}>
                                     <Typography sx={{ fontSize: isMobile ? 12 : 20, fontFamily: 'Eina04-SemiBold', mr: 2, color: theme.palette.text.primary, width: isMobile ? 34 : 56 }}>
                                         Roles
                                     </Typography>

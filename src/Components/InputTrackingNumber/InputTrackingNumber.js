@@ -137,14 +137,12 @@ const InputTrackingNumber = () => {
     const handleNextPromoDetail = (promoLength) => {
         if (promoDetail != promoLength - 1) {
             setPromoDetail(promoDetail + 1)
-            console.log(`${promoDetail} of ${promoLength}`)
         }
     }
 
     const handlePrevPromoDetail = (promoLength) => {
         if (promoDetail > 0) {
             setPromoDetail(promoDetail - 1)
-            console.log(`${promoDetail} of ${promoLength}`)
         }
     }
 

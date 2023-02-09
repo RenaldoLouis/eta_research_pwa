@@ -66,13 +66,11 @@ const LoginDialog = () => {
                 setEmail('')
                 setIsEmailInvalid(false)
             } else {
-                console.log('Email is not valid')
                 setIsEmailInvalid(true)
             }
 
         }
         if (email == '') {
-            console.log('Email is empty')
             setIsEmailEmpty(true)
         }
     }
