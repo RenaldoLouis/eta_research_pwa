@@ -25,7 +25,7 @@ const LinkExpiredStatus = props => {
                 </DivFlexStart>
                 <DivFlexCenter sx={{ width: '100%' }}>
                     <Typography fontSize={32} color={theme.palette.text.primary} sx={{ fontFamily: 'Eina04-Regular' }}>
-                        Your Link has Expired
+                        Your link has expired
                     </Typography>
                 </DivFlexCenter>
             </Box>
