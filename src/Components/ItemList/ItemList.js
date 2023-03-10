@@ -21,8 +21,8 @@ import DivFlexSpaceBetween from '../ReusableComponents/DivFlexSpacebetween'
 import { useTheme } from "@mui/material/styles";
 
 const ItemSubList = styled(ListItemButton)((props) => ({
-    marginLeft: 16,
-    paddingLeft: 20,
+    marginLeft: "14px",
+    height: "40px",
     ":hover": {
         cursor: 'default'
     }
@@ -52,9 +52,9 @@ const ItemList = (props) => {
     return (
         <>
             <List 
-            sx={{ width: '100%', borderBottom: index == itemLength - 1 ? '' : `1px solid ${theme.palette.background.separatorTitle}`, 
+            sx={{ width: '100%', borderBottom: index === itemLength - 1 ? '' : `1px solid ${theme.palette.background.separatorTitle}`, 
             background: isDesktop ? isOpenItemList ? theme.palette.background.deliveryCard : theme.palette.background.default : theme.palette.background.deliveryCard,
-            paddingLeft:isDesktop ? undefined : 1, paddingRight:isDesktop ? undefined : 1
+            paddingLeft:isDesktop ? "16px" : 1, paddingRight:isDesktop ? "16px" : 1
             }}>
                 <ListItemButton onClick={item.warning ? handleClickExpandList : undefined} sx={{ "&:hover": { backgroundColor: "transparent", cursor: !item.warning ? 'default' : '' } }} disableRipple >
                     <DivFlexSpaceBetween sx={{ width: '100%' }}>
@@ -62,9 +62,9 @@ const ItemList = (props) => {
                             <Typography sx={{ fontSize: 12, fontFamily: 'Eina04-Regular' }} color={item.warning ? '#da1e28' : theme.palette.text.primary}>
                                 {item.productName}
                             </Typography>
-                            {item.warning && (<ErrorIcon sx={{ color: '#da1e28', fontSize:14, ml: 1 }} />)}
+                            {item.warning && (<ErrorIcon sx={{ color: '#da1e28', fontSize:14, }} />)}
                         </DivFlexStart>
-                        <Typography sx={{ fontSize: 12, fontFamily: 'Eina04-Regular' }} color={theme.palette.text.primary} >
+                        <Typography sx={{ fontSize: 12, fontFamily: 'Eina04-Regular' }} color={item.warning ? '#da1e28' : theme.palette.text.primary} >
                             {`${item.amount} ${item.unit}`}
                         </Typography>
                     </DivFlexSpaceBetween>
@@ -79,7 +79,7 @@ const ItemList = (props) => {
                                             On Truck
                                         </Typography>
                                         <Typography sx={{ fontSize: 12, fontFamily: 'Eina04-Regular' }} color={theme.palette.text.primary} >
-                                            {`${item.onTruck} Fas`}
+                                            {`${item.onTruck} KL`}
                                         </Typography>
                                     </DivFlexSpaceBetween>
                                 </ItemSubList>
@@ -89,7 +89,7 @@ const ItemList = (props) => {
                                             Ordered
                                         </Typography>
                                         <Typography sx={{ fontSize: 12, fontFamily: 'Eina04-Regular' }} color={theme.palette.text.primary} >
-                                            {`${item.ordered} Fas`}
+                                            {`${item.ordered} KL`}
                                         </Typography>
                                     </DivFlexSpaceBetween>
                                 </ItemSubList>

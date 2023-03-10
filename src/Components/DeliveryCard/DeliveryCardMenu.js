@@ -11,6 +11,7 @@ import { AppContext } from "../../App";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
 import ClockIcon from "../../assets/icons/ClockIcon";
+import CalendarIcon from "../../assets/icons/CalendarIcon";
 import DoneIcon from "../../assets/icons/DoneIcon";
 
 // import components
@@ -30,6 +31,7 @@ const RootDeliveryCard = styled("div")((props) => ({
       : props.theme.palette.background.default
     : props.theme.palette.background.deliveryCard,
   padding: props.isDesktop ? 16 : props.openDetail ? "16px 24px 16px 24px" : 16,
+  paddingTop: "40px",
   cursor: props.isDesktop
     ? props.isOpenItemList
       ? "default"
@@ -41,9 +43,6 @@ const RootDeliveryCard = styled("div")((props) => ({
         ? undefined
         : props.theme.palette.background.hoverDeliveryCard
       : undefined,
-  },
-  ":active": {
-    backgroundColor: props.theme.palette.background.clickedDeliveryCard,
   },
 }));
 
@@ -79,7 +78,7 @@ const getStatusChip = (data, theme) => {
   );
 };
 
-const DeliveryCard = (props) => {
+const DeliveryCardMenu = (props) => {
   const { totalDelivery, numberOfDeliver, data, isOpenItemList, deliveryId } =
     props;
 
@@ -125,8 +124,14 @@ const DeliveryCard = (props) => {
           sx={{ mb: isDesktop ? 0 : undefined, flexWrap: "wrap" }}
         >
           <Typography
-            fontSize={12}
-            sx={{ fontFamily: "RobotoMono-Regular", letterSpacing: "0.15em" }}
+            fontSize={"14px"}
+            sx={{
+              fontFamily: "Eina 04",
+              letterSpacing: "0.15em",
+              fontWeight: 400,
+              lineHeight: "19px",
+              fontStyle: "normal",
+            }}
             color={theme.palette.text.primary}
           >
             {data.plateDriver}
@@ -135,28 +140,38 @@ const DeliveryCard = (props) => {
             {getStatusChip(data, theme)}
           </Box>
         </DivFlexSpaceBetween>
-        <DivFlexStart sx={{ marginTop: "14px" }}>
-          <Typography
-            fontSize={14}
-            color={theme.palette.text.primary}
-            sx={{ fontFamily: "Eina04-SemiBold" }}
-          >
-            {data.clientName}
-          </Typography>
-        </DivFlexStart>
+
+        <Box sx={{ marginTop: "14px" }}>
+          {data?.clientName?.split(",").map((text) => {
+            return (
+              <Typography
+                fontSize={"16px"}
+                color={theme.palette.text.primary}
+                sx={{
+                  fontFamily: "Eina 04",
+                  fontWeight: 600,
+                  fontStyle: "normal",
+                  lineHeight: "22px",
+                }}
+              >
+                {text}
+              </Typography>
+            );
+          })}
+        </Box>
 
         <DivFlexStart>
           <Typography
-            fontSize={12}
+            fontSize={"16px"}
             color={theme.palette.text.primary}
-            sx={{ fontFamily: "Eina04-Regular" }}
+            sx={{ fontFamily: "Eina04-Regular", marginTop: "16px" }}
           >
             {data.address}
           </Typography>
         </DivFlexStart>
 
         {data.deliveryStatus === "Late" ? (
-          <DivFlexStart sx={{ height: 16, pt: 1 }}>
+          <DivFlexSpaceBetween sx={{ height: 16, pt: 1 }}>
             <Typography
               fontSize={10}
               color={theme.palette.text.primary}
@@ -168,24 +183,31 @@ const DeliveryCard = (props) => {
             >
               {data.twStart} - {data.twEnd}
             </Typography>
-          </DivFlexStart>
+          </DivFlexSpaceBetween>
         ) : (
           <DivFlexStart sx={{ height: 16 }} />
         )}
 
         <DivFlexSpaceBetween>
-          <DivFlexStart sx={{ mr: 2 }}>
+          <DivFlexStart>
             <ClockIcon
               color={"#959499"}
               sx={{
-                fontSize: 12,
-                mr: 0.5,
+                fontSize: "25px",
+                marginRight: "9.5px",
+                padding: "0px",
+                marginTop: "5px",
               }}
             />
             <Typography
-              fontSize={14}
+              fontSize={"28px"}
               color={theme.palette.text.primary}
-              sx={{ fontFamily: "Eina04-SemiBold" }}
+              sx={{
+                fontFamily: "Eina04-Regular",
+                fontStyle: "normal",
+                fontWeight: 600,
+                lineHeight: "38px",
+              }}
             >
               {data.twStart} - {data.twEnd}
             </Typography>
@@ -232,13 +254,29 @@ const DeliveryCard = (props) => {
                             {data.date}
                         </Typography>
                     </DivFlexStart> */}
-          {/* <Typography
-            fontSize={10}
-            color={theme.palette.text.primary}
-            sx={{ fontFamily: "Eina04-Light" }}
-          >
-            Klick für Details
-          </Typography> */}
+          <DivFlexStart>
+            <CalendarIcon
+              color={"#959499"}
+              sx={{
+                marginRight: "9.5px",
+                padding: "0px",
+                marginTop: "5px",
+                fontSize: "25px",
+              }}
+            />
+            <Typography
+              fontSize={"28px"}
+              color={theme.palette.text.primary}
+              sx={{
+                fontFamily: "Eina04-Regular",
+                fontStyle: "normal",
+                fontWeight: 600,
+                lineHeight: "38px",
+              }}
+            >
+              {data.date}
+            </Typography>
+          </DivFlexStart>
         </DivFlexSpaceBetween>
 
         <DivFlexSpaceBetween
@@ -275,7 +313,7 @@ const DeliveryCard = (props) => {
   );
 };
 
-DeliveryCard.defaultProps = {
+DeliveryCardMenu.defaultProps = {
   data: {
     deliveryStatus: "",
     stopStatus: "",
@@ -293,4 +331,4 @@ DeliveryCard.defaultProps = {
   },
 };
 
-export default DeliveryCard;
+export default DeliveryCardMenu;
