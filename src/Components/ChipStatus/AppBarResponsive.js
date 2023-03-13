@@ -11,6 +11,9 @@ import { styled } from "@mui/system";
 import ListIcon from "../../assets/icons/ListIcon";
 import LogoutIcon from "../../assets/icons/LogoutIcon";
 import LogoIcon from "../../assets/Images/Logo.png";
+import LogoLightIcon from "../../assets/Images/LogoLight.png";
+import LogoMobileLightIcon from "../../assets/Images/LogoMobileLight.png";
+import LogoMobileDarkIcon from "../../assets/Images/LogoMobileDark.png";
 import BackIcon from "../../assets/icons/BackIcon";
 
 // temporary icon
@@ -24,6 +27,7 @@ import { useTheme } from "@mui/material/styles";
 import DivFlexEnd from "../ReusableComponents/DivFlexEnd";
 import DivFlexCenter from "../ReusableComponents/DivFlexCenter";
 import DivFlexStart from "../ReusableComponents/DivFlexStart";
+import LoginIcon from "../../assets/icons/LoginIcon";
 
 // icon button component
 const IconButton = styled("div")((props) => ({
@@ -93,9 +97,7 @@ const AppBarResponsive = () => {
             }}
           >
             <Grid item xs={4} md={3}>
-              <DivFlexStart
-                sx={{ height: "100%", alignItems: "center", }}
-              >
+              <DivFlexStart sx={{ height: "100%", alignItems: "center" }}>
                 {isMobile ? (
                   <>
                     <Tooltip title="Temporary Button">
@@ -131,7 +133,18 @@ const AppBarResponsive = () => {
                   </>
                 ) : (
                   <>
-                    <img src={LogoIcon} alt="Logo Image"/>
+                    {mode === "light" ? (
+                      <img
+                        src={LogoLightIcon}
+                        alt="logo icon"
+                        style={{ height: "29px", widht: "200px" }}
+                      />
+                    ) : mode === "dark" ? (
+                      <img src={LogoIcon} alt="logo icon" />
+                    ) : (
+                      <></>
+                    )}
+                    
                     {/* <Typography
                       sx={{
                         // fontFamily: "Eina04-Light",
@@ -153,7 +166,7 @@ const AppBarResponsive = () => {
                     >
                       & More
                     </Typography> */}
-                    {/* <Tooltip title="Temporary Button">
+                    <Tooltip title="Temporary Button">
                       <IconButton
                         // onClick={historyStack.length > 0 ? handleBackPrevPage : undefined}
                         onClick={handleChangeTheme}
@@ -182,7 +195,7 @@ const AppBarResponsive = () => {
                           <></>
                         )}
                       </IconButton>
-                    </Tooltip> */}
+                    </Tooltip>
                   </>
                 )}
               </DivFlexStart>
@@ -190,16 +203,13 @@ const AppBarResponsive = () => {
             <Grid item xs={4} md={6}>
               <DivFlexCenter sx={{ alignItems: "top", height: "100%" }}>
                 {isMobile ? (
-                  <Typography
-                    sx={{
-                      fontFamily: "Eina04-Light",
-                      color: theme.palette.background.iconColor,
-                      // fontFamily: "Eina04-Bold",
-                    }}
-                    fontSize={25}
-                  >
-                    LOGO
-                  </Typography>
+                  <img
+                    src={
+                      mode === "dark" ? LogoMobileDarkIcon : LogoMobileLightIcon
+                    }
+                    alt=""
+                    style={{ height: "20.45px", width: "30.35px" }}
+                  />
                 ) : (
                   <Typography
                     sx={{
@@ -207,7 +217,7 @@ const AppBarResponsive = () => {
                       color: theme.palette.text.primary,
                       fontStyle: "normal",
                       fontWeight: 600,
-                      lineHeight: "25px"
+                      lineHeight: "25px",
                     }}
                     fontSize={"18px"}
                   >
@@ -242,7 +252,7 @@ const AppBarResponsive = () => {
                     sx={{ fontSize: 22, mr: 0.1 }}
                   />
                 </IconButton>
-                <IconButton onClick={console.log("test")}>
+                <IconButton onClick={() => {}}>
                   <LogoutIcon
                     color={theme.palette.background.iconColor}
                     sx={{ fontSize: 22, ml: 0.4 }}

@@ -43,7 +43,7 @@ const PromoCard = (props) => {
         backgroundColor: isMobile
           ? openDetail
             ? theme.palette.background.default
-            : theme.palette.background.promoCard
+            : theme.palette.background.promoCardMobile
           : isDialog
           ? theme.palette.background.dialog
           : theme.palette.background.promoCard,
@@ -77,7 +77,7 @@ const PromoCard = (props) => {
       >
         <Typography
           color={theme.palette.text.primary}
-          sx={{ fontSize: 18, fontFamily: "Eina04-SemiBold" }}
+          sx={{ fontSize: 18, fontFamily: "Eina04-SemiBold", paddingLeft: isDesktop ? "" : "16px" }} 
         >
           {promo.title}
         </Typography>

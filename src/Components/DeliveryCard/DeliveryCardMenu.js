@@ -142,9 +142,10 @@ const DeliveryCardMenu = (props) => {
         </DivFlexSpaceBetween>
 
         <Box sx={{ marginTop: "14px" }}>
-          {data?.clientName?.split(",").map((text) => {
+          {data?.clientName?.split(",").map((text, index) => {
             return (
               <Typography
+                key={`${index}-clients name`}
                 fontSize={"16px"}
                 color={theme.palette.text.primary}
                 sx={{
@@ -190,13 +191,13 @@ const DeliveryCardMenu = (props) => {
 
         <DivFlexSpaceBetween>
           <DivFlexStart>
-            <ClockIcon
+          <CalendarIcon
               color={"#959499"}
               sx={{
-                fontSize: "25px",
                 marginRight: "9.5px",
                 padding: "0px",
                 marginTop: "5px",
+                fontSize: "25px",
               }}
             />
             <Typography
@@ -209,7 +210,7 @@ const DeliveryCardMenu = (props) => {
                 lineHeight: "38px",
               }}
             >
-              {data.twStart} - {data.twEnd}
+              {data.date}
             </Typography>
             {data.deliveryStatus === "Late" ? (
               <DivFlexStart sx={{ width: 40 }}>
@@ -255,13 +256,13 @@ const DeliveryCardMenu = (props) => {
                         </Typography>
                     </DivFlexStart> */}
           <DivFlexStart>
-            <CalendarIcon
+          <ClockIcon
               color={"#959499"}
               sx={{
+                fontSize: "25px",
                 marginRight: "9.5px",
                 padding: "0px",
                 marginTop: "5px",
-                fontSize: "25px",
               }}
             />
             <Typography
@@ -274,7 +275,7 @@ const DeliveryCardMenu = (props) => {
                 lineHeight: "38px",
               }}
             >
-              {data.date}
+              {data.twStart} - {data.twEnd}
             </Typography>
           </DivFlexStart>
         </DivFlexSpaceBetween>

@@ -19,7 +19,7 @@ import jetztRabatt from "../src/assets/Images/Jetzt_Rabatt_Auf_Purwasser_Sichern
 import wirLaden from "../src/assets/Images/Wir_Laden_Ihre_Mitarbeiten.png";
 
 //import Components
-import AppBarResponsive from "./Components/AppBarResponsive/AppBarResponsive";
+import AppBarResponsive from "./Components/ChipStatus/AppBarResponsive";
 // import ScrollToTopButton from './Components/ScrollToTopButton/ScrollToTopButton';
 import InputTrackingNumber from "./Components/InputTrackingNumber/InputTrackingNumber";
 
@@ -182,6 +182,7 @@ function App() {
 
                   // promo card
                   promoCard: "#262626",
+                  promoCardMobile: "#393939",
                   hoverItemList: "#404040",
                   hoverPromoCard: "#4c4c4c",
 
@@ -272,8 +273,8 @@ function App() {
     {
       id: 1,
       deliveryStatus: "",
-      twStart: "9.00",
-      twEnd: "9.30",
+      twStart: "09.00",
+      twEnd: "09.30",
       vehicle: "BCY-1111",
       date: "Mo, 7. März 2023",
       tourSorted: "",
@@ -339,7 +340,7 @@ function App() {
       isCanceled: false,
       products: [0, 1, 2, 3],
       address: "Postdramer Str.55, 62500 Postdam",
-      clientName: "Jette Werner, Edeka Mart",
+      clientName: "Jette Werner, Edeka Markt",
       plateDriver: "6725541901TR",
       itemList: [
         {

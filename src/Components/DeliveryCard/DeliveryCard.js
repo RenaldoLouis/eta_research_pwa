@@ -20,6 +20,7 @@ import ItemList from "../ItemList/ItemList";
 import DivFlexSpaceBetween from "../ReusableComponents/DivFlexSpacebetween";
 import DivFlexStart from "../ReusableComponents/DivFlexStart";
 import DiscrepancyChip from "../ChipStatus/DiscrepancyChip";
+import CalendarIcon from "../../assets/icons/CalendarIcon";
 
 const RootDeliveryCard = styled("div")((props) => ({
   backgroundColor: props.isDesktop
@@ -110,13 +111,18 @@ const DeliveryCard = (props) => {
         openDetail={openDetail}
       >
         {isMobile && (
-          <DivFlexSpaceBetween sx={{ mb: 1 }}>
+          <DivFlexSpaceBetween sx={{ marginBottom: "10px" }}>
             <Typography
               fontSize={12}
               color={theme.palette.text.primary}
-              sx={{ fontFamily: "Eina04-RegularItalic" }}
+              sx={{
+                fontFamily: "Eina 04",
+                fontWeight: 400,
+                lineHeight: "16.56px",
+                fontStyle: "italic",
+              }}
             >
-              {`${numberOfDeliver} of ${totalDelivery}`}
+              {`${numberOfDeliver} von ${totalDelivery}`}
             </Typography>
             {getStatusChip(data, theme)}
           </DivFlexSpaceBetween>
@@ -126,7 +132,13 @@ const DeliveryCard = (props) => {
         >
           <Typography
             fontSize={12}
-            sx={{ fontFamily: "RobotoMono-Regular", letterSpacing: "0.15em" }}
+            sx={{
+              fontFamily: "Eina 04",
+              letterSpacing: "0.15em",
+              fontStyle: "normal",
+              fontWeight: 400,
+              lineHeight: "17px",
+            }}
             color={theme.palette.text.primary}
           >
             {data.plateDriver}
@@ -135,129 +147,230 @@ const DeliveryCard = (props) => {
             {getStatusChip(data, theme)}
           </Box>
         </DivFlexSpaceBetween>
-        <DivFlexStart sx={{ marginTop: "14px" }}>
+        <DivFlexStart sx={{ marginTop: isDesktop ? "16px" : "4px" }}>
           <Typography
-            fontSize={14}
+            fontSize={16}
             color={theme.palette.text.primary}
-            sx={{ fontFamily: "Eina04-SemiBold" }}
+            sx={{
+              fontFamily: "Eina 04",
+              fontWeight: 600,
+              size: "14px",
+              lineHeight: "22.08px",
+            }}
           >
             {data.clientName}
           </Typography>
         </DivFlexStart>
-
-        <DivFlexStart>
+        <DivFlexStart sx={{ marginTop: isDesktop ? "16px" : "4px" }}>
           <Typography
             fontSize={12}
             color={theme.palette.text.primary}
-            sx={{ fontFamily: "Eina04-Regular" }}
+            sx={{
+              fontFamily: "Eina 04",
+              lineHeight: "16.56px",
+              fontWeight: 400,
+            }}
           >
             {data.address}
           </Typography>
         </DivFlexStart>
 
-        {data.deliveryStatus === "Late" ? (
-          <DivFlexStart sx={{ height: 16, pt: 1 }}>
-            <Typography
-              fontSize={10}
-              color={theme.palette.text.primary}
-              sx={{
-                fontFamily: "Eina04-Light",
-                textDecoration: "line-through",
-                ml: 2.2,
-              }}
-            >
-              {data.twStart} - {data.twEnd}
-            </Typography>
-          </DivFlexStart>
-        ) : (
-          <DivFlexStart sx={{ height: 16 }} />
-        )}
-
-        <DivFlexSpaceBetween>
-          <DivFlexStart sx={{ mr: 2 }}>
-            <ClockIcon
-              color={"#959499"}
-              sx={{
-                fontSize: 12,
-                mr: 0.5,
-              }}
-            />
-            <Typography
-              fontSize={14}
-              color={theme.palette.text.primary}
-              sx={{ fontFamily: "Eina04-SemiBold" }}
-            >
-              {data.twStart} - {data.twEnd}
-            </Typography>
-            {data.deliveryStatus === "Late" ? (
-              <DivFlexStart sx={{ width: 40 }}>
-                <ArrowDropDownIcon
-                  sx={{ width: 20, height: 20, color: "#da1e28" }}
+        {openDetail ? (
+          <>
+            <DivFlexSpaceBetween sx={{ marginTop: "16px" }}>
+              <DivFlexStart>
+                <CalendarIcon
+                  sx={{
+                    height: "16px",
+                    width: "16px",
+                    color: "#A8A8A8",
+                    marginRight: "5.67px",
+                  }}
                 />
                 <Typography
-                  fontSize={10}
-                  color={"#da1e28"}
                   sx={{
-                    fontFamily: "Eina04-Light",
-                    textTransform: "uppercase",
-                    mt: 0.1,
+                    fontFamily: "Eina 04",
+                    fontWeight: 600,
+                    fontStyle: "normal",
+                    fontSize: "16px",
+                    lineHeight: "22px",
                   }}
                 >
-                  Late
+                  {data.date}
                 </Typography>
               </DivFlexStart>
-            ) : data.deliveryStatus === "Early" ? (
-              <>
-                <DivFlexStart sx={{ width: 40 }}>
-                  {/* <ArrowDropUpIcon sx={{ width: 20, height: 20, color: '#58d632' }} />
+              <DivFlexStart>
+                <ClockIcon
+                  sx={{
+                    height: "16px",
+                    width: "16px",
+                    color: "#A8A8A8",
+                    marginRight: "5.67px",
+                  }}
+                />
+                <Typography
+                  sx={{
+                    fontFamily: "Eina 04",
+                    fontWeight: 600,
+                    fontStyle: "normal",
+                    fontSize: "16px",
+                    lineHeight: "22px",
+                  }}
+                >
+                  {data.twStart} - {data.twEnd}
+                </Typography>
+              </DivFlexStart>
+            </DivFlexSpaceBetween>
+          </>
+        ) : (
+          <>
+            {data.deliveryStatus === "Late" ? (
+              <DivFlexStart
+                sx={{ height: 14, paddingTop: isDesktop ? "8px" : "1px" }}
+              >
+                <Typography
+                  fontSize={10}
+                  sx={{
+                    fontFamily: "Eina04-Light",
+                    textDecoration: "line-through",
+                    ml: 2.2,
+                    color: "#C6C6C6",
+                  }}
+                >
+                  {data.twStart} - {data.twEnd}
+                </Typography>
+              </DivFlexStart>
+            ) : (
+              <DivFlexStart sx={{ height: 16 }} />
+            )}
+
+            <DivFlexSpaceBetween sx={{ paddingTop: isDesktop ? "" : "1px" }}>
+              <DivFlexStart sx={{ mr: 2 }}>
+                <ClockIcon
+                  color={"#959499"}
+                  sx={{
+                    fontSize: 12,
+                    mr: 0.5,
+                  }}
+                />
+                <Typography
+                  fontSize={14}
+                  color={theme.palette.text.primary}
+                  sx={{ fontFamily: "Eina04-SemiBold" }}
+                >
+                  {data.twStart} - {data.twEnd}
+                </Typography>
+                {data.deliveryStatus === "Late" ? (
+                  <DivFlexStart sx={{ width: 40 }}>
+                    <ArrowDropDownIcon
+                      sx={{ width: 20, height: 20, color: "#da1e28" }}
+                    />
+                    <Typography
+                      fontSize={10}
+                      color={"#da1e28"}
+                      sx={{
+                        fontFamily: "Eina04-Light",
+                        textTransform: "uppercase",
+                        mt: 0.1,
+                      }}
+                    >
+                      SPÄTE
+                    </Typography>
+                  </DivFlexStart>
+                ) : data.deliveryStatus === "Early" ? (
+                  <>
+                    <DivFlexStart sx={{ width: 40 }}>
+                      {/* <ArrowDropUpIcon sx={{ width: 20, height: 20, color: '#58d632' }} />
                             <Typography fontSize={10} color={'#31711e'} sx={{ fontFamily: 'Eina04-Light', textTransform: 'uppercase' }}>
                                 Early
                             </Typography> */}
-                </DivFlexStart>
-                <></>
-              </>
+                    </DivFlexStart>
+                    <></>
+                  </>
+                ) : (
+                  <DivFlexStart sx={{ width: 40 }} />
+                )}
+              </DivFlexStart>
+              {isMobile || isTablet ? (
+                ""
+              ) : (
+                <Typography
+                  sx={{
+                    fontFamily: "Eina 04",
+                    fontStyle: "normal",
+                    fontSize: "10px",
+                    fontWeight: 300,
+                    lineHeight: "14px",
+                  }}
+                >
+                  Klick für Details
+                </Typography>
+              )}
+            </DivFlexSpaceBetween>
+            {isDesktop ? (
+              ""
             ) : (
-              <DivFlexStart sx={{ width: 40 }} />
+              <>
+                {openDetail ? (
+                  ""
+                ) : (
+                  <DivFlexSpaceBetween sx={{ marginTop: "4px" }}>
+                    <DivFlexStart>
+                      <CalendarIcon
+                        sx={{
+                          fontSize: 12,
+                          mr: 0.5,
+                          ml: 0.1,
+                          color: "#959499",
+                        }}
+                      />
+                      <Typography
+                        fontSize={10}
+                        sx={{
+                          fontFamily: "Eina 04",
+                          fontWeight: 300,
+                          fontStyle: "normal",
+                          lineHeight: "14px",
+                        }}
+                      >
+                        {data.date}
+                      </Typography>
+                    </DivFlexStart>
+                    <Typography
+                      fontSize={10}
+                      sx={{
+                        fontFamily: "Eina 04",
+                        fontWeight: 300,
+                        fontStyle: "normal",
+                        lineHeight: "14px",
+                      }}
+                    >
+                      Klick für Details
+                    </Typography>
+                  </DivFlexSpaceBetween>
+                )}
+              </>
             )}
-          </DivFlexStart>
 
-          {/* <DivFlexStart sx={{ display: isOpenItemList || openDetail ? '' : 'none' }}>
-                        <CalendarIcon sx={{
-                            fontSize: 12,
-                            mr: 0.5,
-                            ml: 0.1,
-                            color: '#959499'
-                        }} />
-                        <Typography fontSize={14} color={theme.palette.text.primary} sx={{ fontFamily: 'Eina04-Light' }}>
-                            {data.date}
-                        </Typography>
-                    </DivFlexStart> */}
-          {/* <Typography
-            fontSize={10}
-            color={theme.palette.text.primary}
-            sx={{ fontFamily: "Eina04-Light" }}
-          >
-            Klick für Details
-          </Typography> */}
-        </DivFlexSpaceBetween>
-
-        <DivFlexSpaceBetween
-          sx={{
-            display: isOpenItemList || openDetail ? "none" : "",
-            flexWrap: "wrap",
-          }}
-        >
-          <DivFlexStart>
-            {/* <CalendarIcon color={'#959499'} sx={{
+            <DivFlexSpaceBetween
+              sx={{
+                display: isOpenItemList || openDetail ? "none" : "",
+                flexWrap: "wrap",
+              }}
+            >
+              <DivFlexStart>
+                {/* <CalendarIcon color={'#959499'} sx={{
                             fontSize: 12,
                             mr: 0.5,
                             ml: 0.1
                         }} /> */}
-            {/* <Typography fontSize={10} color={theme.palette.text.primary} sx={{ fontFamily: 'Eina04-Light' }}>
+                {/* <Typography fontSize={10} color={theme.palette.text.primary} sx={{ fontFamily: 'Eina04-Light' }}>
                             {data.date}
                         </Typography> */}
-          </DivFlexStart>
-        </DivFlexSpaceBetween>
+              </DivFlexStart>
+            </DivFlexSpaceBetween>
+          </>
+        )}
       </RootDeliveryCard>
 
       <Collapse in={(openDetail && !isDesktop) || isOpenItemList}>
