@@ -58,7 +58,7 @@ const getStatusChip = (data, theme) => {
       )}
 
       {data.deliveryStatus === "Done" ? (
-        <DivFlexStart sx={{ ml: 0, height: 18 }}>
+        <DivFlexStart sx={{ marginLeft: "4px", height: 18 }}>
           <DoneIcon
             color={theme.palette.text.doneIcon}
             sx={{ fontSize: 16, mt: -0.4, marginRight: "6.33px" }}
@@ -74,6 +74,8 @@ const getStatusChip = (data, theme) => {
       ) : (
         <DivFlexStart sx={{ ml: 0, height: 18 }} />
       )}
+
+      
     </DivFlexStart>
   );
 };
@@ -108,7 +110,7 @@ const DeliveryCardMenu = (props) => {
         data={data}
         openDetail={openDetail}
       >
-        {isMobile && (
+        {isMobile || isTablet &&  (
           <DivFlexSpaceBetween sx={{ mb: 1 }}>
             <Typography
               fontSize={12}
@@ -126,10 +128,10 @@ const DeliveryCardMenu = (props) => {
           <Typography
             fontSize={"14px"}
             sx={{
-              fontFamily: "Eina 04",
+              fontFamily: "Eina04-Regular",
               letterSpacing: "0.15em",
               fontWeight: 400,
-              lineHeight: "19px",
+              lineHeight: "19.32px",
               fontStyle: "normal",
             }}
             color={theme.palette.text.primary}
@@ -142,30 +144,25 @@ const DeliveryCardMenu = (props) => {
         </DivFlexSpaceBetween>
 
         <Box sx={{ marginTop: "14px" }}>
-          {data?.clientName?.split(",").map((text, index) => {
-            return (
               <Typography
-                key={`${index}-clients name`}
                 fontSize={"16px"}
                 color={theme.palette.text.primary}
                 sx={{
-                  fontFamily: "Eina 04",
+                  fontFamily: "Eina04-Regular",
                   fontWeight: 600,
                   fontStyle: "normal",
-                  lineHeight: "22px",
+                  lineHeight: "22.08px",
                 }}
               >
-                {text}
+                {data?.clientName}
               </Typography>
-            );
-          })}
         </Box>
 
         <DivFlexStart>
           <Typography
             fontSize={"16px"}
             color={theme.palette.text.primary}
-            sx={{ fontFamily: "Eina04-Regular", marginTop: "16px" }}
+            sx={{ fontFamily: "Eina04-Regular", marginTop: "16px", fontWeight: 400, lineHeight: "22.08px" }}
           >
             {data.address}
           </Typography>
@@ -201,13 +198,13 @@ const DeliveryCardMenu = (props) => {
               }}
             />
             <Typography
-              fontSize={"28px"}
+              fontSize={isTablet ? "21" : "28px"}
               color={theme.palette.text.primary}
               sx={{
                 fontFamily: "Eina04-Regular",
                 fontStyle: "normal",
                 fontWeight: 600,
-                lineHeight: "38px",
+                lineHeight: "38.64px",
               }}
             >
               {data.date}
@@ -266,13 +263,13 @@ const DeliveryCardMenu = (props) => {
               }}
             />
             <Typography
-              fontSize={"28px"}
+              fontSize={ isTablet ? "21px" : "28px"}
               color={theme.palette.text.primary}
               sx={{
                 fontFamily: "Eina04-Regular",
                 fontStyle: "normal",
                 fontWeight: 600,
-                lineHeight: "38px",
+                lineHeight: "38.64px",
               }}
             >
               {data.twStart} - {data.twEnd}

@@ -19,7 +19,7 @@ import jetztRabatt from "../src/assets/Images/Jetzt_Rabatt_Auf_Purwasser_Sichern
 import wirLaden from "../src/assets/Images/Wir_Laden_Ihre_Mitarbeiten.png";
 
 //import Components
-import AppBarResponsive from "./Components/ChipStatus/AppBarResponsive";
+import AppBarResponsive from "./Components/AppBarResponsive/AppBarResponsive";
 // import ScrollToTopButton from './Components/ScrollToTopButton/ScrollToTopButton';
 import InputTrackingNumber from "./Components/InputTrackingNumber/InputTrackingNumber";
 
@@ -37,7 +37,11 @@ import DeliveryPage from "./Pages/DeliveryPage/DeliveryPage";
 import LinkExpiredStatus from "./Components/LinkExpiredStatus/LinkExpiredStatus";
 
 // Dark and Light Mode
-import { createTheme, ThemeProvider } from "@mui/material/styles";
+import {
+  createMuiTheme,
+  createTheme,
+  ThemeProvider,
+} from "@mui/material/styles";
 import { CssBaseline } from "@mui/material";
 
 // AppContext
@@ -45,26 +49,28 @@ export const AppContext = createContext({});
 
 const Main = (props) => {
   return (
-    <Routes>
-      <Route path="/login" element={<Login />} />
-      <Route path="/verify" element={<Verify />} />
-      <Route path="*" element={<PublicRoute />} />
-      <Route element={<AppBarResponsive />}>
-        <Route element={<LoginDialog />}>
-          <Route element={<LogoutConfirmationDialog />}>
-            <Route element={<OtpDialog />}>
-              <Route element={<EmailsListDialog />}>
-                <Route element={<AddNewEmailDialog />}>
-                  <Route element={<DeleteEmailDialog />}>
-                    <Route element={<EditEmailDialog />}>
-                      {/* <Route element={<OtpSendStatus />} > */}
-                      <Route path="/delivery" element={<DeliveryPage />} />
-                      <Route
-                        path="/inputTrackingNumber"
-                        element={<InputTrackingNumber />}
-                      />
-                      {/* <Route path='/linkExpired' element={<LinkExpiredStatus /> }/> */}
-                    </Route>
+    <>
+      <AppBarResponsive />
+      <LoginDialog />
+      <Routes>
+        <Route path="/login" element={<Login />} />
+        <Route path="/verify" element={<Verify />} />
+        <Route path="*" element={<PublicRoute />} />
+        {/* <Route element={<AppBarResponsive />}> */}
+        {/* <Route element={<LoginDialog />}> */}
+        <Route element={<LogoutConfirmationDialog />}>
+          <Route element={<OtpDialog />}>
+            <Route element={<EmailsListDialog />}>
+              <Route element={<AddNewEmailDialog />}>
+                <Route element={<DeleteEmailDialog />}>
+                  <Route element={<EditEmailDialog />}>
+                    {/* <Route element={<OtpSendStatus />} > */}
+                    <Route path="/delivery" element={<DeliveryPage />} />
+                    <Route
+                      path="/inputTrackingNumber"
+                      element={<InputTrackingNumber />}
+                    />
+                    {/* <Route path='/linkExpired' element={<LinkExpiredStatus /> }/> */}
                   </Route>
                 </Route>
               </Route>
@@ -72,8 +78,10 @@ const Main = (props) => {
           </Route>
         </Route>
         {/* </Route> */}
-      </Route>
-    </Routes>
+        {/* </Route> */}
+        {/* </Route> */}
+      </Routes>
+    </>
   );
 };
 
@@ -103,6 +111,15 @@ function App() {
   const theme = useMemo(
     () =>
       createTheme({
+        breakpoints: {
+          values: {
+            xs: 0,
+            sm: 600,
+            md: 1280,
+            lg: 1280,
+            xl: 1536,
+          },
+        },
         palette: {
           mode,
           ...(mode === "light"
@@ -115,7 +132,6 @@ function App() {
                   deliveryCard: "#F3F3F3",
                   hoverDeliveryCard: "#F7F5F5",
                   clickedDeliveryCard: "#EBEBEB",
-                  
 
                   // promo card
                   promoCard: "#ffffff",
@@ -462,8 +478,8 @@ function App() {
 
   /* =========End of stack history============ */
 
-  const isDesktop = useMediaQuery(theme.breakpoints.up("md"));
-  const isTablet = useMediaQuery(theme.breakpoints.only("sm"));
+  const isDesktop = useMediaQuery(theme.breakpoints.up("lg"));
+  const isTablet = useMediaQuery(theme.breakpoints.down("md"));
   const isMobile = useMediaQuery(theme.breakpoints.only("xs"));
 
   /* =========Scrolling State============ */

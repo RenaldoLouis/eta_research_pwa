@@ -32,7 +32,7 @@ export const CustomDialog = (props) => {
     const { isMobile } = useContext(AppContext)
 
     return (
-        <DialogComponent open={open} onClose={onClose} width={width}>
+        <DialogComponent open={open} width={width}>
             <>
                 <DivFlexEnd sx={{ pr: isMobile ? 3 : 6, pt: isMobile ? 3 : 4 }} >
                     <CloseIcon onClick={onClose} sx={{ cursor: 'pointer', fontSize:20 }} />

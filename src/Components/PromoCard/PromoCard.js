@@ -26,9 +26,9 @@ import ChatIcon from "../../assets/icons/ChatIcon";
 import PhoneIcon from "../../assets/icons/PhoneIcon";
 
 const PromoCard = (props) => {
-  const { promo, openDetailPromo, isDialog, isMobile } = props;
+  const { promo, openDetailPromo, isDialog, isMobile, isTablet } = props;
 
-  const { isTablet, isDesktop } = useContext(AppContext);
+  const { isDesktop } = useContext(AppContext);
 
   // color theme
   const theme = useTheme();
@@ -40,7 +40,7 @@ const PromoCard = (props) => {
     <Card
       sx={{
         width: openDetail || isDesktop ? "100%" : "calc(100% - 48px)",
-        backgroundColor: isMobile
+        backgroundColor: isMobile || isTablet
           ? openDetail
             ? theme.palette.background.default
             : theme.palette.background.promoCardMobile
@@ -48,7 +48,7 @@ const PromoCard = (props) => {
           ? theme.palette.background.dialog
           : theme.palette.background.promoCard,
         "&:hover": {
-          backgroundColor: isMobile
+          backgroundColor: isMobile || isTablet
             ? ""
             : isDialog
             ? ""
@@ -64,7 +64,7 @@ const PromoCard = (props) => {
         image={promo.image}
         alt="promo"
         sx={{ objectFit: "contain" }}
-        onClick={isMobile ? () => setOpenDetail(!openDetail) : undefined}
+        onClick={isMobile || isTablet ? () => setOpenDetail(!openDetail) : undefined}
       />
       <CardContent
         style={{
@@ -77,7 +77,11 @@ const PromoCard = (props) => {
       >
         <Typography
           color={theme.palette.text.primary}
-          sx={{ fontSize: 18, fontFamily: "Eina04-SemiBold", paddingLeft: isDesktop ? "" : "16px" }} 
+          sx={{
+            fontSize: 18,
+            fontFamily: "Eina04-SemiBold",
+            paddingLeft: isDesktop ? "" : "16px",
+          }}
         >
           {promo.title}
         </Typography>
@@ -94,6 +98,7 @@ const PromoCard = (props) => {
                 : "0px 16px 8px 16px",
             maxHeight: 190,
             overflowY: "scroll",
+            marginRight: isDesktop? "8px" : "0px",
           }}
         >
           <Typography
@@ -106,9 +111,10 @@ const PromoCard = (props) => {
             {promo.detail}
           </Typography>
         </Box>
+       
         <Box
           sx={{
-            padding: isMobile
+            padding: isMobile || isTablet
               ? openDetail
                 ? "8px 24px 16px 24px"
                 : "8px 16px 16px 16px"
@@ -117,7 +123,7 @@ const PromoCard = (props) => {
         >
           {isDialog ? (
             <>
-              <DivFlexCenter sx={{ mb: 2 }}>
+              <DivFlexCenter sx={{marginBottom: "15px"}}>
                 <Typography
                   fontSize={12}
                   sx={{
