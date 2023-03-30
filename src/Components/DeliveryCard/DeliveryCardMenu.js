@@ -74,8 +74,6 @@ const getStatusChip = (data, theme) => {
       ) : (
         <DivFlexStart sx={{ ml: 0, height: 18 }} />
       )}
-
-      
     </DivFlexStart>
   );
 };
@@ -88,6 +86,8 @@ const DeliveryCardMenu = (props) => {
 
   // theme color
   const theme = useTheme();
+
+  const { innerWidth: width } = window;
 
   // local state for open itemlist
   const [openDetail, setOpenDetail] = useState(false);
@@ -110,7 +110,7 @@ const DeliveryCardMenu = (props) => {
         data={data}
         openDetail={openDetail}
       >
-        {isMobile || isTablet &&  (
+        {(isMobile || isTablet) && (
           <DivFlexSpaceBetween sx={{ mb: 1 }}>
             <Typography
               fontSize={12}
@@ -144,25 +144,30 @@ const DeliveryCardMenu = (props) => {
         </DivFlexSpaceBetween>
 
         <Box sx={{ marginTop: "14px" }}>
-              <Typography
-                fontSize={"16px"}
-                color={theme.palette.text.primary}
-                sx={{
-                  fontFamily: "Eina04-Regular",
-                  fontWeight: 600,
-                  fontStyle: "normal",
-                  lineHeight: "22.08px",
-                }}
-              >
-                {data?.clientName}
-              </Typography>
+          <Typography
+            fontSize={"16px"}
+            color={theme.palette.text.primary}
+            sx={{
+              fontFamily: "Eina04-Regular",
+              fontWeight: 600,
+              fontStyle: "normal",
+              lineHeight: "22.08px",
+            }}
+          >
+            {data?.clientName}
+          </Typography>
         </Box>
 
         <DivFlexStart>
           <Typography
             fontSize={"16px"}
             color={theme.palette.text.primary}
-            sx={{ fontFamily: "Eina04-Regular", marginTop: "16px", fontWeight: 400, lineHeight: "22.08px" }}
+            sx={{
+              fontFamily: "Eina04-Regular",
+              marginTop: "16px",
+              fontWeight: 400,
+              lineHeight: "22.08px",
+            }}
           >
             {data.address}
           </Typography>
@@ -188,7 +193,7 @@ const DeliveryCardMenu = (props) => {
 
         <DivFlexSpaceBetween>
           <DivFlexStart>
-          <CalendarIcon
+            <CalendarIcon
               color={"#959499"}
               sx={{
                 marginRight: "9.5px",
@@ -198,7 +203,7 @@ const DeliveryCardMenu = (props) => {
               }}
             />
             <Typography
-              fontSize={isTablet ? "21" : "28px"}
+              fontSize={ width <= 1460 ? "21px" : "28px"}
               color={theme.palette.text.primary}
               sx={{
                 fontFamily: "Eina04-Regular",
@@ -253,7 +258,7 @@ const DeliveryCardMenu = (props) => {
                         </Typography>
                     </DivFlexStart> */}
           <DivFlexStart>
-          <ClockIcon
+            <ClockIcon
               color={"#959499"}
               sx={{
                 fontSize: "25px",
@@ -263,7 +268,7 @@ const DeliveryCardMenu = (props) => {
               }}
             />
             <Typography
-              fontSize={ isTablet ? "21px" : "28px"}
+              fontSize={ width <= 1460 ? "21px" : "28px"}
               color={theme.palette.text.primary}
               sx={{
                 fontFamily: "Eina04-Regular",

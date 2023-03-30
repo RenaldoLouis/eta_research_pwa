@@ -21,6 +21,8 @@ import DivFlexSpaceBetween from "../ReusableComponents/DivFlexSpacebetween";
 import DivFlexStart from "../ReusableComponents/DivFlexStart";
 import DiscrepancyChip from "../ChipStatus/DiscrepancyChip";
 import CalendarIcon from "../../assets/icons/CalendarIcon";
+import ErrorIcon from "../../assets/icons/ErrorIcon";
+import DiscrepancyIconChip from "../ChipStatus/DiscrepancyIconChip";
 
 const RootDeliveryCard = styled("div")((props) => ({
   backgroundColor: props.isDesktop
@@ -48,13 +50,16 @@ const RootDeliveryCard = styled("div")((props) => ({
   },
 }));
 
+
+
 const getStatusChip = (data, theme) => {
+  const { innerWidth: width } = window;
   return (
     <DivFlexStart>
       {data.itemList.some((v) => {
         return v.warning === true;
       }) ? (
-        <DiscrepancyChip />
+        width >= 1280 && width <=1510 ? <DiscrepancyIconChip /> : <DiscrepancyChip />
       ) : (
         <></>
       )}
@@ -110,7 +115,7 @@ const DeliveryCard = (props) => {
         data={data}
         openDetail={openDetail}
       >
-        {(isMobile ||  isTablet) && (
+        {(isMobile || isTablet) && (
           <DivFlexSpaceBetween sx={{ marginBottom: "10px" }}>
             <Typography
               fontSize={12}
@@ -124,7 +129,7 @@ const DeliveryCard = (props) => {
             >
               {`${numberOfDeliver} von ${totalDelivery}`}
             </Typography>
-            {getStatusChip(data, theme)}
+            {getStatusChip(data, theme, isDesktop)}
           </DivFlexSpaceBetween>
         )}
         <DivFlexSpaceBetween

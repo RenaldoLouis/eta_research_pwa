@@ -117,7 +117,7 @@ function App() {
             sm: 600,
             md: 1280,
             lg: 1280,
-            xl: 1536,
+            xl: 1530,
           },
         },
         palette: {
@@ -288,7 +288,7 @@ function App() {
   const deliveryDumpData = [
     {
       id: 1,
-      deliveryStatus: "",
+      deliveryStatus: "Done",
       twStart: "09.00",
       twEnd: "09.30",
       vehicle: "BCY-1111",
@@ -481,6 +481,7 @@ function App() {
   const isDesktop = useMediaQuery(theme.breakpoints.up("lg"));
   const isTablet = useMediaQuery(theme.breakpoints.down("md"));
   const isMobile = useMediaQuery(theme.breakpoints.only("xs"));
+
 
   /* =========Scrolling State============ */
 
@@ -687,7 +688,7 @@ function App() {
   const AppContextValue = {
     mode,
     handleChangeTheme,
-
+    
     isMobile,
     isTablet,
     isDesktop,
