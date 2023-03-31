@@ -221,7 +221,7 @@ const DeliveryPage = () => {
         sx={{
           paddingLeft: isDesktop ? "40px" : "",
           // pr: isDesktop ? 5 : "",
-          height: isDesktop ? "100vh" : ""
+          height: isDesktop ? "100vh" : "",
         }}
       >
         <Grid
@@ -306,8 +306,8 @@ const DeliveryPage = () => {
                           sx={{
                             padding: isDesktop ? "0px" : "32px 24px 0px 24px",
                             marginTop: isDesktop ? "48px" : undefined,
-                            height: "50px",
-                            width: isMobile || isTablet ? "50px" : "50px",
+                            height: "70px",
+                            width: isMobile || isTablet ? "100px" : "50px",
                           }}
                         >
                           {historyStack.length > 0 && (
@@ -321,7 +321,9 @@ const DeliveryPage = () => {
                               style={{
                                 height: "48px",
                                 width: "48px",
-                                margin: "0px",
+                                margin: "32px 0px 16px 0px",
+                                paddingBottom:
+                                  isMobile || isTablet ? "16px" : "0px",
                               }}
                             />
                           ) : mode === "dark" ? (
@@ -330,7 +332,9 @@ const DeliveryPage = () => {
                               style={{
                                 height: "48px",
                                 width: "48px",
-                                margin: "0px",
+                                margin: "32px 0px 16px 0px",
+                                paddingBottom:
+                                  isMobile || isTablet ? "16px" : "0px",
                               }}
                             />
                           ) : (
@@ -398,8 +402,8 @@ const DeliveryPage = () => {
                           sx={{
                             padding: isDesktop ? "0px" : "24px 24px 0px 24px",
                             marginTop: isDesktop ? "48px" : undefined,
-                            height: "50px",
-                            width: isMobile || isTablet ? "50px" : "50px",
+                            height: "70px",
+                            width: isMobile || isTablet ? "100px" : "50px",
                           }}
                         >
                           {historyStack.length > 0 && (
@@ -411,18 +415,22 @@ const DeliveryPage = () => {
                             <Lottie
                               options={moonLightAnimation}
                               style={{
-                                height: "48px",
+                                height: isMobile || isDesktop ? "60px" : "48px",
                                 width: "48px",
-                                margin: "0px",
+                                margin: "32px 0px 16px 0px",
+                                paddingBottom:
+                                  isMobile || isTablet ? "16px" : "0px",
                               }}
                             />
                           ) : mode === "dark" ? (
                             <Lottie
                               options={moonDarkAnimation}
                               style={{
-                                height: "48px",
+                                height: isMobile || isDesktop ? "60px" : "48px",
                                 width: "48px",
-                                margin: "0px",
+                                margin: "32px 0px 16px 0px",
+                                paddingBottom:
+                                  isMobile || isTablet ? "16px" : "0px",
                               }}
                             />
                           ) : (
@@ -488,8 +496,8 @@ const DeliveryPage = () => {
                           sx={{
                             margin: isDesktop ? "0px" : "32px 24px 0px 24px",
                             marginTop: isDesktop ? "48px" : undefined,
-                            height: "50px",
-                            width: isMobile || isTablet ? "50px" : "50px",
+                            height: "70px",
+                            width: isMobile || isTablet ? "100px" : "50px",
                           }}
                         >
                           {historyStack.length > 0 && (
@@ -501,18 +509,22 @@ const DeliveryPage = () => {
                             <Lottie
                               options={sunLightAnimation}
                               style={{
-                                margin: "0px",
-                                widht: "48px",
+                                widht: isMobile || isDesktop ? "58px" : "48px",
                                 height: "48px",
+                                margin: "32px 0px 16px 0px",
+                                paddingBottom:
+                                  isMobile || isTablet ? "16px" : "0px",
                               }}
                             />
                           ) : mode === "dark" ? (
                             <Lottie
                               options={sunDarkAnimation}
                               style={{
-                                margin: "0px",
-                                widht: "48px",
+                                widht: isMobile || isDesktop ? "58px" : "48px",
                                 height: "48px",
+                                margin: "32px 0px 16px 0px",
+                                paddingBottom:
+                                  isMobile || isTablet ? "16px" : "0px",
                               }}
                             />
                           ) : (

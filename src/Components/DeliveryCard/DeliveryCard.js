@@ -50,8 +50,6 @@ const RootDeliveryCard = styled("div")((props) => ({
   },
 }));
 
-
-
 const getStatusChip = (data, theme) => {
   const { innerWidth: width } = window;
   return (
@@ -59,7 +57,12 @@ const getStatusChip = (data, theme) => {
       {data.itemList.some((v) => {
         return v.warning === true;
       }) ? (
-        width >= 1280 && width <=1510 ? <DiscrepancyIconChip /> : <DiscrepancyChip />
+        width >= 1280 && width <= 1580 ? (
+          <DiscrepancyIconChip />
+        ) : (
+          <DiscrepancyChip />
+        )
+        // <DiscrepancyChip />
       ) : (
         <></>
       )}
@@ -129,7 +132,7 @@ const DeliveryCard = (props) => {
             >
               {`${numberOfDeliver} von ${totalDelivery}`}
             </Typography>
-            {getStatusChip(data, theme, isDesktop)}
+            {getStatusChip(data, theme)}
           </DivFlexSpaceBetween>
         )}
         <DivFlexSpaceBetween
