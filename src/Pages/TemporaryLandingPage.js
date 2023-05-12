@@ -60,7 +60,7 @@ export const Container = styled('div')((props) => ({
     justifyContent: 'center',
 }))
 
-function Login() {
+function TemporaryLandingPage() {
     const { downloadApp, supportsPWA, showInstallMessage } = useContext(PwaContext);
 
     const theme = useTheme()
@@ -181,4 +181,4 @@ function Login() {
     );
 }
 
-export default Login;
+export default TemporaryLandingPage;

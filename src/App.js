@@ -4,19 +4,25 @@ import { PwaContextProvider } from "./context/PwaContext";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Login from "./Pages/Login";
-import Verify from "./Pages/Verify";
-import PublicRoute from "./PublicRoute";
+
 import { useMediaQuery } from "@mui/material";
 
 // import color
 import Color from "./Components/Constants/Color";
 
-// Dummy
+
 // import logo from "../src/assets/Images/dummy-promo-lemonade.jpg";
 import neuesBier from "../src/assets/Images/Neues_Bier_ab_Marz.png";
 import jetztRabatt from "../src/assets/Images/Jetzt_Rabatt_Auf_Purwasser_Sichern.png";
 import wirLaden from "../src/assets/Images/Wir_Laden_Ihre_Mitarbeiten.png";
+
+
+// import page
+import TemporaryLandingPage from "./Pages/TemporaryLandingPage";
+import DeliveryPage from "./Pages/DeliveryPage/DeliveryPage";
+import LinkExpiredStatus from "./Components/LinkExpiredStatus/LinkExpiredStatus";
+import Verify from "./Pages/Verify";
+
 
 //import Components
 import AppBarResponsive from "./Components/AppBarResponsive/AppBarResponsive";
@@ -32,9 +38,7 @@ import DeleteEmailDialog from "./Components/DialogComponent/DeleteEmailDialog";
 import EditEmailDialog from "./Components/DialogComponent/EditEmailDialog";
 import LogoutConfirmationDialog from "./Components/DialogComponent/LogoutConfirmationDialog";
 
-// import page
-import DeliveryPage from "./Pages/DeliveryPage/DeliveryPage";
-import LinkExpiredStatus from "./Components/LinkExpiredStatus/LinkExpiredStatus";
+
 
 // Dark and Light Mode
 import {
@@ -51,35 +55,29 @@ const Main = (props) => {
   return (
     <>
       <AppBarResponsive />
+
+      {/* ======== Global Dialog Component ======== */}
+
       <LoginDialog />
+      <LogoutConfirmationDialog />
+      <OtpDialog />
+
+      <EmailsListDialog />
+      <AddNewEmailDialog />
+      <DeleteEmailDialog />
+      <EditEmailDialog />
+
+      {/* ======== Global Dialog Component ======== */}
+
+
       <Routes>
-        <Route path="/login" element={<Login />} />
-        <Route path="/verify" element={<Verify />} />
-        <Route path="*" element={<PublicRoute />} />
-        {/* <Route element={<AppBarResponsive />}> */}
-        {/* <Route element={<LoginDialog />}> */}
-        <Route element={<LogoutConfirmationDialog />}>
-          <Route element={<OtpDialog />}>
-            <Route element={<EmailsListDialog />}>
-              <Route element={<AddNewEmailDialog />}>
-                <Route element={<DeleteEmailDialog />}>
-                  <Route element={<EditEmailDialog />}>
-                    {/* <Route element={<OtpSendStatus />} > */}
-                    <Route path="/delivery" element={<DeliveryPage />} />
-                    <Route
-                      path="/inputTrackingNumber"
-                      element={<InputTrackingNumber />}
-                    />
-                    {/* <Route path='/linkExpired' element={<LinkExpiredStatus /> }/> */}
-                  </Route>
-                </Route>
-              </Route>
-            </Route>
-          </Route>
-        </Route>
-        {/* </Route> */}
-        {/* </Route> */}
-        {/* </Route> */}
+        <Route path="*" element={<TemporaryLandingPage />} />
+        <Route path="verify" element={<Verify />} />
+        <Route path="delivery" element={<DeliveryPage />} />
+        <Route path="inputTrackingNumber" element={<InputTrackingNumber />} />
+        <Route path='linkExpired' element={<LinkExpiredStatus />} />
+
+
       </Routes>
     </>
   );
@@ -124,132 +122,132 @@ function App() {
           mode,
           ...(mode === "light"
             ? {
-                background: {
-                  // body
-                  default: "#ffffff",
+              background: {
+                // body
+                default: "#ffffff",
 
-                  // delivery card
-                  deliveryCard: "#F3F3F3",
-                  hoverDeliveryCard: "#F7F5F5",
-                  clickedDeliveryCard: "#EBEBEB",
+                // delivery card
+                deliveryCard: "#F3F3F3",
+                hoverDeliveryCard: "#F7F5F5",
+                clickedDeliveryCard: "#EBEBEB",
 
-                  // promo card
-                  promoCard: "#ffffff",
-                  hoverItemList: "#f3f3f3",
-                  hoverPromoCard: "#f7f5f5",
+                // promo card
+                promoCard: "#ffffff",
+                hoverItemList: "#f3f3f3",
+                hoverPromoCard: "#f7f5f5",
 
-                  // appbar and icon
-                  appBar: "#ebebeb",
-                  iconColor: "#000000",
+                // appbar and icon
+                appBar: "#ebebeb",
+                iconColor: "#000000",
 
-                  // dialog
-                  dialog: "#ffffff",
-                  headDialog: "#ffffff",
+                // dialog
+                dialog: "#ffffff",
+                headDialog: "#ffffff",
 
-                  // form
-                  borderForm: "#A8A8A8",
-                  borderFormHover: "#A8A8A8",
-                  borderFormActive: "#525252",
+                // form
+                borderForm: "#A8A8A8",
+                borderFormHover: "#A8A8A8",
+                borderFormActive: "#525252",
 
-                  // button
-                  buttonSecondary: "#262626",
+                // button
+                buttonSecondary: "#262626",
 
-                  // tracking numbercontainer
-                  borderTrackingNumber: "#979797",
+                // tracking numbercontainer
+                borderTrackingNumber: "#979797",
 
-                  // scroll to top button
-                  scrollToTop: "#262626",
+                // scroll to top button
+                scrollToTop: "#262626",
 
-                  // itemlist
-                  oddItemList: "#E7E7E7",
+                // itemlist
+                oddItemList: "#E7E7E7",
 
-                  // separatorStickyTitle
-                  separatorTitle: "#6F6F6F",
-                },
-                text: {
-                  primary: "#1A1919",
-                  heading1: "#1A1919",
-                  highlithText: "#000000",
+                // separatorStickyTitle
+                separatorTitle: "#6F6F6F",
+              },
+              text: {
+                primary: "#1A1919",
+                heading1: "#1A1919",
+                highlithText: "#000000",
 
-                  // text for chip delivery card
-                  doneText: "#6F6F6F",
-                  doneIcon: "#A8A8A8",
+                // text for chip delivery card
+                doneText: "#6F6F6F",
+                doneIcon: "#A8A8A8",
 
-                  // button
-                  buttonSecondary: "#ffffff",
+                // button
+                buttonSecondary: "#ffffff",
 
-                  // text in dialog
-                  dialogHeadingText: "#1A1919",
-                  emailListText: "#000000",
-                  inputText: "#8D8D8D",
-                  inputTextActive: "#1A1919",
-                  emailListRole: "#909090",
-                },
-              }
+                // text in dialog
+                dialogHeadingText: "#1A1919",
+                emailListText: "#000000",
+                inputText: "#8D8D8D",
+                inputTextActive: "#1A1919",
+                emailListRole: "#909090",
+              },
+            }
             : {
-                background: {
-                  // body
-                  default: "#262626",
+              background: {
+                // body
+                default: "#262626",
 
-                  // delivery card
-                  deliveryCard: "#393939",
-                  hoverDeliveryCard: "#4C4C4C",
-                  clickedDeliveryCard: "#1F2020",
+                // delivery card
+                deliveryCard: "#393939",
+                hoverDeliveryCard: "#4C4C4C",
+                clickedDeliveryCard: "#1F2020",
 
-                  // promo card
-                  promoCard: "#262626",
-                  promoCardMobile: "#393939",
-                  hoverItemList: "#404040",
-                  hoverPromoCard: "#4c4c4c",
+                // promo card
+                promoCard: "#262626",
+                promoCardMobile: "#393939",
+                hoverItemList: "#404040",
+                hoverPromoCard: "#4c4c4c",
 
-                  // appbar and icon
-                  appBar: "#353535",
-                  iconColor: "#e0e0e0",
+                // appbar and icon
+                appBar: "#353535",
+                iconColor: "#e0e0e0",
 
-                  // dialog
-                  dialog: "#393939",
-                  headDialog: "#393939",
+                // dialog
+                dialog: "#393939",
+                headDialog: "#393939",
 
-                  // form
-                  borderForm: "#A8A8A8",
-                  borderFormHover: "#C6C6C6",
-                  borderFormActive: "#F4F4F4",
+                // form
+                borderForm: "#A8A8A8",
+                borderFormHover: "#C6C6C6",
+                borderFormActive: "#F4F4F4",
 
-                  // button
-                  buttonSecondary: "#ffffff",
+                // button
+                buttonSecondary: "#ffffff",
 
-                  // tracking numbercontainer
-                  borderTrackingNumber: "transparent",
+                // tracking numbercontainer
+                borderTrackingNumber: "transparent",
 
-                  // scroll to top button
-                  scrollToTop: "#ffffff",
+                // scroll to top button
+                scrollToTop: "#ffffff",
 
-                  // itemlist
-                  oddItemList: "#525252",
+                // itemlist
+                oddItemList: "#525252",
 
-                  // separatorStickyTitle
-                  separatorTitle: "#F4F4F4",
-                },
-                text: {
-                  primary: "#f4f4f4",
-                  heading1: "#f4f4f4",
-                  highlithText: "#ffffff",
+                // separatorStickyTitle
+                separatorTitle: "#F4F4F4",
+              },
+              text: {
+                primary: "#f4f4f4",
+                heading1: "#f4f4f4",
+                highlithText: "#ffffff",
 
-                  // text for chip delivery card
-                  doneText: "#FFFFFF",
-                  doneIcon: "#A8A8A8",
+                // text for chip delivery card
+                doneText: "#FFFFFF",
+                doneIcon: "#A8A8A8",
 
-                  // button
-                  buttonSecondary: "#262626",
+                // button
+                buttonSecondary: "#262626",
 
-                  // text dialog
-                  dialogHeadingText: "#e0e0e0",
-                  emailListText: "#f4f4f4",
-                  inputText: "#e0e0e0",
-                  inputTextActive: "#FFFFFF",
-                  emailListRole: "#ffffff",
-                },
-              }),
+                // text dialog
+                dialogHeadingText: "#e0e0e0",
+                emailListText: "#f4f4f4",
+                inputText: "#e0e0e0",
+                inputTextActive: "#FFFFFF",
+                emailListRole: "#ffffff",
+              },
+            }),
         },
       }),
     [mode]
@@ -688,7 +686,7 @@ function App() {
   const AppContextValue = {
     mode,
     handleChangeTheme,
-    
+
     isMobile,
     isTablet,
     isDesktop,
