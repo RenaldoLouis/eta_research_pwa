@@ -16,7 +16,7 @@ const LinkExpiredStatus = props => {
     const theme = useTheme()
 
     return (
-        <DivFlexStart sx={{ mt: 5, width: '100%', flexWrap: 'wrap', }}>
+        <DivFlexStart sx={{ pt: 10, width: '100%', flexWrap: 'wrap', }}>
             <Box sx={{ width: 335 }}>
                 <DivFlexStart sx={{ width: '100%' }}>
                     <Typography fontSize={72} color={'#A8A8A8'} sx={{ fontFamily: 'Eina04-Regular' }}>

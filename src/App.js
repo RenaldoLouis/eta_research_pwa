@@ -11,23 +11,16 @@ import { useMediaQuery } from "@mui/material";
 import Color from "./Components/Constants/Color";
 
 
-// import logo from "../src/assets/Images/dummy-promo-lemonade.jpg";
-import neuesBier from "../src/assets/Images/Neues_Bier_ab_Marz.png";
-import jetztRabatt from "../src/assets/Images/Jetzt_Rabatt_Auf_Purwasser_Sichern.png";
-import wirLaden from "../src/assets/Images/Wir_Laden_Ihre_Mitarbeiten.png";
-
-
 // import page
 import TemporaryLandingPage from "./Pages/TemporaryLandingPage";
 import DeliveryPage from "./Pages/DeliveryPage/DeliveryPage";
-import LinkExpiredStatus from "./Components/LinkExpiredStatus/LinkExpiredStatus";
 import Verify from "./Pages/Verify";
 
 
 //import Components
 import AppBarResponsive from "./Components/AppBarResponsive/AppBarResponsive";
 // import ScrollToTopButton from './Components/ScrollToTopButton/ScrollToTopButton';
-import InputTrackingNumber from "./Components/InputTrackingNumber/InputTrackingNumber";
+import InputTrackingNumber from "./Pages/InputTrackingNumber/InputTrackingNumber";
 
 // import Dialog
 import LoginDialog from "./Components/DialogComponent/LoginDialog";
@@ -38,7 +31,10 @@ import DeleteEmailDialog from "./Components/DialogComponent/DeleteEmailDialog";
 import EditEmailDialog from "./Components/DialogComponent/EditEmailDialog";
 import LogoutConfirmationDialog from "./Components/DialogComponent/LogoutConfirmationDialog";
 
-
+// Import Dump data
+import { promoDummyData } from "./dump-data";
+import { deliveryDummyData } from "./dump-data";
+import { emailDummyList } from "./dump-data";
 
 // Dark and Light Mode
 import {
@@ -57,7 +53,6 @@ const Main = (props) => {
       <AppBarResponsive />
 
       {/* ======== Global Dialog Component ======== */}
-
       <LoginDialog />
       <LogoutConfirmationDialog />
       <OtpDialog />
@@ -66,7 +61,6 @@ const Main = (props) => {
       <AddNewEmailDialog />
       <DeleteEmailDialog />
       <EditEmailDialog />
-
       {/* ======== Global Dialog Component ======== */}
 
 
@@ -74,16 +68,15 @@ const Main = (props) => {
         <Route path="*" element={<TemporaryLandingPage />} />
         <Route path="verify" element={<Verify />} />
         <Route path="delivery" element={<DeliveryPage />} />
-        <Route path="inputTrackingNumber" element={<InputTrackingNumber />} />
-        <Route path='linkExpired' element={<LinkExpiredStatus />} />
-
-
+        <Route path="input-tracking-number" element={<InputTrackingNumber />} />
       </Routes>
     </>
   );
 };
 
 function App() {
+
+
   /* ==================== Dark and Light Mode ==================== */
   const [mode, setMode] = useState("light");
   const handleChangeTheme = () => {
@@ -255,230 +248,27 @@ function App() {
 
   /* ==================== End Of Dark and Light Mode ==================== */
 
-  const [warning, setWarning] = useState(false);
+  /* ================== Data ===================== */
 
-  /* ==================Dummy Data ===================== */
+  const [promoNewsData, setPromoNewsData] = useState(promoDummyData)
 
-  const promoDumpData = [
-    {
-      id: 1,
-      image: neuesBier,
-      title: "Nimm einen Schluck! Das neue Bier kommt im März",
-      detail:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-    },
-    {
-      id: 2,
-      image: jetztRabatt,
-      title: "Genießen Sie eine Ermäßigung auf jeden Kauf von Purwasser",
-      detail:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-    },
-    {
-      id: 3,
-      image: wirLaden,
-      title: "Besuchen Sie unseren Gastro-Workshop am 23. Mai 2023",
-      detail:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-    },
-  ];
+  const [deliveryData, setDeliveryData] = useState(deliveryDummyData)
 
-  const deliveryDumpData = [
-    {
-      id: 1,
-      deliveryStatus: "Done",
-      twStart: "09.00",
-      twEnd: "09.30",
-      vehicle: "BCY-1111",
-      date: "Mo, 7. März 2023",
-      tourSorted: "",
-      totalStops: 0,
-      isCanceled: false,
-      products: [0, 1, 2],
-      address: "Am luftschiffhafen 1, 62500 Postdam",
-      clientName: "Josef Biernoth, Getränkegroßhandel",
-      plateDriver: "1154678490AB",
-      itemList: [
-        {
-          productName: "Apfelschorle PETC. 12 x 1,00",
-          amount: -1,
-          unit: "KL",
-          onTruck: 3,
-          ordered: 2,
-          warning: true,
-        },
-        {
-          productName: "Selters Gastro 24 x 0.25",
-          amount: 4,
-          unit: "KL",
-          onTruck: 12,
-          ordered: 8,
-          warning: false,
-        },
-        {
-          productName: "Helles Spezial KEG 1 x 30,0",
-          amount: 2,
-          unit: "FAS",
-          onTruck: 12,
-          ordered: 8,
-          warning: false,
-        },
-        {
-          productName: "Radler Alkoholfrei 24 x 0,33",
-          amount: 5,
-          unit: "KL",
-          onTruck: 12,
-          ordered: 8,
-          warning: false,
-        },
-        {
-          productName: "Biogon Kohlensäure CE290 Kurz 1 x 10,0",
-          amount: 5,
-          unit: "ST",
-          onTruck: 12,
-          ordered: 8,
-          warning: false,
-        },
-      ],
-    },
+  const [emailList, setEmailList] = useState(emailDummyList);
 
-    {
-      id: 2,
-      deliveryStatus: "Done",
-      date: "Mon, 20 Jan 2021",
-      twStart: "10.00",
-      twEnd: "10.30",
-      vehicle: "BCY-1111",
-      tourSorted: "",
-      totalStops: 0,
-      isCanceled: false,
-      products: [0, 1, 2, 3],
-      address: "Postdramer Str.55, 62500 Postdam",
-      clientName: "Jette Werner, Edeka Markt",
-      plateDriver: "6725541901TR",
-      itemList: [
-        {
-          productName: "Product Name 1",
-          amount: 12,
-          unit: "Fas",
-          onTruck: 12,
-          ordered: 8,
-          disable: false,
-          warning: false,
-        },
-        {
-          productName: "Product Name 2",
-          amount: 10,
-          unit: "Fas",
-          onTruck: 12,
-          ordered: 8,
-          warning: false,
-        },
-      ],
-    },
 
-    // {
-    //   id: 3,
-    //   deliveryStatus: 'Early',
-    //   date: 'Mon, 19 Jan 2021',
-    //   twStart: '11.00',
-    //   twEnd: '12.30',
-    //   vehicle: 'BCY-1111',
-    //   tourSorted: '',
-    //   totalStops: 0,
-    //   isCanceled: false,
-    //   products: [0, 1, 2, 3],
-    //   address: 'Lindenstraße 6, 14467 Potsdam, Germany',
-    //   clientName: 'Real',
-    //   plateDriver: '1234567890AB',
-    //   itemList: [
-    //     {
-    //       productName: 'Product Name 1',
-    //       amount: 12,
-    //       unit: 'Fas',
-    //       onTruck: 12,
-    //       ordered: 8,
-    //       warning: false
-    //     },
+  /* =====================EOL Data ===================== */
 
-    //   ]
-    // },
-    // {
-    //   id: 4,
-    //   deliveryStatus: 'Done',
-    //   date: 'Mon, 19 Jan 2021',
-    //   twStart: '11.00',
-    //   twEnd: '12.30',
-    //   vehicle: 'BCY-1111',
-    //   tourSorted: '',
-    //   totalStops: 0,
-    //   isCanceled: false,
-    //   products: [0, 1, 2],
-    //   address: 'Lindenstraße 6, 14467 Potsdam, Germany',
-    //   clientName: 'Spar',
-    //   plateDriver: '1234567890AB',
-    //   itemList: [
-    //     {
-    //       productName: 'Product Name 1',
-    //       amount: 12,
-    //       unit: 'Fas',
-    //       onTruck: 12,
-    //       ordered: 8,
-    //       warning: false
-    //     },
-    //     {
-    //       productName: 'Product Name 2',
-    //       amount: 10,
-    //       unit: 'Fas',
-    //       onTruck: 12,
-    //       ordered: 8,
-    //       warning: false
-    //     },
-    //   ]
-    // },
-  ];
-
-  const EmailList = [
-    {
-      id: 1,
-      email: "Email@example.com",
-      roles: "admin",
-    },
-    {
-      id: 2,
-      email: "Email2@example.com",
-      roles: "standard",
-    },
-    {
-      id: 3,
-      email: "Email3@example.com",
-      roles: "superAdmin",
-    },
-    {
-      id: 4,
-      email: "Email4@example.com",
-      roles: "standard",
-    },
-    {
-      id: 5,
-      email: "Email5@example.com",
-      roles: "admin",
-    },
-  ];
-  /* =====================EOL Dummy Data ===================== */
 
   // dump link status
   const [isLinkExpired, setIsLinkExpired] = useState(false);
-  /* =========End Of Dummy Data ============ */
 
-  /* =========stack history============ */
-  const [historyStack, setHistoryStack] = useState([]);
 
-  /* =========End of stack history============ */
-
+  /* =========Breakpoint device============ */
   const isDesktop = useMediaQuery(theme.breakpoints.up("lg"));
   const isTablet = useMediaQuery(theme.breakpoints.down("md"));
   const isMobile = useMediaQuery(theme.breakpoints.only("xs"));
+  /* =========EOL Breakpoint device============ */
 
 
   /* =========Scrolling State============ */
@@ -516,15 +306,13 @@ function App() {
     if (document.getElementById("deliverSection")) {
       if (
         document.documentElement.scrollTop >=
-        document.getElementById("deliverSection").clientHeight - 35
+        document.getElementById("deliverSection").clientHeight - 100
       ) {
         setIsScrollToPromo(true);
       } else {
         setIsScrollToPromo(false);
       }
     }
-
-    // }
   };
   window.addEventListener("scroll", scrollToPromo);
 
@@ -532,6 +320,8 @@ function App() {
     document.getElementById("promo").scrollIntoView({ behavior: "smooth" });
   };
   /* =========EOL Scrolling State============ */
+
+
 
   /** ===============Login Dialog =============== */
   const [openLoginDialog, setOpenLoginDialog] = useState(false);
@@ -544,6 +334,8 @@ function App() {
   };
 
   /** ===============EOL Login Dialog =============== */
+
+
 
   /** ==========================OTP Dialog ========================== */
   const [openOtpDialog, setOpenOtpDialog] = useState(false);
@@ -563,8 +355,7 @@ function App() {
 
   /** ==========================EOL OTP Dialog ========================== */
 
-  /** ==========================Dummy Email List ========================== */
-  const [emailDumpList, setEmailDumpList] = useState(EmailList);
+
 
   /** ==========================Email List Dialog ========================== */
   const [emailListDialog, setEmailListDialog] = useState(false);
@@ -574,6 +365,9 @@ function App() {
   };
   /** ==========================EOL Email List Dialog ========================== */
 
+
+  /** ==========================State for dialog List Dialog ========================== */
+
   // dialog for add new email list
   const [addNewEmailDialog, setAddNewEmailDialog] = useState(false);
 
@@ -582,6 +376,9 @@ function App() {
 
   // dialog for edit email
   const [editEmailDialog, setEditEmailDialog] = useState(false);
+
+  /** ==========================EOL State for dialog List Dialog ========================== */
+
 
   /** ==========================Add new Email ========================== */
   // open dialog for add new email
@@ -596,17 +393,11 @@ function App() {
   };
   // add new email function
   const addNewEmail = (email) => {
-    email.id = emailDumpList.length + 1;
-    setEmailDumpList([...emailDumpList, email]);
+    email.id = emailList.length + 1;
+    setEmailList([...emailList, email]);
   };
   /** ==========================Eol Add new Email ========================== */
 
-  // selected email for edit or delete
-  const [currentEmail, setCurrnetEmail] = useState({
-    id: null,
-    email: "",
-    roles: "",
-  });
 
   /** ==========================Delete Email ========================== */
   // select email for deleted and open dialog
@@ -618,7 +409,7 @@ function App() {
   };
   // delete selected email
   const deleteNewEmail = (id) => {
-    setEmailDumpList(emailDumpList.filter((email) => email.id !== id));
+    setEmailList(emailList.filter((email) => email.id !== id));
     setDeleteEmailDialog(false);
     handleEmailListDialog();
   };
@@ -627,9 +418,17 @@ function App() {
     setDeleteEmailDialog(false);
     handleEmailListDialog();
   };
-  /** ==========================Eol Delete Email ========================== */
+  /** ==========================EOL Delete Email ========================== */
+
 
   /** ==========================Update or Edit Email ========================== */
+  // selected email for edit or delete
+  const [currentEmail, setCurrnetEmail] = useState({
+    id: null,
+    email: "",
+    roles: "",
+  });
+
   // select email for updated and open dialog
   const handleSetCurrentEmailForEdit = (email) => {
     setCurrnetEmail(email);
@@ -639,8 +438,8 @@ function App() {
   };
   // update selected email
   const editNewEmail = (newEmail) => {
-    setEmailDumpList(
-      emailDumpList.map((email) =>
+    setEmailList(
+      emailList.map((email) =>
         email.id == currentEmail.id ? newEmail : email
       )
     );
@@ -690,14 +489,10 @@ function App() {
     isMobile,
     isTablet,
     isDesktop,
-    warning,
-    promoDumpData,
-    emailDumpList,
-    deliveryDumpData,
+    promoNewsData,
+    emailList,
+    deliveryData,
     isLinkExpired,
-
-    historyStack,
-    setHistoryStack,
 
     scrollDown,
     scrollToTop,

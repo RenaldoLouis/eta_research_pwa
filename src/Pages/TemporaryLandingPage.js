@@ -102,7 +102,7 @@ function TemporaryLandingPage() {
     const navigate = useNavigate();
 
     const onClickTrackingNumber = () => {
-        navigate("/inputTrackingNumber")
+        navigate("/input-tracking-number")
     }
 
     const onClickDeliveryPage = () => {

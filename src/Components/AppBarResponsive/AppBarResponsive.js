@@ -52,8 +52,6 @@ const AppBarResponsive = () => {
   const {
     handleChangeTheme,
     mode,
-    historyStack,
-    setHistoryStack,
     handleLoginDialog,
     handleOpenLoginDialog,
     handleOtpDialog,
@@ -69,10 +67,6 @@ const AppBarResponsive = () => {
 
   // const navigate = useNavigate();
   const navigate = useNavigate();
-  const handleBackPrevPage = () => {
-    navigate(-1);
-    setHistoryStack((stack) => stack.slice(0, -1));
-  };
 
   return (
     <>
@@ -82,7 +76,7 @@ const AppBarResponsive = () => {
           background: theme.palette.background.appBar,
           position: "fixed",
           top: 0,
-          zIndex: 2000,
+          zIndex: 20,
           width: "100%",
           height: 72,
         }}
@@ -103,16 +97,10 @@ const AppBarResponsive = () => {
                   <>
                     <Tooltip title="Temporary Button">
                       <IconButton
-                        // onClick={historyStack.length > 0 ? handleBackPrevPage : undefined}
                         onClick={handleChangeTheme}
                         sx={{ ml: "2px" }}
                       >
-                        {historyStack.length > 0 && (
-                          <BackIcon
-                            sx={{ color: theme.palette.text.heading1 }}
-                          />
-                        )}
-                        {mode === "light" ? (
+˛                        {mode === "light" ? (
                           <DarkMode
                             sx={{
                               color: theme.palette.background.iconColor,
@@ -169,15 +157,9 @@ const AppBarResponsive = () => {
                     </Typography> */}
                     <Tooltip title="Temporary Button">
                       <IconButton
-                        // onClick={historyStack.length > 0 ? handleBackPrevPage : undefined}
                         onClick={handleChangeTheme}
                         sx={{ ml: 2, mt: -0.5 }}
                       >
-                        {historyStack.length > 0 && (
-                          <BackIcon
-                            sx={{ color: theme.palette.text.heading1 }}
-                          />
-                        )}
                         {mode === "light" ? (
                           <DarkMode
                             sx={{

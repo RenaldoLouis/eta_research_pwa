@@ -10,6 +10,7 @@ import { Backdrop } from "@mui/material";
 // import Component
 import PromoCard from "../../Components/PromoCard/PromoCard";
 import DeliveryCard from "../../Components/DeliveryCard/DeliveryCard";
+import PromoNews from "../../Components/PromoNews/PromoNews";
 
 // import Icon
 import DoneIcon from "../../assets/icons/DoneIcon";
@@ -77,16 +78,14 @@ const DeliveryPage = () => {
     isMobile,
     isTablet,
     mode,
-    warning,
-    promoDumpData,
-    deliveryDumpData,
+    promoNewsData,
+    deliveryData,
     scrollDown,
     scrollToTop,
     isDesktop,
     goToPromo,
     isScrollToPromo,
     handleChangeTheme,
-    historyStack,
   } = useContext(AppContext);
 
   // state for open promo dialog for desktop
@@ -128,7 +127,7 @@ const DeliveryPage = () => {
   };
 
   useEffect(() => {
-    if (promoDetail === promoDumpData.length - 1) {
+    if (promoDetail === promoNewsData.length - 1) {
       setIsLastPromo(true);
     } else {
       setIsLastPromo(false);
@@ -238,7 +237,7 @@ const DeliveryPage = () => {
           }}
         >
           <>
-            {deliveryDumpData.length > 1 ? (
+            {deliveryData.length > 1 ? (
               <>
                 {scrollDown && !isDesktop && (
                   <DeliverStickyTitle
@@ -265,12 +264,12 @@ const DeliveryPage = () => {
                         textDecoration: "underline",
                       }}
                     >
-                      {deliveryDumpData.length}
+                      {deliveryData.length}
                     </Typography>
                   </DeliverStickyTitle>
                 )}
                 <Box id="titleDeliveryPage">
-                  {/* {deliveryDumpData.every((v) => {
+                  {/* {deliveryData.every((v) => {
                     return v.deliveryStatus === "Done";
                   }) 
                   ? (
@@ -285,7 +284,7 @@ const DeliveryPage = () => {
                         color={theme.palette.text.primary}
                         sx={{ fontFamily: "Eina04-Regular" }}
                       >
-                        Your Delivery <br /> for {deliveryDumpData[0].date}{" "}
+                        Your Delivery <br /> for {deliveryData[0].date}{" "}
                         <br /> is All{" "}
                         <span style={{ color: theme.palette.text.primary }}>
                           {" "}
@@ -300,7 +299,7 @@ const DeliveryPage = () => {
                   ( */}
                   <>
                     {currentTime <=
-                    moment().hour(12).minute(0).format("HH:mm") ? (
+                      moment().hour(12).minute(0).format("HH:mm") ? (
                       <>
                         <DivFlexStart
                           sx={{
@@ -310,11 +309,6 @@ const DeliveryPage = () => {
                             width: isMobile || isTablet ? "100px" : "50px",
                           }}
                         >
-                          {historyStack.length > 0 && (
-                            <BackIcon
-                              sx={{ color: theme.palette.text.heading1 }}
-                            />
-                          )}
                           {mode === "light" ? (
                             <Lottie
                               options={sunriseLightAnimation}
@@ -389,7 +383,7 @@ const DeliveryPage = () => {
                                 lineHeight: "40px",
                               }}
                             >
-                              {deliveryDumpData.length}
+                              {deliveryData.length}
                             </span>{" "}
                             <br /> Auslieferungen
                           </Typography>
@@ -406,11 +400,6 @@ const DeliveryPage = () => {
                             width: isMobile || isTablet ? "100px" : "50px",
                           }}
                         >
-                          {historyStack.length > 0 && (
-                            <BackIcon
-                              sx={{ color: theme.palette.text.heading1 }}
-                            />
-                          )}
                           {mode === "light" ? (
                             <Lottie
                               options={moonLightAnimation}
@@ -484,7 +473,7 @@ const DeliveryPage = () => {
                                 lineHeight: "40px",
                               }}
                             >
-                              {deliveryDumpData.length}
+                              {deliveryData.length}
                             </span>{" "}
                             <br /> Auslieferungen
                           </Typography>
@@ -500,11 +489,6 @@ const DeliveryPage = () => {
                             width: isMobile || isTablet ? "100px" : "50px",
                           }}
                         >
-                          {historyStack.length > 0 && (
-                            <BackIcon
-                              sx={{ color: theme.palette.text.heading1 }}
-                            />
-                          )}
                           {mode === "light" ? (
                             <Lottie
                               options={sunLightAnimation}
@@ -578,7 +562,7 @@ const DeliveryPage = () => {
                                 lineHeight: "40px",
                               }}
                             >
-                              {deliveryDumpData.length}
+                              {deliveryData.length}
                             </span>{" "}
                             <br /> Auslieferungen
                           </Typography>
@@ -611,7 +595,7 @@ const DeliveryPage = () => {
                         textDecoration: "underline",
                       }}
                     >
-                      {deliveryDumpData.length}
+                      {deliveryData.length}
                     </Typography>
                   </DeliverStickyTitle>
                 )}
@@ -634,7 +618,7 @@ const DeliveryPage = () => {
               </>
             )}
 
-            {deliveryDumpData.map((data, index) => (
+            {deliveryData.map((data, index) => (
               <DivFlexCenter
                 key={index}
                 sx={{ paddingTop: "16px", pr: isDesktop ? "30px" : "" }}
@@ -642,7 +626,7 @@ const DeliveryPage = () => {
               >
                 <DeliveryCard
                   data={data}
-                  totalDelivery={deliveryDumpData.length}
+                  totalDelivery={deliveryData.length}
                   numberOfDeliver={index + 1}
                   deliveryId={deliveryId}
                 />
@@ -651,11 +635,7 @@ const DeliveryPage = () => {
           </>
         </Grid>
 
-        <Grid
-          item
-          xs={0}
-          md={0}
-          lg={6}
+        <Grid item xs={0} md={0} lg={6}
           display={{ xs: "none", md: "none", lg: "block" }}
           bgcolor={{ md: theme.palette.background.deliveryCard }}
           padding={{ lg: "86px 80px 0px 80px" }}
@@ -668,7 +648,7 @@ const DeliveryPage = () => {
           <DivFlexCenter>
             <DeliveryCardMenu
               data={
-                deliveryDumpData.filter(
+                deliveryData.filter(
                   (dumpDelivery) => dumpDelivery.id === deliveryId
                 )[0]
               }
@@ -677,139 +657,58 @@ const DeliveryPage = () => {
           </DivFlexCenter>
         </Grid>
 
-        <Grid
-          item
-          xs={12}
-          md={12}
-          lg={3}
-          padding={{ lg: isDesktop ? "96px 40px 0px 0px" : "" }}
-          sx={{
-            paddingTop: isMobile || isTablet ? "" : 3,
-            overflowY: isDesktop ? "scroll" : "",
-            height: isDesktop ? "100vh" : "",
-            paddingRight: isDesktop ? "40px" : "0px",
-          }}
+        <Grid item xs={12} md={12} lg={3}
+          sx={{ mt: isDesktop ? 9 : 0, }}
         >
-          <DivFlexStart
-            id="promo"
+          <Box
             sx={{
-              padding: isDesktop ? "" : "0px 24px",
-              mt: 3,
-              mb: 2,
-              display: isDesktop ? "none" : "",
-              scrollMarginTop: 142,
+              paddingTop: isMobile || isTablet ? "" : 3,
+              overflowY: isDesktop ? "scroll" : "",
+              height: isDesktop ? "calc(100vh - 80px)" : "",
+              paddingRight: isDesktop ? "40px" : "0px",
+              pl: isDesktop ? "24px" : "0px",
             }}
           >
-            <Typography
-              fontSize={32}
-              color={theme.palette.text.primary}
-              sx={{ fontFamily: "Eina04-Regular" }}
+            <DivFlexStart
+              id="promo"
+              sx={{
+                padding: isDesktop ? "" : "0px 24px",
+                mt: 3,
+                mb: 2,
+                display: isDesktop ? "none" : "",
+                scrollMarginTop: 142,
+              }}
             >
-              Promo und News
-            </Typography>
-          </DivFlexStart>
-          {isScrollToPromo && (
-            <PromoStickyTitle onClick={goToPromo}>
               <Typography
-                fontSize={14}
+                fontSize={32}
                 color={theme.palette.text.primary}
-                sx={{
-                  fontFamily: "Eina 04",
-                  fontWeight: 400,
-                  lineHeight: "19.32px",
-                }}
+                sx={{ fontFamily: "Eina04-Regular" }}
               >
                 Promo und News
               </Typography>
-            </PromoStickyTitle>
-          )}
+            </DivFlexStart>
+            {isScrollToPromo && (
+              <PromoStickyTitle onClick={goToPromo}>
+                <Typography
+                  fontSize={14}
+                  color={theme.palette.text.primary}
+                  sx={{
+                    fontFamily: "Eina 04",
+                    fontWeight: 400,
+                    lineHeight: "19.32px",
+                  }}
+                >
+                  Promo und News
+                </Typography>
+              </PromoStickyTitle>
+            )}
 
-          {promoDumpData.map((promo, index) => (
-            <DivFlexCenter
-              key={index}
-              sx={{ mb: 2, pl: isDesktop ? 3 : "" }}
-              onClick={
-                isDesktop ? () => handleOpenPromoDialog(index) : undefined
-              }
-            >
-              <PromoCard
-                promo={promo}
-                openDetailPromo={false}
-                isMobile={isDesktop ? false : true}
-                isTablet={isDesktop ? false : true}
-                removePadding={isDesktop ? !openPromoDialog : false}
-              />
-            </DivFlexCenter>
-          ))}
+            <PromoNews promoData={promoNewsData} />
+
+          </Box>
         </Grid>
       </Grid>
 
-      {/* <Backdrop open={openPromoDialog} sx={{ backdropFilter: "blur(18px)", position: "fixed", zIndex: 1}}>
-          <DivFlexSpaceBetween >
-            <Box
-              sx={{ pr: 10 }}
-              onClick={() => handlePrevPromoDetail(promoDumpData.length)}
-            >
-              <BackIcon
-                color={isFirstPromo ? "#F4F4F466" : "#f4f4f4"}
-                sx={{
-                  fontSize: 56,
-                  cursor: isFirstPromo ? "default" : "pointer",
-                }}
-              />
-            </Box>
-            <Box sx={{ width: 600 }}>
-              <Box sx={{ position: "fixed", width: 600 }}>
-                <Box sx={{ float: "right" }}>
-                  <DivFlexCenter
-                    sx={{
-                      backgroundColor: "rgba(26, 25, 25, 0.4)",
-                      padding: 0.5,
-                      marginTop: 2,
-                      marginRight: 2,
-                      borderRadius: "50%",
-                      cursor: "pointer",
-                    }}
-                  >
-                    <CloseIcon
-                      onClick={handleClosePromoDialog}
-                      sx={{ color: "#ffffff", fontSize: 20, pr: 0.2 }}
-                    />
-                  </DivFlexCenter>
-                </Box>
-              </Box>
-              <PromoCard
-                openDetailPromo={true}
-                promo={promoDumpData[promoDetail]}
-                isDialog={true}
-              />
-            </Box>
-            <Box
-              sx={{ pl: 9.2 }}
-              onClick={() => handleNextPromoDetail(promoDumpData.length)}
-            >
-              <NextIcon
-                color={isLastPromo ? "#F4F4F466" : "#f4f4f4"}
-                sx={{
-                  fontSize: 56,
-                  cursor: isLastPromo ? "default" : "pointer",
-                }}
-              />
-            </Box>
-          </DivFlexSpaceBetween>
-        </Backdrop> */}
-
-      <PromoDialog
-        open={openPromoDialog}
-        onClose={handleClosePromoDialog}
-        promo={promoDumpData[promoDetail]}
-        handlePrevPromoDetail={() =>
-          handlePrevPromoDetail(promoDumpData.length)
-        }
-        handleNextPromoDetail={() =>
-          handleNextPromoDetail(promoDumpData.length)
-        }
-      />
     </>
   );
 };

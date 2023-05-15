@@ -73,7 +73,7 @@ export const PromoDialog = (props) => {
           </Box>
           <PromoCard
             openDetailPromo={true}
-            promo={promo} // promoDumpData[promoDetail]
+            promo={promo} // promoNewsData[promoDetail]
             isDialog={true}
           />
         </Box>

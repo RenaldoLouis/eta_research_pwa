@@ -19,8 +19,8 @@ import Lottie from "react-lottie";
 import { useTheme } from "@mui/material/styles";
 
 // import reusbale component
-import DivFlexCenter from "../ReusableComponents/DivFlexCenter";
-import Button from "../ReusableComponents/Button";
+import DivFlexCenter from "../../Components/ReusableComponents/DivFlexCenter";
+import Button from "../../Components/ReusableComponents/Button";
 
 import { useNavigate } from "react-router-dom";
 
@@ -29,25 +29,18 @@ import { AppContext } from "../../App";
 
 // import icon
 import ErrorIcon from "../../assets/icons/ErrorIcon";
-import CloseIcon from "../../assets/icons/CloseIcon";
-import BackIcon from "../../assets/icons/BackIcon";
-import NextIcon from "../../assets/icons/NextIcon";
 
-// import dummy map
-import dumpMap from "../../../src/assets/Images/dumpMap.png";
 
 // import animation assets
-import lightModeAnimation from "../../../src/assets/animations/Light Mode_Fixed.json";
-import darkModeAnimation from "../../../src/assets/animations/Dark Mode_Fixed.json";
-import lightModeAnimationFixed from "../../../src/assets/animations/Light Mode_Fixed_1.json";
-import darkModeAnimationFixed from "../../../src/assets/animations/Dark Mode_fixed_1.json";
+import lightModeAnimationFixed from "../../assets/animations/Light Mode_Fixed_1.json";
+import darkModeAnimationFixed from "../../assets/animations/Dark Mode_fixed_1.json";
 
 // import component
-import LinkExpiredStatus from "../LinkExpiredStatus/LinkExpiredStatus";
-import DivFlexStart from "../ReusableComponents/DivFlexStart";
-import DivFlexSpaceBetween from "../ReusableComponents/DivFlexSpacebetween";
-import PromoCard from "../PromoCard/PromoCard";
-import TextFieldStyled from "../ReusableComponents/TextFieldStyle";
+import LinkExpiredStatus from "../../Components/LinkExpiredStatus/LinkExpiredStatus";
+import DivFlexStart from "../../Components/ReusableComponents/DivFlexStart";
+import TextFieldStyled from "../../Components/ReusableComponents/TextFieldStyle";
+
+import PromoNews from "../../Components/PromoNews/PromoNews";
 
 // warning component
 const Warning = styled("div")((props) => ({
@@ -71,7 +64,7 @@ const InputTrackingNumberContainer = styled("div")((props) => ({
 }));
 
 const InputTrackingNumber = () => {
-  const { isLinkExpired, isMobile, promoDumpData, isDesktop, mode } =
+  const { isLinkExpired, isMobile, promoNewsData, isDesktop, mode } =
     useContext(AppContext);
 
   const theme = useTheme();
@@ -90,7 +83,7 @@ const InputTrackingNumber = () => {
 
   let navigate = useNavigate();
 
-  const jumpToDeliveryPage = () => {
+  const goToDeliveryPage = () => {
     navigate("/delivery");
   };
 
@@ -99,7 +92,7 @@ const InputTrackingNumber = () => {
     setTimeout(() => {
       if (searchTrackingNumber == "123456890AB") {
         setWarning(false);
-        jumpToDeliveryPage();
+        goToDeliveryPage();
         setSearchTrackingNumber("");
       } else {
         setWarning(true);
@@ -107,54 +100,6 @@ const InputTrackingNumber = () => {
       setIsLoading(false);
     }, 1000);
   };
-
-  // state for open promo dialog for desktop
-  const [openPromoDialog, setOpenPromoDialog] = useState(false);
-
-  const handleClosePromoDialog = () => {
-    setOpenPromoDialog(false);
-  };
-
-  // state for pass promo id to open the detail - desktop
-  const [idPromoDialog, setIdPromoDialog] = useState("");
-
-  const [promoDetail, setPromoDetail] = useState(0);
-
-  const [isLastPromo, setIsLastPromo] = useState(false);
-
-  const [isFirstPromo, setIsFirstPromo] = useState(false);
-
-  const handleOpenPromoDialog = (promoId) => {
-    setOpenPromoDialog(true);
-    // setIdPromoDialog(promoId)
-    setPromoDetail(promoId);
-  };
-
-  const handleNextPromoDetail = (promoLength) => {
-    if (promoDetail != promoLength - 1) {
-      setPromoDetail(promoDetail + 1);
-    }
-  };
-
-  const handlePrevPromoDetail = (promoLength) => {
-    if (promoDetail > 0) {
-      setPromoDetail(promoDetail - 1);
-    }
-  };
-
-  useEffect(() => {
-    if (promoDetail == promoDumpData.length - 1) {
-      setIsLastPromo(true);
-    } else {
-      setIsLastPromo(false);
-    }
-
-    if (promoDetail == 0) {
-      setIsFirstPromo(true);
-    } else {
-      setIsFirstPromo(false);
-    }
-  }, [promoDetail]);
 
   // Light Mode Animation
   const lightAnimation = {
@@ -178,7 +123,7 @@ const InputTrackingNumber = () => {
 
   return (
     <>
-      <Grid container sx={{ pt: "58px" }}>
+      <Grid container sx={{ height: 'calc(100vh - 58px)' }}>
         <Grid item xs={12} md={9} sx={{ pl: isDesktop ? 5 : 3, pr: 3 }}>
           {isLinkExpired ? (
             <LinkExpiredStatus />
@@ -210,7 +155,7 @@ const InputTrackingNumber = () => {
             <DivFlexStart sx={{ width: isMobile ? "60%" : "40%" }}>
               <FormControl sx={{ width: "100%" }}>
                 <TextFieldStyled
-                  id="inputTrackingNumber"
+                  id="tracking-number"
                   placeholder="Up to 12 codes"
                   onChange={handleChangeInput}
                   warning={warning}
@@ -262,37 +207,21 @@ const InputTrackingNumber = () => {
           </InputTrackingNumberContainer>
         </Grid>
 
-        <Grid
-          item
-          xs={12}
-          md={3}
-          sx={{ zIndex: 10, pl: isDesktop ? 1 : "", mt: isDesktop ? "" : 5 }}
+        <Grid item xs={12} md={3}
+          sx={{ zIndex: 10, pl: isDesktop ? 1 : "", mt: isDesktop ? 9 : 5, }}
         >
+
           <Box
             sx={{
-              height: isDesktop ? "calc(100vh - 58px)" : "",
-              overflowY: isDesktop ? "scroll" : "",
-              pt: 3,
-              pr: isDesktop ? 5 : "",
+              maxHeight: isDesktop ? "calc(100vh - 80px)" : "",
+              overflowY: isDesktop ? "auto" : "",
+              padding: isDesktop ? '24px 40px 0px 24px' : '0px 0px 0px 0px'
             }}
           >
-            {promoDumpData.map((promo, index) => (
-              <DivFlexCenter
-                key={index}
-                sx={{ mb: 3 }}
-                onClick={
-                  isDesktop ? () => handleOpenPromoDialog(index) : undefined
-                }
-              >
-                <PromoCard
-                  promo={promo}
-                  openDetailPromo={false}
-                  isMobile={isDesktop ? false : true}
-                  removePadding={isDesktop ? !openPromoDialog : false}
-                />
-              </DivFlexCenter>
-            ))}
+            <PromoNews promoData={promoNewsData} />
+
           </Box>
+
         </Grid>
       </Grid>
 
@@ -309,61 +238,6 @@ const InputTrackingNumber = () => {
           <Lottie options={mode == "light" ? lightAnimation : darkAnimation} />
         </Box>
       )}
-
-      <Backdrop
-        open={openPromoDialog}
-        sx={{ backdropFilter: "blur(18px)", zIndex: 1000 }}
-      >
-        <DivFlexSpaceBetween>
-          <Box
-            sx={{ pr: 10 }}
-            onClick={() => handlePrevPromoDetail(promoDumpData.length)}
-          >
-            <BackIcon
-              color={isFirstPromo ? "#F4F4F466" : "#f4f4f4"}
-              sx={{
-                fontSize: 56,
-                cursor: isFirstPromo ? "default" : "pointer",
-              }}
-            />
-          </Box>
-          <Box sx={{ width: 600 }}>
-            <Box sx={{ position: "fixed", width: 600 }}>
-              <Box sx={{ float: "right" }}>
-                <DivFlexCenter
-                  sx={{
-                    backgroundColor: "rgba(26, 25, 25, 0.4)",
-                    padding: 0.5,
-                    marginTop: 2,
-                    marginRight: 2,
-                    borderRadius: "50%",
-                    cursor: "pointer",
-                  }}
-                >
-                  <CloseIcon
-                    onClick={handleClosePromoDialog}
-                    sx={{ color: "#ffffff", fontSize: 20, pr: 0.2 }}
-                  />
-                </DivFlexCenter>
-              </Box>
-            </Box>
-            <PromoCard
-              openDetailPromo={true}
-              promo={promoDumpData[promoDetail]}
-              isDialog={true}
-            />
-          </Box>
-          <Box
-            sx={{ pl: 9.2 }}
-            onClick={() => handleNextPromoDetail(promoDumpData.length)}
-          >
-            <NextIcon
-              color={isLastPromo ? "#F4F4F466" : "#f4f4f4"}
-              sx={{ fontSize: 56, cursor: isLastPromo ? "default" : "pointer" }}
-            />
-          </Box>
-        </DivFlexSpaceBetween>
-      </Backdrop>
     </>
   );
 };

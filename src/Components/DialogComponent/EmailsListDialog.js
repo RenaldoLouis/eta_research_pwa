@@ -65,7 +65,7 @@ const getTextRoles = roles => {
 
 const EmailsListDialog = () => {
 
-    const { emailListDialog, handleEmailListDialog, emailDumpList, handleOpenAddNewEmailDialog, handleSetCurrentEmailForDelete, handleSetCurrentEmailForEdit, isMobile } = useContext(AppContext)
+    const { emailListDialog, handleEmailListDialog, emailList, handleOpenAddNewEmailDialog, handleSetCurrentEmailForDelete, handleSetCurrentEmailForEdit, isMobile } = useContext(AppContext)
 
     const theme = useTheme()
 
@@ -85,7 +85,7 @@ const EmailsListDialog = () => {
                                 <Typography sx={{ fontFamily: 'Eina04-SemiBold', fontSize: 12, mt: 3 }}> Email/Roles </Typography>
                                 <TableDataContainer>
                                     {
-                                        emailDumpList.map((list) => (
+                                        emailList.map((list) => (
                                             <DivFlexSpaceBetween key={list.id} sx={{ mt: 2, borderBottom: `1px solid ${theme.palette.background.separatorTitle}`, pb: 1 }}>
                                                 <Box >
                                                     <Typography sx={{ fontFamily: 'Eina04-Regular', fontSize: 12, color: theme.palette.text.primary }}>{list.email}</Typography>
@@ -125,7 +125,7 @@ const EmailsListDialog = () => {
                                             </TableRow>
                                         </TableHead>
                                         <TableBody>
-                                            {emailDumpList.map((list) => (
+                                            {emailList.map((list) => (
                                                 <TableRow key={list.id} >
                                                     <TableCell component="th" scope="row" sx={{ fontFamily: 'Eina04-Regular', pl: 0, fontSize: 20, color: theme.palette.text.primary }} >
                                                         {list.email}
