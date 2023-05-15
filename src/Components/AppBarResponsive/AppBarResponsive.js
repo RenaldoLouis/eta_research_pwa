@@ -5,6 +5,9 @@ import Container from "@mui/material/Container";
 import { Grid } from "@mui/material";
 import { Tooltip } from "@mui/material";
 
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
+
 import { styled } from "@mui/system";
 
 // import icon
@@ -15,6 +18,7 @@ import LogoLightIcon from "../../assets/Images/LogoLight.png";
 import LogoMobileLightIcon from "../../assets/Images/LogoMobileLight.png";
 import LogoMobileDarkIcon from "../../assets/Images/LogoMobileDark.png";
 import BackIcon from "../../assets/icons/BackIcon";
+import SettingsIcon from '@mui/icons-material/Settings';
 
 // temporary icon
 import { DarkMode, LightMode } from "@mui/icons-material";
@@ -68,6 +72,24 @@ const AppBarResponsive = () => {
   // const navigate = useNavigate();
   const navigate = useNavigate();
 
+  /** ======== Menu for change theme ======== */
+  const [anchorThemeMenuEl, setAnchorThemeMenuEl] = useState(null);
+  const isThemeMenuOpen = Boolean(anchorThemeMenuEl);
+  const handleOpenThemeMenu = (event) => {
+    setAnchorThemeMenuEl(event.currentTarget);
+  };
+  const handleCloseThemeMenu = () => {
+    setAnchorThemeMenuEl(null);
+  };
+
+  const handleClickTheme = (theme) => {
+    handleChangeTheme(theme)
+    setAnchorThemeMenuEl(null);
+  }
+
+  /** ======== Menu for change theme ======== */
+
+
   return (
     <>
       <AppBar
@@ -92,31 +114,15 @@ const AppBarResponsive = () => {
             }}
           >
             <Grid item xs={4} md={3}>
-              <DivFlexStart sx={{ height: "100%", alignItems: "center" }}>
-                {isMobile || isTablet ?  (
+              <DivFlexStart sx={{ height: "100%" }}>
+                {isMobile || isTablet ? (
                   <>
                     <Tooltip title="Temporary Button">
                       <IconButton
                         onClick={handleChangeTheme}
                         sx={{ ml: "2px" }}
                       >
-˛                        {mode === "light" ? (
-                          <DarkMode
-                            sx={{
-                              color: theme.palette.background.iconColor,
-                              fontSize: 20,
-                            }}
-                          />
-                        ) : mode === "dark" ? (
-                          <LightMode
-                            sx={{
-                              color: theme.palette.background.iconColor,
-                              fontSize: 20,
-                            }}
-                          />
-                        ) : (
-                          <></>
-                        )}
+                        <SettingsIcon />
                       </IconButton>
                     </Tooltip>
                   </>
@@ -130,53 +136,22 @@ const AppBarResponsive = () => {
                       />
                     ) : mode === "dark" ? (
                       <img src={LogoIcon} alt="logo icon" />
+                    ) : mode === "yellow" ? (
+                      <img
+                        src={LogoLightIcon}
+                        alt="logo icon"
+                        style={{ height: "29px", widht: "200px" }}
+                      />
                     ) : (
                       <></>
                     )}
 
-                    {/* <Typography
-                      sx={{
-                        // fontFamily: "Eina04-Light",
-                        color: theme.palette.background.iconColor,
-                        fontFamily: "Eina04-Bold",
-                      }}
-                      fontSize={25}
-                    >
-                      Drink
-                    </Typography>
-                    <Typography
-                      sx={{
-                        // fontFamily: "Eina04-Light",
-                        color: "#D1B704",
-                        fontFamily: "Eina04-Bold",
-                        paddingLeft: "5.77px",
-                      }}
-                      fontSize={25}
-                    >
-                      & More
-                    </Typography> */}
                     <Tooltip title="Temporary Button">
                       <IconButton
-                        onClick={handleChangeTheme}
-                        sx={{ ml: 2, mt: -0.5 }}
+                        onClick={handleOpenThemeMenu}
+                        sx={{ ml: 2, mt: 0.5 }}
                       >
-                        {mode === "light" ? (
-                          <DarkMode
-                            sx={{
-                              color: theme.palette.background.iconColor,
-                              fontSize: 20,
-                            }}
-                          />
-                        ) : mode === "dark" ? (
-                          <LightMode
-                            sx={{
-                              color: theme.palette.background.iconColor,
-                              fontSize: 20,
-                            }}
-                          />
-                        ) : (
-                          <></>
-                        )}
+                        <SettingsIcon />
                       </IconButton>
                     </Tooltip>
                   </>
@@ -214,7 +189,7 @@ const AppBarResponsive = () => {
                 {dumpLoginState ? (
                   <>
                     {dumpAuthrorization == "admin" ||
-                    dumpAuthrorization == "superadmin" ? (
+                      dumpAuthrorization == "superadmin" ? (
                       <Tooltip title="Email List">
                         <IconButton
                           onClick={handleEmailListDialog}
@@ -269,6 +244,25 @@ const AppBarResponsive = () => {
           </Grid>
         </Container>
       </AppBar>
+
+      <Menu
+        id="change-theme-menu"
+        anchorEl={anchorThemeMenuEl}
+        open={isThemeMenuOpen}
+        onClose={handleCloseThemeMenu}
+        anchorOrigin={{
+          vertical: 'top',
+          horizontal: 'left',
+        }}
+        transformOrigin={{
+          vertical: 'top',
+          horizontal: 'left',
+        }}
+      >
+        <MenuItem onClick={() => handleClickTheme('light')}>Light Theme</MenuItem>
+        <MenuItem onClick={() => handleClickTheme('dark')}>Dark Theme</MenuItem>
+        <MenuItem onClick={() => handleClickTheme('yellow')}>Yellow Theme</MenuItem>
+      </Menu>
 
       <Outlet />
     </>

@@ -85,7 +85,6 @@ const DeliveryPage = () => {
     isDesktop,
     goToPromo,
     isScrollToPromo,
-    handleChangeTheme,
   } = useContext(AppContext);
 
   // state for open promo dialog for desktop

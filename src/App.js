@@ -22,6 +22,9 @@ import AppBarResponsive from "./Components/AppBarResponsive/AppBarResponsive";
 // import ScrollToTopButton from './Components/ScrollToTopButton/ScrollToTopButton';
 import InputTrackingNumber from "./Pages/InputTrackingNumber/InputTrackingNumber";
 
+// import theme
+import { ligthTheme, darkTheme, yellowTheme } from "./Components/Theme/Theme";
+
 // import Dialog
 import LoginDialog from "./Components/DialogComponent/LoginDialog";
 import OtpDialog from "./Components/DialogComponent/OtpDialog/OtpDialog";
@@ -77,16 +80,13 @@ const Main = (props) => {
 function App() {
 
 
-  /* ==================== Dark and Light Mode ==================== */
+  /* ==================== Change Theme ==================== */
   const [mode, setMode] = useState("light");
-  const handleChangeTheme = () => {
-    if (localStorage.getItem("mode") === "light") {
-      setMode("dark");
-      localStorage.setItem("mode", "dark");
-    } else if (localStorage.getItem("mode") === "dark") {
-      setMode("light");
-      localStorage.setItem("mode", "light");
-    }
+
+  const handleChangeTheme = (theme) => {
+    localStorage.setItem("mode", theme);
+    setMode(theme)
+
   };
 
   useEffect(() => {
@@ -97,156 +97,12 @@ function App() {
       setMode("light");
       localStorage.setItem("mode", "light");
     }
+
+    console.log('mode', mode)
   }, [mode]);
 
-  const theme = useMemo(
-    () =>
-      createTheme({
-        breakpoints: {
-          values: {
-            xs: 0,
-            sm: 600,
-            md: 1280,
-            lg: 1280,
-            xl: 1530,
-          },
-        },
-        palette: {
-          mode,
-          ...(mode === "light"
-            ? {
-              background: {
-                // body
-                default: "#ffffff",
 
-                // delivery card
-                deliveryCard: "#F3F3F3",
-                hoverDeliveryCard: "#F7F5F5",
-                clickedDeliveryCard: "#EBEBEB",
-
-                // promo card
-                promoCard: "#ffffff",
-                hoverItemList: "#f3f3f3",
-                hoverPromoCard: "#f7f5f5",
-
-                // appbar and icon
-                appBar: "#ebebeb",
-                iconColor: "#000000",
-
-                // dialog
-                dialog: "#ffffff",
-                headDialog: "#ffffff",
-
-                // form
-                borderForm: "#A8A8A8",
-                borderFormHover: "#A8A8A8",
-                borderFormActive: "#525252",
-
-                // button
-                buttonSecondary: "#262626",
-
-                // tracking numbercontainer
-                borderTrackingNumber: "#979797",
-
-                // scroll to top button
-                scrollToTop: "#262626",
-
-                // itemlist
-                oddItemList: "#E7E7E7",
-
-                // separatorStickyTitle
-                separatorTitle: "#6F6F6F",
-              },
-              text: {
-                primary: "#1A1919",
-                heading1: "#1A1919",
-                highlithText: "#000000",
-
-                // text for chip delivery card
-                doneText: "#6F6F6F",
-                doneIcon: "#A8A8A8",
-
-                // button
-                buttonSecondary: "#ffffff",
-
-                // text in dialog
-                dialogHeadingText: "#1A1919",
-                emailListText: "#000000",
-                inputText: "#8D8D8D",
-                inputTextActive: "#1A1919",
-                emailListRole: "#909090",
-              },
-            }
-            : {
-              background: {
-                // body
-                default: "#262626",
-
-                // delivery card
-                deliveryCard: "#393939",
-                hoverDeliveryCard: "#4C4C4C",
-                clickedDeliveryCard: "#1F2020",
-
-                // promo card
-                promoCard: "#262626",
-                promoCardMobile: "#393939",
-                hoverItemList: "#404040",
-                hoverPromoCard: "#4c4c4c",
-
-                // appbar and icon
-                appBar: "#353535",
-                iconColor: "#e0e0e0",
-
-                // dialog
-                dialog: "#393939",
-                headDialog: "#393939",
-
-                // form
-                borderForm: "#A8A8A8",
-                borderFormHover: "#C6C6C6",
-                borderFormActive: "#F4F4F4",
-
-                // button
-                buttonSecondary: "#ffffff",
-
-                // tracking numbercontainer
-                borderTrackingNumber: "transparent",
-
-                // scroll to top button
-                scrollToTop: "#ffffff",
-
-                // itemlist
-                oddItemList: "#525252",
-
-                // separatorStickyTitle
-                separatorTitle: "#F4F4F4",
-              },
-              text: {
-                primary: "#f4f4f4",
-                heading1: "#f4f4f4",
-                highlithText: "#ffffff",
-
-                // text for chip delivery card
-                doneText: "#FFFFFF",
-                doneIcon: "#A8A8A8",
-
-                // button
-                buttonSecondary: "#262626",
-
-                // text dialog
-                dialogHeadingText: "#e0e0e0",
-                emailListText: "#f4f4f4",
-                inputText: "#e0e0e0",
-                inputTextActive: "#FFFFFF",
-                emailListRole: "#ffffff",
-              },
-            }),
-        },
-      }),
-    [mode]
-  );
-
-  /* ==================== End Of Dark and Light Mode ==================== */
+  /* ==================== End Of Change Theme  ==================== */
 
   /* ================== Data ===================== */
 
@@ -265,9 +121,22 @@ function App() {
 
 
   /* =========Breakpoint device============ */
+
+  const theme = createTheme({
+    breakpoints: {
+      values: {
+        xs: 0,
+        sm: 600,
+        md: 900,
+        lg: 1200,
+        xl: 1536,
+      },
+    },
+  });
   const isDesktop = useMediaQuery(theme.breakpoints.up("lg"));
   const isTablet = useMediaQuery(theme.breakpoints.down("md"));
   const isMobile = useMediaQuery(theme.breakpoints.only("xs"));
+
   /* =========EOL Breakpoint device============ */
 
 
@@ -544,7 +413,7 @@ function App() {
     <>
       <PwaContextProvider>
         <AppContext.Provider value={AppContextValue}>
-          <ThemeProvider theme={theme}>
+          <ThemeProvider theme={mode == 'dark' ? darkTheme : mode == 'yellow' ? yellowTheme : ligthTheme}>
             <CssBaseline />
             <Router>
               <ToastContainer
