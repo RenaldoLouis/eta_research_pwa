@@ -17,11 +17,7 @@ import LogoIcon from "../../assets/Images/Logo.png";
 import LogoLightIcon from "../../assets/Images/LogoLight.png";
 import LogoMobileLightIcon from "../../assets/Images/LogoMobileLight.png";
 import LogoMobileDarkIcon from "../../assets/Images/LogoMobileDark.png";
-import BackIcon from "../../assets/icons/BackIcon";
 import SettingsIcon from '@mui/icons-material/Settings';
-
-// temporary icon
-import { DarkMode, LightMode } from "@mui/icons-material";
 
 import { useNavigate, Outlet } from "react-router-dom";
 
@@ -257,6 +253,10 @@ const AppBarResponsive = () => {
         transformOrigin={{
           vertical: 'top',
           horizontal: 'left',
+        }}
+        sx={{
+          "& .MuiMenu-paper":
+            { backgroundColor: theme.palette.background.appBar },
         }}
       >
         <MenuItem onClick={() => handleClickTheme('light')}>Light Theme</MenuItem>

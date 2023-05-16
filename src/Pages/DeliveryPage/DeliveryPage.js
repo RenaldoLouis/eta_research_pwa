@@ -5,41 +5,26 @@ import Lottie from "react-lottie";
 // import material UI
 import { Typography, Grid, Box, Tooltip, IconButton } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
-import { Backdrop } from "@mui/material";
 
 // import Component
-import PromoCard from "../../Components/PromoCard/PromoCard";
 import DeliveryCard from "../../Components/DeliveryCard/DeliveryCard";
 import PromoNews from "../../Components/PromoNews/PromoNews";
 
-// import Icon
-import DoneIcon from "../../assets/icons/DoneIcon";
-import CloseIcon from "../../assets/icons/CloseIcon";
-import BackIcon from "../../assets/icons/BackIcon";
-import NextIcon from "../../assets/icons/NextIcon";
+
+// import moment
+import moment from "moment";
 
 // import AppContext
 import { AppContext } from "../../App";
 
-// import reusable component
-// import moonFixed from "../../assets/lotties/MOON_FIXED_Dark.json"
-import sunRiseDark from "../../assets/lotties/SUNRISE_DARKMODE.json";
-import sunRiseLight from "../../assets/lotties/SUNRISE_LIGHTMODE.json";
-import sunLight from "../../assets/lotties/SUN_LIGHTMODE.json";
-import sunDark from "../../assets/lotties/SUN_DARKMODE.json";
-import moonLight from "../../assets/lotties/MOON_LIGHTMODE.json";
-import moonDark from "../../assets/lotties/MOON_DARKMODE.json";
+// import Reusable Component
 import DivFlexStart from "../../Components/ReusableComponents/DivFlexStart";
 import DivFlexCenter from "../../Components/ReusableComponents/DivFlexCenter";
-import DivFlexEnd from "../../Components/ReusableComponents/DivFlexEnd";
-import DivFlexSpaceBetween from "../../Components/ReusableComponents/DivFlexSpacebetween";
 import DeliveryCardMenu from "../../Components/DeliveryCard/DeliveryCardMenu";
-import moment from "moment";
-import { initial } from "lodash";
-import CustomDialog from "../../Components/ReusableComponents/CustomDialog";
-import PromoDialog from "../../Components/ReusableComponents/PromoDialog";
-import LeftArrowDialog from "../../Components/ReusableComponents/LeftArrowDialog";
-import RightArrowDialog from "../../Components/ReusableComponents/RightArrowDialog";
+
+// import Animations
+import { sunriseLightAnimation, sunriseDarkAnimation, sunLightAnimation, sunDarkAnimation, moonLightAnimation, moonDarkAnimation } from "../../Components/Animations/Animations";
+
 
 // delivery title div as button
 const DeliverStickyTitle = styled("div")((props) => ({
@@ -69,6 +54,7 @@ const PromoStickyTitle = styled("div")((props) => ({
   padding: "0px 24px",
 }));
 
+
 const DeliveryPage = () => {
   // theme
   const theme = useTheme();
@@ -87,120 +73,17 @@ const DeliveryPage = () => {
     isScrollToPromo,
   } = useContext(AppContext);
 
-  // state for open promo dialog for desktop
-  const [openPromoDialog, setOpenPromoDialog] = useState(false);
 
-  const handleClosePromoDialog = () => {
-    setOpenPromoDialog(false);
-    // setIsLastPromo(false)
-    setPromoDetail(0);
-  };
-
-  // state for pass promo id to open the detail - desktop
-  const [idPromoDialog, setIdPromoDialog] = useState("");
-
-  const [promoDetail, setPromoDetail] = useState(0);
-
-  const [isLastPromo, setIsLastPromo] = useState(false);
-
-  const [isFirstPromo, setIsFirstPromo] = useState(false);
-
-  const handleOpenPromoDialog = (promoId) => {
-    setOpenPromoDialog(true);
-    // setIdPromoDialog(promoId)
-
-    setPromoDetail(promoId);
-    console.log(promoId);
-  };
-
-  const handleNextPromoDetail = (promoLength) => {
-    if (promoDetail !== promoLength - 1) {
-      setPromoDetail(promoDetail + 1);
-    }
-  };
-
-  const handlePrevPromoDetail = (promoLength) => {
-    if (promoDetail > 0) {
-      setPromoDetail(promoDetail - 1);
-    }
-  };
-
-  useEffect(() => {
-    if (promoDetail === promoNewsData.length - 1) {
-      setIsLastPromo(true);
-    } else {
-      setIsLastPromo(false);
-    }
-
-    if (promoDetail === 0) {
-      setIsFirstPromo(true);
-    } else {
-      setIsFirstPromo(false);
-    }
-  }, [promoDetail]);
-
-  // state for pass delivery id to open the detail  - desktop
+  /** ============ State ============*/
+  const [currentTime, setCurrentTime] = useState(moment().format("HH:mm:ss"));
   const [deliveryId, setDeliveryId] = useState(1);
 
+
+  // function for pass delivery id to open the detail  - desktop view
   const handleClickDeliveryDesktop = (id) => {
     setDeliveryId(id);
   };
 
-  const sunriseLightAnimation = {
-    loop: true,
-    autoplay: true,
-    animationData: sunRiseLight,
-    rendererSettings: {
-      preserveAspectRatio: "xMidYMid slice",
-    },
-  };
-
-  const sunriseDarkAnimation = {
-    loop: true,
-    autoplay: true,
-    animationData: sunRiseDark,
-    rendererSettings: {
-      preserveAspectRatio: "xMidYMid slice",
-    },
-  };
-
-  const sunLightAnimation = {
-    loop: true,
-    autoplay: true,
-    animationData: sunLight,
-    rendererSettings: {
-      preserveAspectRatio: "xMidYMid slice",
-    },
-  };
-
-  const sunDarkAnimation = {
-    loop: true,
-    autoplay: true,
-    animationData: sunDark,
-    rendererSettings: {
-      preserveAspectRatio: "xMidYMid slice",
-    },
-  };
-
-  const moonLightAnimation = {
-    loop: true,
-    autoplay: true,
-    animationData: moonLight,
-    renderSettings: {
-      preserveAspectRatio: "xMidYMid slice",
-    },
-  };
-
-  const moonDarkAnimation = {
-    loop: true,
-    autoplay: true,
-    animationData: moonDark,
-    renderSettings: {
-      preserveAspectRatio: "xMidYMid slice",
-    },
-  };
-
-  const [currentTime, setCurrentTime] = useState(moment().format("HH:mm:ss"));
 
   useEffect(() => {
     // Update current time every second
@@ -214,25 +97,17 @@ const DeliveryPage = () => {
 
   return (
     <>
-      <Grid
-        container
+      <Grid container
         sx={{
-          paddingLeft: isDesktop ? "40px" : "",
-          // pr: isDesktop ? 5 : "",
+          pl: isDesktop ? 5 : "",
           height: isDesktop ? "100vh" : "",
         }}
       >
-        <Grid
-          item
-          xs={12}
-          md={12}
-          lg={3}
-          id="deliverSection"
+        <Grid item xs={12} md={12} lg={3} id="deliverSection"
           sx={{
             overflowY: isDesktop ? "scroll" : "hidden",
             height: isDesktop ? "100vh" : "",
-            paddingBottom: "16px",
-            paddingTop: "72px",
+            pb: 2, pt: 9,
           }}
         >
           <>
@@ -240,7 +115,7 @@ const DeliveryPage = () => {
               <>
                 {scrollDown && !isDesktop && (
                   <DeliverStickyTitle
-                    sx={{ pl: 3, pr: 3, paddingTop: "12px" }}
+                    sx={{ pl: 3, pr: 3, pt: "12px" }}
                     onClick={scrollToTop}
                   >
                     <Typography
@@ -268,42 +143,13 @@ const DeliveryPage = () => {
                   </DeliverStickyTitle>
                 )}
                 <Box id="titleDeliveryPage">
-                  {/* {deliveryData.every((v) => {
-                    return v.deliveryStatus === "Done";
-                  }) 
-                  ? (
-                    <DivFlexStart
-                      sx={{
-                        padding: isDesktop ? "" : "24px 24px 0px 24px",
-                        mt: isDesktop ? 3 : undefined,
-                      }}
-                    >
-                      <Typography
-                        fontSize={30}
-                        color={theme.palette.text.primary}
-                        sx={{ fontFamily: "Eina04-Regular" }}
-                      >
-                        Your Delivery <br /> for {deliveryData[0].date}{" "}
-                        <br /> is All{" "}
-                        <span style={{ color: theme.palette.text.primary }}>
-                          {" "}
-                          <DoneIcon
-                            sx={{ fontSize: 36, mr: -1, mt: -0.6 }}
-                          />{" "}
-                          DONE{" "}
-                        </span>
-                      </Typography>
-                    </DivFlexStart>
-                  ) : 
-                  ( */}
                   <>
-                    {currentTime <=
-                      moment().hour(12).minute(0).format("HH:mm") ? (
+                    {currentTime <= moment().hour(12).minute(0).format("HH:mm") ? (
                       <>
                         <DivFlexStart
                           sx={{
                             padding: isDesktop ? "0px" : "32px 24px 0px 24px",
-                            marginTop: isDesktop ? "48px" : undefined,
+                            mt: isDesktop ? 6 : undefined,
                             height: "70px",
                             width: isMobile || isTablet ? "100px" : "50px",
                           }}
@@ -315,8 +161,7 @@ const DeliveryPage = () => {
                                 height: "48px",
                                 width: "48px",
                                 margin: "32px 0px 16px 0px",
-                                paddingBottom:
-                                  isMobile || isTablet ? "16px" : "0px",
+                                pb: isMobile || isTablet ? 2 : 0,
                               }}
                             />
                           ) : mode === "dark" ? (
@@ -326,8 +171,17 @@ const DeliveryPage = () => {
                                 height: "48px",
                                 width: "48px",
                                 margin: "32px 0px 16px 0px",
-                                paddingBottom:
-                                  isMobile || isTablet ? "16px" : "0px",
+                                pb: isMobile || isTablet ? 2 : 0,
+                              }}
+                            />
+                          ) : mode === "yellow" ? (
+                            <Lottie
+                              options={sunriseLightAnimation}
+                              style={{
+                                height: "48px",
+                                width: "48px",
+                                margin: "32px 0px 16px 0px",
+                                pb: isMobile || isTablet ? 2 : 0,
                               }}
                             />
                           ) : (
@@ -338,7 +192,7 @@ const DeliveryPage = () => {
                         <DivFlexStart
                           sx={{
                             padding: isDesktop ? "" : "8px 24px 0px 24px",
-                            paddingTop: isDesktop ? "24px" : undefined,
+                            pt: isDesktop ? 3 : undefined,
                           }}
                         >
                           <Typography
@@ -357,7 +211,7 @@ const DeliveryPage = () => {
                         <DivFlexStart
                           sx={{
                             padding: isDesktop ? "" : "0px 24px 0px 24px",
-                            marginTop: isDesktop ? "40px" : "24px",
+                            mt: isDesktop ? 5 : 3,
                           }}
                         >
                           <Typography
@@ -368,7 +222,7 @@ const DeliveryPage = () => {
                               fontStyle: "normal",
                               fontWeight: 600,
                               lineHeight: "40px",
-                              paddingBottom: "8px",
+                              pb: 1,
                             }}
                           >
                             Heute gibt es{" "}
@@ -388,13 +242,12 @@ const DeliveryPage = () => {
                           </Typography>
                         </DivFlexStart>
                       </>
-                    ) : currentTime >=
-                      moment().hour(16).minute(0).format("HH:mm") ? (
+                    ) : currentTime >= moment().hour(16).minute(0).format("HH:mm") ? (
                       <>
                         <DivFlexStart
                           sx={{
                             padding: isDesktop ? "0px" : "24px 24px 0px 24px",
-                            marginTop: isDesktop ? "48px" : undefined,
+                            mt: isDesktop ? 6 : undefined,
                             height: "70px",
                             width: isMobile || isTablet ? "100px" : "50px",
                           }}
@@ -406,8 +259,7 @@ const DeliveryPage = () => {
                                 height: isMobile || isDesktop ? "60px" : "48px",
                                 width: "48px",
                                 margin: "32px 0px 16px 0px",
-                                paddingBottom:
-                                  isMobile || isTablet ? "16px" : "0px",
+                                pb: isMobile || isTablet ? 2 : 0,
                               }}
                             />
                           ) : mode === "dark" ? (
@@ -417,8 +269,7 @@ const DeliveryPage = () => {
                                 height: isMobile || isDesktop ? "60px" : "48px",
                                 width: "48px",
                                 margin: "32px 0px 16px 0px",
-                                paddingBottom:
-                                  isMobile || isTablet ? "16px" : "0px",
+                                pb: isMobile || isTablet ? 2 : 0,
                               }}
                             />
                           ) : (
@@ -428,7 +279,7 @@ const DeliveryPage = () => {
                         <DivFlexStart
                           sx={{
                             padding: isDesktop ? "" : "8px 24px 0px 24px",
-                            paddingTop: isDesktop ? "24px" : undefined,
+                            pt: isDesktop ? 3 : undefined,
                           }}
                         >
                           <Typography
@@ -447,7 +298,7 @@ const DeliveryPage = () => {
                         <DivFlexStart
                           sx={{
                             padding: isDesktop ? "" : "0px 24px 0px 24px",
-                            marginTop: isDesktop ? "40px" : "24px",
+                            mt: isDesktop ? 5 : 3,
                           }}
                         >
                           <Typography
@@ -458,7 +309,7 @@ const DeliveryPage = () => {
                               fontStyle: "normal",
                               fontWeight: 600,
                               lineHeight: "40px",
-                              paddingBottom: "8px",
+                              pb: 1,
                             }}
                           >
                             Heute gibt es{" "}
@@ -483,7 +334,7 @@ const DeliveryPage = () => {
                         <DivFlexStart
                           sx={{
                             margin: isDesktop ? "0px" : "32px 24px 0px 24px",
-                            marginTop: isDesktop ? "48px" : undefined,
+                            mt: isDesktop ? 6 : undefined,
                             height: "70px",
                             width: isMobile || isTablet ? "100px" : "50px",
                           }}
@@ -510,9 +361,19 @@ const DeliveryPage = () => {
                                   isMobile || isTablet ? "16px" : "0px",
                               }}
                             />
-                          ) : (
-                            <></>
-                          )}
+                          ) : mode === "yellow" ? (
+                            <Lottie
+                              options={sunLightAnimation}
+                              style={{
+                                widht: isMobile || isDesktop ? "58px" : "48px",
+                                height: "48px",
+                                margin: "32px 0px 16px 0px",
+                                paddingBottom:
+                                  isMobile || isTablet ? "16px" : "0px",
+                              }}
+                            />
+                          ) : (<></>)
+                          }
                         </DivFlexStart>
                         <DivFlexStart
                           sx={{
@@ -569,7 +430,6 @@ const DeliveryPage = () => {
                       </>
                     )}
                   </>
-                  {/* )} */}
                 </Box>
               </>
             ) : (

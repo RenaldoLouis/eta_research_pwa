@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext, useState, useRef } from "react";
 
 import { styled } from "@mui/system";
 
@@ -8,21 +8,17 @@ import {
   Grid,
   CircularProgress,
   circularProgressClasses,
-  Backdrop,
   Box,
 } from "@mui/material";
+
+// import react-router-dom
+import { useNavigate } from "react-router-dom";
 
 // Lottie Animation
 import Lottie from "react-lottie";
 
-// dark mode and light mode
+// import useTheme
 import { useTheme } from "@mui/material/styles";
-
-// import reusbale component
-import DivFlexCenter from "../../Components/ReusableComponents/DivFlexCenter";
-import Button from "../../Components/ReusableComponents/Button";
-
-import { useNavigate } from "react-router-dom";
 
 // import appcontext
 import { AppContext } from "../../App";
@@ -30,17 +26,17 @@ import { AppContext } from "../../App";
 // import icon
 import ErrorIcon from "../../assets/icons/ErrorIcon";
 
+// import delivery simlation animations
+import { deliverySimlationLightAnimation, deliverySimlationDarkAnimation } from "../../Components/Animations/Animations";
 
-// import animation assets
-import lightModeAnimationFixed from "../../assets/animations/Light Mode_Fixed_1.json";
-import darkModeAnimationFixed from "../../assets/animations/Dark Mode_fixed_1.json";
-
-// import component
+// import reusable component
 import LinkExpiredStatus from "../../Components/LinkExpiredStatus/LinkExpiredStatus";
 import DivFlexStart from "../../Components/ReusableComponents/DivFlexStart";
 import TextFieldStyled from "../../Components/ReusableComponents/TextFieldStyle";
-
+import DivFlexCenter from "../../Components/ReusableComponents/DivFlexCenter";
+import Button from "../../Components/ReusableComponents/Button";
 import PromoNews from "../../Components/PromoNews/PromoNews";
+
 
 // warning component
 const Warning = styled("div")((props) => ({
@@ -63,25 +59,22 @@ const InputTrackingNumberContainer = styled("div")((props) => ({
   backgroundColor: props.theme.palette.background.dialog,
 }));
 
+
+
 const InputTrackingNumber = () => {
-  const { isLinkExpired, isMobile, promoNewsData, isDesktop, mode } =
-    useContext(AppContext);
+
+  const { isLinkExpired, isMobile, promoNewsData, isDesktop, mode } = useContext(AppContext);
 
   const theme = useTheme();
 
-  // const input search
-  const [searchTrackingNumber, setSearchTrackingNumber] = useState("");
-  const handleChangeInput = (e) => {
-    setSearchTrackingNumber(e.target.value);
-  };
+  let navigate = useNavigate();
 
-  // loading submit search tracking number
+  const trackingNumberRef = useRef()
+
+  /** ========= State ============ */
   const [isLoading, setIsLoading] = useState(false);
-
-  // state warning
   const [warning, setWarning] = useState(false);
 
-  let navigate = useNavigate();
 
   const goToDeliveryPage = () => {
     navigate("/delivery");
@@ -90,10 +83,9 @@ const InputTrackingNumber = () => {
   const onClickSubmit = () => {
     setIsLoading(true);
     setTimeout(() => {
-      if (searchTrackingNumber == "123456890AB") {
+      if (trackingNumberRef.current.value == "123456890AB") {
         setWarning(false);
         goToDeliveryPage();
-        setSearchTrackingNumber("");
       } else {
         setWarning(true);
       }
@@ -101,29 +93,11 @@ const InputTrackingNumber = () => {
     }, 1000);
   };
 
-  // Light Mode Animation
-  const lightAnimation = {
-    loop: true,
-    autoplay: true,
-    animationData: lightModeAnimationFixed,
-    rendererSettings: {
-      preserveAspectRatio: "xMidYMid slice",
-    },
-  };
-
-  // dark mode animation
-  const darkAnimation = {
-    loop: true,
-    autoplay: true,
-    animationData: darkModeAnimationFixed,
-    rendererSettings: {
-      preserveAspectRatio: "xMidYMid slice",
-    },
-  };
 
   return (
     <>
       <Grid container sx={{ height: 'calc(100vh - 58px)' }}>
+
         <Grid item xs={12} md={9} sx={{ pl: isDesktop ? 5 : 3, pr: 3 }}>
           {isLinkExpired ? (
             <LinkExpiredStatus />
@@ -157,7 +131,7 @@ const InputTrackingNumber = () => {
                 <TextFieldStyled
                   id="tracking-number"
                   placeholder="Up to 12 codes"
-                  onChange={handleChangeInput}
+                  inputRef={trackingNumberRef}
                   warning={warning}
                   theme={theme}
                   sx={{ input: { fontSize: 14, height: isMobile ? 5 : 14 } }}
@@ -187,7 +161,6 @@ const InputTrackingNumber = () => {
                 />
               )}
             </DivFlexCenter>
-
             {warning && (
               <Warning isMobile={isMobile}>
                 <DivFlexCenter>
@@ -210,19 +183,17 @@ const InputTrackingNumber = () => {
         <Grid item xs={12} md={3}
           sx={{ zIndex: 10, pl: isDesktop ? 1 : "", mt: isDesktop ? 9 : 5, }}
         >
-
           <Box
             sx={{
               maxHeight: isDesktop ? "calc(100vh - 80px)" : "",
-              overflowY: isDesktop ? "auto" : "",
+              overflowY: isDesktop ? "scroll" : "",
               padding: isDesktop ? '24px 40px 0px 24px' : '0px 0px 0px 0px'
             }}
           >
             <PromoNews promoData={promoNewsData} />
-
           </Box>
-
         </Grid>
+
       </Grid>
 
       {isDesktop && (
@@ -235,7 +206,7 @@ const InputTrackingNumber = () => {
             lineHeight: 0,
           }}
         >
-          <Lottie options={mode == "light" ? lightAnimation : darkAnimation} />
+          <Lottie options={mode == "light" ? deliverySimlationLightAnimation : deliverySimlationDarkAnimation} />
         </Box>
       )}
     </>
