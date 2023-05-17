@@ -206,7 +206,7 @@ const InputTrackingNumber = () => {
             lineHeight: 0,
           }}
         >
-          <Lottie options={mode == "light" ? deliverySimlationLightAnimation : deliverySimlationDarkAnimation} />
+          <Lottie options={mode == "dark" ? deliverySimlationDarkAnimation  : mode == "yellow" ? deliverySimlationLightAnimation : deliverySimlationLightAnimation} />
         </Box>
       )}
     </>

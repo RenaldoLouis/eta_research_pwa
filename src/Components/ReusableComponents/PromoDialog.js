@@ -24,7 +24,7 @@ const DialogComponent = styled(Dialog)((props) => ({
       //   backgroundColor: "red",
     },
   },
-  backdropFilter: "blur(18px)",
+  backdropFilter: "blur(20px)",
 }));
 
 export const PromoDialog = (props) => {

@@ -175,7 +175,7 @@ function App() {
     if (document.getElementById("deliverSection")) {
       if (
         document.documentElement.scrollTop >=
-        document.getElementById("deliverSection").clientHeight - 100
+        document.getElementById("deliverSection").clientHeight - 110
       ) {
         setIsScrollToPromo(true);
       } else {
@@ -324,7 +324,7 @@ function App() {
   /** ==========================Eol Update or Edit Email ========================== */
 
   /** ==========================Dummy State for Authentication========================== */
-  const [dumpLoginState, setDumpLoginState] = useState(false);
+  const [dumpLoginState, setDumpLoginState] = useState(true);
   const [dumpAuthrorization, setDumpAuthrorization] = useState("superadmin");
 
   const handleLogin = () => {

@@ -149,7 +149,7 @@ function TemporaryLandingPage() {
 
 
             <CustomDialog open={show} onClose={handleClose} theme={theme}>
-                <CustomDialogContent isMobile={isMobile}>
+                <CustomDialogContent isMobile={isMobile} theme={theme}>
                     <DivFlexCenter>
                         <Typography sx={{ color: theme.palette.text.heading1, fontSize: 20, fontFamily: 'Eina04-Regular' }}>
                             How to install to Device

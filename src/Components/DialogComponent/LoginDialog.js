@@ -94,6 +94,7 @@ const LoginDialog = () => {
           <CustomDialogContent
             isMobile={isMobile}
             sx={{ backgroundColor: theme.palette.background.dialog }}
+            theme={theme}
           >
             <DivFlexCenter
               sx={{ height: isMobile ? 20 : 40, mb: isMobile ? 3 : 8 }}

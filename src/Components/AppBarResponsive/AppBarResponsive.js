@@ -94,7 +94,7 @@ const AppBarResponsive = () => {
           background: theme.palette.background.appBar,
           position: "fixed",
           top: 0,
-          zIndex: 20,
+          zIndex: 1500,
           width: "100%",
           height: 72,
         }}
@@ -115,10 +115,10 @@ const AppBarResponsive = () => {
                   <>
                     <Tooltip title="Temporary Button">
                       <IconButton
-                        onClick={handleChangeTheme}
-                        sx={{ ml: "2px" }}
+                        onClick={handleOpenThemeMenu}
+                        sx={{ ml: 2, mt: 0.5 }}
                       >
-                        <SettingsIcon />
+                        <SettingsIcon sx={{color : theme.palette.background.iconColor }} />
                       </IconButton>
                     </Tooltip>
                   </>
@@ -147,7 +147,7 @@ const AppBarResponsive = () => {
                         onClick={handleOpenThemeMenu}
                         sx={{ ml: 2, mt: 0.5 }}
                       >
-                        <SettingsIcon />
+                        <SettingsIcon sx={{color : theme.palette.background.iconColor }} />
                       </IconButton>
                     </Tooltip>
                   </>
@@ -257,6 +257,8 @@ const AppBarResponsive = () => {
         sx={{
           "& .MuiMenu-paper":
             { backgroundColor: theme.palette.background.appBar },
+
+            zIndex:1600
         }}
       >
         <MenuItem onClick={() => handleClickTheme('light')}>Light Theme</MenuItem>

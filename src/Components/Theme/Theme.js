@@ -2,14 +2,15 @@ import {
     createMuiTheme,
     createTheme,
     ThemeProvider,
-  } from "@mui/material/styles";
-  import { CssBaseline } from "@mui/material";
+} from "@mui/material/styles";
+import { CssBaseline } from "@mui/material";
 
 export const ligthTheme = createTheme({
     palette: {
         background: {
             // body
             default: "#ffffff",
+            defaultMobile: "#ffffff",
 
             // delivery card
             deliveryCard: "#F3F3F3",
@@ -18,6 +19,7 @@ export const ligthTheme = createTheme({
 
             // promo card
             promoCard: "#ffffff",
+            promoCardMobile: "#F3F3F3",
             hoverItemList: "#f3f3f3",
             hoverPromoCard: "#f7f5f5",
 
@@ -39,6 +41,9 @@ export const ligthTheme = createTheme({
 
             // tracking numbercontainer
             borderTrackingNumber: "#979797",
+
+            // link expired
+            iconStatus: '#A8A8A8',
 
             // scroll to top button
             scrollToTop: "#262626",
@@ -76,6 +81,7 @@ export const darkTheme = createTheme({
         background: {
             // body
             default: "#262626",
+            defaultMobile: "#262626",
 
             // delivery card
             deliveryCard: "#393939",
@@ -106,6 +112,9 @@ export const darkTheme = createTheme({
 
             // tracking numbercontainer
             borderTrackingNumber: "transparent",
+
+            // link expired
+            iconStatus: '#A8A8A8',
 
             // scroll to top button
             scrollToTop: "#ffffff",
@@ -143,6 +152,7 @@ export const yellowTheme = createTheme({
         background: {
             // body
             default: "#ffffff",
+            defaultMobile: "#FFFDF4",
 
             // delivery card
             deliveryCard: "#F3F3F3",
@@ -151,8 +161,9 @@ export const yellowTheme = createTheme({
 
             // promo card
             promoCard: "#ffffff",
+            promoCardMobile: "#FCF4D6",
             hoverItemList: "#f3f3f3",
-            hoverPromoCard: "#f7f5f5",
+            hoverPromoCard: "#FCF4D6",
 
             // appbar and icon
             appBar: "#EDDA48",
@@ -172,6 +183,9 @@ export const yellowTheme = createTheme({
 
             // tracking numbercontainer
             borderTrackingNumber: "#979797",
+
+            // link expired
+            iconStatus: '#D2A106',
 
             // scroll to top button
             scrollToTop: "#262626",

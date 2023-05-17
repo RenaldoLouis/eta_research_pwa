@@ -29,8 +29,8 @@ const RootDeliveryCard = styled("div")((props) => ({
     ? props.data.id === props.deliveryId
       ? props.theme.palette.background.deliveryCard
       : props.isOpenItemList
-      ? props.theme.palette.background.deliveryCard
-      : props.theme.palette.background.default
+        ? props.theme.palette.background.deliveryCard
+        : props.theme.palette.background.default
     : props.theme.palette.background.deliveryCard,
   padding: props.isDesktop ? 16 : props.openDetail ? "16px 24px 16px 24px" : 16,
   cursor: props.isDesktop
@@ -62,13 +62,12 @@ const getStatusChip = (data, theme) => {
         ) : (
           <DiscrepancyChip />
         )
-        // <DiscrepancyChip />
       ) : (
         <></>
       )}
 
       {data.deliveryStatus === "Done" ? (
-        <DivFlexStart sx={{ ml: 0.5, height: 18, pt:0.5 }}>
+        <DivFlexStart sx={{ ml: 0.5, height: 18, pt: 0.5 }}>
           <DoneIcon
             color={theme.palette.text.doneIcon}
             sx={{ fontSize: 16, mt: -0.4, marginRight: "6.33px" }}
@@ -299,7 +298,7 @@ const DeliveryCard = (props) => {
                   <DivFlexStart sx={{ width: 40 }} />
                 )}
               </DivFlexStart>
-              {isMobile || isTablet ? (
+              {/* {isMobile || isTablet ? (
                 ""
               ) : (
                 <Typography
@@ -313,7 +312,20 @@ const DeliveryCard = (props) => {
                 >
                   Klick für Details
                 </Typography>
-              )}
+              )} */}
+              {isDesktop &&
+                <Typography
+                  sx={{
+                    fontFamily: "Eina04-Regular",
+                    fontStyle: "normal",
+                    fontSize: "10px",
+                    fontWeight: 300,
+                    lineHeight: "13.8px",
+                  }}
+                >
+                  Klick für Details
+                </Typography>
+              }
             </DivFlexSpaceBetween>
             {isDesktop ? (
               ""

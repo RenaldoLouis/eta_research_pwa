@@ -32,11 +32,13 @@ const DeliverStickyTitle = styled("div")((props) => ({
   position: "fixed",
   alignItems: "center",
   justifyContent: "space-between",
-  top: 56,
+  top: 72,
   width: "100%",
   height: 60,
-  backgroundColor: props.theme.palette.background.default,
+  backgroundColor: props.theme.palette.background.defaultMobile,
   zIndex: 1000,
+  padding: "0px 24px",
+
 }));
 
 // promo title div as button
@@ -45,10 +47,10 @@ const PromoStickyTitle = styled("div")((props) => ({
   position: "fixed",
   alignItems: "center",
   justifyContent: "space-between",
-  top: 115.5,
+  top: 132,
   width: "100%",
   height: 60,
-  backgroundColor: props.theme.palette.background.default,
+  backgroundColor: props.theme.palette.background.defaultMobile,
   borderTop: `1px solid ${props.theme.palette.background.separatorTitle}`,
   zIndex: 1000,
   padding: "0px 24px",
@@ -104,6 +106,7 @@ const DeliveryPage = () => {
         }}
       >
         <Grid item xs={12} md={12} lg={3} id="deliverSection"
+          bgcolor={{ xs: theme.palette.background.defaultMobile, lg: theme.palette.background.default }}
           sx={{
             overflowY: isDesktop ? "scroll" : "hidden",
             height: isDesktop ? "100vh" : "",
@@ -115,7 +118,7 @@ const DeliveryPage = () => {
               <>
                 {scrollDown && !isDesktop && (
                   <DeliverStickyTitle
-                    sx={{ pl: 3, pr: 3, pt: "12px" }}
+                    // sx={{ pl: 3, pr: 3, pt: "12px" }}
                     onClick={scrollToTop}
                   >
                     <Typography
@@ -148,10 +151,9 @@ const DeliveryPage = () => {
                       <>
                         <DivFlexStart
                           sx={{
-                            padding: isDesktop ? "0px" : "32px 24px 0px 24px",
-                            mt: isDesktop ? 6 : undefined,
+                            padding: isDesktop ? "0px" : "0px 24px",
+                            mt: isDesktop ? 6 : 3,
                             height: "70px",
-                            width: isMobile || isTablet ? "100px" : "50px",
                           }}
                         >
                           {mode === "light" ? (
@@ -246,10 +248,9 @@ const DeliveryPage = () => {
                       <>
                         <DivFlexStart
                           sx={{
-                            padding: isDesktop ? "0px" : "24px 24px 0px 24px",
-                            mt: isDesktop ? 6 : undefined,
+                            padding: isDesktop ? "0px" : "0px 24px",
+                            mt: isDesktop ? 6 : 3,
                             height: "70px",
-                            width: isMobile || isTablet ? "100px" : "50px",
                           }}
                         >
                           {mode === "light" ? (
@@ -257,7 +258,7 @@ const DeliveryPage = () => {
                               options={moonLightAnimation}
                               style={{
                                 height: isMobile || isDesktop ? "60px" : "48px",
-                                width: "48px",
+                                width: isMobile ? '40px' : "48px",
                                 margin: "32px 0px 16px 0px",
                                 pb: isMobile || isTablet ? 2 : 0,
                               }}
@@ -267,7 +268,17 @@ const DeliveryPage = () => {
                               options={moonDarkAnimation}
                               style={{
                                 height: isMobile || isDesktop ? "60px" : "48px",
-                                width: "48px",
+                                width: isMobile ? '40px' : "48px",
+                                margin: "32px 0px 16px 0px",
+                                pb: isMobile || isTablet ? 2 : 0,
+                              }}
+                            />
+                          ) : mode == "yellow" ? (
+                            <Lottie
+                              options={moonLightAnimation}
+                              style={{
+                                height: isMobile || isDesktop ? "60px" : "48px",
+                                width: isMobile ? '40px' : "48px",
                                 margin: "32px 0px 16px 0px",
                                 pb: isMobile || isTablet ? 2 : 0,
                               }}
@@ -278,7 +289,7 @@ const DeliveryPage = () => {
                         </DivFlexStart>
                         <DivFlexStart
                           sx={{
-                            padding: isDesktop ? "" : "8px 24px 0px 24px",
+                            padding: isDesktop ? "" : "16px 24px 0px 24px",
                             pt: isDesktop ? 3 : undefined,
                           }}
                         >
@@ -334,16 +345,16 @@ const DeliveryPage = () => {
                         <DivFlexStart
                           sx={{
                             margin: isDesktop ? "0px" : "32px 24px 0px 24px",
-                            mt: isDesktop ? 6 : undefined,
+                            mt: isDesktop ? 6 : 3,
                             height: "70px",
-                            width: isMobile || isTablet ? "100px" : "50px",
+                            // width: isMobile || isTablet ? "100px" : "50px",
                           }}
                         >
                           {mode === "light" ? (
                             <Lottie
                               options={sunLightAnimation}
                               style={{
-                                widht: isMobile || isDesktop ? "58px" : "48px",
+                                width: '40px',
                                 height: "48px",
                                 margin: "32px 0px 16px 0px",
                                 paddingBottom:
@@ -354,7 +365,7 @@ const DeliveryPage = () => {
                             <Lottie
                               options={sunDarkAnimation}
                               style={{
-                                widht: isMobile || isDesktop ? "58px" : "48px",
+                                width: '40px',
                                 height: "48px",
                                 margin: "32px 0px 16px 0px",
                                 paddingBottom:
@@ -365,7 +376,7 @@ const DeliveryPage = () => {
                             <Lottie
                               options={sunLightAnimation}
                               style={{
-                                widht: isMobile || isDesktop ? "58px" : "48px",
+                                width: '40px',
                                 height: "48px",
                                 margin: "32px 0px 16px 0px",
                                 paddingBottom:
@@ -436,7 +447,7 @@ const DeliveryPage = () => {
               <>
                 {scrollDown && !isDesktop && (
                   <DeliverStickyTitle
-                    sx={{ pl: 3, pr: 3 }}
+                    // sx={{ pl: 3, pr: 3 }}
                     onClick={scrollToTop}
                   >
                     <Typography
@@ -518,6 +529,7 @@ const DeliveryPage = () => {
 
         <Grid item xs={12} md={12} lg={3}
           sx={{ mt: isDesktop ? 9 : 0, }}
+          bgcolor={{ xs: theme.palette.background.defaultMobile, lg: theme.palette.background.default }}
         >
           <Box
             sx={{

@@ -143,7 +143,7 @@ const OtpDialog = () => {
         <>
             <CustomDialog open={openOtpDialog} theme={theme} onClose={handleCloseDialog} >
                 <Box sx={{ backgroundColor: theme.palette.background.dialog }}>
-                    <CustomDialogContent isMobile={isMobile}>
+                    <CustomDialogContent isMobile={isMobile} theme={theme}>
                         <DivFlexCenter sx={{ height: isMobile ? 20 : 40, mb: isMobile ? 3 : 8 }} >
                             <Typography sx={{ color: theme.palette.text.heading1, fontSize: isMobile ? 20 : 40, fontFamily: 'Eina04-Regular' }}>
                                 OTP
