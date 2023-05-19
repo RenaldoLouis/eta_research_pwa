@@ -9,11 +9,10 @@ import { Typography } from "@mui/material";
 // import Styled
 import { useTheme, styled } from "@mui/material";
 
-// import Reusable Component
-import CustomDialog from "../Components/ReusableComponents/CustomDialog";
-import CustomDialogContent from "../Components/ReusableComponents/CustomDialogContent";
-
-import Button from "../Components/ReusableComponents/Button";
+// import  Component
+import CustomDialog from "../Components/DialogComponent/DialogContainer/CustomDialog";
+import CustomDialogContent from "../Components/DialogComponent/DialogContainer/CustomDialogContent";
+import Button from "../Components/Button";
 
 // import context
 import { AppContext } from "../App";
@@ -26,9 +25,8 @@ import { useNavigate, Outlet } from "react-router-dom"
 
 import firstStep from "../assets/Images/1st_step.png";
 import addLogo from "../assets/Images/add_to_home_screen.png";
-import DivFlexEnd from "../Components/ReusableComponents/DivFlexEnd";
-import DivFlexCenter from "../Components/ReusableComponents/DivFlexCenter";
-import DivFlexStart from "../Components/ReusableComponents/DivFlexStart";
+import DivFlexCenter from "../Components/DivFlexCenter";
+import DivFlexStart from "../Components/DivFlexStart";
 
 // Opera 8.0+
 var isOpera = (!!window.opr && (navigator.userAgent.indexOf("Opera") || navigator.userAgent.indexOf('OPR')) !== -1) || !!window.opera || navigator.userAgent.indexOf(' OPR/') >= 0;

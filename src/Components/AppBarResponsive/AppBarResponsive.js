@@ -1,35 +1,37 @@
 import React, { useContext, useState } from "react";
 
 // Import material ui
-import { Grid, AppBar, Typography, Container, Tooltip, Menu, MenuItem } from "@mui/material";
+import { Grid, AppBar, Typography, Container, Menu, MenuItem } from "@mui/material";
 
 // Import styles
-import { styled } from "@mui/system";
-import { useTheme } from "@mui/material/styles";
+import { useTheme, styled } from "@mui/material/styles";
 
 // import icon
 import ListIcon from "../../assets/icons/ListIcon";
 import LogoutIcon from "../../assets/icons/LogoutIcon";
+import LoginIcon from "../../assets/icons/LoginIcon";
+import SettingsIcon from '@mui/icons-material/Settings';
+
+// import temporary Logo
 import LogoIcon from "../../assets/Images/Logo.png";
 import LogoLightIcon from "../../assets/Images/LogoLight.png";
 import LogoMobileLightIcon from "../../assets/Images/LogoMobileLight.png";
 import LogoMobileDarkIcon from "../../assets/Images/LogoMobileDark.png";
-import LoginIcon from "../../assets/icons/LoginIcon";
-import SettingsIcon from '@mui/icons-material/Settings';
 
 // import react-router-dom
-import { useNavigate, Outlet } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 
 // import AppContext
 import { AppContext } from "../../App";
 
-// import reusable component
-import DivFlexEnd from "../ReusableComponents/DivFlexEnd";
-import DivFlexCenter from "../ReusableComponents/DivFlexCenter";
-import DivFlexStart from "../ReusableComponents/DivFlexStart";
-
 // import component
-import { CustomTooltip } from "../CustomTooltip/CustomTololtip";
+import DivFlexStart from "../DivFlexStart";
+import DivFlexCenter from "../DivFlexCenter";
+import DivFlexEnd from "../DivFlexEnd";
+import { CustomTooltip } from "../CustomTooltip";
+
+// import constants
+import { ColorTheme } from "../../Constants/ColorTheme";
 
 // icon button component
 const IconButton = styled("div")((props) => ({
@@ -63,7 +65,6 @@ const AppBarResponsive = () => {
     handleOpenLogoutDialog,
   } = useContext(AppContext);
 
-  const navigate = useNavigate();
 
   /** ======== Menu for change theme ======== */
   const [anchorThemeMenuEl, setAnchorThemeMenuEl] = useState(null);
@@ -81,6 +82,56 @@ const AppBarResponsive = () => {
   }
 
   /** ======== Menu for change theme ======== */
+
+
+
+  /** ============= Company Logo Based on Theme ============= */
+  let companyLogo
+
+  if (mode == ColorTheme.LIGHT || mode == ColorTheme.YELLOW) {
+    companyLogo =
+      <img
+        src={LogoLightIcon}
+        alt="logo icon"
+        style={{ height: "29px", widht: "200px" }}
+      />
+  } else {
+    companyLogo = <img src={LogoIcon} alt="logo icon" />
+  }
+  /** ============= Company Logo Based on Theme ============= */
+
+
+  /** ============= Company Logo Section ============= */
+  let companyLogoSection
+
+  if (isMobile || isTablet) {
+    companyLogoSection =
+      <>
+        <CustomTooltip title=" Button">
+          <IconButton
+            onClick={handleOpenThemeMenu}
+            sx={{ ml: 2, mt: 0.5 }}
+          >
+            <SettingsIcon sx={{ color: theme.palette.background.iconColor }} />
+          </IconButton>
+        </CustomTooltip>
+      </>
+  } else {
+    companyLogoSection =
+      <>
+        {companyLogo}
+        <CustomTooltip title="Temporary Button">
+          <IconButton
+            onClick={handleOpenThemeMenu}
+            sx={{ ml: 2, mt: 0.5 }}
+          >
+            <SettingsIcon sx={{ color: theme.palette.background.iconColor }} />
+          </IconButton>
+        </CustomTooltip>
+      </>
+  }
+
+  /** ============= EOL Company Logo Section ============= */
 
 
   return (
@@ -106,57 +157,19 @@ const AppBarResponsive = () => {
               pr: isDesktop ? 1.4 : 0.4,
             }}
           >
+
             <Grid item xs={4} md={3}>
               <DivFlexStart sx={{ height: "100%" }}>
-                {isMobile || isTablet ? (
-                  <>
-                    <CustomTooltip title="Temporary Button">
-                      <IconButton
-                        onClick={handleOpenThemeMenu}
-                        sx={{ ml: 2, mt: 0.5 }}
-                      >
-                        <SettingsIcon sx={{ color: theme.palette.background.iconColor }} />
-                      </IconButton>
-                    </CustomTooltip>
-                  </>
-                ) : (
-                  <>
-                    {mode === "light" ? (
-                      <img
-                        src={LogoLightIcon}
-                        alt="logo icon"
-                        style={{ height: "29px", widht: "200px" }}
-                      />
-                    ) : mode === "dark" ? (
-                      <img src={LogoIcon} alt="logo icon" />
-                    ) : mode === "yellow" ? (
-                      <img
-                        src={LogoLightIcon}
-                        alt="logo icon"
-                        style={{ height: "29px", widht: "200px" }}
-                      />
-                    ) : mode == "blue" ? (
-                      <img src={LogoIcon} alt="logo icon" />
-                    ) : (<></>)}
-
-                    <CustomTooltip title="Temporary Button">
-                      <IconButton
-                        onClick={handleOpenThemeMenu}
-                        sx={{ ml: 2, mt: 0.5 }}
-                      >
-                        <SettingsIcon sx={{ color: theme.palette.background.iconColor }} />
-                      </IconButton>
-                    </CustomTooltip>
-                  </>
-                )}
+                {companyLogoSection}
               </DivFlexStart>
             </Grid>
+
             <Grid item xs={4} md={6}>
               <DivFlexCenter sx={{ alignItems: "top", height: "100%" }}>
                 {isMobile || isTablet ? (
                   <img
                     src={
-                      mode === "dark" ? LogoMobileDarkIcon : LogoMobileLightIcon
+                      mode === ColorTheme.DARK || ColorTheme.BLUE ? LogoMobileDarkIcon : LogoMobileLightIcon
                     }
                     alt=""
                     style={{ height: "20.45px", width: "30.35px" }}
@@ -177,6 +190,7 @@ const AppBarResponsive = () => {
                 )}
               </DivFlexCenter>
             </Grid>
+
             <Grid item xs={4} md={3}>
               <DivFlexEnd sx={{ alignItems: "center", height: "100%" }}>
                 {dumpLoginState ? (
@@ -247,10 +261,10 @@ const AppBarResponsive = () => {
           zIndex: 1600
         }}
       >
-        <MenuItem onClick={() => handleClickTheme('light')}>Light Theme</MenuItem>
-        <MenuItem onClick={() => handleClickTheme('dark')}>Dark Theme</MenuItem>
-        <MenuItem onClick={() => handleClickTheme('yellow')}>Yellow Theme</MenuItem>
-        <MenuItem onClick={() => handleClickTheme('blue')}>Blue Theme</MenuItem>
+        <MenuItem onClick={() => handleClickTheme(ColorTheme.LIGHT)}>Light Theme</MenuItem>
+        <MenuItem onClick={() => handleClickTheme(ColorTheme.DARK)}>Dark Theme</MenuItem>
+        <MenuItem onClick={() => handleClickTheme(ColorTheme.YELLOW)}>Yellow Theme</MenuItem>
+        <MenuItem onClick={() => handleClickTheme(ColorTheme.BLUE)}>Blue Theme</MenuItem>
       </Menu>
 
       <Outlet />

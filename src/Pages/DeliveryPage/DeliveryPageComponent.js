@@ -8,7 +8,7 @@ import { styled } from "@mui/system";
 import { AppContext } from "../../App";
 
 // import reusable component
-import DivFlexStart from "../../Components/ReusableComponents/DivFlexStart";
+import DivFlexStart from "../../Components/DivFlexStart";
 
 // delivery title div as button
 export const DeliverStickyTitle = styled("div")((props) => ({

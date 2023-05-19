@@ -12,16 +12,15 @@ import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
 import ClockIcon from "../../assets/icons/ClockIcon";
 import DoneIcon from "../../assets/icons/DoneIcon";
+import ErrorIcon from "../../assets/icons/ErrorIcon";
+
 
 // import components
 import ItemList from "../ItemList/ItemList";
-
-// import Reusable Components
-import DivFlexSpaceBetween from "../ReusableComponents/DivFlexSpacebetween";
-import DivFlexStart from "../ReusableComponents/DivFlexStart";
+import DivFlexSpaceBetween from "../DivFlexSpacebetween";
+import DivFlexStart from "../DivFlexStart";
 import DiscrepancyChip from "../ChipStatus/DiscrepancyChip";
 import CalendarIcon from "../../assets/icons/CalendarIcon";
-import ErrorIcon from "../../assets/icons/ErrorIcon";
 import DiscrepancyIconChip from "../ChipStatus/DiscrepancyIconChip";
 
 const RootDeliveryCard = styled("div")((props) => ({

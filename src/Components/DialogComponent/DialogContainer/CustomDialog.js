@@ -3,12 +3,12 @@ import { styled } from '@mui/system';
 
 import { Dialog, Modal } from '@mui/material'
 
-import DivFlexEnd from './DivFlexEnd';
+import DivFlexEnd from '../../DivFlexEnd';
 
 // import icon
-import CloseIcon from '../../assets/icons/CloseIcon';
+import CloseIcon from '../../../assets/icons/CloseIcon';
 
-import { AppContext } from '../../App';
+import { AppContext } from '../../../App';
 
 import { useTheme } from '@mui/material';
 

@@ -4,7 +4,7 @@ import { styled } from "@mui/system";
 
 import Typography from "@mui/material/Typography";
 
-import { AppContext } from "../../App";
+import { AppContext } from "../App";
 
 import { useTheme } from "@emotion/react";
 

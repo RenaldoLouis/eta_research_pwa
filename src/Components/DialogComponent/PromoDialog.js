@@ -5,10 +5,13 @@ import { Box, Dialog, Popover, Popper, Typography } from "@mui/material";
 
 // import icon
 import CloseIcon from "../../assets/icons/CloseIcon";
-import DivFlexCenter from "./DivFlexCenter";
 import BackIcon from "../../assets/icons/BackIcon";
-import DivFlexSpaceBetween from "./DivFlexSpacebetween";
 import NextIcon from "../../assets/icons/NextIcon";
+
+
+
+import DivFlexCenter from "../DivFlexCenter";
+import DivFlexSpaceBetween from "../DivFlexSpacebetween";
 import PromoCard from "../PromoCard/PromoCard";
 
 const DialogComponent = styled(Dialog)((props) => ({

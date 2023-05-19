@@ -6,9 +6,9 @@ import { useTheme } from "@mui/material/styles";
 // import material Components
 import { Box, Typography } from "@mui/material";
 
-// import reusable component
-import DivFlexCenter from "../ReusableComponents/DivFlexCenter";
-import DivFlexStart from "../ReusableComponents/DivFlexStart";
+// import component
+import DivFlexCenter from "../DivFlexCenter";
+import DivFlexStart from "../DivFlexStart";
 
 const LinkExpiredStatus = props => {
 

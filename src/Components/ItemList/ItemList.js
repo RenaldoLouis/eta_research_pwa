@@ -12,9 +12,9 @@ import { AppContext } from "../../App";
 // import Icons
 import ErrorIcon from "../../assets/icons/ErrorIcon";
 
-// import reusable component
-import DivFlexStart from "../ReusableComponents/DivFlexStart";
-import DivFlexSpaceBetween from "../ReusableComponents/DivFlexSpacebetween";
+// import  component
+import DivFlexStart from "../DivFlexStart";
+import DivFlexSpaceBetween from "../DivFlexSpacebetween";
 
 // import theme color
 import { useTheme } from "@mui/material/styles";

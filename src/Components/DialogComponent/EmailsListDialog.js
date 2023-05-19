@@ -19,11 +19,11 @@ import { Outlet } from "react-router-dom";
 // import context
 import { AppContext } from "../../App";
 
-// import reusable component
-import DivFlexCenter from "../ReusableComponents/DivFlexCenter";
-import DivFlexSpaceBetween from "../ReusableComponents/DivFlexSpacebetween";
-import CustomDialog from "../ReusableComponents/CustomDialog";
-import Button from "../ReusableComponents/Button";
+// import  component
+import DivFlexCenter from "../DivFlexCenter";
+import DivFlexSpaceBetween from "../DivFlexSpacebetween";
+import CustomDialog from "./DialogContainer/CustomDialog";
+import Button from "../Button";
 
 // import styled and theme
 import { styled, useTheme } from "@mui/material/styles";

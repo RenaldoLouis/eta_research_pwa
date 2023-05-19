@@ -16,10 +16,8 @@ import DoneIcon from "../../assets/icons/DoneIcon";
 
 // import components
 import ItemList from "../ItemList/ItemList";
-
-// import Reusable Components
-import DivFlexSpaceBetween from "../ReusableComponents/DivFlexSpacebetween";
-import DivFlexStart from "../ReusableComponents/DivFlexStart";
+import DivFlexSpaceBetween from "../DivFlexSpacebetween";
+import DivFlexStart from "../DivFlexStart";
 import DiscrepancyChip from "../ChipStatus/DiscrepancyChip";
 
 const RootDeliveryCard = styled("div")((props) => ({

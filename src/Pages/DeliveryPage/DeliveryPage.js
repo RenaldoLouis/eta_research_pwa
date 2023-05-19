@@ -9,18 +9,15 @@ import { useTheme } from "@mui/material/styles";
 // import Component
 import DeliveryCard from "../../Components/DeliveryCard/DeliveryCard";
 import PromoNews from "../../Components/PromoNews/PromoNews";
-
+import DivFlexStart from "../../Components/DivFlexStart";
+import DivFlexCenter from "../../Components/DivFlexCenter";
+import DeliveryCardMenu from "../../Components/DeliveryCard/DeliveryCardMenu";
 
 // import moment
 import moment from "moment";
 
 // import AppContext
 import { AppContext } from "../../App";
-
-// import Reusable Component
-import DivFlexStart from "../../Components/ReusableComponents/DivFlexStart";
-import DivFlexCenter from "../../Components/ReusableComponents/DivFlexCenter";
-import DeliveryCardMenu from "../../Components/DeliveryCard/DeliveryCardMenu";
 
 // import Animations
 import {
@@ -160,15 +157,16 @@ const DeliveryPage = () => {
         }}
       />
   } else {
-    <Lottie
-      options={moonLightAnimation}
-      style={{
-        height: isMobile || isDesktop ? "60px" : "48px",
-        width: isMobile ? '40px' : "48px",
-        margin: "32px 0px 16px 0px",
-        pb: isMobile || isTablet ? 2 : 0,
-      }}
-    />
+    afternoonAnimation =
+      <Lottie
+        options={moonLightAnimation}
+        style={{
+          height: isMobile || isDesktop ? "60px" : "48px",
+          width: isMobile ? '40px' : "48px",
+          margin: "32px 0px 16px 0px",
+          pb: isMobile || isTablet ? 2 : 0,
+        }}
+      />
   }
   /** =============== EOL Afternoon Animation =============== */
 

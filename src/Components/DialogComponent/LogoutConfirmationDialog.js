@@ -9,12 +9,12 @@ import { Outlet } from "react-router-dom";
 // import context
 import { AppContext } from "../../App";
 
-// import reusable component
-import DivFlexCenter from "../ReusableComponents/DivFlexCenter";
-import DivFlexSpaceBetween from "../ReusableComponents/DivFlexSpacebetween";
-import CustomDialog from "../ReusableComponents/CustomDialog";
-import CustomDialogContent from "../ReusableComponents/CustomDialogContent";
-import Button from "../ReusableComponents/Button";
+// import component
+import DivFlexCenter from "../DivFlexCenter";
+import DivFlexSpaceBetween from "../DivFlexSpacebetween";
+import CustomDialog from "./DialogContainer/CustomDialog";
+import CustomDialogContent from "./DialogContainer/CustomDialogContent";
+import Button from "../Button";
 
 // import style and theme
 import { useTheme } from "@mui/material/styles";

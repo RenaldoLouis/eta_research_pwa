@@ -15,15 +15,15 @@ import { Outlet } from "react-router-dom";
 import { AppContext } from "../../../App";
 
 
-// import reusable component
-import DivFlexCenter from "../../ReusableComponents/DivFlexCenter";
-import CustomDialog from "../../ReusableComponents/CustomDialog";
-import Button from "../../ReusableComponents/Button";
+// import component
+import DivFlexCenter from "../../DivFlexCenter";
+import CustomDialog from "../DialogContainer/CustomDialog";
+import Button from "../../Button";
 
 // dark mode and light mode
 import { useTheme, styled } from "@mui/material/styles";
-import CustomDialogContent from "../../ReusableComponents/CustomDialogContent";
-import DivFlexStart from "../../ReusableComponents/DivFlexStart";
+import CustomDialogContent from "../DialogContainer/CustomDialogContent";
+import DivFlexStart from "../../DivFlexStart";
 
 
 const InputOtp = styled('input')((props) => ({

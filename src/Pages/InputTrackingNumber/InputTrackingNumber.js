@@ -29,12 +29,12 @@ import ErrorIcon from "../../assets/icons/ErrorIcon";
 // import delivery simlation animations
 import { deliverySimlationLightAnimation, deliverySimlationDarkAnimation } from "../../Components/Animations/Animations";
 
-// import reusable component
+// import component
 import LinkExpiredStatus from "../../Components/LinkExpiredStatus/LinkExpiredStatus";
-import DivFlexStart from "../../Components/ReusableComponents/DivFlexStart";
-import TextFieldStyled from "../../Components/ReusableComponents/TextFieldStyle";
-import DivFlexCenter from "../../Components/ReusableComponents/DivFlexCenter";
-import Button from "../../Components/ReusableComponents/Button";
+import DivFlexStart from "../../Components/DivFlexStart";
+import TextFieldStyled from "../../Components/TextField/TextFieldStyle";
+import DivFlexCenter from "../../Components/DivFlexCenter";
+import Button from "../../Components/Button";
 import PromoNews from "../../Components/PromoNews/PromoNews";
 
 

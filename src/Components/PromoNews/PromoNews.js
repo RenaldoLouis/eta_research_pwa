@@ -6,16 +6,10 @@ import { AppContext } from "../../App"
 
 import { Box, Backdrop } from "@mui/material"
 
-import DivFlexCenter from "../ReusableComponents/DivFlexCenter"
+import DivFlexCenter from "../DivFlexCenter"
 import PromoCard from "../PromoCard/PromoCard"
-import PromoDialog from "../ReusableComponents/PromoDialog"
+import PromoDialog from "../DialogComponent/PromoDialog"
 
-
-// import component
-import DivFlexSpaceBetween from "../ReusableComponents/DivFlexSpacebetween"
-import BackIcon from "../../assets/icons/BackIcon"
-import CloseIcon from "../../assets/icons/CloseIcon"
-import NextIcon from "../../assets/icons/NextIcon"
 
 const PromoNews = (props) => {
 

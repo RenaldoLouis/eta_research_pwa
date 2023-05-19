@@ -18,17 +18,17 @@ import { Outlet } from "react-router-dom";
 // import context
 import { AppContext } from "../../App";
 
-// import reusable component
-import DivFlexCenter from "../ReusableComponents/DivFlexCenter";
-import DivFlexSpaceBetween from "../ReusableComponents/DivFlexSpacebetween";
-import CustomDialog from "../ReusableComponents/CustomDialog";
-import CustomDialogContent from "../ReusableComponents/CustomDialogContent";
-import TextFieldStyled from "../ReusableComponents/TextFieldStyle";
-import Button from "../ReusableComponents/Button";
+// import component
+import DivFlexCenter from "../DivFlexCenter";
+import DivFlexSpaceBetween from "../DivFlexSpacebetween";
+import CustomDialog from "./DialogContainer/CustomDialog";
+import CustomDialogContent from "./DialogContainer/CustomDialogContent";
+import TextFieldStyled from "../TextField/TextFieldStyle";
+import Button from "../Button";
 
 // import style and theme
 import { useTheme } from "@mui/material/styles";
-import DivFlexStart from "../ReusableComponents/DivFlexStart";
+import DivFlexStart from "../DivFlexStart";
 
 const LoginDialog = () => {
   const {

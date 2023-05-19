@@ -8,10 +8,10 @@ import Typography from "@mui/material/Typography";
 import Collapse from "@mui/material/Collapse";
 import { Box } from "@mui/material";
 
-// import reusable component
-import DivFlexCenter from "../ReusableComponents/DivFlexCenter";
-import DivFlexSpaceBetween from "../ReusableComponents/DivFlexSpacebetween";
-import Button from "../ReusableComponents/Button";
+// import  component
+import DivFlexCenter from "../DivFlexCenter";
+import DivFlexSpaceBetween from "../DivFlexSpacebetween";
+import Button from "../Button";
 
 import { AppContext } from "../../App";
 
