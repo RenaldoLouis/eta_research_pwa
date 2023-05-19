@@ -28,6 +28,9 @@ import DivFlexEnd from "../ReusableComponents/DivFlexEnd";
 import DivFlexCenter from "../ReusableComponents/DivFlexCenter";
 import DivFlexStart from "../ReusableComponents/DivFlexStart";
 
+// import component
+import { CustomTooltip } from "../CustomTooltip/CustomTololtip";
+
 // icon button component
 const IconButton = styled("div")((props) => ({
   display: "flex",
@@ -107,14 +110,14 @@ const AppBarResponsive = () => {
               <DivFlexStart sx={{ height: "100%" }}>
                 {isMobile || isTablet ? (
                   <>
-                    <Tooltip title="Temporary Button">
+                    <CustomTooltip title="Temporary Button">
                       <IconButton
                         onClick={handleOpenThemeMenu}
                         sx={{ ml: 2, mt: 0.5 }}
                       >
                         <SettingsIcon sx={{ color: theme.palette.background.iconColor }} />
                       </IconButton>
-                    </Tooltip>
+                    </CustomTooltip>
                   </>
                 ) : (
                   <>
@@ -136,14 +139,14 @@ const AppBarResponsive = () => {
                       <img src={LogoIcon} alt="logo icon" />
                     ) : (<></>)}
 
-                    <Tooltip title="Temporary Button">
+                    <CustomTooltip title="Temporary Button">
                       <IconButton
                         onClick={handleOpenThemeMenu}
                         sx={{ ml: 2, mt: 0.5 }}
                       >
                         <SettingsIcon sx={{ color: theme.palette.background.iconColor }} />
                       </IconButton>
-                    </Tooltip>
+                    </CustomTooltip>
                   </>
                 )}
               </DivFlexStart>
@@ -180,7 +183,7 @@ const AppBarResponsive = () => {
                   <>
                     {dumpAuthrorization == "admin" ||
                       dumpAuthrorization == "superadmin" ? (
-                      <Tooltip title="Email List">
+                      <CustomTooltip title="Email List">
                         <IconButton
                           onClick={handleEmailListDialog}
                           theme={theme}
@@ -191,11 +194,11 @@ const AppBarResponsive = () => {
                             sx={{ fontSize: 22, mr: 0.1 }}
                           />
                         </IconButton>
-                      </Tooltip>
+                      </CustomTooltip>
                     ) : (
                       <></>
                     )}
-                    <Tooltip title="Logout">
+                    <CustomTooltip title="Logout">
                       <IconButton
                         onClick={handleOpenLogoutDialog}
                         theme={theme}
@@ -205,17 +208,17 @@ const AppBarResponsive = () => {
                           sx={{ fontSize: 22, ml: 0.4 }}
                         />
                       </IconButton>
-                    </Tooltip>
+                    </CustomTooltip>
                   </>
                 ) : (
-                  <Tooltip title="Login">
+                  <CustomTooltip title="Login">
                     <IconButton theme={theme} onClick={handleOpenLoginDialog}>
                       <LoginIcon
                         color={theme.palette.background.iconColor}
                         sx={{ fontSize: 22, ml: 0.4 }}
                       />
                     </IconButton>
-                  </Tooltip>
+                  </CustomTooltip>
                 )}
               </DivFlexEnd>
             </Grid>
