@@ -6,13 +6,11 @@ import { Typography, TextField, FormControl, MenuItem, Box } from "@mui/material
 // import icon
 import ErrorIcon from "../../assets/icons/ErrorIcon";
 
-
 // import react router dom
 import { Outlet } from "react-router-dom";
 
 // import context
 import { AppContext } from "../../App";
-
 
 // import reusable component
 import DivFlexCenter from "../ReusableComponents/DivFlexCenter";

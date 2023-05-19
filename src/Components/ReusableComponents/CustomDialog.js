@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React, { useContext } from 'react';
 import { styled } from '@mui/system';
 
 import { Dialog, Modal } from '@mui/material'
@@ -10,7 +10,7 @@ import CloseIcon from '../../assets/icons/CloseIcon';
 
 import { AppContext } from '../../App';
 
-import {useTheme} from '@mui/material';
+import { useTheme } from '@mui/material';
 
 
 const DialogComponent = styled(Dialog)((props) => ({
@@ -23,8 +23,8 @@ const DialogComponent = styled(Dialog)((props) => ({
         },
 
     },
-    backdropFilter: "blur(20px)"
-
+    backdropFilter: "blur(20px)",
+    background: 'rgba(208, 226, 255, 0.3)'
 }))
 
 
@@ -38,8 +38,8 @@ export const CustomDialog = (props) => {
     return (
         <DialogComponent open={open} width={width}>
             <>
-                <DivFlexEnd sx={{ pr: isMobile ? 3 : 6, pt: isMobile ? 3 : 4, background: theme.palette.background.dialog}} >
-                    <CloseIcon onClick={onClose} sx={{ cursor: 'pointer', fontSize:20 }} />
+                <DivFlexEnd sx={{ pr: isMobile ? 3 : 6, pt: isMobile ? 3 : 4, background: theme.palette.background.dialog }} >
+                    <CloseIcon onClick={onClose} sx={{ cursor: 'pointer', fontSize: 20 }} />
                 </DivFlexEnd>
                 {children}
             </>

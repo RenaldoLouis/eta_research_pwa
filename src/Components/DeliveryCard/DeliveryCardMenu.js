@@ -25,11 +25,11 @@ import DiscrepancyChip from "../ChipStatus/DiscrepancyChip";
 const RootDeliveryCard = styled("div")((props) => ({
   backgroundColor: props.isDesktop
     ? props.data.id === props.deliveryId
-      ? props.theme.palette.background.deliveryCard
+      ? props.theme.palette.background.deliveryCardMenu
       : props.isOpenItemList
-      ? props.theme.palette.background.deliveryCard
+      ? props.theme.palette.background.deliveryCardMenu
       : props.theme.palette.background.default
-    : props.theme.palette.background.deliveryCard,
+    : props.theme.palette.background.deliveryCardMenu,
   padding: props.isDesktop ? 16 : props.openDetail ? "16px 24px 16px 24px" : 16,
   paddingTop: "40px",
   cursor: props.isDesktop

@@ -23,38 +23,25 @@ import DivFlexCenter from "../../Components/ReusableComponents/DivFlexCenter";
 import DeliveryCardMenu from "../../Components/DeliveryCard/DeliveryCardMenu";
 
 // import Animations
-import { sunriseLightAnimation, sunriseDarkAnimation, sunLightAnimation, sunDarkAnimation, moonLightAnimation, moonDarkAnimation } from "../../Components/Animations/Animations";
+import {
+  sunriseLightAnimation,
+  sunriseDarkAnimation,
+  sunLightAnimation,
+  sunDarkAnimation,
+  moonLightAnimation,
+  moonDarkAnimation
+} from "../../Components/Animations/Animations";
 
 
-// delivery title div as button
-const DeliverStickyTitle = styled("div")((props) => ({
-  display: "flex",
-  position: "fixed",
-  alignItems: "center",
-  justifyContent: "space-between",
-  top: 72,
-  width: "100%",
-  height: 60,
-  backgroundColor: props.theme.palette.background.defaultMobile,
-  zIndex: 1000,
-  padding: "0px 24px",
+// import components 
+import {
+  DeliverStickyTitle,
+  PromoStickyTitle,
+  DeliveryInformation,
+  AnimationContainer,
+  Greeting
+} from "./DeliveryPageComponent";
 
-}));
-
-// promo title div as button
-const PromoStickyTitle = styled("div")((props) => ({
-  display: "flex",
-  position: "fixed",
-  alignItems: "center",
-  justifyContent: "space-between",
-  top: 132,
-  width: "100%",
-  height: 60,
-  backgroundColor: props.theme.palette.background.defaultMobile,
-  borderTop: `1px solid ${props.theme.palette.background.separatorTitle}`,
-  zIndex: 1000,
-  padding: "0px 24px",
-}));
 
 
 const DeliveryPage = () => {
@@ -97,6 +84,132 @@ const DeliveryPage = () => {
     return () => clearInterval(intervalId);
   }, []);
 
+
+  /** =============== Sunrise Animation =============== */
+  let morningAnimation
+
+  if (mode == "dark") {
+    morningAnimation =
+      <Lottie
+        options={sunriseDarkAnimation}
+        style={{
+          height: "48px",
+          width: "48px",
+          margin: "32px 0px 16px 0px",
+          pb: isMobile || isTablet ? 2 : 0,
+        }}
+      />
+  } else {
+    morningAnimation =
+      <Lottie
+        options={sunriseLightAnimation}
+        style={{
+          height: "48px",
+          width: "48px",
+          margin: "32px 0px 16px 0px",
+          pb: isMobile || isTablet ? 2 : 0,
+        }}
+      />
+  }
+  /** =============== EOL Sunrise Animation =============== */
+
+
+  /** =============== Midday Animation =============== */
+  let middayAnimation
+
+  if (mode == "dark") {
+    middayAnimation =
+      <Lottie
+        options={sunDarkAnimation}
+        style={{
+          width: '40px',
+          height: "48px",
+          margin: "32px 0px 16px 0px",
+          paddingBottom:
+            isMobile || isTablet ? "16px" : "0px",
+        }}
+      />
+  } else {
+    middayAnimation =
+      <Lottie
+        options={sunLightAnimation}
+        style={{
+          width: '40px',
+          height: "48px",
+          margin: "32px 0px 16px 0px",
+          paddingBottom:
+            isMobile || isTablet ? "16px" : "0px",
+        }}
+      />
+  }
+  /** =============== EOL Midday Animation =============== */
+
+
+  /** =============== Afternoon Animation =============== */
+  let afternoonAnimation
+
+  if (mode == "dark") {
+    afternoonAnimation =
+      <Lottie
+        options={moonDarkAnimation}
+        style={{
+          height: isMobile || isDesktop ? "60px" : "48px",
+          width: isMobile ? '40px' : "48px",
+          margin: "32px 0px 16px 0px",
+          pb: isMobile || isTablet ? 2 : 0,
+        }}
+      />
+  } else {
+    <Lottie
+      options={moonLightAnimation}
+      style={{
+        height: isMobile || isDesktop ? "60px" : "48px",
+        width: isMobile ? '40px' : "48px",
+        margin: "32px 0px 16px 0px",
+        pb: isMobile || isTablet ? 2 : 0,
+      }}
+    />
+  }
+  /** =============== EOL Afternoon Animation =============== */
+
+
+
+  /** =============== Animation for greeting based on time =============== */
+  let timeGreetingAnimation
+
+  if (currentTime <= moment().hour(12).minute(0).format("HH:mm")) {
+    timeGreetingAnimation =
+      <>
+        <AnimationContainer>
+          {morningAnimation}
+        </AnimationContainer>
+        <Greeting>
+          Guten Morgen!
+        </Greeting>
+      </>
+  } else if (currentTime >= moment().hour(16).minute(0).format("HH:mm")) {
+    timeGreetingAnimation =
+      <>
+        <AnimationContainer>
+          {afternoonAnimation}
+        </AnimationContainer>
+        <Greeting>
+          Guten Abend!
+        </Greeting>
+      </>
+  } else {
+    timeGreetingAnimation =
+      <>
+        <AnimationContainer>
+          {middayAnimation}
+        </AnimationContainer>
+        <Greeting>
+          Guten Tag!
+        </Greeting>
+      </>
+  }
+  /** =============== EOL Animation for greeting based on time =============== */
+
   return (
     <>
       <Grid container
@@ -118,7 +231,6 @@ const DeliveryPage = () => {
               <>
                 {scrollDown && !isDesktop && (
                   <DeliverStickyTitle
-                    // sx={{ pl: 3, pr: 3, pt: "12px" }}
                     onClick={scrollToTop}
                   >
                     <Typography
@@ -146,308 +258,31 @@ const DeliveryPage = () => {
                   </DeliverStickyTitle>
                 )}
                 <Box id="titleDeliveryPage">
-                  <>
-                    {currentTime <= moment().hour(12).minute(0).format("HH:mm") ? (
-                      <>
-                        <DivFlexStart
-                          sx={{
-                            padding: isDesktop ? "0px" : "0px 24px",
-                            mt: isDesktop ? 6 : 3,
-                            height: "70px",
-                          }}
-                        >
-                          {mode === "light" ? (
-                            <Lottie
-                              options={sunriseLightAnimation}
-                              style={{
-                                height: "48px",
-                                width: "48px",
-                                margin: "32px 0px 16px 0px",
-                                pb: isMobile || isTablet ? 2 : 0,
-                              }}
-                            />
-                          ) : mode === "dark" ? (
-                            <Lottie
-                              options={sunriseDarkAnimation}
-                              style={{
-                                height: "48px",
-                                width: "48px",
-                                margin: "32px 0px 16px 0px",
-                                pb: isMobile || isTablet ? 2 : 0,
-                              }}
-                            />
-                          ) : mode === "yellow" ? (
-                            <Lottie
-                              options={sunriseLightAnimation}
-                              style={{
-                                height: "48px",
-                                width: "48px",
-                                margin: "32px 0px 16px 0px",
-                                pb: isMobile || isTablet ? 2 : 0,
-                              }}
-                            />
-                          ) : (
-                            <></>
-                          )}
-                        </DivFlexStart>
 
-                        <DivFlexStart
-                          sx={{
-                            padding: isDesktop ? "" : "8px 24px 0px 24px",
-                            pt: isDesktop ? 3 : undefined,
-                          }}
-                        >
-                          <Typography
-                            fontSize={"32px"}
-                            color={theme.palette.text.primary}
-                            sx={{
-                              fontFamily: "Eina04-Regular",
-                              fontStyle: "normal",
-                              fontWeight: 400,
-                              lineHeight: "40px",
-                            }}
-                          >
-                            Guten Morgen!
-                          </Typography>
-                        </DivFlexStart>
-                        <DivFlexStart
-                          sx={{
-                            padding: isDesktop ? "" : "0px 24px 0px 24px",
-                            mt: isDesktop ? 5 : 3,
-                          }}
-                        >
-                          <Typography
-                            fontSize={"36px"}
-                            color={theme.palette.text.primary}
-                            sx={{
-                              fontFamily: "Eina04-Regular",
-                              fontStyle: "normal",
-                              fontWeight: 600,
-                              lineHeight: "40px",
-                              pb: 1,
-                            }}
-                          >
-                            Heute gibt es{" "}
-                            <span
-                              style={{
-                                textDecoration: "underline",
-                                fontFamily: "Eina04-Regular",
-                                color: theme.palette.text.highlithText,
-                                fontStyle: "normal",
-                                fontWeight: 600,
-                                lineHeight: "40px",
-                              }}
-                            >
-                              {deliveryData.length}
-                            </span>{" "}
-                            <br /> Auslieferungen
-                          </Typography>
-                        </DivFlexStart>
-                      </>
-                    ) : currentTime >= moment().hour(16).minute(0).format("HH:mm") ? (
-                      <>
-                        <DivFlexStart
-                          sx={{
-                            padding: isDesktop ? "0px" : "0px 24px",
-                            mt: isDesktop ? 6 : 3,
-                            height: "70px",
-                          }}
-                        >
-                          {mode === "light" ? (
-                            <Lottie
-                              options={moonLightAnimation}
-                              style={{
-                                height: isMobile || isDesktop ? "60px" : "48px",
-                                width: isMobile ? '40px' : "48px",
-                                margin: "32px 0px 16px 0px",
-                                pb: isMobile || isTablet ? 2 : 0,
-                              }}
-                            />
-                          ) : mode === "dark" ? (
-                            <Lottie
-                              options={moonDarkAnimation}
-                              style={{
-                                height: isMobile || isDesktop ? "60px" : "48px",
-                                width: isMobile ? '40px' : "48px",
-                                margin: "32px 0px 16px 0px",
-                                pb: isMobile || isTablet ? 2 : 0,
-                              }}
-                            />
-                          ) : mode == "yellow" ? (
-                            <Lottie
-                              options={moonLightAnimation}
-                              style={{
-                                height: isMobile || isDesktop ? "60px" : "48px",
-                                width: isMobile ? '40px' : "48px",
-                                margin: "32px 0px 16px 0px",
-                                pb: isMobile || isTablet ? 2 : 0,
-                              }}
-                            />
-                          ) : (
-                            <></>
-                          )}
-                        </DivFlexStart>
-                        <DivFlexStart
-                          sx={{
-                            padding: isDesktop ? "" : "16px 24px 0px 24px",
-                            pt: isDesktop ? 3 : undefined,
-                          }}
-                        >
-                          <Typography
-                            fontSize={"32px"}
-                            color={theme.palette.text.primary}
-                            sx={{
-                              fontFamily: "Eina04-Regular",
-                              fontStyle: "normal",
-                              fontWeight: 400,
-                              lineHeight: "40px",
-                            }}
-                          >
-                            Guten Abend!
-                          </Typography>
-                        </DivFlexStart>
-                        <DivFlexStart
-                          sx={{
-                            padding: isDesktop ? "" : "0px 24px 0px 24px",
-                            mt: isDesktop ? 5 : 3,
-                          }}
-                        >
-                          <Typography
-                            fontSize={"36px"}
-                            color={theme.palette.text.primary}
-                            sx={{
-                              fontFamily: "Eina04-Regular",
-                              fontStyle: "normal",
-                              fontWeight: 600,
-                              lineHeight: "40px",
-                              pb: 1,
-                            }}
-                          >
-                            Heute gibt es{" "}
-                            <span
-                              style={{
-                                textDecoration: "underline",
-                                fontFamily: "Eina04-Regular",
-                                color: theme.palette.text.highlithText,
-                                fontStyle: "normal",
-                                fontWeight: 600,
-                                lineHeight: "40px",
-                              }}
-                            >
-                              {deliveryData.length}
-                            </span>{" "}
-                            <br /> Auslieferungen
-                          </Typography>
-                        </DivFlexStart>
-                      </>
-                    ) : (
-                      <>
-                        <DivFlexStart
-                          sx={{
-                            margin: isDesktop ? "0px" : "32px 24px 0px 24px",
-                            mt: isDesktop ? 6 : 3,
-                            height: "70px",
-                            // width: isMobile || isTablet ? "100px" : "50px",
-                          }}
-                        >
-                          {mode === "light" ? (
-                            <Lottie
-                              options={sunLightAnimation}
-                              style={{
-                                width: '40px',
-                                height: "48px",
-                                margin: "32px 0px 16px 0px",
-                                paddingBottom:
-                                  isMobile || isTablet ? "16px" : "0px",
-                              }}
-                            />
-                          ) : mode === "dark" ? (
-                            <Lottie
-                              options={sunDarkAnimation}
-                              style={{
-                                width: '40px',
-                                height: "48px",
-                                margin: "32px 0px 16px 0px",
-                                paddingBottom:
-                                  isMobile || isTablet ? "16px" : "0px",
-                              }}
-                            />
-                          ) : mode === "yellow" ? (
-                            <Lottie
-                              options={sunLightAnimation}
-                              style={{
-                                width: '40px',
-                                height: "48px",
-                                margin: "32px 0px 16px 0px",
-                                paddingBottom:
-                                  isMobile || isTablet ? "16px" : "0px",
-                              }}
-                            />
-                          ) : (<></>)
-                          }
-                        </DivFlexStart>
-                        <DivFlexStart
-                          sx={{
-                            padding: isDesktop ? "" : "8px 24px 0px 24px",
-                            paddingTop: isDesktop ? "24px" : undefined,
-                          }}
-                        >
-                          <Typography
-                            fontSize={"32px"}
-                            color={theme.palette.text.primary}
-                            sx={{
-                              fontFamily: "Eina04-Regular",
-                              fontStyle: "normal",
-                              fontWeight: 400,
-                              lineHeight: "40px",
-                            }}
-                          >
-                            Guten Tag!
-                          </Typography>
-                        </DivFlexStart>
-                        <DivFlexStart
-                          sx={{
-                            padding: isDesktop ? "" : "0px 24px 0px 24px",
-                            marginTop: isDesktop ? "40px" : "24px",
-                          }}
-                        >
-                          <Typography
-                            fontSize={"36px"}
-                            color={theme.palette.text.primary}
-                            sx={{
-                              fontFamily: "Eina04-Regular",
-                              fontStyle: "normal",
-                              fontWeight: 600,
-                              lineHeight: "40px",
-                              paddingBottom: "8px",
-                            }}
-                          >
-                            Heute gibt es{" "}
-                            <span
-                              style={{
-                                textDecoration: "underline",
-                                fontFamily: "Eina04-Regular",
-                                color: theme.palette.text.highlithText,
-                                fontStyle: "normal",
-                                fontWeight: 600,
-                                lineHeight: "40px",
-                              }}
-                            >
-                              {deliveryData.length}
-                            </span>{" "}
-                            <br /> Auslieferungen
-                          </Typography>
-                        </DivFlexStart>
-                      </>
-                    )}
-                  </>
+                  {timeGreetingAnimation}
+
+                  <DeliveryInformation>
+                    Heute gibt es{" "}
+                    <span
+                      style={{
+                        textDecoration: "underline",
+                        fontFamily: "Eina04-Regular",
+                        color: theme.palette.text.highlithText,
+                        fontStyle: "normal",
+                        fontWeight: 600,
+                        lineHeight: "40px",
+                      }}
+                    >
+                      {deliveryData.length}
+                    </span>{" "}
+                    <br /> Auslieferungen
+                  </DeliveryInformation>
                 </Box>
               </>
             ) : (
               <>
                 {scrollDown && !isDesktop && (
                   <DeliverStickyTitle
-                    // sx={{ pl: 3, pr: 3 }}
                     onClick={scrollToTop}
                   >
                     <Typography
@@ -470,20 +305,12 @@ const DeliveryPage = () => {
                   </DeliverStickyTitle>
                 )}
                 <Box id="titleDeliveryPage">
-                  <DivFlexStart
-                    sx={{ padding: isDesktop ? "" : "24px 24px 0px 24px" }}
-                  >
-                    <Typography
-                      fontSize={32}
-                      color={theme.palette.text.primary}
-                      sx={{
-                        textTransform: "capitalized",
-                        fontFamily: "Eina04-Regular",
-                      }}
-                    >
-                      Good Morning! <br /> This is your <br /> Today's Delivery
-                    </Typography>
-                  </DivFlexStart>
+
+                  {timeGreetingAnimation}
+
+                  <DeliveryInformation>
+                    This is your <br /> Today's Delivery
+                  </DeliveryInformation>
                 </Box>
               </>
             )}
@@ -507,7 +334,7 @@ const DeliveryPage = () => {
 
         <Grid item xs={0} md={0} lg={6}
           display={{ xs: "none", md: "none", lg: "block" }}
-          bgcolor={{ md: theme.palette.background.deliveryCard }}
+          bgcolor={{ md: theme.palette.background.deliveryCardMenu }}
           padding={{ lg: "86px 80px 0px 80px" }}
           sx={{
             overflowY: isDesktop ? "scroll" : "",
@@ -519,7 +346,7 @@ const DeliveryPage = () => {
             <DeliveryCardMenu
               data={
                 deliveryData.filter(
-                  (dumpDelivery) => dumpDelivery.id === deliveryId
+                  (delivery) => delivery.id === deliveryId
                 )[0]
               }
               isOpenItemList={true}

@@ -10,7 +10,6 @@ import BackIcon from "../../assets/icons/BackIcon";
 import DivFlexSpaceBetween from "./DivFlexSpacebetween";
 import NextIcon from "../../assets/icons/NextIcon";
 import PromoCard from "../PromoCard/PromoCard";
-import { Button } from "bootstrap";
 
 const DialogComponent = styled(Dialog)((props) => ({
   "& .MuiDialog-container": {
@@ -25,6 +24,7 @@ const DialogComponent = styled(Dialog)((props) => ({
     },
   },
   backdropFilter: "blur(20px)",
+  background: 'rgba(208, 226, 255, 0.3)'
 }));
 
 export const PromoDialog = (props) => {
@@ -41,7 +41,7 @@ export const PromoDialog = (props) => {
   return (
     <DialogComponent open={open} onClose={onClose}>
       <DivFlexSpaceBetween>
-        <Box sx={{ position: "absolute", left: 215 }}>
+        <Box sx={{ position: "absolute", left: 215, }}>
           <BackIcon
             color={isFirstPromo ? "#F4F4F466" : "#f4f4f4"}
             sx={{

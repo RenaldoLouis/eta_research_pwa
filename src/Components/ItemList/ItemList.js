@@ -53,9 +53,9 @@ const ItemList = (props) => {
                 : `1px solid ${theme.palette.background.separatorTitle}`,
             background: isDesktop
               ? isOpenItemList
-                ? theme.palette.background.deliveryCard
+                ? theme.palette.background.deliveryCardMenu
                 : theme.palette.background.default
-              : theme.palette.background.deliveryCard,
+              : theme.palette.background.deliveryCardMenu,
             paddingLeft: isDesktop ? "0px" : 1,
             paddingRight: isDesktop ? "0px" : 1,
             marginRight: isDesktop ? "16px" : "",

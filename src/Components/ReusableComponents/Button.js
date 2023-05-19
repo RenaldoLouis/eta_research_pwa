@@ -6,6 +6,7 @@ import Typography from "@mui/material/Typography";
 
 import { AppContext } from "../../App";
 
+import { useTheme } from "@emotion/react";
 
 
 const Buttons = styled("div")((props) => ({
@@ -14,23 +15,27 @@ const Buttons = styled("div")((props) => ({
   justifyContent: "center",
   alignItems: "center",
   height: props.height ? props.height : props.isMobile ? 40 : 52,
-  backgroundColor: props.isLoading ? "#002D9C" : "#0F62FE",
+  backgroundColor: props.isLoading ? props.theme.palette.background.buttonActive : props.theme.palette.background.buttonDefault,
   cursor: "pointer",
   padding: "0px 8px",
   ":hover": {
-    backgroundColor: props.isDesktop ? (props.isLoading ? "#002D9C" : "#4589FF") : "#0F62FE",
-    // props.isLoading ? "#002D9C" : "#4589FF"
+    backgroundColor:
+      props.isMobile || props.isTablet ? ''
+        : props.isLoading ? props.theme.palette.background.buttonActive : props.theme.palette.background.buttonHover,
   },
   ":active": {
-    backgroundColor: "#002D9C",
+    backgroundColor:
+      props.isLoading ? props.theme.palette.background.buttonDefault
+        : props.theme.palette.background.buttonActive,
   },
 }));
 
 const Button = (props) => {
-    const { isMobile, isDekstop } = useContext(AppContext);
+  const { isMobile, isDekstop, isTablet } = useContext(AppContext);
 
-  const { theme, children, icon, style, onClick, isPromo, height, isLoading } =
-    props;
+  const theme = useTheme()
+
+  const { children, icon, style, onClick, isPromo, height, isLoading } = props
 
   return (
     <>
@@ -39,6 +44,7 @@ const Button = (props) => {
         theme={theme}
         sx={{ ...style }}
         isMobile={isMobile}
+        isTablet={isTablet}
         isDekstop={isDekstop}
         height={height}
         isLoading={isLoading}

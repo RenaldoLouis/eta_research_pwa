@@ -191,7 +191,7 @@ const LoginDialog = () => {
           </CustomDialogContent>
         </Box>
       </CustomDialog>
-      <Snackbar
+      {/* <Snackbar
         open={sendOtp}
         message={
           <Typography
@@ -223,7 +223,7 @@ const LoginDialog = () => {
             borderRadius: 0,
           },
         }}
-      />
+      /> */}
       <Outlet />
     </>
   );

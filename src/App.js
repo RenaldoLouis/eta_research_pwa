@@ -23,7 +23,7 @@ import AppBarResponsive from "./Components/AppBarResponsive/AppBarResponsive";
 import InputTrackingNumber from "./Pages/InputTrackingNumber/InputTrackingNumber";
 
 // import theme
-import { ligthTheme, darkTheme, yellowTheme } from "./Components/Theme/Theme";
+import { ligthTheme, darkTheme, yellowTheme, blueTheme } from "./Components/Theme/Theme";
 
 // import Dialog
 import LoginDialog from "./Components/DialogComponent/LoginDialog";
@@ -413,7 +413,7 @@ function App() {
     <>
       <PwaContextProvider>
         <AppContext.Provider value={AppContextValue}>
-          <ThemeProvider theme={mode == 'dark' ? darkTheme : mode == 'yellow' ? yellowTheme : ligthTheme}>
+          <ThemeProvider theme={mode == 'dark' ? darkTheme : mode == 'yellow' ? yellowTheme : mode == 'blue' ? blueTheme : ligthTheme}>
             <CssBaseline />
             <Router>
               <ToastContainer

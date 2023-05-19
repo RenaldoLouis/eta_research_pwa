@@ -99,8 +99,8 @@ const EmailsListDialog = () => {
                                     <Typography sx={{ fontFamily: 'Eina04-Regular', fontSize: 12, color: theme.palette.text.primary }}>{getTextRoles(list.roles)}</Typography>
                                 </Box>
                                 <DivFlexCenter >
-                                    <EditIcon color={theme.palette.background.iconColor} sx={{ fontSize: 18, mr: 3 }} onClick={() => handleSetCurrentEmailForEdit(list)} />
-                                    <DeleteIcon color={theme.palette.background.iconColor} sx={{ fontSize: 18 }} onClick={() => handleSetCurrentEmailForDelete(list)} />
+                                    <EditIcon color={theme.palette.background.iconAction} sx={{ fontSize: 18, mr: 3 }} onClick={() => handleSetCurrentEmailForEdit(list)} />
+                                    <DeleteIcon color={theme.palette.background.iconAction} sx={{ fontSize: 18 }} onClick={() => handleSetCurrentEmailForDelete(list)} />
                                 </DivFlexCenter>
                             </DivFlexSpaceBetween>
                         ))
@@ -141,8 +141,8 @@ const EmailsListDialog = () => {
                                     <TableCellCustom > {getTextRoles(list.roles)}</TableCellCustom>
                                     <TableCellCustom sx={{ width: 90 }}>
                                         <DivFlexSpaceBetween sx={{ mr: -2 }}>
-                                            <EditIcon sx={{ cursor: 'pointer', fontSize: 24 }} color={theme.palette.background.iconColor} onClick={() => handleSetCurrentEmailForEdit(list)} />
-                                            <DeleteIcon sx={{ cursor: 'pointer', fontSize: 24 }} color={theme.palette.background.iconColor} onClick={() => handleSetCurrentEmailForDelete(list)} />
+                                            <EditIcon sx={{ cursor: 'pointer', fontSize: 24 }} color={theme.palette.background.iconAction} onClick={() => handleSetCurrentEmailForEdit(list)} />
+                                            <DeleteIcon sx={{ cursor: 'pointer', fontSize: 24 }} color={theme.palette.background.iconAction} onClick={() => handleSetCurrentEmailForDelete(list)} />
                                         </DivFlexSpaceBetween>
                                     </TableCellCustom>
                                 </TableRow>

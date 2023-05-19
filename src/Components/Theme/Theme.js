@@ -16,6 +16,7 @@ export const ligthTheme = createTheme({
             deliveryCard: "#F3F3F3",
             hoverDeliveryCard: "#F7F5F5",
             clickedDeliveryCard: "#EBEBEB",
+            deliveryCardMenu: "#F3F3F3",
 
             // promo card
             promoCard: "#ffffff",
@@ -26,10 +27,14 @@ export const ligthTheme = createTheme({
             // appbar and icon
             appBar: "#ebebeb",
             iconColor: "#000000",
+            title: '#1A1919',
+            hoverIconButton: "#F7F5F5",
+
 
             // dialog
             dialog: "#ffffff",
             headDialog: "#ffffff",
+            iconAction: "#000000",
 
             // form
             borderForm: "#A8A8A8",
@@ -38,6 +43,9 @@ export const ligthTheme = createTheme({
 
             // button
             buttonSecondary: "#262626",
+            buttonDefault: "#0F62FE",
+            buttonActive: "#002D9C",
+            buttonHover: "#4589FF",
 
             // tracking numbercontainer
             borderTrackingNumber: "#979797",
@@ -87,6 +95,7 @@ export const darkTheme = createTheme({
             deliveryCard: "#393939",
             hoverDeliveryCard: "#4C4C4C",
             clickedDeliveryCard: "#1F2020",
+            deliveryCardMenu: "#393939",
 
             // promo card
             promoCard: "#262626",
@@ -97,10 +106,13 @@ export const darkTheme = createTheme({
             // appbar and icon
             appBar: "#353535",
             iconColor: "#e0e0e0",
+            title: '#f4f4f4',
+            hoverIconButton: "#4C4C4C",
 
             // dialog
             dialog: "#393939",
             headDialog: "#393939",
+            iconAction: "#e0e0e0",
 
             // form
             borderForm: "#A8A8A8",
@@ -109,6 +121,9 @@ export const darkTheme = createTheme({
 
             // button
             buttonSecondary: "#ffffff",
+            buttonDefault: "#0F62FE",
+            buttonActive: "#002D9C",
+            buttonHover: "#4589FF",
 
             // tracking numbercontainer
             borderTrackingNumber: "transparent",
@@ -158,6 +173,7 @@ export const yellowTheme = createTheme({
             deliveryCard: "#F3F3F3",
             hoverDeliveryCard: "#F7F5F5",
             clickedDeliveryCard: "#EBEBEB",
+            deliveryCardMenu: "#F3F3F3",
 
             // promo card
             promoCard: "#ffffff",
@@ -168,10 +184,13 @@ export const yellowTheme = createTheme({
             // appbar and icon
             appBar: "#EDDA48",
             iconColor: "#000000",
+            title: '#1A1919',
+            hoverIconButton: "#F7F5F5",
 
             // dialog
             dialog: "#ffffff",
             headDialog: "#ffffff",
+            iconAction: "#000000",
 
             // form
             borderForm: "#A8A8A8",
@@ -180,6 +199,9 @@ export const yellowTheme = createTheme({
 
             // button
             buttonSecondary: "#262626",
+            buttonDefault: "#0F62FE",
+            buttonActive: "#002D9C",
+            buttonHover: "#4589FF",
 
             // tracking numbercontainer
             borderTrackingNumber: "#979797",
@@ -192,6 +214,84 @@ export const yellowTheme = createTheme({
 
             // itemlist
             oddItemList: "#E7E7E7",
+
+            // separatorStickyTitle
+            separatorTitle: "#6F6F6F",
+        },
+        text: {
+            primary: "#1A1919",
+            heading1: "#1A1919",
+            highlithText: "#000000",
+
+            // text for chip delivery card
+            doneText: "#6F6F6F",
+            doneIcon: "#A8A8A8",
+
+            // button
+            buttonSecondary: "#ffffff",
+
+            // text in dialog
+            dialogHeadingText: "#1A1919",
+            emailListText: "#000000",
+            inputText: "#8D8D8D",
+            inputTextActive: "#1A1919",
+            emailListRole: "#909090",
+        },
+    }
+});
+
+export const blueTheme = createTheme({
+    palette: {
+        background: {
+            // body
+            default: "#ffffff",
+            defaultMobile: "#FFFFFF",
+
+            // delivery card
+            deliveryCard: "#EBF2FD",
+            hoverDeliveryCard: "#D5E2F6",
+            clickedDeliveryCard: "#EBF2FD",
+            deliveryCardMenu: "#EBF2FD",
+
+            // promo card
+            promoCard: "#ffffff",
+            promoCardMobile: "#EBF2FD",
+            hoverItemList: "#f3f3f3",
+            hoverPromoCard: "#EBF2FD",
+
+            // appbar and icon
+            appBar: "#2F6DD2",
+            iconColor: "#e0e0e0",
+            title: '#F7F5F5',
+            hoverIconButton: "#EBF2FD",
+
+            // dialog
+            dialog: "#ffffff",
+            headDialog: "#ffffff",
+            iconAction: "#161616",
+
+            // form
+            borderForm: "#A8A8A8",
+            borderFormHover: "#A8A8A8",
+            borderFormActive: "#525252",
+
+            // button
+            buttonSecondary: "#262626",
+            buttonDefault: "#0F62FE",
+            buttonActive: "#002D9C",
+            buttonHover: "#4589FF",
+
+            // tracking numbercontainer
+            borderTrackingNumber: "#979797",
+
+            // link expired
+            iconStatus: '#5285D9',
+
+            // scroll to top button
+            scrollToTop: "#262626",
+
+            // itemlist
+            oddItemList: "#D5E2F6",
 
             // separatorStickyTitle
             separatorTitle: "#6F6F6F",

@@ -1,14 +1,11 @@
 import React, { useContext, useState } from "react";
-import AppBar from "@mui/material/AppBar";
-import Typography from "@mui/material/Typography";
-import Container from "@mui/material/Container";
-import { Grid } from "@mui/material";
-import { Tooltip } from "@mui/material";
 
-import Menu from '@mui/material/Menu';
-import MenuItem from '@mui/material/MenuItem';
+// Import material ui
+import { Grid, AppBar, Typography, Container, Tooltip, Menu, MenuItem } from "@mui/material";
 
+// Import styles
 import { styled } from "@mui/system";
+import { useTheme } from "@mui/material/styles";
 
 // import icon
 import ListIcon from "../../assets/icons/ListIcon";
@@ -17,17 +14,19 @@ import LogoIcon from "../../assets/Images/Logo.png";
 import LogoLightIcon from "../../assets/Images/LogoLight.png";
 import LogoMobileLightIcon from "../../assets/Images/LogoMobileLight.png";
 import LogoMobileDarkIcon from "../../assets/Images/LogoMobileDark.png";
+import LoginIcon from "../../assets/icons/LoginIcon";
 import SettingsIcon from '@mui/icons-material/Settings';
 
+// import react-router-dom
 import { useNavigate, Outlet } from "react-router-dom";
 
-// Dark and Light Mode
+// import AppContext
 import { AppContext } from "../../App";
-import { useTheme } from "@mui/material/styles";
+
+// import reusable component
 import DivFlexEnd from "../ReusableComponents/DivFlexEnd";
 import DivFlexCenter from "../ReusableComponents/DivFlexCenter";
 import DivFlexStart from "../ReusableComponents/DivFlexStart";
-import LoginIcon from "../../assets/icons/LoginIcon";
 
 // icon button component
 const IconButton = styled("div")((props) => ({
@@ -39,12 +38,11 @@ const IconButton = styled("div")((props) => ({
   borderRadius: "50%",
   justifyContent: "center",
   ":hover": {
-    backgroundColor: props.theme.palette.background.hoverDeliveryCard,
+    backgroundColor: props.theme.palette.background.hoverIconButton,
   },
 }));
 
 const AppBarResponsive = () => {
-  const [anchorElUser, setAnchorElSetting] = useState(null);
 
   const theme = useTheme();
 
@@ -52,9 +50,7 @@ const AppBarResponsive = () => {
   const {
     handleChangeTheme,
     mode,
-    handleLoginDialog,
     handleOpenLoginDialog,
-    handleOtpDialog,
     handleEmailListDialog,
     dumpLoginState,
     dumpAuthrorization,
@@ -62,10 +58,8 @@ const AppBarResponsive = () => {
     isTablet,
     isDesktop,
     handleOpenLogoutDialog,
-    handleLogout,
   } = useContext(AppContext);
 
-  // const navigate = useNavigate();
   const navigate = useNavigate();
 
   /** ======== Menu for change theme ======== */
@@ -118,7 +112,7 @@ const AppBarResponsive = () => {
                         onClick={handleOpenThemeMenu}
                         sx={{ ml: 2, mt: 0.5 }}
                       >
-                        <SettingsIcon sx={{color : theme.palette.background.iconColor }} />
+                        <SettingsIcon sx={{ color: theme.palette.background.iconColor }} />
                       </IconButton>
                     </Tooltip>
                   </>
@@ -138,16 +132,16 @@ const AppBarResponsive = () => {
                         alt="logo icon"
                         style={{ height: "29px", widht: "200px" }}
                       />
-                    ) : (
-                      <></>
-                    )}
+                    ) : mode == "blue" ? (
+                      <img src={LogoIcon} alt="logo icon" />
+                    ) : (<></>)}
 
                     <Tooltip title="Temporary Button">
                       <IconButton
                         onClick={handleOpenThemeMenu}
                         sx={{ ml: 2, mt: 0.5 }}
                       >
-                        <SettingsIcon sx={{color : theme.palette.background.iconColor }} />
+                        <SettingsIcon sx={{ color: theme.palette.background.iconColor }} />
                       </IconButton>
                     </Tooltip>
                   </>
@@ -168,7 +162,7 @@ const AppBarResponsive = () => {
                   <Typography
                     sx={{
                       fontFamily: "Eina 04",
-                      color: theme.palette.text.primary,
+                      color: theme.palette.background.title,
                       fontStyle: "normal",
                       fontWeight: 600,
                       lineHeight: "25px",
@@ -223,24 +217,13 @@ const AppBarResponsive = () => {
                     </IconButton>
                   </Tooltip>
                 )}
-                {/* <IconButton>
-                  <ListIcon
-                    color={theme.palette.background.iconColor}
-                    sx={{ fontSize: 22, mr: 0.1 }}
-                  />
-                </IconButton>
-                <IconButton onClick={() => {}}>
-                  <LogoutIcon
-                    color={theme.palette.background.iconColor}
-                    sx={{ fontSize: 22, ml: 0.4 }}
-                  />
-                </IconButton> */}
               </DivFlexEnd>
             </Grid>
           </Grid>
         </Container>
       </AppBar>
 
+      {/* Temporary Component to change theme */}
       <Menu
         id="change-theme-menu"
         anchorEl={anchorThemeMenuEl}
@@ -258,12 +241,13 @@ const AppBarResponsive = () => {
           "& .MuiMenu-paper":
             { backgroundColor: theme.palette.background.appBar },
 
-            zIndex:1600
+          zIndex: 1600
         }}
       >
         <MenuItem onClick={() => handleClickTheme('light')}>Light Theme</MenuItem>
         <MenuItem onClick={() => handleClickTheme('dark')}>Dark Theme</MenuItem>
         <MenuItem onClick={() => handleClickTheme('yellow')}>Yellow Theme</MenuItem>
+        <MenuItem onClick={() => handleClickTheme('blue')}>Blue Theme</MenuItem>
       </Menu>
 
       <Outlet />
