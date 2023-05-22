@@ -25,6 +25,9 @@ import InputTrackingNumber from "./Pages/InputTrackingNumber/InputTrackingNumber
 // import theme
 import { ligthTheme, darkTheme, yellowTheme, blueTheme } from "./Components/Theme/Theme";
 
+// import constans
+import { ColorTheme } from "./Constants/ColorTheme";
+
 // import Dialog
 import LoginDialog from "./Components/DialogComponent/LoginDialog";
 import OtpDialog from "./Components/DialogComponent/OtpDialog/OtpDialog";
@@ -81,7 +84,7 @@ function App() {
 
 
   /* ==================== Change Theme ==================== */
-  const [mode, setMode] = useState("light");
+  const [mode, setMode] = useState(ColorTheme.LIGHT);
 
   const handleChangeTheme = (theme) => {
     localStorage.setItem("mode", theme);
@@ -94,8 +97,8 @@ function App() {
     if (activeMode) {
       setMode(activeMode);
     } else {
-      setMode("light");
-      localStorage.setItem("mode", "light");
+      setMode(ColorTheme.LIGHT);
+      localStorage.setItem("mode", ColorTheme.LIGHT);
     }
 
     console.log('mode', mode)
@@ -413,7 +416,7 @@ function App() {
     <>
       <PwaContextProvider>
         <AppContext.Provider value={AppContextValue}>
-          <ThemeProvider theme={mode == 'dark' ? darkTheme : mode == 'yellow' ? yellowTheme : mode == 'blue' ? blueTheme : ligthTheme}>
+          <ThemeProvider theme={mode == ColorTheme.DARK ? darkTheme : mode == ColorTheme.YELLOW ? yellowTheme : mode == ColorTheme.BLUE ? blueTheme : ligthTheme}>
             <CssBaseline />
             <Router>
               <ToastContainer

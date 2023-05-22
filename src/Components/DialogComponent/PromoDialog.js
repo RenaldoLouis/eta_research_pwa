@@ -1,5 +1,8 @@
-import React from "react";
+import React, { useContext } from "react";
+
 import { styled } from "@mui/system";
+
+import { AppContext } from "../../App";
 
 import { Box, Dialog, Popover, Popper, Typography } from "@mui/material";
 
@@ -9,10 +12,13 @@ import BackIcon from "../../assets/icons/BackIcon";
 import NextIcon from "../../assets/icons/NextIcon";
 
 
-
+// import component
 import DivFlexCenter from "../DivFlexCenter";
 import DivFlexSpaceBetween from "../DivFlexSpacebetween";
 import PromoCard from "../PromoCard/PromoCard";
+
+// import Constants
+import { ColorTheme } from "../../Constants/ColorTheme";
 
 const DialogComponent = styled(Dialog)((props) => ({
   "& .MuiDialog-container": {
@@ -27,7 +33,10 @@ const DialogComponent = styled(Dialog)((props) => ({
     },
   },
   backdropFilter: "blur(20px)",
-  background: 'rgba(208, 226, 255, 0.3)'
+  background:
+    props.mode == ColorTheme.BLUE ? 'rgba(208, 226, 255, 0.3)'
+      : props.mode == ColorTheme.YELLOW ? 'rgba(233, 228, 211, 0.3)'
+        : 'rgba(0, 0, 0, 0.3)'
 }));
 
 export const PromoDialog = (props) => {
@@ -41,8 +50,10 @@ export const PromoDialog = (props) => {
     isLastPromo,
   } = props;
 
+  const { mode } = useContext(AppContext)
+
   return (
-    <DialogComponent open={open} onClose={onClose}>
+    <DialogComponent open={open} onClose={onClose} mode={mode}>
       <DivFlexSpaceBetween>
         <Box sx={{ position: "absolute", left: 215, }}>
           <BackIcon

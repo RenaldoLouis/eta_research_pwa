@@ -13,6 +13,9 @@ import DivFlexStart from "../../Components/DivFlexStart";
 import DivFlexCenter from "../../Components/DivFlexCenter";
 import DeliveryCardMenu from "../../Components/DeliveryCard/DeliveryCardMenu";
 
+// import Constanst
+import { ColorTheme } from "../../Constants/ColorTheme";
+
 // import moment
 import moment from "moment";
 
@@ -85,7 +88,7 @@ const DeliveryPage = () => {
   /** =============== Sunrise Animation =============== */
   let morningAnimation
 
-  if (mode == "dark") {
+  if (mode == ColorTheme.DARK) {
     morningAnimation =
       <Lottie
         options={sunriseDarkAnimation}
@@ -114,7 +117,7 @@ const DeliveryPage = () => {
   /** =============== Midday Animation =============== */
   let middayAnimation
 
-  if (mode == "dark") {
+  if (mode == ColorTheme.DARK) {
     middayAnimation =
       <Lottie
         options={sunDarkAnimation}
@@ -145,7 +148,7 @@ const DeliveryPage = () => {
   /** =============== Afternoon Animation =============== */
   let afternoonAnimation
 
-  if (mode == "dark") {
+  if (mode == ColorTheme.DARK) {
     afternoonAnimation =
       <Lottie
         options={moonDarkAnimation}

@@ -37,6 +37,9 @@ import DivFlexCenter from "../../Components/DivFlexCenter";
 import Button from "../../Components/Button";
 import PromoNews from "../../Components/PromoNews/PromoNews";
 
+// import constanst
+import { ColorTheme } from "../../Constants/ColorTheme";
+
 
 // warning component
 const Warning = styled("div")((props) => ({
@@ -206,7 +209,7 @@ const InputTrackingNumber = () => {
             lineHeight: 0,
           }}
         >
-          <Lottie options={mode == "dark" ? deliverySimlationDarkAnimation  : mode == "yellow" ? deliverySimlationLightAnimation : deliverySimlationLightAnimation} />
+          <Lottie options={mode == ColorTheme.DARK ? deliverySimlationDarkAnimation : mode == ColorTheme.YELLOW ? deliverySimlationLightAnimation : deliverySimlationLightAnimation} />
         </Box>
       )}
     </>
