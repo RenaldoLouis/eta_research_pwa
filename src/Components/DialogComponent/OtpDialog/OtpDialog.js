@@ -8,17 +8,19 @@ import { Typography, Snackbar, Box } from "@mui/material";
 // import Icon
 import ErrorIcon from "../../../assets/icons/ErrorIcon";
 
-
+// import react-router-dom
 import { Outlet } from "react-router-dom";
 
 // import appContext
 import { AppContext } from "../../../App";
 
-
 // import component
 import DivFlexCenter from "../../DivFlexCenter";
 import CustomDialog from "../DialogContainer/CustomDialog";
 import Button from "../../Button";
+
+// import Constants
+import { FontFamily } from "../../../Constants/FontFamily";
 
 // dark mode and light mode
 import { useTheme, styled } from "@mui/material/styles";
@@ -33,7 +35,7 @@ const InputOtp = styled('input')((props) => ({
     marginLeft: props.isMobile ? 2 : 5,
     marginRight: props.isMobile ? 2 : 5,
     textAlign: 'center',
-    fontFamily: 'Eina04-Regular',
+    fontFamily: FontFamily.EINA04REGULAR,
     fontSize: props.isMobile ? 12 : 20,
     color: props.theme.palette.text.inputText,
     backgroundColor: props.theme.palette.background.dialog,
@@ -145,7 +147,7 @@ const OtpDialog = () => {
                 <Box sx={{ backgroundColor: theme.palette.background.dialog }}>
                     <CustomDialogContent isMobile={isMobile} theme={theme}>
                         <DivFlexCenter sx={{ height: isMobile ? 20 : 40, mb: isMobile ? 3 : 8 }} >
-                            <Typography sx={{ color: theme.palette.text.heading1, fontSize: isMobile ? 20 : 40, fontFamily: 'Eina04-Regular' }}>
+                            <Typography sx={{ color: theme.palette.text.heading1, fontSize: isMobile ? 20 : 40, fontFamily: FontFamily.EINA04REGULAR }}>
                                 OTP
                             </Typography>
                         </DivFlexCenter>
@@ -251,14 +253,14 @@ const OtpDialog = () => {
                         {isOtpFalse &&
                             <DivFlexStart sx={{ mt: 2, pl: 0.5 }}>
                                 <ErrorIcon sx={{ color: '#da1e28', fontSize: isMobile ? 16 : 18, mr: 0.5 }} />
-                                <Typography sx={{ fontSize: isMobile ? 12 : 14, fontFamily: 'Eina04-Regular' }} color={'#da1e28'}>
+                                <Typography sx={{ fontSize: isMobile ? 12 : 14, fontFamily: FontFamily.EINA04REGULAR }} color={'#da1e28'}>
                                     OTP code is incorrect
                                 </Typography>
                             </DivFlexStart>
                         }
                         {otpCountdown && (
                             <DivFlexCenter sx={{ mb: 0, mt: 6 }}>
-                                <Typography sx={{ fontFamily: 'Eina04-Regular', color: theme.palette.text.primary, textDecoration: 'underline', fontSize: isMobile ? 12 : 20 }}>
+                                <Typography sx={{ fontFamily: FontFamily.EINA04REGULAR, color: theme.palette.text.primary, textDecoration: 'underline', fontSize: isMobile ? 12 : 20 }}>
                                     Resent OTP Code (<Countdown key={k} date={initialTime} renderer={renderer} onComplete={handleAfterFinsihCountdown} />)
                                 </Typography>
                             </DivFlexCenter>

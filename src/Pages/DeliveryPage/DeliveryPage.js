@@ -42,13 +42,15 @@ import {
   Greeting
 } from "./DeliveryPageComponent";
 
+// import Constants
+import { FontFamily } from "../../Constants/FontFamily";
+
 
 
 const DeliveryPage = () => {
-  // theme
+
   const theme = useTheme();
 
-  // state from contex
   const {
     isMobile,
     isTablet,
@@ -250,7 +252,7 @@ const DeliveryPage = () => {
                       fontSize={14}
                       color={theme.palette.text.highlithText}
                       sx={{
-                        fontFamily: "Eina04-Regular",
+                        fontFamily: FontFamily.EINA04REGULAR,
                         textDecoration: "underline",
                       }}
                     >
@@ -267,7 +269,7 @@ const DeliveryPage = () => {
                     <span
                       style={{
                         textDecoration: "underline",
-                        fontFamily: "Eina04-Regular",
+                        fontFamily: FontFamily.EINA04REGULAR,
                         color: theme.palette.text.highlithText,
                         fontStyle: "normal",
                         fontWeight: 600,
@@ -289,7 +291,7 @@ const DeliveryPage = () => {
                     <Typography
                       fontSize={14}
                       color={theme.palette.text.primary}
-                      sx={{ fontFamily: "Eina04-Regular" }}
+                      sx={{ fontFamily: FontFamily.EINA04REGULAR }}
                     >
                       Today's Delivery
                     </Typography>
@@ -297,7 +299,7 @@ const DeliveryPage = () => {
                       fontSize={14}
                       color={theme.palette.text.primary}
                       sx={{
-                        fontFamily: "Eina04-Regular",
+                        fontFamily: FontFamily.EINA04REGULAR,
                         textDecoration: "underline",
                       }}
                     >
@@ -381,7 +383,7 @@ const DeliveryPage = () => {
               <Typography
                 fontSize={32}
                 color={theme.palette.text.primary}
-                sx={{ fontFamily: "Eina04-Regular" }}
+                sx={{ fontFamily: FontFamily.EINA04REGULAR }}
               >
                 Promo und News
               </Typography>

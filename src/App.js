@@ -1,32 +1,36 @@
 import React, { createContext, useState, useMemo, useEffect } from "react";
+
 import "./App.css";
+
 import { PwaContextProvider } from "./context/PwaContext";
+
 import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
+// Import Material
 import { useMediaQuery } from "@mui/material";
+import { CssBaseline } from "@mui/material";
 
-// import color
-import Color from "./Components/Constants/Color";
+//Import Styles
+import { createTheme, ThemeProvider, } from "@mui/material/styles";
 
-
-// import page
+// import Page
 import TemporaryLandingPage from "./Pages/TemporaryLandingPage";
 import DeliveryPage from "./Pages/DeliveryPage/DeliveryPage";
 import Verify from "./Pages/Verify";
 
-
 //import Components
 import AppBarResponsive from "./Components/AppBarResponsive/AppBarResponsive";
-// import ScrollToTopButton from './Components/ScrollToTopButton/ScrollToTopButton';
-import InputTrackingNumber from "./Pages/InputTrackingNumber/InputTrackingNumber";
+import TrackingPage from "./Pages/TrackingPage/TrackingPage";
 
-// import theme
+// import Theme
 import { ligthTheme, darkTheme, yellowTheme, blueTheme } from "./Components/Theme/Theme";
 
-// import constans
+// import Constans
 import { ColorTheme } from "./Constants/ColorTheme";
+import { UserRole } from './Constants/UserRole'
+import { UrlPage } from "./Constants/UrlPage";
 
 // import Dialog
 import LoginDialog from "./Components/DialogComponent/LoginDialog";
@@ -41,14 +45,6 @@ import LogoutConfirmationDialog from "./Components/DialogComponent/LogoutConfirm
 import { promoDummyData } from "./dump-data";
 import { deliveryDummyData } from "./dump-data";
 import { emailDummyList } from "./dump-data";
-
-// Dark and Light Mode
-import {
-  createMuiTheme,
-  createTheme,
-  ThemeProvider,
-} from "@mui/material/styles";
-import { CssBaseline } from "@mui/material";
 
 // AppContext
 export const AppContext = createContext({});
@@ -72,16 +68,17 @@ const Main = (props) => {
 
       <Routes>
         <Route path="*" element={<TemporaryLandingPage />} />
-        <Route path="verify" element={<Verify />} />
-        <Route path="delivery" element={<DeliveryPage />} />
-        <Route path="input-tracking-number" element={<InputTrackingNumber />} />
+        <Route path={UrlPage.VERIFY} element={<Verify />} />
+
+        <Route path={UrlPage.DELIVERY} element={<DeliveryPage />} />
+        <Route path={UrlPage.TRACKINGNUMBER} element={<TrackingPage />} />
       </Routes>
     </>
   );
 };
 
-function App() {
 
+function App() {
 
   /* ==================== Change Theme ==================== */
   const [mode, setMode] = useState(ColorTheme.LIGHT);
@@ -89,7 +86,6 @@ function App() {
   const handleChangeTheme = (theme) => {
     localStorage.setItem("mode", theme);
     setMode(theme)
-
   };
 
   useEffect(() => {
@@ -100,31 +96,25 @@ function App() {
       setMode(ColorTheme.LIGHT);
       localStorage.setItem("mode", ColorTheme.LIGHT);
     }
-
-    console.log('mode', mode)
   }, [mode]);
-
-
   /* ==================== End Of Change Theme  ==================== */
 
-  /* ================== Data ===================== */
 
+  /* ================== Data ===================== */
   const [promoNewsData, setPromoNewsData] = useState(promoDummyData)
 
   const [deliveryData, setDeliveryData] = useState(deliveryDummyData)
 
   const [emailList, setEmailList] = useState(emailDummyList);
-
-
   /* =====================EOL Data ===================== */
 
 
-  // dump link status
+  /* ================== Link Status ===================== */
   const [isLinkExpired, setIsLinkExpired] = useState(false);
+  /* ================== EOL Link Status ===================== */
 
 
   /* =========Breakpoint device============ */
-
   const theme = createTheme({
     breakpoints: {
       values: {
@@ -139,60 +129,7 @@ function App() {
   const isDesktop = useMediaQuery(theme.breakpoints.up("lg"));
   const isTablet = useMediaQuery(theme.breakpoints.down("md"));
   const isMobile = useMediaQuery(theme.breakpoints.only("xs"));
-
   /* =========EOL Breakpoint device============ */
-
-
-  /* =========Scrolling State============ */
-
-  // handle scroll page delivery section
-  const [scrollDown, setScrollDown] = useState(false);
-
-  const toggleVisible = () => {
-    const scrolled = document.documentElement.scrollTop;
-    if (document.getElementById("titleDeliveryPage")) {
-      if (
-        document.documentElement.scrollTop >=
-        document.getElementById("titleDeliveryPage").clientHeight - 50
-      ) {
-        setScrollDown(true);
-      } else {
-        setScrollDown(false);
-      }
-    }
-  };
-
-  const scrollToTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
-  };
-  window.addEventListener("scroll", toggleVisible);
-
-  // handle scroll page to promo section
-  const [isScrollToPromo, setIsScrollToPromo] = useState(false);
-
-  const scrollToPromo = () => {
-    // if (!isLinkExpired) {
-    if (document.getElementById("deliverSection")) {
-      if (
-        document.documentElement.scrollTop >=
-        document.getElementById("deliverSection").clientHeight - 110
-      ) {
-        setIsScrollToPromo(true);
-      } else {
-        setIsScrollToPromo(false);
-      }
-    }
-  };
-  window.addEventListener("scroll", scrollToPromo);
-
-  const goToPromo = () => {
-    document.getElementById("promo").scrollIntoView({ behavior: "smooth" });
-  };
-  /* =========EOL Scrolling State============ */
-
 
 
   /** ===============Login Dialog =============== */
@@ -204,9 +141,7 @@ function App() {
   const handleCloseLoginDialog = () => {
     setOpenLoginDialog(false);
   };
-
   /** ===============EOL Login Dialog =============== */
-
 
 
   /** ==========================OTP Dialog ========================== */
@@ -224,9 +159,7 @@ function App() {
     setOpenOtpDialog(false);
     setSendOtp(false);
   };
-
   /** ==========================EOL OTP Dialog ========================== */
-
 
 
   /** ==========================Email List Dialog ========================== */
@@ -239,7 +172,6 @@ function App() {
 
 
   /** ==========================State for dialog List Dialog ========================== */
-
   // dialog for add new email list
   const [addNewEmailDialog, setAddNewEmailDialog] = useState(false);
 
@@ -248,7 +180,6 @@ function App() {
 
   // dialog for edit email
   const [editEmailDialog, setEditEmailDialog] = useState(false);
-
   /** ==========================EOL State for dialog List Dialog ========================== */
 
 
@@ -326,15 +257,19 @@ function App() {
   };
   /** ==========================Eol Update or Edit Email ========================== */
 
-  /** ==========================Dummy State for Authentication========================== */
-  const [dumpLoginState, setDumpLoginState] = useState(true);
-  const [dumpAuthrorization, setDumpAuthrorization] = useState("superadmin");
+
+  /** ========================== Authentication and Authorization ========================== */
+  const [isLogin, setIsLogin] = useState(true);
+
+  const [userRole, setUserRole] = useState(UserRole.SUPERADMIN);
 
   const handleLogin = () => {
-    setDumpLoginState(true);
+    setIsLogin(true);
   };
+  /** ========================== EOL Authentication and Authorization ========================== */
 
-  /** ===============Logout Dialog =============== */
+
+  /** ===============Logout =============== */
   const [openLogoutDialog, setOpenLogoutDialog] = useState(false);
 
   const handleOpenLogoutDialog = () => {
@@ -347,12 +282,60 @@ function App() {
 
   const handleLogout = () => {
     setOpenLogoutDialog(false);
-    setDumpLoginState(false);
+    setIsLogin(false);
+  };
+  /** ===============EOL Logout =============== */
+
+
+  /* ================== Handle Scrolling ===================== */
+  // handle scroll page delivery section
+  const [scrollDown, setScrollDown] = useState(false);
+
+  const toggleVisible = () => {
+    const scrolled = document.documentElement.scrollTop;
+    if (document.getElementById("titleDeliveryPage")) {
+      if (
+        document.documentElement.scrollTop >=
+        document.getElementById("titleDeliveryPage").clientHeight - 50
+      ) {
+        setScrollDown(true);
+      } else {
+        setScrollDown(false);
+      }
+    }
   };
 
-  /** ===============EOL Logout Dialog =============== */
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  };
+  window.addEventListener("scroll", toggleVisible);
 
-  /** ==========================EOL Dummy State for Authentication========================== */
+  // handle scroll page to promo section
+  const [isScrollToPromo, setIsScrollToPromo] = useState(false);
+
+  const scrollToPromo = () => {
+    // if (!isLinkExpired) {
+    if (document.getElementById("deliverSection")) {
+      if (
+        document.documentElement.scrollTop >=
+        document.getElementById("deliverSection").clientHeight - 110
+      ) {
+        setIsScrollToPromo(true);
+      } else {
+        setIsScrollToPromo(false);
+      }
+    }
+  };
+  window.addEventListener("scroll", scrollToPromo);
+
+  const goToPromo = () => {
+    document.getElementById("promo").scrollIntoView({ behavior: "smooth" });
+  };
+  /* ================== EOL Handle Scrolling ===================== */
+
 
   const AppContextValue = {
     mode,
@@ -406,8 +389,8 @@ function App() {
     editNewEmail,
     handleCloseEditEmailDialog,
 
-    dumpLoginState,
-    dumpAuthrorization,
+    isLogin,
+    userRole,
     handleLogin,
     handleLogout,
   };

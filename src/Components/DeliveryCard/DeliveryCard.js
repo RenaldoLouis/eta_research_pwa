@@ -23,6 +23,9 @@ import DiscrepancyChip from "../ChipStatus/DiscrepancyChip";
 import CalendarIcon from "../../assets/icons/CalendarIcon";
 import DiscrepancyIconChip from "../ChipStatus/DiscrepancyIconChip";
 
+// import Constants
+import { FontFamily } from "../../Constants/FontFamily";
+
 const RootDeliveryCard = styled("div")((props) => ({
   backgroundColor: props.isDesktop
     ? props.data.id === props.deliveryId
@@ -74,7 +77,7 @@ const getStatusChip = (data, theme) => {
           <Typography
             fontSize={12}
             color={theme.palette.text.doneText}
-            sx={{ fontFamily: "Eina04-Regular" }}
+            sx={{ fontFamily: FontFamily.EINA04REGULAR }}
           >
             FERTIG
           </Typography>
@@ -122,7 +125,7 @@ const DeliveryCard = (props) => {
               fontSize={12}
               color={theme.palette.text.primary}
               sx={{
-                fontFamily: "Eina04-Regular",
+                fontFamily: FontFamily.EINA04REGULAR,
                 fontWeight: 400,
                 lineHeight: "16.56px",
                 fontStyle: "italic",
@@ -139,7 +142,7 @@ const DeliveryCard = (props) => {
           <Typography
             fontSize={12}
             sx={{
-              fontFamily: "Eina04-Regular",
+              fontFamily: FontFamily.EINA04REGULAR,
               letterSpacing: "0.15em",
               fontStyle: "normal",
               fontWeight: 400,
@@ -158,7 +161,7 @@ const DeliveryCard = (props) => {
             fontSize={16}
             color={theme.palette.text.primary}
             sx={{
-              fontFamily: "Eina04-Regular",
+              fontFamily: FontFamily.EINA04REGULAR,
               fontWeight: 600,
               size: "14px",
               lineHeight: "19.32px",
@@ -172,7 +175,7 @@ const DeliveryCard = (props) => {
             fontSize={12}
             color={theme.palette.text.primary}
             sx={{
-              fontFamily: "Eina04-Regular",
+              fontFamily: FontFamily.EINA04REGULAR,
               lineHeight: "16.56px",
               fontWeight: 400,
             }}
@@ -195,7 +198,7 @@ const DeliveryCard = (props) => {
                 />
                 <Typography
                   sx={{
-                    fontFamily: "Eina04-Regular",
+                    fontFamily: FontFamily.EINA04REGULAR,
                     fontWeight: 600,
                     fontStyle: "normal",
                     fontSize: "16px",
@@ -216,7 +219,7 @@ const DeliveryCard = (props) => {
                 />
                 <Typography
                   sx={{
-                    fontFamily: "Eina04-Regular",
+                    fontFamily: FontFamily.EINA04REGULAR,
                     fontWeight: 600,
                     fontStyle: "normal",
                     fontSize: "16px",
@@ -237,7 +240,7 @@ const DeliveryCard = (props) => {
                 <Typography
                   fontSize={10}
                   sx={{
-                    fontFamily: "Eina04-Light",
+                    fontFamily: FontFamily.EINA04LIGHT,
                     textDecoration: "line-through",
                     ml: 2.2,
                     color: "#C6C6C6",
@@ -262,7 +265,7 @@ const DeliveryCard = (props) => {
                 <Typography
                   fontSize={14}
                   color={theme.palette.text.primary}
-                  sx={{ fontFamily: "Eina04-SemiBold" }}
+                  sx={{ fontFamily: FontFamily.EINA04SEMIBOLD }}
                 >
                   {data.twStart} - {data.twEnd}
                 </Typography>
@@ -275,7 +278,7 @@ const DeliveryCard = (props) => {
                       fontSize={10}
                       color={"#da1e28"}
                       sx={{
-                        fontFamily: "Eina04-Light",
+                        fontFamily: FontFamily.EINA04LIGHT,
                         textTransform: "uppercase",
                         mt: 0.1,
                       }}
@@ -287,7 +290,7 @@ const DeliveryCard = (props) => {
                   <>
                     <DivFlexStart sx={{ width: 40 }}>
                       {/* <ArrowDropUpIcon sx={{ width: 20, height: 20, color: '#58d632' }} />
-                            <Typography fontSize={10} color={'#31711e'} sx={{ fontFamily: 'Eina04-Light', textTransform: 'uppercase' }}>
+                            <Typography fontSize={10} color={'#31711e'} sx={{ fontFamily: FontFamily.EINA04LIGHT, textTransform: 'uppercase' }}>
                                 Early
                             </Typography> */}
                     </DivFlexStart>
@@ -302,7 +305,7 @@ const DeliveryCard = (props) => {
               ) : (
                 <Typography
                   sx={{
-                    fontFamily: "Eina04-Regular",
+                    fontFamily:FontFamily.EINA04REGULAR",
                     fontStyle: "normal",
                     fontSize: "10px",
                     fontWeight: 300,
@@ -315,7 +318,7 @@ const DeliveryCard = (props) => {
               {isDesktop &&
                 <Typography
                   sx={{
-                    fontFamily: "Eina04-Regular",
+                    fontFamily: FontFamily.EINA04REGULAR,
                     fontStyle: "normal",
                     fontSize: "10px",
                     fontWeight: 300,
@@ -346,7 +349,7 @@ const DeliveryCard = (props) => {
                       <Typography
                         fontSize={10}
                         sx={{
-                          fontFamily: "Eina04-Regular",
+                          fontFamily: FontFamily.EINA04REGULAR,
                           fontWeight: 300,
                           fontStyle: "normal",
                           lineHeight: "13.8px",
@@ -358,7 +361,7 @@ const DeliveryCard = (props) => {
                     <Typography
                       fontSize={10}
                       sx={{
-                        fontFamily: "Eina04-Regular",
+                        fontFamily: FontFamily.EINA04REGULAR,
                         fontWeight: 300,
                         fontStyle: "normal",
                         lineHeight: "13.8px",
@@ -383,7 +386,7 @@ const DeliveryCard = (props) => {
                             mr: 0.5,
                             ml: 0.1
                         }} /> */}
-                {/* <Typography fontSize={10} color={theme.palette.text.primary} sx={{ fontFamily: 'Eina04-Light' }}>
+                {/* <Typography fontSize={10} color={theme.palette.text.primary} sx={{ fontFamily: FontFamily.EINA04LIGHT }}>
                             {data.date}
                         </Typography> */}
               </DivFlexStart>

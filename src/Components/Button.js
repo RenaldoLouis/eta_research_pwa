@@ -8,6 +8,10 @@ import { AppContext } from "../App";
 
 import { useTheme } from "@emotion/react";
 
+// import contstant
+import { FontFamily } from "../Constants/FontFamily";
+
+
 
 const Buttons = styled("div")((props) => ({
   display: "flex",
@@ -52,7 +56,7 @@ const Button = (props) => {
         {icon}
         <Typography
           sx={{
-            fontFamily: "Eina04-SemiBold",
+            fontFamily: FontFamily.EINA04SEMIBOLD,
             color: "#F4F4F4",
             fontSize: isPromo ? (isMobile ? 12 : 14) : isMobile ? 14 : 20,
           }}

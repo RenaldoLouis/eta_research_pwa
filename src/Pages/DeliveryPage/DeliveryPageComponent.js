@@ -10,6 +10,9 @@ import { AppContext } from "../../App";
 // import reusable component
 import DivFlexStart from "../../Components/DivFlexStart";
 
+// import Constants
+import { FontFamily } from "../../Constants/FontFamily";
+
 // delivery title div as button
 export const DeliverStickyTitle = styled("div")((props) => ({
     display: "flex",
@@ -78,7 +81,7 @@ export const Greeting = (props) => {
                 fontSize={"32px"}
                 color={theme.palette.text.primary}
                 sx={{
-                    fontFamily: "Eina04-Regular",
+                    fontFamily: FontFamily.EINA04REGULAR,
                     fontStyle: "normal",
                     fontWeight: 400,
                     lineHeight: "40px",
@@ -109,7 +112,7 @@ export const DeliveryInformation = (props) => {
                 fontSize={"36px"}
                 color={theme.palette.text.primary}
                 sx={{
-                    fontFamily: "Eina04-Regular",
+                    fontFamily: FontFamily.EINA04REGULAR,
                     fontStyle: "normal",
                     fontWeight: 600,
                     lineHeight: "40px",

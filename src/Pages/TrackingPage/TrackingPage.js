@@ -39,6 +39,8 @@ import PromoNews from "../../Components/PromoNews/PromoNews";
 
 // import constanst
 import { ColorTheme } from "../../Constants/ColorTheme";
+import { UrlPage } from "../../Constants/UrlPage";
+import { FontFamily } from "../../Constants/FontFamily";
 
 
 // warning component
@@ -64,7 +66,7 @@ const InputTrackingNumberContainer = styled("div")((props) => ({
 
 
 
-const InputTrackingNumber = () => {
+const TrackingPage = () => {
 
   const { isLinkExpired, isMobile, promoNewsData, isDesktop, mode } = useContext(AppContext);
 
@@ -80,7 +82,7 @@ const InputTrackingNumber = () => {
 
 
   const goToDeliveryPage = () => {
-    navigate("/delivery");
+    navigate(UrlPage.DELIVERY);
   };
 
   const onClickSubmit = () => {
@@ -109,8 +111,8 @@ const InputTrackingNumber = () => {
               fontSize={isMobile ? 32 : 32}
               sx={{
                 width: "100%",
-                fontFamily: "Eina04-Regular",
-                mt: isDesktop ? 15 : 3,
+                fontFamily: FontFamily.EINA04REGULAR,
+                mt: 15,
                 color: theme.palette.text.tex4,
               }}
             >
@@ -122,7 +124,7 @@ const InputTrackingNumber = () => {
               <Typography
                 sx={{
                   fontSize: 14,
-                  fontFamily: "Eina04-SemiBold",
+                  fontFamily: FontFamily.EINA04SEMIBOLD,
                   mb: isDesktop ? "" : 1,
                 }}
               >
@@ -172,7 +174,7 @@ const InputTrackingNumber = () => {
                     sx={{
                       color: "#ffffff",
                       fontSize: 12,
-                      fontFamily: "Eina04-SemiBold",
+                      fontFamily: FontFamily.EINA04SEMIBOLD,
                     }}
                   >
                     {`Sorry your tracking attempt was not succesfull. Please check your tracking number.`}
@@ -190,7 +192,7 @@ const InputTrackingNumber = () => {
             sx={{
               maxHeight: isDesktop ? "calc(100vh - 80px)" : "",
               overflowY: isDesktop ? "scroll" : "",
-              padding: isDesktop ? '24px 40px 0px 24px' : '0px 0px 0px 0px'
+              padding: isDesktop ? '24px 40px 0px 24px' : '0px'
             }}
           >
             <PromoNews promoData={promoNewsData} />
@@ -216,4 +218,4 @@ const InputTrackingNumber = () => {
   );
 };
 
-export default InputTrackingNumber;
+export default TrackingPage;

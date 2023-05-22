@@ -16,6 +16,9 @@ import CustomDialog from "./DialogContainer/CustomDialog";
 import CustomDialogContent from "./DialogContainer/CustomDialogContent";
 import Button from "../Button";
 
+// import Constants
+import { FontFamily } from "../../Constants/FontFamily";
+
 // import style and theme
 import { useTheme } from "@mui/material/styles";
 
@@ -30,16 +33,16 @@ const DeleteEmailDialog = () => {
             <CustomDialog width={700} open={deleteEmailDialog} onClose={handleCloseDeleteEmailDialog} theme={theme}>
                 <CustomDialogContent isMobile={isMobile}>
                     <DivFlexCenter sx={{ height: isMobile ? 20 : 40, mb: isMobile ? 3 : 8 }}>
-                        <Typography sx={{ color: theme.palette.text.primary, fontSize: isMobile ? 20 : 40, fontFamily: 'Eina04-Regular' }}>
+                        <Typography sx={{ color: theme.palette.text.primary, fontSize: isMobile ? 20 : 40, fontFamily: FontFamily.EINA04REGULAR }}>
                             Delete Email
                         </Typography>
                     </DivFlexCenter>
-                    <Typography sx={{ fontSize: isMobile ? 12 : 20, fontFamily: 'Eina04-Regular', color: theme.palette.text.primary }}>
-                        Are you sure you want to delete  <span style={{ fontFamily: 'Eina04-SemiBold', color:theme.palette.text.highlithText }}>  {currentEmail.email}  </span>  ?
+                    <Typography sx={{ fontSize: isMobile ? 12 : 20, fontFamily: FontFamily.EINA04REGULAR, color: theme.palette.text.primary }}>
+                        Are you sure you want to delete  <span style={{ fontFamily: FontFamily.EINA04SEMIBOLD, color:theme.palette.text.highlithText }}>  {currentEmail.email}  </span>  ?
                     </Typography>
 
                     <DivFlexSpaceBetween sx={{ mt: isMobile ? 3 : 5 }}>
-                        <Typography sx={{ textDecoration: 'underline', fontFamily: 'Eina04-Semibold', cursor: 'pointer', fontSize: isMobile ? 14 : 20, color: theme.palette.text.primary }} onClick={handleCloseDeleteEmailDialog} >
+                        <Typography sx={{ textDecoration: 'underline', fontFamily: FontFamily.EINA04SEMIBOLD, cursor: 'pointer', fontSize: isMobile ? 14 : 20, color: theme.palette.text.primary }} onClick={handleCloseDeleteEmailDialog} >
                             Cancel
                         </Typography>
                         <Button style={{ width: '35%' }} onClick={() => deleteNewEmail(currentEmail.id)} >

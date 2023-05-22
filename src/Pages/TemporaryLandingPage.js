@@ -14,9 +14,14 @@ import CustomDialog from "../Components/DialogComponent/DialogContainer/CustomDi
 import CustomDialogContent from "../Components/DialogComponent/DialogContainer/CustomDialogContent";
 import Button from "../Components/Button";
 
+// import COnstants
+import { FontFamily } from "../Constants/FontFamily";
+
 // import context
 import { AppContext } from "../App";
 
+// import constants
+import { UrlPage } from "../Constants/UrlPage";
 
 
 // router
@@ -100,7 +105,7 @@ function TemporaryLandingPage() {
     const navigate = useNavigate();
 
     const onClickTrackingNumber = () => {
-        navigate("/input-tracking-number")
+        navigate(UrlPage.TRACKINGNUMBER)
     }
 
     const onClickDeliveryPage = () => {
@@ -109,7 +114,7 @@ function TemporaryLandingPage() {
 
     return (
         <Container>
-            <Typography sx={{ color: theme.palette.text.primary, fontSize: isMobile ? 14 : 20, fontFamily: 'Eina04-SemiBold', mb: 3 }}>
+            <Typography sx={{ color: theme.palette.text.primary, fontSize: isMobile ? 14 : 20, fontFamily: FontFamily.EINA04SEMIBOLD, mb: 3 }}>
                 PWA Configuration Ver 1.2
             </Typography>
             {supportsPWA ? (
@@ -121,7 +126,7 @@ function TemporaryLandingPage() {
             ) : null}
             {isChrome ? null : (
 
-                <Typography sx={{ color: theme.palette.background.buttonSecondary, fontSize: isMobile ? 14 : 20, fontFamily: 'Eina04-SemiBold', mb: 2 }}>
+                <Typography sx={{ color: theme.palette.background.buttonSecondary, fontSize: isMobile ? 14 : 20, fontFamily: FontFamily.EINA04SEMIBOLD, mb: 2 }}>
                     This Browser is not supported
                 </Typography>
             )}
@@ -149,12 +154,12 @@ function TemporaryLandingPage() {
             <CustomDialog open={show} onClose={handleClose} theme={theme}>
                 <CustomDialogContent isMobile={isMobile} theme={theme}>
                     <DivFlexCenter>
-                        <Typography sx={{ color: theme.palette.text.heading1, fontSize: 20, fontFamily: 'Eina04-Regular' }}>
+                        <Typography sx={{ color: theme.palette.text.heading1, fontSize: 20, fontFamily: FontFamily.EINA04REGULAR }}>
                             How to install to Device
                         </Typography>
                     </DivFlexCenter>
                     <DivFlexStart sx={{ mt: 2, mb: 1 }}>
-                        <Typography sx={{ color: theme.palette.text.primary, fontSize: 14, fontFamily: 'Eina04-Regular' }}>
+                        <Typography sx={{ color: theme.palette.text.primary, fontSize: 14, fontFamily: FontFamily.EINA04REGULAR }}>
                             1. Install this webapp to your device: tap
                         </Typography>
                     </DivFlexStart>
@@ -164,7 +169,7 @@ function TemporaryLandingPage() {
                     }} />
 
                     <DivFlexStart sx={{ mt: 3, mb: 1 }}>
-                        <Typography sx={{ color: theme.palette.text.primary, fontSize: 14, fontFamily: 'Eina04-Regular' }}>
+                        <Typography sx={{ color: theme.palette.text.primary, fontSize: 14, fontFamily: FontFamily.EINA04REGULAR }}>
                             2. And then add to homescreen
                         </Typography>
                     </DivFlexStart>

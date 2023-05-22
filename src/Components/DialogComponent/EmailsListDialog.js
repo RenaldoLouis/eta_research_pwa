@@ -13,6 +13,10 @@ import TableRow from '@mui/material/TableRow';
 import DeleteIcon from "../../assets/icons/DeleteIcon";
 import EditIcon from "../../assets/icons/EditIcon";
 
+// import Constants
+import { FontFamily } from "../../Constants/FontFamily";
+
+
 // import react router dom
 import { Outlet } from "react-router-dom";
 
@@ -31,7 +35,7 @@ import { styled, useTheme } from "@mui/material/styles";
 /**========== Styled Component ========== */
 // table head component
 const TableHeadCustom = styled(TableCell)((props) => ({
-    fontFamily: 'Eina04-SemiBold',
+    fontFamily: FontFamily.EINA04SEMIBOLD,
     fontSize: 20,
     // paddingLeft: 0,
     top: -1,
@@ -43,7 +47,7 @@ const TableHeadCustom = styled(TableCell)((props) => ({
 }))
 
 const TableCellCustom = styled(TableCell)((props) => ({
-    fontFamily: 'Eina04-Regular',
+    fontFamily: FontFamily.EINA04REGULAR,
     color: props.theme.palette.text.primary,
     paddingLeft: 0,
     fontSize: 20,
@@ -84,19 +88,19 @@ const EmailsListDialog = () => {
         emailListDeviceVersion =
             <>
                 <DivFlexCenter sx={{ width: "calc(100% - 24px)" }}>
-                    <Typography sx={{ color: theme.palette.text.heading1, fontSize: 20, fontFamily: 'Eina04-Regular', textAlign: 'center' }}>
+                    <Typography sx={{ color: theme.palette.text.heading1, fontSize: 20, fontFamily: FontFamily.EINA04REGULAR, textAlign: 'center' }}>
                         {`<KundenName>`} Emailliste
                     </Typography>
                 </DivFlexCenter>
 
-                <Typography sx={{ fontFamily: 'Eina04-SemiBold', fontSize: 12, mt: 3 }}> Email/Roles </Typography>
+                <Typography sx={{ fontFamily: FontFamily.EINA04SEMIBOLD, fontSize: 12, mt: 3 }}> Email/Roles </Typography>
                 <TableDataContainer>
                     {
                         emailList.map((list) => (
                             <DivFlexSpaceBetween key={list.id} sx={{ mt: 2, borderBottom: `1px solid ${theme.palette.background.separatorTitle}`, pb: 1 }}>
                                 <Box >
-                                    <Typography sx={{ fontFamily: 'Eina04-Regular', fontSize: 12, color: theme.palette.text.primary }}>{list.email}</Typography>
-                                    <Typography sx={{ fontFamily: 'Eina04-Regular', fontSize: 12, color: theme.palette.text.primary }}>{getTextRoles(list.roles)}</Typography>
+                                    <Typography sx={{ fontFamily: FontFamily.EINA04REGULAR, fontSize: 12, color: theme.palette.text.primary }}>{list.email}</Typography>
+                                    <Typography sx={{ fontFamily: FontFamily.EINA04REGULAR, fontSize: 12, color: theme.palette.text.primary }}>{getTextRoles(list.roles)}</Typography>
                                 </Box>
                                 <DivFlexCenter >
                                     <EditIcon color={theme.palette.background.iconAction} sx={{ fontSize: 18, mr: 3 }} onClick={() => handleSetCurrentEmailForEdit(list)} />
@@ -106,7 +110,7 @@ const EmailsListDialog = () => {
                         ))
                     }
                 </TableDataContainer>
-                <Typography sx={{ textDecoration: 'underline', mt: 2, fontFamily: 'Eina04-Regular', cursor: 'pointer', fontSize: 12, width: "calc(100% - 24px)" }} onClick={handleOpenAddNewEmailDialog} >
+                <Typography sx={{ textDecoration: 'underline', mt: 2, fontFamily: FontFamily.EINA04REGULAR, cursor: 'pointer', fontSize: 12, width: "calc(100% - 24px)" }} onClick={handleOpenAddNewEmailDialog} >
                     +Add New Email
                 </Typography>
 
@@ -118,7 +122,7 @@ const EmailsListDialog = () => {
         emailListDeviceVersion =
             <>
                 <DivFlexCenter sx={{ width: "calc(100% - 48px)", height: 40, mb: 8, }}>
-                    <Typography sx={{ color: theme.palette.text.heading1, fontSize: 40, fontFamily: 'Eina04-Regular' }}>
+                    <Typography sx={{ color: theme.palette.text.heading1, fontSize: 40, fontFamily: FontFamily.EINA04REGULAR }}>
                         {`<KundenName> EmailListe`}
                     </Typography>
                 </DivFlexCenter>
@@ -151,7 +155,7 @@ const EmailsListDialog = () => {
                         </TableBody>
                     </Table>
                 </TableContainer>
-                <Typography sx={{ textDecoration: 'underline', mt: 3, fontFamily: 'Eina04-Regular', cursor: 'pointer', fontSize: 20, color: theme.palette.text.primary }} onClick={handleOpenAddNewEmailDialog} >
+                <Typography sx={{ textDecoration: 'underline', mt: 3, fontFamily: FontFamily.EINA04REGULAR, cursor: 'pointer', fontSize: 20, color: theme.palette.text.primary }} onClick={handleOpenAddNewEmailDialog} >
                     +Add New Email
                 </Typography>
                 <Button style={{ mt: 8, width: 'calc(100% - 48px)' }} onClick={handleEmailListDialog} >

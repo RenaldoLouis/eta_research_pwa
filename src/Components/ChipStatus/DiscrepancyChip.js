@@ -7,6 +7,9 @@ import { Typography } from "@mui/material";
 // import Icons
 import ErrorIcon from "../../assets/icons/ErrorIcon";
 
+// import Constants
+import { FontFamily } from "../../Constants/FontFamily";
+
 const Chip = styled('div')((props) => ({
     display: 'flex',
     alignItems: 'center',
@@ -22,7 +25,7 @@ const DiscrepancyChip = props => {
 
             <ErrorIcon color={'#da1e28'} sx={{ fontSize: 14, mr: 1 }} />
 
-            <Typography fontSize={11} sx={{ fontFamily: 'Eina04-Bold', color: '#da1e28' }}>
+            <Typography fontSize={11} sx={{ fontFamily: FontFamily.EINA04BOLD, color: '#da1e28' }}>
                 Abweichung
             </Typography>
         </Chip>

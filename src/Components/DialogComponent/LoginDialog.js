@@ -26,6 +26,9 @@ import CustomDialogContent from "./DialogContainer/CustomDialogContent";
 import TextFieldStyled from "../TextField/TextFieldStyle";
 import Button from "../Button";
 
+// import Constants
+import { FontFamily } from "../../Constants/FontFamily";
+
 // import style and theme
 import { useTheme } from "@mui/material/styles";
 import DivFlexStart from "../DivFlexStart";
@@ -103,7 +106,7 @@ const LoginDialog = () => {
                 sx={{
                   color: theme.palette.text.heading1,
                   fontSize: isMobile ? 20 : 40,
-                  fontFamily: "Eina04-Regular",
+                  fontFamily: FontFamily.EINA04REGULAR,
                 }}
               >
                 Sign In
@@ -113,7 +116,7 @@ const LoginDialog = () => {
               <Typography
                 sx={{
                   fontSize: isMobile ? 12 : 14,
-                  fontFamily: "Eina04-SemiBold",
+                  fontFamily: FontFamily.EINA04SEMIBOLD,
                   color: theme.palette.text.primary,
                 }}
               >
@@ -150,7 +153,7 @@ const LoginDialog = () => {
                   <Typography
                     sx={{
                       fontSize: isMobile ? 12 : 14,
-                      fontFamily: "Eina04-Regular",
+                      fontFamily: FontFamily.EINA04REGULAR,
                     }}
                     color={"#da1e28"}
                   >
@@ -169,7 +172,7 @@ const LoginDialog = () => {
                   <Typography
                     sx={{
                       fontSize: isMobile ? 12 : 14,
-                      fontFamily: "Eina04-Regular",
+                      fontFamily: FontFamily.EINA04REGULAR,
                     }}
                     color={"#da1e28"}
                   >
@@ -198,11 +201,11 @@ const LoginDialog = () => {
             sx={{
               color: theme.palette.text.primary,
               fontSize: isMobile ? 12 : 14,
-              fontFamily: "Eina04-Regular",
+              fontFamily: FontFamily.EINA04REGULAR,
             }}
           >
             OTP code has been sent to{" "}
-            <span style={{ fontFamily: "Eina04-SemiBold" }}>
+            <span style={{ fontFamily: FontFamily.EINA04SEMIBOLD}}>
               {emailSubmit}{" "}
             </span>
           </Typography>

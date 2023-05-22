@@ -21,8 +21,12 @@ import CustomDialogContent from "./DialogContainer/CustomDialogContent";
 import TextFieldStyled from "../TextField/TextFieldStyle";
 import Button from "../Button";
 
+
 // import style and theme
 import { useTheme, styled } from "@mui/material/styles";
+
+// import Constants
+import { FontFamily } from "../../Constants/FontFamily";
 
 const AddNewEmailDialog = () => {
 
@@ -96,21 +100,21 @@ const AddNewEmailDialog = () => {
                 <Box sx={{ backgroundColor: theme.palette.background.dialog }}>
                     <CustomDialogContent isMobile={isMobile}>
                         <DivFlexCenter sx={{ height: isMobile ? 20 : 40, mb: isMobile ? 3 : 8 }}>
-                            <Typography sx={{ color: theme.palette.text.heading1, fontSize: isMobile ? 20 : 40, fontFamily: 'Eina04-Regular' }}>
+                            <Typography sx={{ color: theme.palette.text.heading1, fontSize: isMobile ? 20 : 40, fontFamily: FontFamily.EINA04REGULAR }}>
                                 Add New Email
                             </Typography>
                         </DivFlexCenter>
                         <FormControl sx={{ width: '100%' }} >
                             <DivFlexSpaceBetween sx={{ flexWrap: 'wrap', width: '100%' }}>
                                 <DivFlexStart sx={{ width: isDesktop ? '60%' : '100%', mb: 2, }}>
-                                    <Typography sx={{ fontSize: isMobile ? 12 : 20, fontFamily: 'Eina04-SemiBold', mr: 2, color: theme.palette.text.primary, width: isMobile ? 34 : 56 }}>
+                                    <Typography sx={{ fontSize: isMobile ? 12 : 20, fontFamily: FontFamily.EINA04SEMIBOLD, mr: 2, color: theme.palette.text.primary, width: isMobile ? 34 : 56 }}>
                                         Email
                                     </Typography>
                                     <TextFieldStyled onChange={handleChangeInput} id="basic" placeholder="example@mail.com" name="email" sx={{ width: isDesktop ? '80%' : '100%', }} isMobile={isMobile} />
                                 </DivFlexStart>
 
                                 <DivFlexStart sx={{ width: isDesktop ? '35%' : '100%', mb: 2 }}>
-                                    <Typography sx={{ fontSize: isMobile ? 12 : 20, fontFamily: 'Eina04-SemiBold', mr: 2, color: theme.palette.text.primary, width: isMobile ? 34 : 56 }}>
+                                    <Typography sx={{ fontSize: isMobile ? 12 : 20, fontFamily: FontFamily.EINA04SEMIBOLD, mr: 2, color: theme.palette.text.primary, width: isMobile ? 34 : 56 }}>
                                         Roles
                                     </Typography>
                                     <TextFieldStyled
@@ -134,7 +138,7 @@ const AddNewEmailDialog = () => {
                                     >
                                         {Roles.map((option) => (
                                             <MenuItem key={option.value} value={option.value}>
-                                                <Typography sx={{ fontSize: isMobile ? 12 : 20, fontFamily: 'Eina04-Regular' }}>
+                                                <Typography sx={{ fontSize: isMobile ? 12 : 20, fontFamily: FontFamily.EINA04REGULAR }}>
                                                     {option.label}
                                                 </Typography>
                                             </MenuItem>
@@ -151,14 +155,14 @@ const AddNewEmailDialog = () => {
                                 {isEmailEmpty ? (
                                     <DivFlexStart>
                                         <ErrorIcon sx={{ color: '#da1e28', fontSize: isMobile ? 16 : 18, mr: 0.5 }} />
-                                        <Typography sx={{ fontSize: isMobile ? 12 : 14, fontFamily: 'Eina04-Regular' }} color={'#da1e28'}>
+                                        <Typography sx={{ fontSize: isMobile ? 12 : 14, fontFamily: FontFamily.EINA04REGULAR }} color={'#da1e28'}>
                                             Email is empty
                                         </Typography>
                                     </DivFlexStart>
                                 ) : isEmailInvalid ? (
                                     <DivFlexStart>
                                         <ErrorIcon sx={{ color: '#da1e28', fontSize: isMobile ? 16 : 18, mr: 0.5 }} />
-                                        <Typography sx={{ fontSize: isMobile ? 12 : 14, fontFamily: 'Eina04-Regular' }} color={'#da1e28'}>
+                                        <Typography sx={{ fontSize: isMobile ? 12 : 14, fontFamily: FontFamily.EINA04REGULAR }} color={'#da1e28'}>
                                             Email is invalid
                                         </Typography>
                                     </DivFlexStart>
@@ -167,7 +171,7 @@ const AddNewEmailDialog = () => {
                             </>
                         </DivFlexStart>
                         <DivFlexSpaceBetween sx={{ mt: isMobile ? 3 : 5 }}>
-                            <Typography sx={{ fontSize: isMobile ? 14 : 20, textDecoration: 'underline', fontFamily: 'Eina04-SemiBold', cursor: 'pointer', color: theme.palette.text.primary }} onClick={handleCloseDialog} >
+                            <Typography sx={{ fontSize: isMobile ? 14 : 20, textDecoration: 'underline', fontFamily: FontFamily.EINA04SEMIBOLD , cursor: 'pointer', color: theme.palette.text.primary }} onClick={handleCloseDialog} >
                                 Cancel
                             </Typography>
                             <Button style={{ width: '35%' }} onClick={handleSubmit}>

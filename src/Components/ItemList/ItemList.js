@@ -16,6 +16,9 @@ import ErrorIcon from "../../assets/icons/ErrorIcon";
 import DivFlexStart from "../DivFlexStart";
 import DivFlexSpaceBetween from "../DivFlexSpacebetween";
 
+// import Constants
+import { FontFamily } from "../../Constants/FontFamily";
+
 // import theme color
 import { useTheme } from "@mui/material/styles";
 
@@ -46,20 +49,20 @@ const ItemList = (props) => {
     <>
       <List
         sx={{
-            width: "100%",
-            borderBottom:
-              index === itemLength - 1
-                ? ""
-                : `1px solid ${theme.palette.background.separatorTitle}`,
-            background: isDesktop
-              ? isOpenItemList
-                ? theme.palette.background.deliveryCardMenu
-                : theme.palette.background.default
-              : theme.palette.background.deliveryCardMenu,
-            paddingLeft: isDesktop ? "0px" : 1,
-            paddingRight: isDesktop ? "0px" : 1,
-            marginRight: isDesktop ? "16px" : "",
-            marginLeft: isDesktop ? "16px" : "",
+          width: "100%",
+          borderBottom:
+            index === itemLength - 1
+              ? ""
+              : `1px solid ${theme.palette.background.separatorTitle}`,
+          background: isDesktop
+            ? isOpenItemList
+              ? theme.palette.background.deliveryCardMenu
+              : theme.palette.background.default
+            : theme.palette.background.deliveryCardMenu,
+          paddingLeft: isDesktop ? "0px" : 1,
+          paddingRight: isDesktop ? "0px" : 1,
+          marginRight: isDesktop ? "16px" : "",
+          marginLeft: isDesktop ? "16px" : "",
         }}
       >
         <ListItemButton
@@ -75,7 +78,7 @@ const ItemList = (props) => {
           <DivFlexSpaceBetween sx={{ width: "100%" }}>
             <DivFlexStart>
               <Typography
-                sx={{ fontSize: 12, fontFamily: "Eina04-Regular" }}
+                sx={{ fontSize: 12, fontFamily: FontFamily.EINA04REGULAR }}
                 color={item.warning ? "#da1e28" : theme.palette.text.primary}
               >
                 {item.productName}
@@ -85,7 +88,7 @@ const ItemList = (props) => {
               )}
             </DivFlexStart>
             <Typography
-              sx={{ fontSize: 12, fontFamily: "Eina04-Regular" }}
+              sx={{ fontSize: 12, fontFamily: FontFamily.EINA04REGULAR }}
               color={item.warning ? "#da1e28" : theme.palette.text.primary}
             >
               {`${item.amount} ${item.unit}`}
@@ -106,13 +109,13 @@ const ItemList = (props) => {
               >
                 <DivFlexSpaceBetween sx={{ width: "100%" }}>
                   <Typography
-                    sx={{ fontSize: 12, fontFamily: "Eina04-Regular" }}
+                    sx={{ fontSize: 12, fontFamily: FontFamily.EINA04REGULAR }}
                     color={theme.palette.text.primary}
                   >
                     On Truck
                   </Typography>
                   <Typography
-                    sx={{ fontSize: 12, fontFamily: "Eina04-Regular" }}
+                    sx={{ fontSize: 12, fontFamily: FontFamily.EINA04REGULAR }}
                     color={theme.palette.text.primary}
                   >
                     {`${item.onTruck} KL`}
@@ -125,13 +128,13 @@ const ItemList = (props) => {
               >
                 <DivFlexSpaceBetween sx={{ width: "100%" }}>
                   <Typography
-                    sx={{ fontSize: 12, fontFamily: "Eina04-Regular" }}
+                    sx={{ fontSize: 12, fontFamily: FontFamily.EINA04REGULAR }}
                     color={theme.palette.text.primary}
                   >
                     Ordered
                   </Typography>
                   <Typography
-                    sx={{ fontSize: 12, fontFamily: "Eina04-Regular" }}
+                    sx={{ fontSize: 12, fontFamily: FontFamily.EINA04REGULAR }}
                     color={theme.palette.text.primary}
                   >
                     {`${item.ordered} KL`}

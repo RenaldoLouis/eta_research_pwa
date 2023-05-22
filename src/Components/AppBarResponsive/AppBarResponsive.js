@@ -32,6 +32,7 @@ import { CustomTooltip } from "../CustomTooltip";
 
 // import constants
 import { ColorTheme } from "../../Constants/ColorTheme";
+import { UserRole } from "../../Constants/UserRole";
 
 // icon button component
 const IconButton = styled("div")((props) => ({
@@ -57,8 +58,8 @@ const AppBarResponsive = () => {
     mode,
     handleOpenLoginDialog,
     handleEmailListDialog,
-    dumpLoginState,
-    dumpAuthrorization,
+    isLogin,
+    userRole,
     isMobile,
     isTablet,
     isDesktop,
@@ -193,10 +194,10 @@ const AppBarResponsive = () => {
 
             <Grid item xs={4} md={3}>
               <DivFlexEnd sx={{ alignItems: "center", height: "100%" }}>
-                {dumpLoginState ? (
+                {isLogin ? (
                   <>
-                    {dumpAuthrorization == "admin" ||
-                      dumpAuthrorization == "superadmin" ? (
+                    {userRole == UserRole.ADMIN ||
+                      userRole == UserRole.SUPERADMIN ? (
                       <CustomTooltip title="Email List">
                         <IconButton
                           onClick={handleEmailListDialog}

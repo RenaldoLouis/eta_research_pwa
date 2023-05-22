@@ -13,6 +13,10 @@ import DivFlexCenter from "../DivFlexCenter";
 import DivFlexSpaceBetween from "../DivFlexSpacebetween";
 import Button from "../Button";
 
+// import Constants
+import { FontFamily } from "../../Constants/FontFamily";
+
+// import App context
 import { AppContext } from "../../App";
 
 // import dummy image for promo
@@ -79,7 +83,7 @@ const PromoCard = (props) => {
           color={theme.palette.text.primary}
           sx={{
             fontSize: 18,
-            fontFamily: "Eina04-SemiBold",
+            fontFamily: FontFamily.EINA04SEMIBOLD,
             paddingLeft: isDesktop ? "" : openDetail ? "" : "16px",
           }}
         >
@@ -105,7 +109,7 @@ const PromoCard = (props) => {
             sx={{
               color: theme.palette.text.primary,
               fontSize: 12,
-              fontFamily: "Eina04-Regular",
+              fontFamily: FontFamily.EINA04REGULAR,
             }}
           >
             {promo.detail}
@@ -127,7 +131,7 @@ const PromoCard = (props) => {
                 <Typography
                   fontSize={12}
                   sx={{
-                    fontFamily: "Eina04-SemiBold",
+                    fontFamily: FontFamily.EINA04SEMIBOLD,
                     color: theme.palette.text.primary,
                   }}
                 >
@@ -157,7 +161,7 @@ const PromoCard = (props) => {
               <DivFlexCenter sx={{ marginBottom: 2 }}>
                 <Typography
                   fontSize={12}
-                  sx={{ fontFamily: "Eina04-SemiBold" }}
+                  sx={{ fontFamily: FontFamily.EINA04SEMIBOLD }}
                   color={theme.palette.text.primary}
                 >
                   Contact Our Sales Rep.
