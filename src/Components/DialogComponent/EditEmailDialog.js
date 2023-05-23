@@ -20,6 +20,7 @@ import CustomDialog from "./DialogContainer/CustomDialog";
 import CustomDialogContent from "./DialogContainer/CustomDialogContent";
 import TextFieldStyled from "../TextField/TextFieldStyle";
 import Button from "../Button";
+import SelectMenuItem from "./SelectMenuItem/SelectMenuItem";
 
 // import Constants
 import { FontFamily } from "../../Constants/FontFamily";
@@ -122,32 +123,8 @@ const EditEmailDialog = () => {
                                     <Typography sx={{ fontSize: isMobile ? 12 : 20, fontFamily: FontFamily.EINA04SEMIBOLD, mr: 2, color: theme.palette.text.primary, width: isMobile ? 34 : 56 }}>
                                         Roles
                                     </Typography>
-                                    <TextFieldStyled
-                                        id="roles"
-                                        select
-                                        value={email.roles}
-                                        name="roles"
-                                        onChange={handleChangeInput}
-                                        fullWidth
-                                        sx={{
-                                            alignItems: 'center',
-                                            "& .MuiInputBase-root": {
-                                                height: isMobile ? 40 : 53,
-                                                width: '100%',
-                                                color: theme.palette.text.inputTextActive,
-                                                paddingTop: isMobile ? 0.8 : 0.4
-                                            },
-                                        }}
-                                        isMobile={isMobile}
-                                    >
-                                        {Roles.map((option) => (
-                                            <MenuItem key={option.value} value={option.value}>
-                                                <Typography sx={{ fontSize: isMobile ? 12 : 20, fontFamily: FontFamily.EINA04REGULAR }}>
-                                                    {option.label}
-                                                </Typography>
-                                            </MenuItem>
-                                        ))}
-                                    </TextFieldStyled>
+
+                                    <SelectMenuItem email={email} handleChangeInput={handleChangeInput} />
 
                                 </DivFlexStart>
 

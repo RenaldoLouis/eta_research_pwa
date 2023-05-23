@@ -126,7 +126,7 @@ const EmailsListDialog = () => {
                         {`<KundenName> EmailListe`}
                     </Typography>
                 </DivFlexCenter>
-                <TableContainer sx={{ maxHeight: 250, pr: 6 }}>
+                <TableContainer sx={{ maxHeight: 250, pr: 5, width: 'calc(100% - 8px)' }}>
                     <Table stickyHeader >
                         <TableHead  >
                             <TableRow  >
