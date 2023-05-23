@@ -59,6 +59,7 @@ const SelectMenuItem = (props) => {
                 width: '100%',
                 borderRadius: 0,
                 alignItems: 'center',
+                paddingTop: isMobile ? 0.8 : 0.4,
                 "& .MuiSvgIcon-root": {
                     color: theme.palette.text.primary,
                 },

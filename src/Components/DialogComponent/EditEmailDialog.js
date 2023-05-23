@@ -124,7 +124,7 @@ const EditEmailDialog = () => {
                                         Roles
                                     </Typography>
 
-                                    <SelectMenuItem email={email} handleChangeInput={handleChangeInput} />
+                                    <SelectMenuItem email={currentEmail} handleChangeInput={handleChangeInput} />
 
                                 </DivFlexStart>
 
