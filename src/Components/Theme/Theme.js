@@ -250,7 +250,7 @@ export const blueTheme = createTheme({
             // delivery card
             deliveryCard: "#EBF2FD",
             hoverDeliveryCard: "#D5E2F6",
-            clickedDeliveryCard: "#EBF2FD",
+            clickedDeliveryCard: "#BACEF0",
             deliveryCardMenu: "#EBF2FD",
 
             // promo card
@@ -278,8 +278,8 @@ export const blueTheme = createTheme({
             // button
             buttonSecondary: "#262626",
             buttonDefault: "#0F62FE",
-            buttonActive: "#002D9C",
-            buttonHover: "#4589FF",
+            buttonActive: "#183769",
+            buttonHover: "#5285D9",
 
             // tracking numbercontainer
             borderTrackingNumber: "#979797",

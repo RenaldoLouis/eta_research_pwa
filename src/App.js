@@ -71,7 +71,7 @@ const Main = (props) => {
         <Route path={UrlPage.VERIFY} element={<Verify />} />
 
         <Route path={UrlPage.DELIVERY} element={<DeliveryPage />} />
-        <Route path={UrlPage.TRACKINGNUMBER} element={<TrackingPage />} />
+        <Route path={UrlPage.TRACKINGPAGE} element={<TrackingPage />} />
       </Routes>
     </>
   );

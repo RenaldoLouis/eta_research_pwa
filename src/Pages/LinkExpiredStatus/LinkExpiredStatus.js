@@ -7,8 +7,8 @@ import { useTheme } from "@mui/material/styles";
 import { Box, Typography } from "@mui/material";
 
 // import component
-import DivFlexCenter from "../DivFlexCenter";
-import DivFlexStart from "../DivFlexStart";
+import DivFlexCenter from "../../Components/DivFlexCenter";
+import DivFlexStart from "../../Components/DivFlexStart";
 
 // import Constants
 import { FontFamily } from "../../Constants/FontFamily";

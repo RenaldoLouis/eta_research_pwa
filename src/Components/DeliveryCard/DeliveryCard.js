@@ -69,10 +69,10 @@ const getStatusChip = (data, theme) => {
       )}
 
       {data.deliveryStatus === "Done" ? (
-        <DivFlexStart sx={{ ml: 0.5, height: 18, pt: 0.5 }}>
+        <DivFlexStart sx={{ ml: 1, height: 18, pt: 0 }}>
           <DoneIcon
             color={theme.palette.text.doneIcon}
-            sx={{ fontSize: 16, mt: -0.4, marginRight: "6.33px" }}
+            sx={{ fontSize: 16, mt: -0.3, marginRight: "4px" }}
           />
           <Typography
             fontSize={12}

@@ -30,7 +30,7 @@ import ErrorIcon from "../../assets/icons/ErrorIcon";
 import { deliverySimlationLightAnimation, deliverySimlationDarkAnimation } from "../../Components/Animations/Animations";
 
 // import component
-import LinkExpiredStatus from "../../Components/LinkExpiredStatus/LinkExpiredStatus";
+import LinkExpiredStatus from "../LinkExpiredStatus/LinkExpiredStatus";
 import DivFlexStart from "../../Components/DivFlexStart";
 import TextFieldStyled from "../../Components/TextField/TextFieldStyle";
 import DivFlexCenter from "../../Components/DivFlexCenter";

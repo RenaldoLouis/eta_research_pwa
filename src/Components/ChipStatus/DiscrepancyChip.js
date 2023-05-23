@@ -24,10 +24,11 @@ const DiscrepancyChip = props => {
         <Chip sx={{ backgroundColor: '#ffc9c9' }}>
 
             <ErrorIcon color={'#da1e28'} sx={{ fontSize: 14, mr: 1 }} />
-
-            <Typography fontSize={11} sx={{ fontFamily: FontFamily.EINA04BOLD, color: '#da1e28' }}>
-                Abweichung
-            </Typography>
+            <div style={{ alignItems:'center', display:'flex' }}>
+                <Typography fontSize={11} sx={{ fontFamily: FontFamily.EINA04BOLD, color: '#da1e28' }}>
+                    Abweichung
+                </Typography>
+            </div>
         </Chip>
     )
 }

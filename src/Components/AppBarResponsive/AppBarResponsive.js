@@ -12,11 +12,12 @@ import LogoutIcon from "../../assets/icons/LogoutIcon";
 import LoginIcon from "../../assets/icons/LoginIcon";
 import SettingsIcon from '@mui/icons-material/Settings';
 
-// import temporary Logo
-import LogoIcon from "../../assets/Images/Logo.png";
-import LogoLightIcon from "../../assets/Images/LogoLight.png";
-import LogoMobileLightIcon from "../../assets/Images/LogoMobileLight.png";
-import LogoMobileDarkIcon from "../../assets/Images/LogoMobileDark.png";
+// import temporary company Logo
+import CompanyWhiteLogoDekstop from "../../assets/Images/company-logo-white-dekstop.png";
+import CompanyBlackLogoDekstop from "../../assets/Images/company-logo-black-dekstop.png";
+import CompanyWhiteLogoMobile from "../../assets/Images/company-logo-white-mobile.png"
+import CompanyBlackLogoMobile from "../../assets/Images/company-logo-black-mobile.png"
+
 
 // import react-router-dom
 import { Outlet } from "react-router-dom";
@@ -47,6 +48,14 @@ const IconButton = styled("div")((props) => ({
     backgroundColor: props.theme.palette.background.hoverIconButton,
   },
 }));
+
+const companyLogoStyleforDekstop = {
+  height: "28px", widht: "200px"
+}
+
+const companyLogoStyleforMobile = {
+  height: "20px", widht: "141px"
+}
 
 const AppBarResponsive = () => {
 
@@ -86,20 +95,25 @@ const AppBarResponsive = () => {
 
 
 
-  /** ============= Company Logo Based on Theme ============= */
-  let companyLogo
+  /** ============= Company Logo Based on Theme for Dekstop Device ============= */
+  let companyLogoforDekstop
 
   if (mode == ColorTheme.LIGHT || mode == ColorTheme.YELLOW) {
-    companyLogo =
-      <img
-        src={LogoLightIcon}
-        alt="logo icon"
-        style={{ height: "29px", widht: "200px" }}
-      />
+    companyLogoforDekstop = <img src={CompanyBlackLogoDekstop} alt="company logo" style={companyLogoStyleforDekstop} />
   } else {
-    companyLogo = <img src={LogoIcon} alt="logo icon" />
+    companyLogoforDekstop = <img src={CompanyWhiteLogoDekstop} alt="comany logo" style={companyLogoStyleforDekstop} />
   }
-  /** ============= Company Logo Based on Theme ============= */
+  /** ============= Company Logo Based on Theme for Dekstop Device ============= */
+
+  /** ============= Company Logo Based on Theme for Tablet and Mobile Device ============= */
+  let companyLogoforMobile
+
+  if (mode == ColorTheme.LIGHT || mode == ColorTheme.YELLOW) {
+    companyLogoforMobile = <img src={CompanyBlackLogoMobile} alt="company logo" style={companyLogoStyleforMobile} />
+  } else {
+    companyLogoforMobile = <img src={CompanyWhiteLogoMobile} alt="logo icon" style={companyLogoStyleforMobile} />
+  }
+  /** ============= Company Logo Based on Theme for Tablet and Mobile Device ============= */
 
 
   /** ============= Company Logo Section ============= */
@@ -108,19 +122,12 @@ const AppBarResponsive = () => {
   if (isMobile || isTablet) {
     companyLogoSection =
       <>
-        <CustomTooltip title=" Button">
-          <IconButton
-            onClick={handleOpenThemeMenu}
-            sx={{ ml: 2, mt: 0.5 }}
-          >
-            <SettingsIcon sx={{ color: theme.palette.background.iconColor }} />
-          </IconButton>
-        </CustomTooltip>
+        {companyLogoforMobile}
       </>
   } else {
     companyLogoSection =
       <>
-        {companyLogo}
+        {companyLogoforDekstop}
         <CustomTooltip title="Temporary Button">
           <IconButton
             onClick={handleOpenThemeMenu}
@@ -168,13 +175,7 @@ const AppBarResponsive = () => {
             <Grid item xs={4} md={6}>
               <DivFlexCenter sx={{ alignItems: "top", height: "100%" }}>
                 {isMobile || isTablet ? (
-                  <img
-                    src={
-                      mode === ColorTheme.DARK || ColorTheme.BLUE ? LogoMobileDarkIcon : LogoMobileLightIcon
-                    }
-                    alt=""
-                    style={{ height: "20.45px", width: "30.35px" }}
-                  />
+                  <></>
                 ) : (
                   <Typography
                     sx={{
@@ -194,6 +195,16 @@ const AppBarResponsive = () => {
 
             <Grid item xs={4} md={3}>
               <DivFlexEnd sx={{ alignItems: "center", height: "100%" }}>
+                {isMobile || isTablet ? (
+                  <CustomTooltip title="Temporary Button">
+                    <IconButton
+                      onClick={handleOpenThemeMenu}
+                      sx={{ mr: 1 }}
+                    >
+                      <SettingsIcon sx={{ color: theme.palette.background.iconColor }} />
+                    </IconButton>
+                  </CustomTooltip>
+                ) : (<></>)}
                 {isLogin ? (
                   <>
                     {userRole == UserRole.ADMIN ||
