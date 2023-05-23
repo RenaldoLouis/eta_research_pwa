@@ -199,12 +199,11 @@ const DeliveryCardMenu = (props) => {
               sx={{
                 marginRight: "9.5px",
                 padding: "0px",
-                marginTop: "5px",
-                fontSize: "25px",
+                fontSize: width <= 1260 ? "22px" : "25px",
               }}
             />
             <Typography
-              fontSize={width <= 1460 ? "21px" : "28px"}
+              fontSize={width <= 1260 ? '17px' : width <= 1460 ? "21px" : "28px"}
               color={theme.palette.text.primary}
               sx={{
                 fontFamily: FontFamily.EINA04REGULAR,
@@ -262,14 +261,13 @@ const DeliveryCardMenu = (props) => {
             <ClockIcon
               color={"#959499"}
               sx={{
-                fontSize: "25px",
+                fontSize: width <= 1260 ? "22px" : "25px",
                 marginRight: "9.5px",
                 padding: "0px",
-                marginTop: "5px",
               }}
             />
             <Typography
-              fontSize={width <= 1460 ? "21px" : "28px"}
+              fontSize={width <= 1260 ? '17px' : width <= 1460 ? "21px" : "28px"}
               color={theme.palette.text.primary}
               sx={{
                 fontFamily: FontFamily.EINA04REGULAR,

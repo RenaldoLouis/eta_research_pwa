@@ -59,7 +59,7 @@ const getStatusChip = (data, theme) => {
       {data.itemList.some((v) => {
         return v.warning === true;
       }) ? (
-        width >= 1280 && width <= 1580 ? (
+        width >= 1200 && width <= 1580 ? (
           <DiscrepancyIconChip />
         ) : (
           <DiscrepancyChip />
@@ -263,7 +263,7 @@ const DeliveryCard = (props) => {
                   }}
                 />
                 <Typography
-                  fontSize={14}
+                  fontSize={window.innerWidth < 1274 ? 10 : 14}
                   color={theme.palette.text.primary}
                   sx={{ fontFamily: FontFamily.EINA04SEMIBOLD }}
                 >
@@ -406,7 +406,7 @@ const DeliveryCard = (props) => {
           />
         ))}
       </Collapse>
-    </Box>
+    </Box >
   );
 };
 
