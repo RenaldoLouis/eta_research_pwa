@@ -81,7 +81,7 @@ const ItemList = (props) => {
                 sx={{ fontSize: 12, fontFamily: FontFamily.EINA04REGULAR }}
                 color={item.warning ? "#da1e28" : theme.palette.text.primary}
               >
-                {item.productName}
+                {item.text}
               </Typography>
               {item.warning && (
                 <ErrorIcon sx={{ color: "#da1e28", fontSize: 14 }} />

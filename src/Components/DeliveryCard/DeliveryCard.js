@@ -23,6 +23,9 @@ import DiscrepancyChip from "../ChipStatus/DiscrepancyChip";
 import CalendarIcon from "../../assets/icons/CalendarIcon";
 import DiscrepancyIconChip from "../ChipStatus/DiscrepancyIconChip";
 
+// import Utils
+import { getFormatDate } from "../../connector/Utils/DateUtils";
+
 // import Constants
 import { FontFamily } from "../../Constants/FontFamily";
 
@@ -56,7 +59,7 @@ const getStatusChip = (data, theme) => {
   const { innerWidth: width } = window;
   return (
     <DivFlexStart>
-      {data.itemList.some((v) => {
+      {data.orderPositions.some((v) => {
         return v.warning === true;
       }) ? (
         width >= 1200 && width <= 1580 ? (
@@ -68,7 +71,7 @@ const getStatusChip = (data, theme) => {
         <></>
       )}
 
-      {data.deliveryStatus === "Done" ? (
+      {data.stopStatus === "FINISHED" ? (
         <DivFlexStart sx={{ ml: 1, height: 18, pt: 0 }}>
           <DoneIcon
             color={theme.palette.text.doneIcon}
@@ -150,7 +153,7 @@ const DeliveryCard = (props) => {
             }}
             color={theme.palette.text.primary}
           >
-            {data.plateDriver}
+            {data.orderNumber}
           </Typography>
           <Box sx={{ display: isDesktop ? "block" : "none" }}>
             {getStatusChip(data, theme)}
@@ -167,7 +170,7 @@ const DeliveryCard = (props) => {
               lineHeight: "19.32px",
             }}
           >
-            {data.clientName}
+            {data.customerText}
           </Typography>
         </DivFlexStart>
         <DivFlexStart sx={{ marginTop: isDesktop ? "16px" : "4px" }}>
@@ -205,7 +208,7 @@ const DeliveryCard = (props) => {
                     lineHeight: "22.08px",
                   }}
                 >
-                  {data.date}
+                  {getFormatDate(data.stopStart)}
                 </Typography>
               </DivFlexStart>
               <DivFlexStart>
@@ -233,7 +236,7 @@ const DeliveryCard = (props) => {
           </>
         ) : (
           <>
-            {data.deliveryStatus === "Late" ? (
+            {data.stopStatus === "Late" ? (
               <DivFlexStart
                 sx={{ height: 14, paddingTop: isDesktop ? "8px" : "1px" }}
               >
@@ -269,7 +272,7 @@ const DeliveryCard = (props) => {
                 >
                   {data.twStart} - {data.twEnd}
                 </Typography>
-                {data.deliveryStatus === "Late" ? (
+                {data.stopStatus === "Late" ? (
                   <DivFlexStart sx={{ width: 40 }}>
                     <ArrowDropDownIcon
                       sx={{ width: 20, height: 20, color: "#da1e28" }}
@@ -286,7 +289,7 @@ const DeliveryCard = (props) => {
                       SPÄTE
                     </Typography>
                   </DivFlexStart>
-                ) : data.deliveryStatus === "Early" ? (
+                ) : data.stopStatus === "Early" ? (
                   <>
                     <DivFlexStart sx={{ width: 40 }}>
                       {/* <ArrowDropUpIcon sx={{ width: 20, height: 20, color: '#58d632' }} />
@@ -355,7 +358,7 @@ const DeliveryCard = (props) => {
                           lineHeight: "13.8px",
                         }}
                       >
-                        {data.date}
+                        {getFormatDate(data.stopStart)}
                       </Typography>
                     </DivFlexStart>
                     <Typography
@@ -387,7 +390,7 @@ const DeliveryCard = (props) => {
                             ml: 0.1
                         }} /> */}
                 {/* <Typography fontSize={10} color={theme.palette.text.primary} sx={{ fontFamily: FontFamily.EINA04LIGHT }}>
-                            {data.date}
+                            {getFormatDate(data.stopStart)}
                         </Typography> */}
               </DivFlexStart>
             </DivFlexSpaceBetween>
@@ -396,12 +399,12 @@ const DeliveryCard = (props) => {
       </RootDeliveryCard>
 
       <Collapse in={(openDetail && !isDesktop) || isOpenItemList}>
-        {data.itemList.map((product, index) => (
+        {data.orderPositions.map((product, index) => (
           <ItemList
             item={product}
             key={index}
             index={index}
-            itemLength={data.itemList.length}
+            itemLength={data.orderPositions.length}
             isOpenItemList={isOpenItemList}
           />
         ))}
@@ -412,19 +415,19 @@ const DeliveryCard = (props) => {
 
 DeliveryCard.defaultProps = {
   data: {
-    deliveryStatus: "",
     stopStatus: "",
-    date: "-",
+    stopStatus: "",
+    stopStart: "-",
     twStart: "-",
     twEnd: "-",
     vehicle: "-",
     tourSorted: "",
     totalStops: 0,
     isCanceled: false,
-    itemList: [0, 1, 2, 3],
+    orderPositions: [0, 1, 2, 3],
     address: "-",
-    clientName: "-",
-    plateDriver: "-",
+    customerText: "-",
+    orderNumber: "-",
   },
 };
 

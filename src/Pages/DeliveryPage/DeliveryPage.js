@@ -24,6 +24,9 @@ import moment from "moment";
 // import AppContext
 import { AppContext } from "../../App";
 
+import DeliveryData from "../../classes/DeliveryData";
+import { formatAddress } from "../../connector/Utils/DataUtils";
+
 // import Animations
 import {
   sunriseLightAnimation,
@@ -58,7 +61,7 @@ const DeliveryPage = () => {
     isTablet,
     mode,
     promoNewsData,
-    deliveryData,
+    // deliveryData,
     scrollDown,
     scrollToTop,
     isDesktop,
@@ -69,12 +72,38 @@ const DeliveryPage = () => {
 
   /** ============ State ============*/
   const [currentTime, setCurrentTime] = useState(moment().format("HH:mm:ss"));
-  const [deliveryId, setDeliveryId] = useState(1);
+  const [deliveryId, setDeliveryId] = useState(null);
+
+  const [deliveryData, setDeliveryData] = useState([])
 
   useEffect(() => {
     /** NORDMANN DATA (COMPLETE) */
     axios.get('http://192.168.210.244:3001/api/dev/v1/core/outlet/33336297').then(res => {
       console.log("DELIVERY DATA", res.data)
+
+      const deliveryDatas = res.data
+      const newDeliveryDatas = []
+
+      res.data.stops.forEach((deliveryData, index) => {
+
+        newDeliveryDatas.push(new DeliveryData(
+          deliveryData.id,
+          deliveryData.stopStatus,
+          deliveryData.twStart,
+          deliveryData.twEnd,
+          deliveryData.stopStart,
+          formatAddress(deliveryData.address),
+          deliveryData.orders[0].orderNumber,
+          deliveryData.orders[0].customerText,
+          deliveryData.orders[0].orderPositions,
+        ))
+      })
+
+      console.log('newDeliveryDatas', newDeliveryDatas)
+      setDeliveryData(newDeliveryDatas)
+      setDeliveryId(newDeliveryDatas[0].id)
+
+
     }).catch(err => {
 
     })
@@ -224,6 +253,11 @@ const DeliveryPage = () => {
   }
   /** =============== EOL Animation for greeting based on time =============== */
 
+
+  if (deliveryData.length < 1) {
+    return <></>
+  }
+
   return (
     <>
       <Grid container
@@ -358,11 +392,7 @@ const DeliveryPage = () => {
         >
           <DivFlexCenter>
             <DeliveryCardMenu
-              data={
-                deliveryData.filter(
-                  (delivery) => delivery.id === deliveryId
-                )[0]
-              }
+              data={deliveryData.find((delivery) => delivery.id === deliveryId)}
               isOpenItemList={true}
             />
           </DivFlexCenter>
