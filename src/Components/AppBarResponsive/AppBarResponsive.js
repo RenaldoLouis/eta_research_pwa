@@ -13,10 +13,10 @@ import LoginIcon from "../../assets/icons/LoginIcon";
 import SettingsIcon from '@mui/icons-material/Settings';
 
 // import temporary company Logo
-import CompanyWhiteLogoDekstop from "../../assets/Images/company-logo-white-dekstop.png";
-import CompanyBlackLogoDekstop from "../../assets/Images/company-logo-black-dekstop.png";
-import CompanyWhiteLogoMobile from "../../assets/Images/company-logo-white-mobile.png"
-import CompanyBlackLogoMobile from "../../assets/Images/company-logo-black-mobile.png"
+import CompanyWhiteLogoDekstop from "../../assets/images/company-logo-white-dekstop.png";
+import CompanyBlackLogoDekstop from "../../assets/images/company-logo-black-dekstop.png";
+import CompanyWhiteLogoMobile from "../../assets/images/company-logo-white-mobile.png"
+import CompanyBlackLogoMobile from "../../assets/images/company-logo-black-mobile.png"
 
 
 // import react-router-dom

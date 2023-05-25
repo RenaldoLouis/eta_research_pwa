@@ -20,7 +20,7 @@ import { FontFamily } from "../../Constants/FontFamily";
 import { AppContext } from "../../App";
 
 // import dummy image for promo
-import logo from "../../../src/assets/Images/dummy-promo-lemonade.jpg";
+import logo from "../../../src/assets/images/dummy-promo-lemonade.jpg";
 
 // color theme
 import { useTheme } from "@mui/material/styles";

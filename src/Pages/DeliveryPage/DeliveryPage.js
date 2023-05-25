@@ -2,6 +2,8 @@ import React, { useContext, useEffect, useState } from "react";
 import { styled } from "@mui/system";
 import Lottie from "react-lottie";
 
+import axios from "axios";
+
 // import material UI
 import { Typography, Grid, Box, Tooltip, IconButton } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
@@ -68,6 +70,15 @@ const DeliveryPage = () => {
   /** ============ State ============*/
   const [currentTime, setCurrentTime] = useState(moment().format("HH:mm:ss"));
   const [deliveryId, setDeliveryId] = useState(1);
+
+  useEffect(() => {
+    /** NORDMANN DATA (COMPLETE) */
+    axios.get('http://192.168.210.244:3001/api/dev/v1/core/outlet/33336297').then(res => {
+      console.log("DELIVERY DATA", res.data)
+    }).catch(err => {
+
+    })
+  }, [])
 
 
   // function for pass delivery id to open the detail  - desktop view

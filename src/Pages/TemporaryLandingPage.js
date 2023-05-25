@@ -28,8 +28,8 @@ import { UrlPage } from "../Constants/UrlPage";
 import { useNavigate, Outlet } from "react-router-dom"
 
 
-import firstStep from "../assets/Images/1st_step.png";
-import addLogo from "../assets/Images/add_to_home_screen.png";
+import firstStep from "../assets/images/1st_step.png";
+import addLogo from "../assets/images/add_to_home_screen.png";
 import DivFlexCenter from "../Components/DivFlexCenter";
 import DivFlexStart from "../Components/DivFlexStart";
 

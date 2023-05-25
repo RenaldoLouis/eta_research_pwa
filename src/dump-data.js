@@ -1,7 +1,7 @@
 // import logo from "../src/assets/Images/dummy-promo-lemonade.jpg";
-import neuesBier from "../src/assets/Images/Neues_Bier_ab_Marz.png";
-import jetztRabatt from "../src/assets/Images/Jetzt_Rabatt_Auf_Purwasser_Sichern.png";
-import wirLaden from "../src/assets/Images/Wir_Laden_Ihre_Mitarbeiten.png";
+import neuesBier from "../src/assets/images/Neues_Bier_ab_Marz.png";
+import jetztRabatt from "../src/assets/images/Jetzt_Rabatt_Auf_Purwasser_Sichern.png";
+import wirLaden from "../src/assets/images/Wir_Laden_Ihre_Mitarbeiten.png";
 
 export const promoDummyData = [
     {
@@ -87,7 +87,6 @@ export const deliveryDummyData = [
             },
         ],
     },
-
     {
         id: 2,
         deliveryStatus: "Done",
@@ -122,7 +121,6 @@ export const deliveryDummyData = [
             },
         ],
     },
-
     // {
     //   id: 3,
     //   deliveryStatus: 'Early',
@@ -146,7 +144,6 @@ export const deliveryDummyData = [
     //       ordered: 8,
     //       warning: false
     //     },
-
     //   ]
     // },
     // {
