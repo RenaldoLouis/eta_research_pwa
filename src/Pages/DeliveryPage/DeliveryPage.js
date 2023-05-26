@@ -8,6 +8,8 @@ import axios from "axios";
 import { Typography, Grid, Box, Tooltip, IconButton } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 
+import { useParams } from "react-router-dom";
+
 // import Component
 import DeliveryCard from "../../Components/DeliveryCard/DeliveryCard";
 import PromoNews from "../../Components/PromoNews/PromoNews";
@@ -47,6 +49,9 @@ import {
   Greeting
 } from "./DeliveryPageComponent";
 
+
+import PageNotFound from "../PageNotFound";
+
 // import Constants
 import { FontFamily } from "../../Constants/FontFamily";
 
@@ -55,6 +60,8 @@ import { FontFamily } from "../../Constants/FontFamily";
 const DeliveryPage = () => {
 
   const theme = useTheme();
+
+  const param = useParams()
 
   const {
     isMobile,
@@ -78,7 +85,7 @@ const DeliveryPage = () => {
 
   useEffect(() => {
     /** NORDMANN DATA (COMPLETE) */
-    axios.get('http://192.168.210.244:3001/api/dev/v1/core/outlet/33336297').then(res => {
+    axios.get(`http://192.168.210.71:3001/api/dev/v1/core/outlet/${param.stopNumber}`).then(res => {
       console.log("DELIVERY DATA", res.data)
 
       const deliveryDatas = res.data
@@ -96,6 +103,7 @@ const DeliveryPage = () => {
           deliveryData.orders[0].orderNumber,
           deliveryData.orders[0].customerText,
           deliveryData.orders[0].orderPositions,
+          deliveryData.tourStopNotifications
         ))
       })
 
@@ -247,7 +255,8 @@ const DeliveryPage = () => {
           {middayAnimation}
         </AnimationContainer>
         <Greeting>
-          Guten Tag!
+          {/* Guten Tag! */}
+          {param.stopNumber}
         </Greeting>
       </>
   }
@@ -255,7 +264,9 @@ const DeliveryPage = () => {
 
 
   if (deliveryData.length < 1) {
-    return <></>
+    return (
+      <PageNotFound />
+    )
   }
 
   return (

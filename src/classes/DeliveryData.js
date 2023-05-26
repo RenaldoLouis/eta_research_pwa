@@ -1,5 +1,5 @@
 class DeliveryData {
-    constructor(id, stopStatus, twStart, twEnd, stopStart, address, orderNumber, customerText, orderPositions) {
+    constructor(id, stopStatus, twStart, twEnd, stopStart, address, orderNumber, customerText, orderPositions, tourStopNotifications) {
         this.id = id
         this.stopStatus = stopStatus
         this.twStart = twStart
@@ -9,6 +9,7 @@ class DeliveryData {
         this.orderNumber = orderNumber
         this.customerText = customerText
         this.orderPositions = orderPositions
+        this.tourStopNotifications = tourStopNotifications
     }
 }
 

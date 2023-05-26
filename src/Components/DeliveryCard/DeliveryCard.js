@@ -25,6 +25,7 @@ import DiscrepancyIconChip from "../ChipStatus/DiscrepancyIconChip";
 
 // import Utils
 import { getFormatDate } from "../../connector/Utils/DateUtils";
+import { getTimeFormat } from "../../connector/Utils/DateUtils";
 
 // import Constants
 import { FontFamily } from "../../Constants/FontFamily";
@@ -111,6 +112,12 @@ const DeliveryCard = (props) => {
       setOpenDetail(false);
     }
   }, [totalDelivery]);
+
+
+
+  // data
+  const timeStart = getTimeFormat(data.tourStopNotifications.actual.twStart)
+  const timeEnd = getTimeFormat(data.tourStopNotifications.actual.twEnd)
 
   return (
     <Box sx={{ width: openDetail || isDesktop ? "100%" : "calc(100% - 48px)" }}>
@@ -229,7 +236,7 @@ const DeliveryCard = (props) => {
                     lineHeight: "22.08px",
                   }}
                 >
-                  {data.twStart} - {data.twEnd}
+                  {timeStart} - {timeEnd}
                 </Typography>
               </DivFlexStart>
             </DivFlexSpaceBetween>
@@ -249,7 +256,7 @@ const DeliveryCard = (props) => {
                     color: "#C6C6C6",
                   }}
                 >
-                  {data.twStart} - {data.twEnd}
+                  {timeStart} - {timeEnd}
                 </Typography>
               </DivFlexStart>
             ) : (
@@ -270,7 +277,7 @@ const DeliveryCard = (props) => {
                   color={theme.palette.text.primary}
                   sx={{ fontFamily: FontFamily.EINA04SEMIBOLD }}
                 >
-                  {data.twStart} - {data.twEnd}
+                  {timeStart} - {timeEnd}
                 </Typography>
                 {data.stopStatus === "Late" ? (
                   <DivFlexStart sx={{ width: 40 }}>

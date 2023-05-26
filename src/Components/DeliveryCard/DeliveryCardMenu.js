@@ -22,6 +22,7 @@ import DiscrepancyChip from "../ChipStatus/DiscrepancyChip";
 
 // import Utils
 import { getFormatDate } from "../../connector/Utils/DateUtils";
+import { getTimeFormat } from "../../connector/Utils/DateUtils";
 
 // import Constants
 import { FontFamily } from "../../Constants/FontFamily";
@@ -103,6 +104,11 @@ const DeliveryCardMenu = (props) => {
       setOpenDetail(false);
     }
   }, [totalDelivery]);
+
+
+  // data
+  const timeStart = getTimeFormat(data.tourStopNotifications.actual.twStart)
+  const timeEnd = getTimeFormat(data.tourStopNotifications.actual.twEnd)
 
   return (
     <Box sx={{ width: openDetail || isDesktop ? "100%" : "calc(100% - 48px)" }}>
@@ -188,7 +194,7 @@ const DeliveryCardMenu = (props) => {
                 ml: 2.2,
               }}
             >
-              {data.twStart} - {data.twEnd}
+              {timeStart} - {timeEnd}
             </Typography>
           </DivFlexSpaceBetween>
         ) : (
@@ -279,7 +285,7 @@ const DeliveryCardMenu = (props) => {
                 lineHeight: "38.64px",
               }}
             >
-              {data.twStart} - {data.twEnd}
+              {timeStart} - {timeEnd}
             </Typography>
           </DivFlexStart>
         </DivFlexSpaceBetween>

@@ -68,7 +68,7 @@ function TemporaryLandingPage() {
 
     const theme = useTheme()
 
-    const { isMobile, isDesktop } = useContext(AppContext)
+    const { isMobile, isDesktop, stopNumber } = useContext(AppContext)
 
     const [show, setShow] = useState(false);
 
@@ -109,13 +109,13 @@ function TemporaryLandingPage() {
     }
 
     const onClickDeliveryPage = () => {
-        navigate("/delivery")
+        navigate(`/${stopNumber}`)
     }
 
     return (
         <Container>
             <Typography sx={{ color: theme.palette.text.primary, fontSize: isMobile ? 14 : 20, fontFamily: FontFamily.EINA04SEMIBOLD, mb: 3 }}>
-                PWA Configuration Ver 1.2
+                PWA Configuration Ver 1.2 
             </Typography>
             {supportsPWA ? (
 

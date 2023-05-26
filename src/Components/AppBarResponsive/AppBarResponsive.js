@@ -13,7 +13,7 @@ import LoginIcon from "../../assets/icons/LoginIcon";
 import SettingsIcon from '@mui/icons-material/Settings';
 
 // import temporary company Logo
-import CompanyWhiteLogoDekstop from "../../assets/images/company-logo-white-dekstop.png";
+import CompanyWhiteLogoDekstop from "../../assets/images/company-logo-white-dekstop.png"
 import CompanyBlackLogoDekstop from "../../assets/images/company-logo-black-dekstop.png";
 import CompanyWhiteLogoMobile from "../../assets/images/company-logo-white-mobile.png"
 import CompanyBlackLogoMobile from "../../assets/images/company-logo-black-mobile.png"

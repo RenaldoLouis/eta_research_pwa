@@ -18,6 +18,7 @@ import { createTheme, ThemeProvider, } from "@mui/material/styles";
 // import Page
 import TemporaryLandingPage from "./Pages/TemporaryLandingPage";
 import DeliveryPage from "./Pages/DeliveryPage/DeliveryPage";
+import PageNotFound from "./Pages/PageNotFound";
 import Verify from "./Pages/Verify";
 
 //import Components
@@ -67,10 +68,10 @@ const Main = (props) => {
 
 
       <Routes>
-        <Route path="*" element={<TemporaryLandingPage />} />
+        <Route path="*" element={<PageNotFound />} />
         <Route path={UrlPage.VERIFY} element={<Verify />} />
 
-        <Route path={UrlPage.DELIVERY} element={<DeliveryPage />} />
+        <Route path={`/:stopNumber`} element={<DeliveryPage />} />
         <Route path={UrlPage.TRACKINGPAGE} element={<TrackingPage />} />
       </Routes>
     </>
@@ -99,6 +100,9 @@ function App() {
   }, [mode]);
   /* ==================== End Of Change Theme  ==================== */
 
+  /* ================== Dinamyc stopNumber ===================== */
+  const [stopNumber, setStopNumber] = useState("33336297")
+  /* ================== EOL DinamycstopNumber ===================== */
 
   /* ================== Data ===================== */
   const [promoNewsData, setPromoNewsData] = useState(promoDummyData)
@@ -393,6 +397,8 @@ function App() {
     userRole,
     handleLogin,
     handleLogout,
+
+    stopNumber,
   };
 
   return (
@@ -412,7 +418,7 @@ function App() {
                 pauseOnFocusLoss={false}
                 position="bottom-left"
               />
-              <Main isLinkExpired={isLinkExpired} />
+              <Main />
             </Router>
           </ThemeProvider>
         </AppContext.Provider>

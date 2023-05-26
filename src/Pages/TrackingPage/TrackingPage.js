@@ -68,7 +68,7 @@ const InputTrackingNumberContainer = styled("div")((props) => ({
 
 const TrackingPage = () => {
 
-  const { isLinkExpired, isMobile, promoNewsData, isDesktop, mode } = useContext(AppContext);
+  const { isLinkExpired, isMobile, promoNewsData, isDesktop, mode, stopNumber } = useContext(AppContext);
 
   const theme = useTheme();
 
@@ -82,7 +82,7 @@ const TrackingPage = () => {
 
 
   const goToDeliveryPage = () => {
-    navigate(UrlPage.DELIVERY);
+    navigate(`/${stopNumber}`);
   };
 
   const onClickSubmit = () => {
