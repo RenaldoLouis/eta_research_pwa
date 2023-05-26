@@ -116,7 +116,7 @@ export const DeliveryInformation = (props) => {
                     fontStyle: "normal",
                     fontWeight: 600,
                     lineHeight: "40px",
-                    pb: 1,
+                    pb: 3,
                 }}
             >
                 {props.children}

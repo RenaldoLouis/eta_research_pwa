@@ -2,23 +2,32 @@ import React, { useContext, useEffect, useState } from "react";
 import { styled, useTheme } from "@mui/material/styles";
 
 // import material component
-import { Box, Collapse, Typography } from "@mui/material";
+import { Box, Collapse, InputAdornment, Typography } from "@mui/material";
 
 // import AppContext
 import { AppContext } from "../../App";
 
 // import Icons
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
-import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
 import ClockIcon from "../../assets/icons/ClockIcon";
 import CalendarIcon from "../../assets/icons/CalendarIcon";
 import DoneIcon from "../../assets/icons/DoneIcon";
+import SearchIcon from '@mui/icons-material/Search';
+import ButtonPage from "../../assets/images/radioButtonDefault.png"
+import ButtonPageHover from "../../assets/images/radioButtonHover.png"
+import ButtonPageDangerDefault from "../../assets/images/radioButtonDangerDefault.png"
+import ButtonPageDangerHover from "../../assets/images/radioButtonDangerHover.png"
+import ButtonPageWarningDefault from "../../assets/images/radioButtonWarningDefault.png"
+import ButtonPageWarningHover from "../../assets/images/radioButtonWarningHover.png"
+import ButtonPageActiveDefault from "../../assets/images/radioButtonActiveDefault.png"
+import ButtonPageActiveHover from "../../assets/images/radioButtonActiveHover.png"
 
 // import components
 import ItemList from "../ItemList/ItemList";
 import DivFlexSpaceBetween from "../DivFlexSpacebetween";
 import DivFlexStart from "../DivFlexStart";
 import DiscrepancyChip from "../ChipStatus/DiscrepancyChip";
+import TextFieldDeliveryCardMenu from "../ReusableComponents/TextFieldDeliveryCardMenu";
 
 // import Utils
 import { getFormatDate } from "../../connector/Utils/DateUtils";
@@ -26,6 +35,11 @@ import { getTimeFormat } from "../../connector/Utils/DateUtils";
 
 // import Constants
 import { FontFamily } from "../../Constants/FontFamily";
+import { CustomTooltip } from "../CustomTooltip";
+import { deliverySimlationDarkAnimation } from "../Animations/Animations";
+
+//import styles
+import "../../index.css"
 
 const RootDeliveryCard = styled("div")((props) => ({
   backgroundColor: props.isDesktop
@@ -51,41 +65,53 @@ const RootDeliveryCard = styled("div")((props) => ({
   },
 }));
 
+export const ItemStickyTitle = styled("div")((props) => ({
+  position: "-webkit- sticky",
+  position: "sticky",
+  top: 0,
+  // width: "100%",
+  zIndex: 9999,
+  backgroundColor: props.theme.palette.background.deliveryCardMenuItemTitle
+}));
+
 const getStatusChip = (data, theme) => {
   return (
-    <DivFlexStart>
-      {data.orderPositions.some((v) => {
-        return v.warning === true;
-      }) ? (
-        <DiscrepancyChip />
-      ) : (
-        <></>
-      )}
+    // <DivFlexStart>
+    //   {data.orderPositions.some((v) => {
+    //     return v.warning === true;
+    //   }) ? (
+    //     <DiscrepancyChip />
+    //   ) : (
+    //     <></>
+    //   )}
 
-      {data.stopStatus === "FINISHED" ? (
-        <DivFlexStart sx={{ marginLeft: "4px", height: 18 }}>
-          <DoneIcon
-            color={theme.palette.text.doneIcon}
-            sx={{ fontSize: 16, mt: -0.4, marginRight: "6.33px" }}
-          />
-          <Typography
-            fontSize={12}
-            color={theme.palette.text.doneText}
-            sx={{ fontFamily: FontFamily.EINA04REGULAR }}
-          >
-            FERTIG
-          </Typography>
-        </DivFlexStart>
-      ) : (
-        <DivFlexStart sx={{ ml: 0, height: 18 }} />
-      )}
-    </DivFlexStart>
+    //   {data.stopStatus === "FINISHED" ? (
+    //     <DivFlexStart sx={{ marginLeft: "4px", height: 18 }}>
+    //       <DoneIcon
+    //         color={theme.palette.text.doneIcon}
+    //         sx={{ fontSize: 16, mt: -0.4, marginRight: "6.33px" }}
+    //       />
+    //       <Typography
+    //         fontSize={12}
+    //         color={theme.palette.text.doneText}
+    //         sx={{ fontFamily: FontFamily.EINA04REGULAR }}
+    //       >
+    //         FERTIG
+    //       </Typography>
+    //     </DivFlexStart>
+    //   ) : (
+    //     <DivFlexStart sx={{ ml: 0, height: 18 }} />
+    //   )}
+    // </DivFlexStart>
+    <></>
   );
 };
 
 const DeliveryCardMenu = (props) => {
   const { totalDelivery, numberOfDeliver, data, isOpenItemList, deliveryId } =
     props;
+
+    console.log(data)
 
   const { isMobile, isTablet, isDesktop } = useContext(AppContext);
 
@@ -95,7 +121,28 @@ const DeliveryCardMenu = (props) => {
   const { innerWidth: width } = window;
 
   // local state for open itemlist
-  const [openDetail, setOpenDetail] = useState(false);
+  const [openDetail, setOpenDetail] = useState(false)
+  const [activeRadioButton, setActiveRadioButton] = useState(false);
+  const [hoverState, setHoverState] = useState(false);
+
+  const handleChangeRadio = (order) => {
+    var section = document.getElementById(`content-${order.orderNumber}`)
+    section.scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'start', scrollBehavior: "smooth" });
+  }
+
+  const toggleVisible = () => {
+    const container = document.getElementById('parentScroll').scrollTop + 50
+    data.orders.forEach((order) => {
+      if (container >= document.getElementById(`content-${order.orderNumber}`).offsetTop - 600) {
+        setActiveRadioButton(order.orderNumber)
+      }
+    })
+  }
+  
+
+  useEffect(() => {
+    toggleVisible()
+  })
 
   useEffect(() => {
     if (totalDelivery === 1) {
@@ -111,7 +158,7 @@ const DeliveryCardMenu = (props) => {
   const timeEnd = getTimeFormat(data.tourStopNotifications.actual.twEnd)
 
   return (
-    <Box sx={{ width: openDetail || isDesktop ? "100%" : "calc(100% - 48px)" }}>
+    <Box sx={{ width: openDetail || isDesktop ? "100%" : "calc(100% - 48px)", height: "100%" }}>
       <RootDeliveryCard
         onClick={isDesktop ? undefined : () => setOpenDetail(!openDetail)}
         isDesktop={isDesktop}
@@ -289,6 +336,16 @@ const DeliveryCardMenu = (props) => {
             </Typography>
           </DivFlexStart>
         </DivFlexSpaceBetween>
+        <DivFlexStart style={{ paddingTop: "24px" }}>
+          <TextFieldDeliveryCardMenu sx={{ backgroundColor: theme.palette.background.deliveryCardMenuSearchBar }} InputProps={{
+            startAdornment: (
+              <InputAdornment sx={{ padding: "0px" }} position="start">
+                <SearchIcon />
+              </InputAdornment>
+            )
+          }}
+            placeholder="Search Beleg Number or Item Name" />
+        </DivFlexStart>
 
         <DivFlexSpaceBetween
           sx={{
@@ -309,17 +366,94 @@ const DeliveryCardMenu = (props) => {
         </DivFlexSpaceBetween>
       </RootDeliveryCard>
 
-      <Collapse in={(openDetail && !isDesktop) || isOpenItemList}>
-        {data.orderPositions.map((product, index) => (
-          <ItemList
-            item={product}
-            key={index}
-            index={index}
-            itemLength={data.orderPositions.length}
-            isOpenItemList={isOpenItemList}
-          />
-        ))}
-      </Collapse>
+      <div style={{ paddingTop: "24px", display: "flex", padding: "16px 0px 16px 16px", }} >
+        <div>
+          {data.orders.map((order) => {
+            return (
+              <div style={{ display: 'flex', paddingBottom: "11px" }} onClick={() => { handleChangeRadio(order) }}>
+                {/* <CustomTooltip sx={{ whiteSpace: "pre-line" }} title={order.orderPositions.some((v) => v.warning === true) ? `${order.orderNumber} \n Discrepancy` : order.orderNumber}> */}
+                  <div id={order.orderNumber} onMouseEnter={() => { setHoverState(order.id) }} onMouseLeave={() => { setHoverState("") }} style={{ display: "flex", alignItems: "center", justifyContent: "center", width: "24px", height: "24px" }}>
+                    {order.orderNumber === activeRadioButton ? (
+                      <div>
+                        {/* {order.orderPositions.some((v) => v.warning === true) ? (
+                          <Box className="icons">
+                            {hoverState === order.orderNumber ? (
+                              <img src={ButtonPageWarningHover} style={{ height: "24px", width: "24px" }}
+                              />
+                            ) : (
+                              <img src={ButtonPageWarningDefault} style={{ height: "24px", width: "24px" }}
+                              />
+                            )}
+                          </Box>
+                        ) : ( */}
+                          <Box className="icons">
+                            {hoverState === order.orderNumber ? (
+                              <img src={ButtonPageActiveHover} style={{ height: "24px", width: "24px" }} />
+                            ) : (
+                              <img src={ButtonPageActiveDefault} style={{ height: "24px", width: "24px" }} />
+                            )}
+                          </Box>
+                        {/* )} */}
+                      </div>
+                    ) : (
+                      <Box>
+                        {/* {order.orderPositions.some((v) => v.warning === true) ? (
+                          <Box>
+                            {hoverState === order.orderNumber ? (
+                              <img src={ButtonPageDangerHover} style={{ height: "12px", width: "16px", marginLeft: "5px" }}
+                              />
+                            ) : (
+                              <img src={ButtonPageDangerDefault} style={{ height: "12px", width: "16px", marginLeft: "5px" }}
+                              />
+                            )}
+
+                          </Box>
+                        ) : ( */}
+                          <Box>
+                            {hoverState === order.orderNumber ? (
+                              <img src={ButtonPageHover} style={{ height: "12px", width: "12px" }}
+                              />
+                            ) : (
+                              <img src={ButtonPage} style={{ height: "12px", width: "12px" }}
+                              />
+                            )}
+                          </Box>
+                        {/* )} */}
+                      </Box>
+                    )}
+                  </div>
+                {/* </CustomTooltip> */}
+              </div>
+            )
+          })}
+        </div>
+        <div id="parentScroll" className="deliveryCardMenuItems" style={{ paddingLeft: "60px", width: '100%', height: "calc(100vh - 400px)", overflowY: "auto", scrollBehavior: "smooth", paddingRight: "20px", margin: "0px -20px 0px 0px" }}>
+          {data.orders.map((order, index) => (
+            <>
+            <DivFlexSpaceBetween id={`content-${order.orderNumber}`} style={{ paddingBottom: "40px", alignItems: "none", display: 'flex', justifyContent: "start" }}>
+              <div style={{ width: '100%' }}>
+                <ItemStickyTitle>
+                  <Typography style={{ fontWeight: 700, fontSize: "18px", lineHeight: "24.84px", fontFamliy: "Eina04-Regular" }}>{`Beleg ${order.orderNumber}`}</Typography>
+                </ItemStickyTitle>
+                <Collapse style={{ width: "100%" }} in={(openDetail && !isDesktop) || isOpenItemList}>
+                  {order.orderPositions.map((orderPosition, index) => {
+                    return (
+                      <ItemList
+                        item={orderPosition}
+                        key={index}
+                        index={index}
+                        itemLength={order.orderPositions.length}
+                        isOpenItemList={isOpenItemList}
+                      />
+                    )
+                  })}
+                </Collapse>
+              </div>
+            </DivFlexSpaceBetween>
+            </>
+          ))}
+        </div>
+      </div>
     </Box>
   );
 };

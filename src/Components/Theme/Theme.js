@@ -61,6 +61,18 @@ export const ligthTheme = createTheme({
 
             // separatorStickyTitle
             separatorTitle: "#6F6F6F",
+            
+            //DeliveryCardMenuSearchBar
+            deliveryCardMenuSearchBar: "#EBEBEB",
+
+            //DeliveryCardMenuItemTitle
+            deliveryCardMenuItemTitle: "#F3F3F3",
+
+            //DeliveryCardCloseIcon
+            deliveryCardCloseIcon: "#C6C6C6",
+
+            //DeliveryCardItemTitle
+            deliveryCardItemTitle: "#cbcbcb"
         },
         text: {
             primary: "#1A1919",
@@ -139,6 +151,19 @@ export const darkTheme = createTheme({
 
             // separatorStickyTitle
             separatorTitle: "#F4F4F4",
+
+            //DeliveryCardMenuSearchBar
+            deliveryCardMenuSearchBar: "#737373",
+            
+
+            //DeliveryCardMenuItemTitle
+            deliveryCardMenuItemTitle: "#393939",
+
+            //DeliveryCardCloseIcon
+            deliveryCardCloseIcon: "#8D8D8D",
+
+            //DeliveryCardItemTitle
+            deliveryCardItemTitle: "#525252"
         },
         text: {
             primary: "#f4f4f4",

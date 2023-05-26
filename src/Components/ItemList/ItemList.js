@@ -2,7 +2,7 @@ import React, { useState, useContext } from "react";
 import { styled } from "@mui/material/styles";
 
 // import material Component
-import { Typography } from "@mui/material";
+import { Divider, Typography } from "@mui/material";
 import List from "@mui/material/List";
 import ListItemButton from "@mui/material/ListItemButton";
 import Collapse from "@mui/material/Collapse";
@@ -21,6 +21,7 @@ import { FontFamily } from "../../Constants/FontFamily";
 
 // import theme color
 import { useTheme } from "@mui/material/styles";
+import DivFlexEnd from "../DivFlexEnd";
 
 const ItemSubList = styled(ListItemButton)((props) => ({
   marginLeft: "14px",
@@ -45,6 +46,7 @@ const ItemList = (props) => {
     setOpen(!open);
   };
 
+
   return (
     <>
       <List
@@ -59,15 +61,16 @@ const ItemList = (props) => {
               ? theme.palette.background.deliveryCardMenu
               : theme.palette.background.default
             : theme.palette.background.deliveryCardMenu,
-          paddingLeft: isDesktop ? "0px" : 1,
-          paddingRight: isDesktop ? "0px" : 1,
-          marginRight: isDesktop ? "16px" : "",
-          marginLeft: isDesktop ? "16px" : "",
+          paddingLeft: isDesktop ? "0px" : 3,
+          paddingRight: isDesktop ? "0px" : 3,
+          // marginRight: isDesktop ? "16px" : "",
+          // marginLeft: isDesktop ? "16px" : "",
         }}
       >
         <ListItemButton
           onClick={item.warning ? handleClickExpandList : undefined}
           sx={{
+            padding: "8px 0px 8px 0px",
             "&:hover": {
               backgroundColor: "transparent",
               cursor: !item.warning ? "default" : "",
@@ -84,7 +87,7 @@ const ItemList = (props) => {
                 {item.text}
               </Typography>
               {item.warning && (
-                <ErrorIcon sx={{ color: "#da1e28", fontSize: 14 }} />
+                <ErrorIcon sx={{ marginLeft: "8px", color: "#da1e28", fontSize: 14 }} />
               )}
             </DivFlexStart>
             <Typography
@@ -100,6 +103,7 @@ const ItemList = (props) => {
             <Collapse in={open} timeout="auto" unmountOnExit>
               <ItemSubList
                 sx={{
+                  borderBottom: `1px solid ${theme.palette.background.separatorTitle}`,
                   backgroundColor: theme.palette.background.oddItemList,
                   "&:hover": {
                     backgroundColor: theme.palette.background.oddItemList,
@@ -107,7 +111,7 @@ const ItemList = (props) => {
                 }}
                 disableRipple
               >
-                <DivFlexSpaceBetween sx={{ width: "100%" }}>
+                <DivFlexSpaceBetween sx={{ width: "100%", }}>
                   <Typography
                     sx={{ fontSize: 12, fontFamily: FontFamily.EINA04REGULAR }}
                     color={theme.palette.text.primary}

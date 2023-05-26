@@ -55,13 +55,14 @@ import PageNotFound from "../PageNotFound";
 // import Constants
 import { FontFamily } from "../../Constants/FontFamily";
 
+//import Styles
+import "../../index.css"
+
 
 
 const DeliveryPage = () => {
-
   const theme = useTheme();
-
-  const param = useParams()
+  const param = useParams();
 
   const {
     isMobile,
@@ -84,9 +85,8 @@ const DeliveryPage = () => {
   const [deliveryData, setDeliveryData] = useState([])
 
   useEffect(() => {
-    console.log("ASD")
     /** NORDMANN DATA (COMPLETE) */
-    axios.get(`http://192.168.210.128:3001/api/dev/v1/core/eta/access/${param.stopNumber}`).then(res => {
+    axios.get(`https://gotraces-de.commsult.dev/api/core/eta/access/${param.stopNumber}`).then(res => {
       console.log("DELIVERY DATA", res.data)
 
       const newDeliveryDatas = []
@@ -100,9 +100,8 @@ const DeliveryPage = () => {
           deliveryData.twEnd,
           deliveryData.stopStart,
           formatAddress(deliveryData.address),
-          deliveryData.orders[0].orderNumber,
           deliveryData.orders[0].customerText,
-          deliveryData.orders[0].orderPositions,
+          deliveryData.orders,
           deliveryData.tourStopNotifications
         ))
       })
@@ -114,7 +113,6 @@ const DeliveryPage = () => {
 
     })
   }, [])
-
 
   // function for pass delivery id to open the detail  - desktop view
   const handleClickDeliveryDesktop = (id) => {
@@ -275,7 +273,7 @@ const DeliveryPage = () => {
           height: isDesktop ? "100vh" : "",
         }}
       >
-        <Grid item xs={12} md={12} lg={3} id="deliverSection"
+        <Grid className="deliveryCardGrid" item xs={12} md={12} lg={3} id="deliverSection"
           bgcolor={{ xs: theme.palette.background.defaultMobile, lg: theme.palette.background.default }}
           sx={{
             overflowY: isDesktop ? "scroll" : "hidden",
@@ -392,11 +390,14 @@ const DeliveryPage = () => {
         <Grid item xs={0} md={0} lg={6}
           display={{ xs: "none", md: "none", lg: "block" }}
           bgcolor={{ md: theme.palette.background.deliveryCardMenu }}
-          padding={{ lg: "86px 80px 0px 80px" }}
+          padding={{ lg: "86px 40px 0px 40px" }}
           sx={{
-            overflowY: isDesktop ? "scroll" : "",
+            // overflowY: isDesktop ? "scroll" : "",
+            scrollBehavior: "smooth",
             height: isDesktop ? "100vh" : "",
             paddingTop: "72px",
+            // overflow: "hidden",
+            // position: "sticky"
           }}
         >
           <DivFlexCenter>

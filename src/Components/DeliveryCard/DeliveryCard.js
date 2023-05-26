@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { styled, useTheme } from "@mui/material/styles";
 
 // import material component
-import { Box, Collapse, Typography } from "@mui/material";
+import { Box, Collapse, InputAdornment, Typography } from "@mui/material";
 
 // import AppContext
 import { AppContext } from "../../App";
@@ -13,6 +13,7 @@ import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
 import ClockIcon from "../../assets/icons/ClockIcon";
 import DoneIcon from "../../assets/icons/DoneIcon";
 import ErrorIcon from "../../assets/icons/ErrorIcon";
+import SearchIcon from '@mui/icons-material/Search';
 
 
 // import components
@@ -29,6 +30,12 @@ import { getTimeFormat } from "../../connector/Utils/DateUtils";
 
 // import Constants
 import { FontFamily } from "../../Constants/FontFamily";
+import TextFieldDeliveryCardMenu from "../ReusableComponents/TextFieldDeliveryCardMenu";
+import DivFlexEnd from "../DivFlexEnd";
+import CloseIcon from "../../assets/icons/CloseIcon";
+
+//import styles
+import '../../index.css'
 
 const RootDeliveryCard = styled("div")((props) => ({
   backgroundColor: props.isDesktop
@@ -38,7 +45,7 @@ const RootDeliveryCard = styled("div")((props) => ({
         ? props.theme.palette.background.deliveryCard
         : props.theme.palette.background.default
     : props.theme.palette.background.deliveryCard,
-  padding: props.isDesktop ? 16 : props.openDetail ? "16px 24px 16px 24px" : 16,
+  padding: props.isDesktop ? 16 : props.openDetail ? "16px 24px 0px 24px" : 16,
   cursor: props.isDesktop
     ? props.isOpenItemList
       ? "default"
@@ -56,11 +63,13 @@ const RootDeliveryCard = styled("div")((props) => ({
   },
 }));
 
+
+
 const getStatusChip = (data, theme) => {
   const { innerWidth: width } = window;
   return (
     <DivFlexStart>
-      {data.orderPositions.some((v) => {
+      {/* {data.orderPositions.some((v) => {
         return v.warning === true;
       }) ? (
         width >= 1200 && width <= 1580 ? (
@@ -70,7 +79,7 @@ const getStatusChip = (data, theme) => {
         )
       ) : (
         <></>
-      )}
+      )} */}
 
       {data.stopStatus === "FINISHED" ? (
         <DivFlexStart sx={{ ml: 1, height: 18, pt: 0 }}>
@@ -104,6 +113,47 @@ const DeliveryCard = (props) => {
 
   // local state for open itemlist
   const [openDetail, setOpenDetail] = useState(false);
+  const [openItem, setOpenItem] = useState([]);
+
+  const handleOpenItemList = (item) => {
+    const checkData = openItem.some((v) => v === item)
+    if (checkData) {
+      const removedData = openItem.filter(function (value) {
+        return value !== item
+      })
+      setOpenItem(removedData)
+    }
+    else {
+      setOpenItem((prevState) => [...prevState, item])
+    }
+  }
+
+  const handleAddAllItem = () => {
+    setOpenItem("")
+    const allData = []
+    data.itemList.map((data) => {
+      return allData.push(data.id)
+    })
+    setOpenItem(allData);
+  }
+
+  const handleCheckItemData = () => {
+    const dataLength = []
+    data.itemList.map((data) => {
+      return dataLength.push(data.id);
+    })
+    if (openItem.length === dataLength.length) {
+      return true
+    }
+    else {
+      return false
+    }
+  }
+
+  const handleOpenDeliveryCard = () => {
+    setOpenItem([])
+    setOpenDetail(!openDetail)
+  }
 
   useEffect(() => {
     if (totalDelivery === 1) {
@@ -122,7 +172,7 @@ const DeliveryCard = (props) => {
   return (
     <Box sx={{ width: openDetail || isDesktop ? "100%" : "calc(100% - 48px)" }}>
       <RootDeliveryCard
-        onClick={isDesktop ? undefined : () => setOpenDetail(!openDetail)}
+        onClick={isDesktop ? undefined : () => handleOpenDeliveryCard()}
         isDesktop={isDesktop}
         isOpenItemList={isOpenItemList}
         deliveryId={deliveryId}
@@ -131,42 +181,50 @@ const DeliveryCard = (props) => {
       >
         {(isMobile || isTablet) && (
           <DivFlexSpaceBetween sx={{ marginBottom: "10px" }}>
-            <Typography
-              fontSize={12}
-              color={theme.palette.text.primary}
-              sx={{
-                fontFamily: FontFamily.EINA04REGULAR,
-                fontWeight: 400,
-                lineHeight: "16.56px",
-                fontStyle: "italic",
-              }}
-            >
-              {`${numberOfDeliver} von ${totalDelivery}`}
-            </Typography>
-            {getStatusChip(data, theme)}
+            {openDetail ? (
+              ""
+            ) : (
+              <>
+                <Typography
+                  fontSize={12}
+                  color={theme.palette.text.primary}
+                  sx={{
+                    fontFamily: FontFamily.EINA04REGULAR,
+                    fontWeight: 400,
+                    lineHeight: "16.56px",
+                    fontStyle: "italic",
+                  }}
+                >
+                  {`${numberOfDeliver} von ${totalDelivery}`}
+                </Typography>
+                {getStatusChip(data, theme)}
+              </>
+            )}
           </DivFlexSpaceBetween>
         )}
         <DivFlexSpaceBetween
           sx={{ mb: isDesktop ? 0 : undefined, flexWrap: "wrap" }}
         >
-          <Typography
-            fontSize={12}
-            sx={{
-              fontFamily: FontFamily.EINA04REGULAR,
-              letterSpacing: "0.15em",
-              fontStyle: "normal",
-              fontWeight: 400,
-              lineHeight: "17px",
-            }}
-            color={theme.palette.text.primary}
-          >
-            {data.orderNumber}
-          </Typography>
+          {!openDetail && (
+            <Typography
+              fontSize={12}
+              sx={{
+                fontFamily: FontFamily.EINA04REGULAR,
+                letterSpacing: "0.15em",
+                fontStyle: "normal",
+                fontWeight: 400,
+                lineHeight: "17px",
+              }}
+              color={theme.palette.text.primary}
+            >
+              {data.plateDriver}
+            </Typography>
+          )}
           <Box sx={{ display: isDesktop ? "block" : "none" }}>
             {getStatusChip(data, theme)}
           </Box>
         </DivFlexSpaceBetween>
-        <DivFlexStart sx={{ marginTop: isDesktop ? "16px" : "4px" }}>
+        <DivFlexSpaceBetween sx={{ marginTop: isDesktop ? "16px" : "4px" }}>
           <Typography
             fontSize={16}
             color={theme.palette.text.primary}
@@ -179,7 +237,19 @@ const DeliveryCard = (props) => {
           >
             {data.customerText}
           </Typography>
-        </DivFlexStart>
+          {(isMobile || isTablet) && (
+            <Box>
+              {openDetail && (
+                <CloseIcon sx={{
+                  height: '16px',
+                  width: '16px',
+                  fill: theme.palette.background.deliveryCardCloseIcon
+                }}
+                />
+              )}
+            </Box>
+          )}
+        </DivFlexSpaceBetween>
         <DivFlexStart sx={{ marginTop: isDesktop ? "16px" : "4px" }}>
           <Typography
             fontSize={12}
@@ -240,6 +310,15 @@ const DeliveryCard = (props) => {
                 </Typography>
               </DivFlexStart>
             </DivFlexSpaceBetween>
+            {(isMobile || isTablet) && (
+              <Box>
+                {openDetail && (
+                  <>
+
+                  </>
+                )}
+              </Box>
+            )}
           </>
         ) : (
           <>
@@ -405,18 +484,110 @@ const DeliveryCard = (props) => {
         )}
       </RootDeliveryCard>
 
-      <Collapse in={(openDetail && !isDesktop) || isOpenItemList}>
-        {data.orderPositions.map((product, index) => (
-          <ItemList
-            item={product}
-            key={index}
-            index={index}
-            itemLength={data.orderPositions.length}
-            isOpenItemList={isOpenItemList}
-          />
-        ))}
-      </Collapse>
-    </Box >
+      {(isMobile || isTablet) && (
+        <>
+          <Box sx={{ padding: "0px 24px", backgroundColor: theme.palette.background.deliveryCard }}>
+            {openDetail && (
+              <DivFlexStart sx={{ paddingTop: "16px", paddingBottom: "12px" }}>
+                <TextFieldDeliveryCardMenu
+                  sx={{ backgroundColor: theme.palette.background.deliveryCardMenuSearchBar, width: "100%" }}
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment sx={{ padding: "0px" }} position="start">
+                        <SearchIcon />
+                      </InputAdornment>
+                    )
+                  }}
+                  placeholder="Search Beleg Number or Item Name" />
+              </DivFlexStart>
+            )}
+          </Box>
+          {handleCheckItemData() ? (
+            <Box sx={{ padding: "0px 24px 16px 0px", backgroundColor: theme.palette.background.deliveryCard }}>
+              {openDetail && (
+                <DivFlexEnd style={{ zIndex: 1000, position: "relative" }}>
+                  <Typography sx={{
+                    fontFamily: "Eina04-Regular",
+                    fontStyle: "normal",
+                    fontWeight: 600, fontSize: "12px",
+                    lineHeight: "17px",
+                    textDecorationLine: "underline",
+                    cursor: "pointer",
+                  }}
+                    onClick={() => { setOpenItem([]) }}
+                    >Alle verbergen</Typography>
+                </DivFlexEnd>
+              )}
+            </Box>
+          ) : (
+            <Box sx={{ padding: "0px 24px 16px 0px", backgroundColor: theme.palette.background.deliveryCard }}>
+              {openDetail && (
+                <DivFlexEnd style={{ zIndex: 1000, position: "relative" }}>
+                  <Typography sx={{
+                    fontFamily: "Eina04-Regular",
+                    fontStyle: "normal",
+                    fontWeight: 600, fontSize: "12px",
+                    lineHeight: "17px",
+                    textDecorationLine: "underline",
+                    cursor: "pointer",
+                  }}
+                    onClick={() => { handleAddAllItem() }}
+                  >Alle anzeigen</Typography>
+                </DivFlexEnd>
+              )}
+            </Box>
+          )}
+          <Box className="deliveryCardGrid" style={{ maxHeight: 380, overflowY: 'scroll', position: "relative" }}>
+            {data.itemList.map((product, index) => (
+              <>
+                {openDetail && (
+                  <Box sx={{
+                    display: 'flex',
+                    justifyContent: "space-between",
+                    position: "sticky",
+                    height: "50px", padding: "0px 24px",
+                    alignItems: "center",
+                    backgroundColor: theme.palette.background.deliveryCardItemTitle,
+                    zIndex: 100,
+                    top: 0
+                  }}
+                    onClick={() => {
+                      handleOpenItemList(product.id)
+                    }}
+                  >
+                    <Typography sx={{
+                      fontFamily: "Eina04-Regular",
+                      fontStyle: "normal",
+                      fontWeight: 400,
+                      fontSize: "12px",
+                      lineHeight: "17px"
+                    }}>{product.id}</Typography>
+                    {openItem.includes(product.id) ? (<ArrowDropUpIcon />) : (<ArrowDropDownIcon />)}
+                  </Box>
+                )}
+                <Collapse in={openItem.includes(product.id)} >
+                  {product.items.map((items, index) => {
+                    return (
+                      <>
+                        <ItemList
+                          item={items}
+                          key={index}
+                          index={index}
+                          itemLength={items.length}
+                          isOpenItemList={isOpenItemList}
+                        />
+                      </>
+                    )
+                  })}
+                </Collapse>
+              </>
+            ))}
+
+          </Box>
+        </>
+      )}
+
+    </Box>
   );
 };
 
