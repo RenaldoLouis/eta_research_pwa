@@ -68,7 +68,7 @@ function TemporaryLandingPage() {
 
     const theme = useTheme()
 
-    const { isMobile, isDesktop, stopNumber } = useContext(AppContext)
+    const { isMobile, isDesktop } = useContext(AppContext)
 
     const [show, setShow] = useState(false);
 
@@ -109,7 +109,7 @@ function TemporaryLandingPage() {
     }
 
     const onClickDeliveryPage = () => {
-        navigate(`/${stopNumber}`)
+        navigate(`/`)
     }
 
     return (

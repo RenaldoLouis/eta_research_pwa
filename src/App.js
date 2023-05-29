@@ -100,10 +100,6 @@ function App() {
   }, [mode]);
   /* ==================== End Of Change Theme  ==================== */
 
-  /* ================== Dinamyc stopNumber ===================== */
-  const [stopNumber, setStopNumber] = useState("XVJgHWBWKgcqEDeqNnwtxMpYzIf1gkMR54dVwydnnB-KVhQv4AZffhdwYuzB3dXG")
-  /* ================== EOL DinamycstopNumber ===================== */
-
   /* ================== Data ===================== */
   const [promoNewsData, setPromoNewsData] = useState(promoDummyData)
 
@@ -397,8 +393,6 @@ function App() {
     userRole,
     handleLogin,
     handleLogout,
-
-    stopNumber,
   };
 
   return (

@@ -84,11 +84,11 @@ const DeliveryPage = () => {
   const [deliveryData, setDeliveryData] = useState([])
 
   useEffect(() => {
+    console.log("ASD")
     /** NORDMANN DATA (COMPLETE) */
-    axios.get(`http://192.168.210.71:3001/api/dev/v1/core/eta/access/${param.stopNumber}`).then(res => {
+    axios.get(`http://192.168.210.128:3001/api/dev/v1/core/eta/access/${param.stopNumber}`).then(res => {
       console.log("DELIVERY DATA", res.data)
 
-      const deliveryDatas = res.data
       const newDeliveryDatas = []
 
       res.data.stops.forEach((deliveryData, index) => {
@@ -110,8 +110,6 @@ const DeliveryPage = () => {
       console.log('newDeliveryDatas', newDeliveryDatas)
       setDeliveryData(newDeliveryDatas)
       setDeliveryId(newDeliveryDatas[0].id)
-
-
     }).catch(err => {
 
     })
@@ -255,8 +253,8 @@ const DeliveryPage = () => {
           {middayAnimation}
         </AnimationContainer>
         <Greeting>
-          {/* Guten Tag! */}
-          {param.stopNumber}
+          Guten Tag!
+          {/* {param.stopNumber} */}
         </Greeting>
       </>
   }
