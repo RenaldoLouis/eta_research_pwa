@@ -85,7 +85,7 @@ const DeliveryPage = () => {
 
   useEffect(() => {
     /** NORDMANN DATA (COMPLETE) */
-    axios.get(`http://192.168.210.71:3001/api/dev/v1/core/outlet/${param.stopNumber}`).then(res => {
+    axios.get(`http://192.168.210.71:3001/api/dev/v1/core/eta/access/${param.stopNumber}`).then(res => {
       console.log("DELIVERY DATA", res.data)
 
       const deliveryDatas = res.data
