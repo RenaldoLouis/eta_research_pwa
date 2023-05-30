@@ -1,6 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
-
-import Countdown from "react-countdown";
+import React, { useContext, useEffect, useState, useRef } from "react";
 
 // import material UI
 import { Typography, Snackbar, Box } from "@mui/material";
@@ -70,15 +68,6 @@ const OtpDialog = () => {
         console.log('inputOtp', inputOtp)
     }
 
-    const [k, setK] = useState(false);
-    const onCompleteTimeFun = () => {
-        console.log("Resetting Time");
-        setK((i) => !i);
-    };
-
-    const [initialTime, setInitialTime] = useState(Date.now() + 0)
-    const [otpCountdown, setOtpCountdown] = useState(false)
-
     const [isOtpFalse, setIsOtpFalse] = useState(false)
 
     const handleButtonLogin = () => {
@@ -95,18 +84,9 @@ const OtpDialog = () => {
 
     useEffect(() => {
         if (sendOtp == true) {
-            setInitialTime(Date.now() + 59000)
-            setOtpCountdown(true)
-        }
-        else {
-            setInitialTime(Date.now() + 0)
-            setOtpCountdown(false)
+            onCountdownStart()
         }
     }, [sendOtp])
-
-    const handleAfterFinsihCountdown = () => {
-        setOtpCountdown(false)
-    }
 
     const inputfocus = (elmnt) => {
         if (elmnt.key === "Delete" || elmnt.key === "Backspace") {
@@ -128,16 +108,50 @@ const OtpDialog = () => {
         setIsOtpFalse(false)
     }
 
-    // Renderer callback with condition
-    const renderer = ({ hours, minutes, seconds, completed }) => {
-        if (completed) {
-            // Render a complete state
-            return 0;
-        } else {
-            // Render a countdown
-            return <span>{seconds}</span>;
+    /** ================ Countdown Timer ================ */
+
+    const timerRef = useRef(null)
+    const [timer, setTimer] = useState('00');
+
+    const getTimeRemaining = (e) => {
+        const total = Date.parse(e) - Date.parse(new Date());
+        const seconds = Math.floor((total / 1000) % 60);
+        const minutes = Math.floor((total / 1000 / 60) % 60);
+        const hours = Math.floor((total / 1000 / 60 / 60) % 24);
+        return {
+            total, hours, minutes, seconds
+        };
+    }
+
+    const startTimer = (e) => {
+        let { total, hours, minutes, seconds } = getTimeRemaining(e);
+
+        if (total >= 0) {
+            setTimer(seconds)
         }
-    };
+    }
+
+    const clearTimer = (e) => {
+        setTimer('59');
+
+        if (timerRef.current) clearInterval(timerRef.current);
+        const id = setInterval(() => {
+            startTimer(e);
+        }, 1000)
+        timerRef.current = id;
+    }
+
+    const getInitTime = () => {
+        let deadline = new Date();
+        deadline.setSeconds(deadline.getSeconds() + 59);
+        return deadline;
+    }
+
+    const onCountdownStart = () => {
+        clearTimer(getInitTime());
+    }
+
+    /** ================ EOL Cuntdown Timer ================ */
 
 
 
@@ -258,14 +272,14 @@ const OtpDialog = () => {
                                 </Typography>
                             </DivFlexStart>
                         }
-                        {otpCountdown && (
+                        {timer != 0 && (
                             <DivFlexCenter sx={{ mb: 0, mt: 6 }}>
                                 <Typography sx={{ fontFamily: FontFamily.EINA04REGULAR, color: theme.palette.text.primary, textDecoration: 'underline', fontSize: isMobile ? 12 : 20 }}>
-                                    Resent OTP Code (<Countdown key={k} date={initialTime} renderer={renderer} onComplete={handleAfterFinsihCountdown} />)
+                                    Resent OTP Code {timer}
                                 </Typography>
                             </DivFlexCenter>
                         )}
-                        <Button onClick={handleButtonLogin} style={{ mt: otpCountdown ? 2 : 5 }} >
+                        <Button onClick={handleButtonLogin} style={{ mt: timer != 0 ? 2 : 5 }} >
                             {`Login`}
                         </Button>
                     </CustomDialogContent>
