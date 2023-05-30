@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState, useRef } from "react";
 
 // import material UI
-import { Typography, Snackbar, Box } from "@mui/material";
+import { Typography, Box } from "@mui/material";
 
 // import Icon
 import ErrorIcon from "../../../assets/icons/ErrorIcon";
@@ -16,32 +16,18 @@ import { AppContext } from "../../../App";
 import DivFlexCenter from "../../DivFlexCenter";
 import CustomDialog from "../DialogContainer/CustomDialog";
 import Button from "../../Button";
+import CustomOtpInput from "../../CustomOtpInput/CustomOtpInput";
 
 // import Constants
 import { FontFamily } from "../../../Constants/FontFamily";
 
 // dark mode and light mode
-import { useTheme, styled } from "@mui/material/styles";
+import { useTheme } from "@mui/material/styles";
 import CustomDialogContent from "../DialogContainer/CustomDialogContent";
 import DivFlexStart from "../../DivFlexStart";
 
-
-const InputOtp = styled('input')((props) => ({
-    width: '15%',
-    height: props.isMobile ? 35 : 60,
-    border: props.isOtpFalse ? `1px solid #da1e28` : `1px solid ${props.theme.palette.background.borderForm}`,
-    marginLeft: props.isMobile ? 2 : 5,
-    marginRight: props.isMobile ? 2 : 5,
-    textAlign: 'center',
-    fontFamily: FontFamily.EINA04REGULAR,
-    fontSize: props.isMobile ? 12 : 20,
-    color: props.theme.palette.text.inputText,
-    backgroundColor: props.theme.palette.background.dialog,
-    ":focus": {
-        outline: 'none',
-        border: props.isOtpFalse ? `1px solid #da1e28` : `1px solid ${props.theme.palette.background.borderFormActive}`,
-    }
-}))
+// import dump data
+import { otpValue } from "../../../dump-data";
 
 
 
@@ -51,11 +37,10 @@ const OtpDialog = () => {
 
     const theme = useTheme()
 
+    /** ================ OTP using Custom Component ================ */
+
     // initiate otp value
     const otpChar = { otp1: '', otp2: '', otp3: '', otp4: '', otp5: '', otp6: '', otp7: '', otp8: '' }
-
-    // temporary valid otp value
-    const otpValue = { otp1: '0', otp2: '0', otp3: '0', otp4: '0', otp5: '0', otp6: '0', otp7: '0', otp8: '0' }
 
     const [inputOtp, setInputOtp] = useState(otpChar)
 
@@ -82,33 +67,17 @@ const OtpDialog = () => {
         }
     }
 
+    /** ================ EOL OTP using Custom Component ================ */
+
+
+
+    /** ================ Countdown Timer ================ */
+
     useEffect(() => {
         if (sendOtp == true) {
             onCountdownStart()
         }
     }, [sendOtp])
-
-    const inputfocus = (elmnt) => {
-        if (elmnt.key === "Delete" || elmnt.key === "Backspace") {
-            const next = elmnt.target.tabIndex - 2;
-            if (next > -1) {
-                elmnt.target.form.elements[next].focus()
-            }
-        }
-        else {
-            const next = elmnt.target.tabIndex;
-            if (next < 8) {
-                elmnt.target.form.elements[next].focus()
-            }
-        }
-    }
-
-    const handleCloseDialog = () => {
-        handleCloseOtpDialog()
-        setIsOtpFalse(false)
-    }
-
-    /** ================ Countdown Timer ================ */
 
     const timerRef = useRef(null)
     const [timer, setTimer] = useState('00');
@@ -154,6 +123,11 @@ const OtpDialog = () => {
     /** ================ EOL Cuntdown Timer ================ */
 
 
+    const handleCloseDialog = () => {
+        handleCloseOtpDialog()
+        setIsOtpFalse(false)
+    }
+
 
     return (
         <>
@@ -165,105 +139,10 @@ const OtpDialog = () => {
                                 OTP
                             </Typography>
                         </DivFlexCenter>
-                        <form >
-                            <DivFlexCenter>
 
-                                <InputOtp
-                                    name="otp1"
-                                    type="text"
-                                    autoComplete="off"
-                                    className="otpInput"
-                                    // onKeyPress={keyPressed}
-                                    onChange={handleChangeInput}
-                                    tabIndex="1" maxLength="1" onKeyUp={e => inputfocus(e)}
-                                    isMobile={isMobile}
-                                    theme={theme}
-                                    isOtpFalse={isOtpFalse}
-                                />
-                                <InputOtp
-                                    name="otp2"
-                                    type="text"
-                                    autoComplete="off"
-                                    className="otpInput"
-                                    onChange={handleChangeInput}
-                                    tabIndex="2" maxLength="1" onKeyUp={e => inputfocus(e)}
-                                    isMobile={isMobile}
-                                    theme={theme}
-                                    isOtpFalse={isOtpFalse}
-                                />
-                                <InputOtp
-                                    name="otp3"
-                                    type="text"
-                                    autoComplete="off"
-                                    className="otpInput"
-                                    onChange={handleChangeInput}
-                                    tabIndex="3" maxLength="1" onKeyUp={e => inputfocus(e)}
-                                    isMobile={isMobile}
-                                    theme={theme}
-                                    isOtpFalse={isOtpFalse}
-                                />
-                                <InputOtp
-                                    name="otp4"
-                                    type="text"
-                                    autoComplete="off"
-                                    className="otpInput"
-                                    onChange={handleChangeInput}
-                                    tabIndex="4" maxLength="1" onKeyUp={e => inputfocus(e)}
-                                    isMobile={isMobile}
-                                    theme={theme}
-                                    isOtpFalse={isOtpFalse}
-                                />
+                        <CustomOtpInput inputLength={8} handleChangeInput={handleChangeInput} isOtpFalse={isOtpFalse} />
 
-                                <InputOtp
-                                    name="otp5"
-                                    type="text"
-                                    autoComplete="off"
-                                    className="otpInput"
-                                    onChange={handleChangeInput}
-                                    tabIndex="5" maxLength="1" onKeyUp={e => inputfocus(e)}
-                                    isMobile={isMobile}
-                                    theme={theme}
-                                    isOtpFalse={isOtpFalse}
-                                />
 
-                                <InputOtp
-                                    name="otp6"
-                                    type="text"
-                                    autoComplete="off"
-                                    className="otpInput"
-                                    onChange={handleChangeInput}
-                                    tabIndex="6" maxLength="1" onKeyUp={e => inputfocus(e)}
-                                    isMobile={isMobile}
-                                    theme={theme}
-                                    isOtpFalse={isOtpFalse}
-                                />
-
-                                <InputOtp
-                                    name="otp7"
-                                    type="text"
-                                    autoComplete="off"
-                                    className="otpInput"
-                                    onChange={handleChangeInput}
-                                    tabIndex="7" maxLength="1" onKeyUp={e => inputfocus(e)}
-                                    isMobile={isMobile}
-                                    theme={theme}
-                                    isOtpFalse={isOtpFalse}
-                                />
-
-                                <InputOtp
-                                    name="otp8"
-                                    type="text"
-                                    autoComplete="off"
-                                    className="otpInput"
-                                    onChange={handleChangeInput}
-                                    tabIndex="8" maxLength="1" onKeyUp={e => inputfocus(e)}
-                                    isMobile={isMobile}
-                                    theme={theme}
-                                    isOtpFalse={isOtpFalse}
-                                />
-                            </DivFlexCenter>
-
-                        </form>
                         {isOtpFalse &&
                             <DivFlexStart sx={{ mt: 2, pl: 0.5 }}>
                                 <ErrorIcon sx={{ color: '#da1e28', fontSize: isMobile ? 16 : 18, mr: 0.5 }} />
