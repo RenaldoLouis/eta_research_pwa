@@ -16,19 +16,36 @@ import { AppContext } from "../../../App";
 import DivFlexCenter from "../../DivFlexCenter";
 import CustomDialog from "../DialogContainer/CustomDialog";
 import Button from "../../Button";
-import CustomOtpInput from "../../CustomOtpInput/CustomOtpInput";
 
 // import Constants
 import { FontFamily } from "../../../Constants/FontFamily";
 
 // dark mode and light mode
-import { useTheme } from "@mui/material/styles";
+import { useTheme, styled } from "@mui/material/styles";
 import CustomDialogContent from "../DialogContainer/CustomDialogContent";
 import DivFlexStart from "../../DivFlexStart";
 
 // import dump data
-import { otpValue } from "../../../dump-data";
+import { otpCodeGenerate } from "../../../dump-data";
 
+// import otp input library
+import OtpInput from "react-otp-input";
+
+const InputOtp = styled('input')((props) => ({
+    height: props.isMobile ? 35 : 60,
+    border: props.isOtpFalse ? `1px solid #da1e28` : `1px solid ${props.theme.palette.background.borderForm}`,
+    marginLeft: props.isMobile ? 2 : 5,
+    marginRight: props.isMobile ? 2 : 5,
+    textAlign: 'center',
+    fontFamily: FontFamily.EINA04REGULAR,
+    fontSize: props.isMobile ? 12 : 20,
+    color: props.theme.palette.text.inputText,
+    backgroundColor: props.theme.palette.background.dialog,
+    ":focus": {
+        outline: 'none',
+        border: props.isOtpFalse ? `1px solid #da1e28` : `1px solid ${props.theme.palette.background.borderFormActive}`,
+    }
+}))
 
 
 const OtpDialog = () => {
@@ -36,40 +53,6 @@ const OtpDialog = () => {
     const { isMobile, openOtpDialog, sendOtp, handleCloseOtpDialog, handleLogin } = useContext(AppContext)
 
     const theme = useTheme()
-
-    /** ================ OTP using Custom Component ================ */
-
-    // initiate otp value
-    const otpChar = { otp1: '', otp2: '', otp3: '', otp4: '', otp5: '', otp6: '', otp7: '', otp8: '' }
-
-    const [inputOtp, setInputOtp] = useState(otpChar)
-
-    const handleChangeInput = (e) => {
-        const { name, value } = e.target
-        setInputOtp({ ...inputOtp, [name]: value })
-    }
-
-    const handleSubmitOtp = () => {
-        console.log('inputOtp', inputOtp)
-    }
-
-    const [isOtpFalse, setIsOtpFalse] = useState(false)
-
-    const handleButtonLogin = () => {
-        if (JSON.stringify(inputOtp) === JSON.stringify(otpValue)) {
-            handleSubmitOtp()
-            handleCloseOtpDialog()
-            handleLogin()
-            setInputOtp(otpChar)
-            setIsOtpFalse(false)
-        } else {
-            setIsOtpFalse(true)
-        }
-    }
-
-    /** ================ EOL OTP using Custom Component ================ */
-
-
 
     /** ================ Countdown Timer ================ */
 
@@ -123,9 +106,34 @@ const OtpDialog = () => {
     /** ================ EOL Cuntdown Timer ================ */
 
 
+    /** ================ OTP state using OTP library */
+    const [isOtpFalse, setIsOtpFalse] = useState(false)
+
+    const [otpCode, setOtpCode] = useState("");
+
+    const handleChange = (otp) => {
+        setOtpCode(otp);
+        console.log("code", otpCode);
+    };
+
+    const handleButtonLogin = () => {
+        if (otpCode == otpCodeGenerate) {
+            handleCloseOtpDialog()
+            handleLogin()
+            setOtpCode("")
+            setIsOtpFalse(false)
+        } else {
+            setIsOtpFalse(true)
+        }
+    }
+
+    /** ================ EOL OTP state using OTP library */
+
+
     const handleCloseDialog = () => {
         handleCloseOtpDialog()
         setIsOtpFalse(false)
+        setOtpCode("")
     }
 
 
@@ -140,8 +148,16 @@ const OtpDialog = () => {
                             </Typography>
                         </DivFlexCenter>
 
-                        <CustomOtpInput inputLength={8} handleChangeInput={handleChangeInput} isOtpFalse={isOtpFalse} />
-
+                        <OtpInput
+                            value={otpCode}
+                            onChange={handleChange}
+                            numInputs={8}
+                            renderSeparator={<span style={{ width: "8px" }}></span>}
+                            renderInput={(props) => <InputOtp isOtpFalse={isOtpFalse} theme={theme} isMobile={isMobile} {...props} />}
+                            inputStyle={{
+                                width: "100%",
+                            }}
+                        />
 
                         {isOtpFalse &&
                             <DivFlexStart sx={{ mt: 2, pl: 0.5 }}>
@@ -154,7 +170,7 @@ const OtpDialog = () => {
                         {timer != 0 && (
                             <DivFlexCenter sx={{ mb: 0, mt: 6 }}>
                                 <Typography sx={{ fontFamily: FontFamily.EINA04REGULAR, color: theme.palette.text.primary, textDecoration: 'underline', fontSize: isMobile ? 12 : 20 }}>
-                                    Resent OTP Code {timer}
+                                    Resent OTP Code ({timer})
                                 </Typography>
                             </DivFlexCenter>
                         )}

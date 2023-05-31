@@ -399,4 +399,5 @@ export const emailDummyList = [
     },
 ];
 
-export const otpValue = { otp1: '0', otp2: '0', otp3: '0', otp4: '0', otp5: '0', otp6: '0', otp7: '0', otp8: '0' }
+
+export const otpCodeGenerate = "00000000"
