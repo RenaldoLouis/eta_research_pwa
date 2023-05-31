@@ -39,7 +39,7 @@ import '../../index.css'
 
 const RootDeliveryCard = styled("div")((props) => ({
   backgroundColor: props.isDesktop
-    ? props.data.id === props.deliveryId
+    ? props.data.orderNumber === props.deliveryId
       ? props.theme.palette.background.deliveryCard
       : props.isOpenItemList
         ? props.theme.palette.background.deliveryCard
@@ -103,7 +103,7 @@ const getStatusChip = (data, theme) => {
 };
 
 const DeliveryCard = (props) => {
-  const { totalDelivery, numberOfDeliver, data, isOpenItemList, deliveryId } =
+  const { totalDelivery, numberOfDeliver, data, handleSearchByOrderNumberOrPositionName, isOpenItemList, deliveryId } =
     props;
 
   const { isMobile, isTablet, isDesktop } = useContext(AppContext);
@@ -131,16 +131,16 @@ const DeliveryCard = (props) => {
   const handleAddAllItem = () => {
     setOpenItem("")
     const allData = []
-    data.itemList.map((data) => {
-      return allData.push(data.id)
+    data.orders.map((data) => {
+      return allData.push(data.orderNumber)
     })
     setOpenItem(allData);
   }
 
   const handleCheckItemData = () => {
     const dataLength = []
-    data.itemList.map((data) => {
-      return dataLength.push(data.id);
+    data.orders.map((data) => {
+      return dataLength.push(data.orderNumber);
     })
     if (openItem.length === dataLength.length) {
       return true
@@ -491,6 +491,7 @@ const DeliveryCard = (props) => {
               <DivFlexStart sx={{ paddingTop: "16px", paddingBottom: "12px" }}>
                 <TextFieldDeliveryCardMenu
                   sx={{ backgroundColor: theme.palette.background.deliveryCardMenuSearchBar, width: "100%" }}
+                  onChange={handleSearchByOrderNumberOrPositionName}
                   InputProps={{
                     startAdornment: (
                       <InputAdornment sx={{ padding: "0px" }} position="start">
@@ -538,7 +539,7 @@ const DeliveryCard = (props) => {
             </Box>
           )}
           <Box className="deliveryCardGrid" style={{ maxHeight: 380, overflowY: 'scroll', position: "relative" }}>
-            {data.itemList.map((product, index) => (
+            {data.orders.map((order, index) => (
               <>
                 {openDetail && (
                   <Box sx={{
@@ -552,7 +553,7 @@ const DeliveryCard = (props) => {
                     top: 0
                   }}
                     onClick={() => {
-                      handleOpenItemList(product.id)
+                      handleOpenItemList(order.orderNumber)
                     }}
                   >
                     <Typography sx={{
@@ -561,19 +562,19 @@ const DeliveryCard = (props) => {
                       fontWeight: 400,
                       fontSize: "12px",
                       lineHeight: "17px"
-                    }}>{product.id}</Typography>
-                    {openItem.includes(product.id) ? (<ArrowDropUpIcon />) : (<ArrowDropDownIcon />)}
+                    }}>{order.orderNumber}</Typography>
+                    {openItem.includes(order.orderNumber) ? (<ArrowDropUpIcon />) : (<ArrowDropDownIcon />)}
                   </Box>
                 )}
-                <Collapse in={openItem.includes(product.id)} >
-                  {product.items.map((items, index) => {
+                <Collapse in={openItem.includes(order.orderNumber)} >
+                  {order.orderPositions.map((orderPosition, index) => {
                     return (
                       <>
                         <ItemList
-                          item={items}
+                          item={orderPosition}
                           key={index}
                           index={index}
-                          itemLength={items.length}
+                          itemLength={order.orderPositions.length}
                           isOpenItemList={isOpenItemList}
                         />
                       </>

@@ -108,10 +108,8 @@ const getStatusChip = (data, theme) => {
 };
 
 const DeliveryCardMenu = (props) => {
-  const { totalDelivery, numberOfDeliver, data, isOpenItemList, deliveryId } =
+  const { totalDelivery, numberOfDeliver, data, handleSearchByOrderNumberOrPositionName, isOpenItemList, deliveryId } =
     props;
-
-    console.log(data)
 
   const { isMobile, isTablet, isDesktop } = useContext(AppContext);
 
@@ -138,7 +136,7 @@ const DeliveryCardMenu = (props) => {
       }
     })
   }
-  
+
 
   useEffect(() => {
     toggleVisible()
@@ -151,7 +149,6 @@ const DeliveryCardMenu = (props) => {
       setOpenDetail(false);
     }
   }, [totalDelivery]);
-
 
   // data
   const timeStart = getTimeFormat(data.tourStopNotifications.actual.twStart)
@@ -337,13 +334,16 @@ const DeliveryCardMenu = (props) => {
           </DivFlexStart>
         </DivFlexSpaceBetween>
         <DivFlexStart style={{ paddingTop: "24px" }}>
-          <TextFieldDeliveryCardMenu sx={{ backgroundColor: theme.palette.background.deliveryCardMenuSearchBar }} InputProps={{
-            startAdornment: (
-              <InputAdornment sx={{ padding: "0px" }} position="start">
-                <SearchIcon />
-              </InputAdornment>
-            )
-          }}
+          <TextFieldDeliveryCardMenu
+            sx={{ backgroundColor: theme.palette.background.deliveryCardMenuSearchBar }}
+            onChange={handleSearchByOrderNumberOrPositionName}
+            InputProps={{
+              startAdornment: (
+                <InputAdornment sx={{ padding: "0px" }} position="start">
+                  <SearchIcon />
+                </InputAdornment>
+              )
+            }}
             placeholder="Search Beleg Number or Item Name" />
         </DivFlexStart>
 
@@ -372,10 +372,10 @@ const DeliveryCardMenu = (props) => {
             return (
               <div style={{ display: 'flex', paddingBottom: "11px" }} onClick={() => { handleChangeRadio(order) }}>
                 {/* <CustomTooltip sx={{ whiteSpace: "pre-line" }} title={order.orderPositions.some((v) => v.warning === true) ? `${order.orderNumber} \n Discrepancy` : order.orderNumber}> */}
-                  <div id={order.orderNumber} onMouseEnter={() => { setHoverState(order.id) }} onMouseLeave={() => { setHoverState("") }} style={{ display: "flex", alignItems: "center", justifyContent: "center", width: "24px", height: "24px" }}>
-                    {order.orderNumber === activeRadioButton ? (
-                      <div>
-                        {/* {order.orderPositions.some((v) => v.warning === true) ? (
+                <div id={order.orderNumber} onMouseEnter={() => { setHoverState(order.id) }} onMouseLeave={() => { setHoverState("") }} style={{ display: "flex", alignItems: "center", justifyContent: "center", width: "24px", height: "24px" }}>
+                  {order.orderNumber === activeRadioButton ? (
+                    <div>
+                      {/* {order.orderPositions.some((v) => v.warning === true) ? (
                           <Box className="icons">
                             {hoverState === order.orderNumber ? (
                               <img src={ButtonPageWarningHover} style={{ height: "24px", width: "24px" }}
@@ -386,18 +386,18 @@ const DeliveryCardMenu = (props) => {
                             )}
                           </Box>
                         ) : ( */}
-                          <Box className="icons">
-                            {hoverState === order.orderNumber ? (
-                              <img src={ButtonPageActiveHover} style={{ height: "24px", width: "24px" }} />
-                            ) : (
-                              <img src={ButtonPageActiveDefault} style={{ height: "24px", width: "24px" }} />
-                            )}
-                          </Box>
-                        {/* )} */}
-                      </div>
-                    ) : (
-                      <Box>
-                        {/* {order.orderPositions.some((v) => v.warning === true) ? (
+                      <Box className="icons">
+                        {hoverState === order.orderNumber ? (
+                          <img src={ButtonPageActiveHover} style={{ height: "24px", width: "24px" }} />
+                        ) : (
+                          <img src={ButtonPageActiveDefault} style={{ height: "24px", width: "24px" }} />
+                        )}
+                      </Box>
+                      {/* )} */}
+                    </div>
+                  ) : (
+                    <Box>
+                      {/* {order.orderPositions.some((v) => v.warning === true) ? (
                           <Box>
                             {hoverState === order.orderNumber ? (
                               <img src={ButtonPageDangerHover} style={{ height: "12px", width: "16px", marginLeft: "5px" }}
@@ -409,19 +409,19 @@ const DeliveryCardMenu = (props) => {
 
                           </Box>
                         ) : ( */}
-                          <Box>
-                            {hoverState === order.orderNumber ? (
-                              <img src={ButtonPageHover} style={{ height: "12px", width: "12px" }}
-                              />
-                            ) : (
-                              <img src={ButtonPage} style={{ height: "12px", width: "12px" }}
-                              />
-                            )}
-                          </Box>
-                        {/* )} */}
+                      <Box>
+                        {hoverState === order.orderNumber ? (
+                          <img src={ButtonPageHover} style={{ height: "12px", width: "12px" }}
+                          />
+                        ) : (
+                          <img src={ButtonPage} style={{ height: "12px", width: "12px" }}
+                          />
+                        )}
                       </Box>
-                    )}
-                  </div>
+                      {/* )} */}
+                    </Box>
+                  )}
+                </div>
                 {/* </CustomTooltip> */}
               </div>
             )
@@ -430,26 +430,26 @@ const DeliveryCardMenu = (props) => {
         <div id="parentScroll" className="deliveryCardMenuItems" style={{ paddingLeft: "60px", width: '100%', height: "calc(100vh - 400px)", overflowY: "auto", scrollBehavior: "smooth", paddingRight: "20px", margin: "0px -20px 0px 0px" }}>
           {data.orders.map((order, index) => (
             <>
-            <DivFlexSpaceBetween id={`content-${order.orderNumber}`} style={{ paddingBottom: "40px", alignItems: "none", display: 'flex', justifyContent: "start" }}>
-              <div style={{ width: '100%' }}>
-                <ItemStickyTitle>
-                  <Typography style={{ fontWeight: 700, fontSize: "18px", lineHeight: "24.84px", fontFamliy: "Eina04-Regular" }}>{`Beleg ${order.orderNumber}`}</Typography>
-                </ItemStickyTitle>
-                <Collapse style={{ width: "100%" }} in={(openDetail && !isDesktop) || isOpenItemList}>
-                  {order.orderPositions.map((orderPosition, index) => {
-                    return (
-                      <ItemList
-                        item={orderPosition}
-                        key={index}
-                        index={index}
-                        itemLength={order.orderPositions.length}
-                        isOpenItemList={isOpenItemList}
-                      />
-                    )
-                  })}
-                </Collapse>
-              </div>
-            </DivFlexSpaceBetween>
+              <DivFlexSpaceBetween id={`content-${order.orderNumber}`} style={{ paddingBottom: "40px", alignItems: "none", display: 'flex', justifyContent: "start" }}>
+                <div style={{ width: '100%' }}>
+                  <ItemStickyTitle>
+                    <Typography style={{ fontWeight: 700, fontSize: "18px", lineHeight: "24.84px", fontFamliy: "Eina04-Regular" }}>{`Beleg ${order.orderNumber}`}</Typography>
+                  </ItemStickyTitle>
+                  <Collapse style={{ width: "100%" }} in={(openDetail && !isDesktop) || isOpenItemList}>
+                    {order.orderPositions.map((orderPosition, index) => {
+                      return (
+                        <ItemList
+                          item={orderPosition}
+                          key={index}
+                          index={index}
+                          itemLength={order.orderPositions.length}
+                          isOpenItemList={isOpenItemList}
+                        />
+                      )
+                    })}
+                  </Collapse>
+                </div>
+              </DivFlexSpaceBetween>
             </>
           ))}
         </div>

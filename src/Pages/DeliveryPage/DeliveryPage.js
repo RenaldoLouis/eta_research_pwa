@@ -57,8 +57,7 @@ import { FontFamily } from "../../Constants/FontFamily";
 
 //import Styles
 import "../../index.css"
-
-
+import { cloneDeep, orderBy } from "lodash";
 
 const DeliveryPage = () => {
   const theme = useTheme();
@@ -83,16 +82,16 @@ const DeliveryPage = () => {
   const [deliveryId, setDeliveryId] = useState(null);
 
   const [deliveryData, setDeliveryData] = useState([])
+  const [tempDeliveryData, setTempDeliveryData] = useState([])
 
   useEffect(() => {
     /** NORDMANN DATA (COMPLETE) */
-    axios.get(`https://gotraces-de.commsult.dev/api/core/eta/access/${param.stopNumber}`).then(res => {
-      console.log("DELIVERY DATA", res.data)
-
+    const url = `https://gotraces-de.commsult.dev/api/core/eta/access/${param.stopNumber}`
+    // const url = `http://localhost:3001/api/core/eta/access/${param.stopNumber}`
+    axios.get(url).then(res => {
       const newDeliveryDatas = []
 
       res.data.stops.forEach((deliveryData, index) => {
-
         newDeliveryDatas.push(new DeliveryData(
           deliveryData.id,
           deliveryData.stopStatus,
@@ -106,9 +105,20 @@ const DeliveryPage = () => {
         ))
       })
 
-      console.log('newDeliveryDatas', newDeliveryDatas)
+      newDeliveryDatas.forEach(data => {
+        data.orders.sort((a, b) => parseInt(a.orderNumber, 10) - parseInt(b.orderNumber, 10))
+      })
+
+      newDeliveryDatas.forEach(data => {
+        data.orders.forEach(order => {
+          order.orderPositions.sort((a, b) => parseInt(a.articleNumber, 10) - parseInt(b.articleNumber, 10))
+        })
+      })
+
       setDeliveryData(newDeliveryDatas)
       setDeliveryId(newDeliveryDatas[0].id)
+
+      setTempDeliveryData(newDeliveryDatas)
     }).catch(err => {
 
     })
@@ -119,6 +129,42 @@ const DeliveryPage = () => {
     setDeliveryId(id);
   };
 
+  const handleSearchByOrderNumberOrPositionName = e => {
+    if (e.target.value.length === 0) {
+      setTempDeliveryData(cloneDeep(deliveryData))
+    }
+    else {
+      let newTempOrders = null
+
+      const newTempDeliveryData = cloneDeep(deliveryData)
+
+      newTempDeliveryData.forEach((data) => {
+        if (deliveryId === data.id) {
+          newTempOrders = [...data.orders]
+        }
+      })
+
+      // newTempOrders = newTempOrders.filter(order => order.orderNumber.includes(e.target.value))
+
+      newTempOrders = newTempOrders.filter(order => {
+        let position = order.orderPositions.some(position => position.text.toLowerCase().includes(e.target.value.toLowerCase()))
+
+        return position || order.orderNumber.includes(e.target.value)
+      })
+      // newTempOrders.forEach(order => {
+      //   order.orderPositions.filter(position => position.text.toLowerCase().includes(e.target.value()))
+      // })
+      // newTempOrders.filter((data) => data.orders.filter((order) => order.orderNumber.includes(e.target.value)))
+
+      newTempDeliveryData.forEach((data) => {
+        if (deliveryId === data.id) {
+          data.orders = [...newTempOrders]
+        }
+      })
+
+      setTempDeliveryData(newTempDeliveryData)
+    }
+  };
 
   useEffect(() => {
     // Update current time every second
@@ -282,7 +328,7 @@ const DeliveryPage = () => {
           }}
         >
           <>
-            {deliveryData.length > 1 ? (
+            {tempDeliveryData.length > 1 ? (
               <>
                 {scrollDown && !isDesktop && (
                   <DeliverStickyTitle
@@ -308,7 +354,7 @@ const DeliveryPage = () => {
                         textDecoration: "underline",
                       }}
                     >
-                      {deliveryData.length}
+                      {tempDeliveryData.length}
                     </Typography>
                   </DeliverStickyTitle>
                 )}
@@ -328,7 +374,7 @@ const DeliveryPage = () => {
                         lineHeight: "40px",
                       }}
                     >
-                      {deliveryData.length}
+                      {tempDeliveryData.length}
                     </span>{" "}
                     <br /> Auslieferungen
                   </DeliveryInformation>
@@ -355,7 +401,7 @@ const DeliveryPage = () => {
                         textDecoration: "underline",
                       }}
                     >
-                      {deliveryData.length}
+                      {tempDeliveryData.length}
                     </Typography>
                   </DeliverStickyTitle>
                 )}
@@ -370,7 +416,7 @@ const DeliveryPage = () => {
               </>
             )}
 
-            {deliveryData.map((data, index) => (
+            {tempDeliveryData.map((data, index) => (
               <DivFlexCenter
                 key={index}
                 sx={{ paddingTop: "16px", pr: isDesktop ? "30px" : "" }}
@@ -378,9 +424,10 @@ const DeliveryPage = () => {
               >
                 <DeliveryCard
                   data={data}
-                  totalDelivery={deliveryData.length}
+                  totalDelivery={tempDeliveryData.length}
                   numberOfDeliver={index + 1}
                   deliveryId={deliveryId}
+                  handleSearchByOrderNumberOrPositionName={handleSearchByOrderNumberOrPositionName}
                 />
               </DivFlexCenter>
             ))}
@@ -402,8 +449,9 @@ const DeliveryPage = () => {
         >
           <DivFlexCenter>
             <DeliveryCardMenu
-              data={deliveryData.find((delivery) => delivery.id === deliveryId)}
+              data={tempDeliveryData.find((delivery) => delivery.id === deliveryId)}
               isOpenItemList={true}
+              handleSearchByOrderNumberOrPositionName={handleSearchByOrderNumberOrPositionName}
             />
           </DivFlexCenter>
         </Grid>
