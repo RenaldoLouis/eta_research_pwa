@@ -103,8 +103,6 @@ function App() {
   /* ================== Data ===================== */
   const [promoNewsData, setPromoNewsData] = useState(promoDummyData)
 
-  const [deliveryData, setDeliveryData] = useState(deliveryDummyData)
-
   const [emailList, setEmailList] = useState(emailDummyList);
   /* =====================EOL Data ===================== */
 
@@ -346,7 +344,6 @@ function App() {
     isDesktop,
     promoNewsData,
     emailList,
-    deliveryData,
     isLinkExpired,
 
     scrollDown,

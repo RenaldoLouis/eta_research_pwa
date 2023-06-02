@@ -55,6 +55,8 @@ import PageNotFound from "../PageNotFound";
 // import Constants
 import { FontFamily } from "../../Constants/FontFamily";
 
+import { deliveryDummyData } from "../../dump-data";
+
 //import Styles
 import "../../index.css"
 import { cloneDeep, orderBy } from "lodash";
@@ -104,8 +106,6 @@ const DeliveryPage = () => {
           deliveryData.tourStopNotifications
         ))
       })
-
-      console.log('res', res.data)
 
       newDeliveryDatas.forEach(data => {
         data.orders.sort((a, b) => parseInt(a.orderNumber, 10) - parseInt(b.orderNumber, 10))

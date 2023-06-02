@@ -61,9 +61,6 @@ const ItemList = (props) => {
           paddingRight: isDesktop ? "0px" : 3,
           borderBottom: `1px solid ${theme.palette.background.deliveryOrderBorderBottom}`,
           mb: index == itemLength - 1 ? 5 : ''
-
-          // marginRight: isDesktop ? "16px" : "",
-          // marginLeft: isDesktop ? "16px" : "",
         }}
       >
         <ListItemButton
