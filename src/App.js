@@ -41,6 +41,7 @@ import AddNewEmailDialog from "./Components/DialogComponent/AddNewEmailDialog";
 import DeleteEmailDialog from "./Components/DialogComponent/DeleteEmailDialog";
 import EditEmailDialog from "./Components/DialogComponent/EditEmailDialog";
 import LogoutConfirmationDialog from "./Components/DialogComponent/LogoutConfirmationDialog";
+import LoadingDialog from "./Components/DialogComponent/LoadingDialog";
 
 // Import Dump data
 import { promoDummyData } from "./dump-data";
@@ -56,6 +57,8 @@ const Main = (props) => {
       <AppBarResponsive />
 
       {/* ======== Global Dialog Component ======== */}
+      {props.isLoadingLogin && (<LoadingDialog />)}
+
       <LoginDialog />
       <LogoutConfirmationDialog />
       <OtpDialog />
@@ -259,6 +262,8 @@ function App() {
   /** ========================== Authentication and Authorization ========================== */
   const [isLogin, setIsLogin] = useState(false);
 
+  const [isLoadingLogin, setIsLoadingLogin] = useState(false)
+
   const [userRole, setUserRole] = useState(UserRole.SUPERADMIN);
 
   const handleLogin = () => {
@@ -355,6 +360,7 @@ function App() {
     openLoginDialog,
     handleOpenLoginDialog,
     handleCloseLoginDialog,
+    setIsLoadingLogin,
 
     openLogoutDialog,
     handleOpenLogoutDialog,
@@ -409,7 +415,7 @@ function App() {
                 pauseOnFocusLoss={false}
                 position="bottom-left"
               />
-              <Main />
+              <Main isLoadingLogin={isLoadingLogin} />
             </Router>
           </ThemeProvider>
         </AppContext.Provider>

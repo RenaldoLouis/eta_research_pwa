@@ -50,7 +50,7 @@ const InputOtp = styled('input')((props) => ({
 
 const OtpDialog = () => {
 
-    const { isMobile, openOtpDialog, sendOtp, handleCloseOtpDialog, handleLogin } = useContext(AppContext)
+    const { isMobile, openOtpDialog, sendOtp, handleCloseOtpDialog, handleLogin, setIsLoadingLogin } = useContext(AppContext)
 
     const theme = useTheme()
 
@@ -117,13 +117,17 @@ const OtpDialog = () => {
     };
 
     const handleButtonLogin = () => {
-        if (otpCode == otpCodeGenerate) {
+        setIsLoadingLogin(true)
+        if (JSON.stringify(inputOtp) === JSON.stringify(otpValue)) {
+            handleSubmitOtp()
             handleCloseOtpDialog()
             handleLogin()
             setOtpCode("")
             setIsOtpFalse(false)
+            setIsLoadingLogin(false)
         } else {
             setIsOtpFalse(true)
+            setIsLoadingLogin(false)
         }
     }
 
