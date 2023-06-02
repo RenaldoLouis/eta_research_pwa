@@ -52,17 +52,16 @@ const ItemList = (props) => {
       <List
         sx={{
           width: "100%",
-          borderBottom:
-            index === itemLength - 1
-              ? ""
-              : `1px solid ${theme.palette.background.separatorTitle}`,
           background: isDesktop
             ? isOpenItemList
               ? theme.palette.background.deliveryCardMenu
               : theme.palette.background.default
-            : theme.palette.background.deliveryCardMenu,
+            : theme.palette.background.deliveryCard,
           paddingLeft: isDesktop ? "0px" : 3,
           paddingRight: isDesktop ? "0px" : 3,
+          borderBottom: `1px solid ${theme.palette.background.deliveryOrderBorderBottom}`,
+          mb: index == itemLength - 1 ? 5 : ''
+
           // marginRight: isDesktop ? "16px" : "",
           // marginLeft: isDesktop ? "16px" : "",
         }}

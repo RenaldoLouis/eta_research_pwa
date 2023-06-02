@@ -105,6 +105,8 @@ const DeliveryPage = () => {
         ))
       })
 
+      console.log('res', res.data)
+
       newDeliveryDatas.forEach(data => {
         data.orders.sort((a, b) => parseInt(a.orderNumber, 10) - parseInt(b.orderNumber, 10))
       })
@@ -320,7 +322,7 @@ const DeliveryPage = () => {
         }}
       >
         <Grid className="deliveryCardGrid" item xs={12} md={12} lg={3} id="deliverSection"
-          bgcolor={{ xs: theme.palette.background.defaultMobile, lg: theme.palette.background.default }}
+          bgcolor={{ xs: theme.palette.background.default, lg: theme.palette.background.default }}
           sx={{
             overflowY: isDesktop ? "scroll" : "hidden",
             height: isDesktop ? "100vh" : "",
@@ -458,7 +460,7 @@ const DeliveryPage = () => {
 
         <Grid item xs={12} md={12} lg={3}
           sx={{ mt: isDesktop ? 9 : 0, }}
-          bgcolor={{ xs: theme.palette.background.defaultMobile, lg: theme.palette.background.default }}
+          bgcolor={{ xs: theme.palette.background.default, lg: theme.palette.background.default }}
         >
           <Box
             sx={{

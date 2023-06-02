@@ -46,7 +46,7 @@ const PromoCard = (props) => {
         width: openDetail || isDesktop ? "100%" : "calc(100% - 48px)",
         backgroundColor: isMobile || isTablet
           ? openDetail
-            ? theme.palette.background.defaultMobile
+            ? theme.palette.background.default
             : theme.palette.background.promoCardMobile
           : isDialog
             ? theme.palette.background.dialog

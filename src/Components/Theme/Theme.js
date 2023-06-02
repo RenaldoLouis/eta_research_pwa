@@ -10,7 +10,6 @@ export const ligthTheme = createTheme({
         background: {
             // body
             default: "#ffffff",
-            defaultMobile: "#ffffff",
 
             // delivery card
             deliveryCard: "#F3F3F3",
@@ -61,9 +60,10 @@ export const ligthTheme = createTheme({
 
             // separatorStickyTitle
             separatorTitle: "#6F6F6F",
-            
+
             //DeliveryCardMenuSearchBar
             deliveryCardMenuSearchBar: "#EBEBEB",
+            deliverycardSearchIcon: "#8D8D8D",
 
             //DeliveryCardMenuItemTitle
             deliveryCardMenuItemTitle: "#F3F3F3",
@@ -71,8 +71,11 @@ export const ligthTheme = createTheme({
             //DeliveryCardCloseIcon
             deliveryCardCloseIcon: "#C6C6C6",
 
-            //DeliveryCardItemTitle
-            deliveryCardItemTitle: "#cbcbcb"
+            //delivery orders
+            deliveryOrderTitle: "#F3F3F3",
+            deliveryOrderTitleActive: "#EBEBEB",
+            collapseIcon: "#262626",
+            deliveryOrderBorderBottom: "rgba(111, 111, 111, 0.3)"
         },
         text: {
             primary: "#1A1919",
@@ -101,7 +104,6 @@ export const darkTheme = createTheme({
         background: {
             // body
             default: "#262626",
-            defaultMobile: "#262626",
 
             // delivery card
             deliveryCard: "#393939",
@@ -153,8 +155,9 @@ export const darkTheme = createTheme({
             separatorTitle: "#F4F4F4",
 
             //DeliveryCardMenuSearchBar
-            deliveryCardMenuSearchBar: "#737373",
-            
+            deliveryCardMenuSearchBar: "#525252",
+            deliverycardSearchIcon: "#C6C6C6",
+
 
             //DeliveryCardMenuItemTitle
             deliveryCardMenuItemTitle: "#393939",
@@ -162,8 +165,11 @@ export const darkTheme = createTheme({
             //DeliveryCardCloseIcon
             deliveryCardCloseIcon: "#8D8D8D",
 
-            //DeliveryCardItemTitle
-            deliveryCardItemTitle: "#525252"
+            //delivery orders
+            deliveryOrderTitle: "#393939",
+            deliveryOrderTitleActive: "#525252",
+            collapseIcon: "#F4F4F4",
+            deliveryOrderBorderBottom: "rgba(250, 250, 250, 0.3)"
         },
         text: {
             primary: "#f4f4f4",
@@ -192,7 +198,6 @@ export const yellowTheme = createTheme({
         background: {
             // body
             default: "#ffffff",
-            defaultMobile: "#FFFDF4",
 
             // delivery card
             deliveryCard: "#F3F3F3",
@@ -242,6 +247,16 @@ export const yellowTheme = createTheme({
 
             // separatorStickyTitle
             separatorTitle: "#6F6F6F",
+
+            //DeliveryCardMenuSearchBar
+            deliveryCardMenuSearchBar: "#EBEBEB",
+            deliverycardSearchIcon: "#8D8D8D",
+
+            //delivery orders
+            deliveryOrderTitle: "#F3F3F3",
+            deliveryOrderTitleActive: "#EBEBEB",
+            collapseIcon: "#262626",
+            deliveryOrderBorderBottom: "rgba(111, 111, 111, 0.3)"
         },
         text: {
             primary: "#1A1919",
@@ -270,12 +285,11 @@ export const blueTheme = createTheme({
         background: {
             // body
             default: "#ffffff",
-            defaultMobile: "#FFFFFF",
 
             // delivery card
-            deliveryCard: "#EBF2FD",
-            hoverDeliveryCard: "#D5E2F6",
-            clickedDeliveryCard: "#BACEF0",
+            deliveryCard: "#F3F3F3",
+            hoverDeliveryCard: "#F7F5F5",
+            clickedDeliveryCard: "#EBEBEB",
             deliveryCardMenu: "#EBF2FD",
 
             // promo card
@@ -320,6 +334,16 @@ export const blueTheme = createTheme({
 
             // separatorStickyTitle
             separatorTitle: "#6F6F6F",
+
+            //DeliveryCardMenuSearchBar
+            deliveryCardMenuSearchBar: "#EBEBEB",
+            deliverycardSearchIcon: "#8D8D8D",
+
+            //delivery orders
+            deliveryOrderTitle: "#F3F3F3",
+            deliveryOrderTitleActive: "#EBEBEB",
+            collapseIcon: "#262626",
+            deliveryOrderBorderBottom: "rgba(111, 111, 111, 0.3)"
         },
         text: {
             primary: "#1A1919",
