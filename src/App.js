@@ -26,7 +26,7 @@ import AppBarResponsive from "./Components/AppBarResponsive/AppBarResponsive";
 import TrackingPage from "./Pages/TrackingPage/TrackingPage";
 
 // import Theme
-import { ligthTheme, darkTheme, yellowTheme, blueTheme } from "./Components/Theme/Theme";
+import { lightTheme, darkTheme, yellowTheme, blueTheme } from "./Components/Theme/Theme";
 
 // import Constans
 import { ColorTheme } from "./Constants/ColorTheme";
@@ -396,7 +396,7 @@ function App() {
     <>
       <PwaContextProvider>
         <AppContext.Provider value={AppContextValue}>
-          <ThemeProvider theme={mode == ColorTheme.DARK ? darkTheme : mode == ColorTheme.YELLOW ? yellowTheme : mode == ColorTheme.BLUE ? blueTheme : ligthTheme}>
+          <ThemeProvider theme={mode == ColorTheme.DARK ? darkTheme : mode == ColorTheme.YELLOW ? yellowTheme : mode == ColorTheme.BLUE ? blueTheme : lightTheme}>
             <CssBaseline />
             <Router>
               <ToastContainer
