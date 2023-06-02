@@ -125,7 +125,7 @@ function App() {
     },
   });
   const isDesktop = useMediaQuery(theme.breakpoints.up("lg"));
-  const isTablet = useMediaQuery(theme.breakpoints.down("md"));
+  const isTablet = useMediaQuery(theme.breakpoints.down("lg"));
   const isMobile = useMediaQuery(theme.breakpoints.only("xs"));
   /* =========EOL Breakpoint device============ */
 
