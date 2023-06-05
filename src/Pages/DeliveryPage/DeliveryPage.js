@@ -454,6 +454,7 @@ const DeliveryPage = () => {
               data={tempDeliveryData.find((delivery) => delivery.id === deliveryId)}
               isOpenItemList={true}
               handleSearchByOrderNumberOrPositionName={handleSearchByOrderNumberOrPositionName}
+              promoLength={promoNewsData.length}
             />
           </DivFlexCenter>
         </Grid>

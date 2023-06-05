@@ -49,7 +49,9 @@ const RootDeliveryCard = styled("div")((props) => ({
         ? props.theme.palette.background.deliveryCardMenu
         : props.theme.palette.background.default
     : props.theme.palette.background.deliveryCardMenu,
-  padding: props.isDesktop ? 16 : props.openDetail ? "16px 24px 16px 24px" : 16,
+  padding: props.isDesktop ?
+    props.promoLength == 0 ? "0px 100px 0px 100px" : 16
+    : props.openDetail ? "16px 24px 16px 24px" : 16,
   paddingTop: "40px",
   cursor: props.isDesktop
     ? props.isOpenItemList
@@ -108,7 +110,7 @@ const getStatusChip = (data, theme) => {
 };
 
 const DeliveryCardMenu = (props) => {
-  const { totalDelivery, numberOfDeliver, data, handleSearchByOrderNumberOrPositionName, isOpenItemList, deliveryId } =
+  const { totalDelivery, numberOfDeliver, data, handleSearchByOrderNumberOrPositionName, isOpenItemList, deliveryId, promoLength } =
     props;
 
   const { isMobile, isTablet, isDesktop } = useContext(AppContext);
@@ -202,6 +204,7 @@ const DeliveryCardMenu = (props) => {
         deliveryId={deliveryId}
         data={data}
         openDetail={openDetail}
+        promoLength={promoLength}
       >
         {(isMobile || isTablet) && (
           <DivFlexSpaceBetween sx={{ mb: 1 }}>
@@ -405,7 +408,7 @@ const DeliveryCardMenu = (props) => {
         </DivFlexSpaceBetween>
       </RootDeliveryCard>
 
-      <div style={{ paddingTop: "24px", display: "flex", padding: "16px 0px 16px 16px", }} >
+      <div style={{ paddingTop: "24px", display: "flex", padding: promoLength == 0 ? "16px 100px 16px 16px" : "16px 0px 16px 16px", }} >
         <div>
           {data.orders.map((order) => {
             return (
@@ -466,7 +469,7 @@ const DeliveryCardMenu = (props) => {
             )
           })}
         </div>
-        <div id="parentScroll" className="deliveryCardMenuItems" style={{ paddingLeft: "60px", width: '100%', height: "calc(100vh - 375px)", overflowY: "auto", scrollBehavior: "smooth", paddingRight: "20px", margin: "0px -20px 0px 0px" }}>
+        <div id="parentScroll" className="deliveryCardMenuItems" style={{ paddingLeft: "60px", width: '100%', height: "calc(100vh - 400px)", overflowY: "auto", scrollBehavior: "smooth", paddingRight:"0px" }}>
           {data.orders.map((order, index) => (
             <>
               <DivFlexSpaceBetween id={`content-${order.orderNumber}`} style={{ paddingBottom: "40px", alignItems: "none", display: 'flex', justifyContent: "start" }}>
