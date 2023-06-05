@@ -10,15 +10,13 @@ const DialogBlanket = styled(Dialog)((props) => ({
             width: props.width ? props.width : "100%",
             maxWidth: props.width,
             borderRadius: 0,
-            // backgroundColor: props.isPromoDialog ? 'transparent' : '',
             background: 'transparent',
             boxShadow: 'none',
             height: props.height ? props.height : '',
         },
-
+        backdropFilter: "blur(20px)",
+        background: props.theme.palette.background.dialogBlanket
     },
-    backdropFilter: "blur(20px)",
-    background: props.theme.palette.background.dialogBlanket
 }))
 
 
