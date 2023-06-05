@@ -120,27 +120,66 @@ const DeliveryCardMenu = (props) => {
 
   // local state for open itemlist
   const [openDetail, setOpenDetail] = useState(false)
-  const [activeRadioButton, setActiveRadioButton] = useState(false);
-  const [hoverState, setHoverState] = useState(false);
+  const [activeRadioButton, setActiveRadioButton] = useState("");
+  const [hoverState, setHoverState] = useState("");
+  const [allHeight, setAllHeight] = useState(0);
+  const [reduceHeight, setReduceHeight] = useState(0);
 
   const handleChangeRadio = (order) => {
     var section = document.getElementById(`content-${order.orderNumber}`)
-    section.scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'start', scrollBehavior: "smooth" });
+    section.scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'center', scrollBehavior: "smooth" });
   }
 
   const toggleVisible = () => {
-    const container = document.getElementById('parentScroll').scrollTop + 50
-    data.orders.forEach((order) => {
-      if (container >= document.getElementById(`content-${order.orderNumber}`).offsetTop - 600) {
-        setActiveRadioButton(order.orderNumber)
-      }
-    })
-  }
+    const container = document.getElementById('parentScroll');
+    var containerTop = container.scrollTop + 1;
+    const isScrollAtMax = containerTop >= (container.scrollHeight - container.clientHeight)
+    if (isScrollAtMax) {
+      containerTop = containerTop + 450
+    }
 
+    const itemsHeight = []
+    data.orders.forEach((order) => {
+      itemsHeight.push(
+        document.getElementById(`content-${order.orderNumber}`).offsetHeight);
+    })
+
+    if (containerTop >= allHeight) {
+      let tempHeight = 0;
+      let tempReduceHeight = 0;
+      for (let i = 0; i < itemsHeight.length; i++) {
+        tempHeight += itemsHeight[i];
+        tempReduceHeight += itemsHeight[i];
+        if (tempHeight > allHeight) {
+          setAllHeight(tempHeight)
+          tempReduceHeight -= itemsHeight[i];
+          setReduceHeight(tempReduceHeight)
+          setActiveRadioButton(data.orders[i].orderNumber)
+          break;
+        }
+      }
+    }
+    else if (containerTop <= reduceHeight) {
+      let tempHeight = 0;
+      let tempReduceHeight = 0;
+      for (let i = 0; i < itemsHeight.length; i++) {
+        tempHeight += itemsHeight[i];
+        tempReduceHeight += itemsHeight[i];
+        if (reduceHeight === tempReduceHeight) {
+          setReduceHeight(tempReduceHeight - itemsHeight[i]);
+          setActiveRadioButton(data.orders[i].orderNumber);
+          setAllHeight(tempHeight);
+          break;
+        }
+      }
+    }
+
+  }
 
   useEffect(() => {
     toggleVisible()
   })
+
 
   useEffect(() => {
     if (totalDelivery === 1) {
@@ -371,11 +410,11 @@ const DeliveryCardMenu = (props) => {
           {data.orders.map((order) => {
             return (
               <div style={{ display: 'flex', paddingBottom: "11px" }} onClick={() => { handleChangeRadio(order) }}>
-                {/* <CustomTooltip sx={{ whiteSpace: "pre-line" }} title={order.orderPositions.some((v) => v.warning === true) ? `${order.orderNumber} \n Discrepancy` : order.orderNumber}> */}
-                <div id={order.orderNumber} onMouseEnter={() => { setHoverState(order.id) }} onMouseLeave={() => { setHoverState("") }} style={{ display: "flex", alignItems: "center", justifyContent: "center", width: "24px", height: "24px" }}>
-                  {order.orderNumber === activeRadioButton ? (
-                    <div>
-                      {/* {order.orderPositions.some((v) => v.warning === true) ? (
+                <CustomTooltip sx={{ whiteSpace: "pre-line" }} title={order.orderPositions.some((v) => v.warning === true) ? `${order.orderNumber} \n Discrepancy` : order.orderNumber}>
+                  <div id={order.orderNumber} onMouseEnter={() => { setHoverState(order.orderNumber) }} onMouseLeave={() => { setHoverState("") }} style={{ display: "flex", alignItems: "center", justifyContent: "center", width: "24px", height: "24px" }}>
+                    {order.orderNumber === activeRadioButton ? (
+                      <div>
+                        {order.orderPositions.some((v) => v.warning === true) ? (
                           <Box className="icons">
                             {hoverState === order.orderNumber ? (
                               <img src={ButtonPageWarningHover} style={{ height: "24px", width: "24px" }}
@@ -385,19 +424,19 @@ const DeliveryCardMenu = (props) => {
                               />
                             )}
                           </Box>
-                        ) : ( */}
-                      <Box className="icons">
-                        {hoverState === order.orderNumber ? (
-                          <img src={ButtonPageActiveHover} style={{ height: "24px", width: "24px" }} />
                         ) : (
-                          <img src={ButtonPageActiveDefault} style={{ height: "24px", width: "24px" }} />
+                          <Box className="icons">
+                            {hoverState === order.orderNumber ? (
+                              <img src={ButtonPageActiveHover} style={{ height: "24px", width: "24px" }} />
+                            ) : (
+                              <img src={ButtonPageActiveDefault} style={{ height: "24px", width: "24px" }} />
+                            )}
+                          </Box>
                         )}
-                      </Box>
-                      {/* )} */}
-                    </div>
-                  ) : (
-                    <Box>
-                      {/* {order.orderPositions.some((v) => v.warning === true) ? (
+                      </div>
+                    ) : (
+                      <Box>
+                        {order.orderPositions.some((v) => v.warning === true) ? (
                           <Box>
                             {hoverState === order.orderNumber ? (
                               <img src={ButtonPageDangerHover} style={{ height: "12px", width: "16px", marginLeft: "5px" }}
@@ -408,26 +447,26 @@ const DeliveryCardMenu = (props) => {
                             )}
 
                           </Box>
-                        ) : ( */}
-                      <Box>
-                        {hoverState === order.orderNumber ? (
-                          <img src={ButtonPageHover} style={{ height: "12px", width: "12px" }}
-                          />
                         ) : (
-                          <img src={ButtonPage} style={{ height: "12px", width: "12px" }}
-                          />
+                          <Box>
+                            {hoverState === order.orderNumber ? (
+                              <img src={ButtonPageHover} style={{ height: "12px", width: "12px" }}
+                              />
+                            ) : (
+                              <img src={ButtonPage} style={{ height: "12px", width: "12px" }}
+                              />
+                            )}
+                          </Box>
                         )}
                       </Box>
-                      {/* )} */}
-                    </Box>
-                  )}
-                </div>
-                {/* </CustomTooltip> */}
+                    )}
+                  </div>
+                </CustomTooltip>
               </div>
             )
           })}
         </div>
-        <div id="parentScroll" className="deliveryCardMenuItems" style={{ paddingLeft: "60px", width: '100%', height: "calc(100vh - 400px)", overflowY: "auto", scrollBehavior: "smooth", paddingRight: "20px", margin: "0px -20px 0px 0px" }}>
+        <div id="parentScroll" className="deliveryCardMenuItems" style={{ paddingLeft: "60px", width: '100%', height: "calc(100vh - 375px)", overflowY: "auto", scrollBehavior: "smooth", paddingRight: "20px", margin: "0px -20px 0px 0px" }}>
           {data.orders.map((order, index) => (
             <>
               <DivFlexSpaceBetween id={`content-${order.orderNumber}`} style={{ paddingBottom: "40px", alignItems: "none", display: 'flex', justifyContent: "start" }}>
