@@ -436,7 +436,7 @@ const DeliveryPage = () => {
           </>
         </Grid>
 
-        <Grid item xs={0} md={0} lg={6}
+        <Grid item xs={0} md={0} lg={promoNewsData.length == 0 ? 9 : 6}
           display={{ xs: "none", md: "none", lg: "block" }}
           bgcolor={{ md: theme.palette.background.deliveryCardMenu }}
           padding={{ lg: "86px 40px 0px 40px" }}
@@ -458,9 +458,9 @@ const DeliveryPage = () => {
           </DivFlexCenter>
         </Grid>
 
-        <Grid item xs={12} md={12} lg={3}
-          sx={{ mt: isDesktop ? 9 : 0, }}
-          bgcolor={{ xs: theme.palette.background.default, lg: theme.palette.background.default }}
+        <Grid item xs={12} md={12} lg={promoNewsData.length == 0 ? 0 : 3}
+          sx={{ mt: isDesktop ? 9 : 0, display: promoNewsData.length == 0 ? 'none' : 'block' }}
+          bgcolor={{ xs: theme.palette.background.defaultMobile, lg: theme.palette.background.default }}
         >
           <Box
             sx={{
