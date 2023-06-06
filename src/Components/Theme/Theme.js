@@ -24,7 +24,7 @@ export const lightTheme = createTheme({
             hoverPromoCard: "#f7f5f5",
 
             // appbar and icon
-            appBar: "#ebebeb",
+            appBar: "#EBEBEB",
             iconColor: "#000000",
             title: '#1A1919',
             hoverIconButton: "#F7F5F5",
@@ -99,6 +99,9 @@ export const lightTheme = createTheme({
             inputText: "#8D8D8D",
             inputTextActive: "#1A1919",
             emailListRole: "#909090",
+
+            // loading text
+            loadingText: '#262626'
         },
     }
 });
@@ -198,6 +201,9 @@ export const darkTheme = createTheme({
             inputText: "#e0e0e0",
             inputTextActive: "#FFFFFF",
             emailListRole: "#ffffff",
+
+            // loading text
+            loadingText: '#F7F5F5'
         },
     }
 });
@@ -289,6 +295,9 @@ export const yellowTheme = createTheme({
             inputText: "#8D8D8D",
             inputTextActive: "#1A1919",
             emailListRole: "#909090",
+
+            // loading text
+            loadingText: '#262626'
         },
     }
 });
@@ -380,6 +389,9 @@ export const blueTheme = createTheme({
             inputText: "#8D8D8D",
             inputTextActive: "#1A1919",
             emailListRole: "#909090",
+
+            // loading text
+            loadingText: '#262626'
         },
     }
 });

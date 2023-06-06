@@ -2,12 +2,16 @@ import { useContext } from "react";
 
 import { AppContext } from "../../App";
 
-import DialogBlanket from "./DialogContainer/DialogBlanket";
-
-import { CircularProgress, circularProgressClasses } from "@mui/material";
-
+// import style and theme
 import { useTheme } from "@mui/styles";
+
+// import components
+import DialogBlanket from "./DialogContainer/DialogBlanket";
+import { CircularProgress, circularProgressClasses, Typography } from "@mui/material";
 import DivFlexCenter from "../DivFlexCenter";
+
+// import constants
+import { FontFamily } from "../../Constants/FontFamily";
 
 const LoadingDialog = () => {
 
@@ -17,7 +21,7 @@ const LoadingDialog = () => {
 
     return (
         <DialogBlanket open={true} height={'100%'}>
-            <DivFlexCenter sx={{ height: '100%', }}>
+            <DivFlexCenter sx={{ height: '100%', flexDirection: 'column' }}>
                 <CircularProgress
                     size={isMobile ? "56px" : "72px"}
                     sx={{
@@ -28,6 +32,9 @@ const LoadingDialog = () => {
                         },
                     }}
                 />
+                <Typography sx={{ mt: isMobile ? 3 : 5, fontFamily: FontFamily.EINA04SEMIBOLD, fontSize: isMobile ? 16 : 18, color: theme.palette.text.loadingText }}>
+                    Loading..
+                </Typography>
             </DivFlexCenter>
         </DialogBlanket>
     )
