@@ -9,6 +9,7 @@ import { useTheme, styled } from "@mui/material/styles";
 // import icon
 import ListIcon from "../../assets/icons/ListIcon";
 import LogoutIcon from "../../assets/icons/LogoutIcon";
+import MenuIcon from '../../assets/icons/MenuIcon';
 import LoginIcon from "../../assets/icons/LoginIcon";
 import SettingsIcon from '@mui/icons-material/Settings';
 
@@ -34,6 +35,7 @@ import { CustomTooltip } from "../CustomTooltip";
 // import constants
 import { ColorTheme } from "../../Constants/ColorTheme";
 import { UserRole } from "../../Constants/UserRole";
+import NavigationDrawer from "../NavigationDrawer/NavigationDrawer";
 
 // icon button component
 const IconButton = styled("div")((props) => ({
@@ -65,14 +67,18 @@ const AppBarResponsive = () => {
   const {
     handleChangeTheme,
     mode,
-    handleOpenLoginDialog,
-    handleEmailListDialog,
+    handleOpenDialog,
     isLogin,
     userRole,
     isMobile,
     isTablet,
     isDesktop,
-    handleOpenLogoutDialog,
+    anchorNavigationDrawerEl,
+    setAnchorNavigationDrawerEl,
+    isNavigationDrawerOpen,
+    handleOpenNavigationDrawer,
+    handleCloseNavigationDrawer,
+    openDialog
   } = useContext(AppContext);
 
 
@@ -207,38 +213,24 @@ const AppBarResponsive = () => {
                 ) : (<></>)}
                 {isLogin ? (
                   <>
-                    {userRole == UserRole.ADMIN ||
-                      userRole == UserRole.SUPERADMIN ? (
-                      <CustomTooltip title="Email List">
-                        <IconButton
-                          onClick={handleEmailListDialog}
-                          theme={theme}
-                          sx={{ mr: 1 }}
-                        >
-                          <ListIcon
-                            color={theme.palette.background.iconColor}
-                            sx={{ fontSize: 22, mr: 0.1 }}
-                          />
-                        </IconButton>
-                      </CustomTooltip>
-                    ) : (
-                      <></>
-                    )}
-                    <CustomTooltip title="Logout">
-                      <IconButton
-                        onClick={handleOpenLogoutDialog}
-                        theme={theme}
-                      >
-                        <LogoutIcon
-                          color={theme.palette.background.iconColor}
-                          sx={{ fontSize: 22, ml: 0.4 }}
+                    <CustomTooltip title="Menu">
+                      {openDialog ?
+                        <MenuIcon
+                          sx={{ color: theme.palette.background.iconColor }}
                         />
-                      </IconButton>
+                        : <IconButton
+                          onClick={handleOpenNavigationDrawer}
+                          theme={theme}
+                        >
+                          <MenuIcon
+                            sx={{ color: theme.palette.background.iconColor }}
+                          />
+                        </IconButton>}
                     </CustomTooltip>
                   </>
                 ) : (
                   <CustomTooltip title="Login">
-                    <IconButton theme={theme} onClick={handleOpenLoginDialog}>
+                    <IconButton theme={theme} onClick={() => handleOpenDialog('login')}>
                       <LoginIcon
                         color={theme.palette.background.iconColor}
                         sx={{ fontSize: 22, ml: 0.4 }}
@@ -251,6 +243,13 @@ const AppBarResponsive = () => {
           </Grid>
         </Container>
       </AppBar>
+
+      <NavigationDrawer
+        anchorNavigationDrawerEl={anchorNavigationDrawerEl}
+        setAnchorNavigationDrawerEl={setAnchorNavigationDrawerEl}
+        isNavigationDrawerOpen={isNavigationDrawerOpen}
+        handleCloseNavigationDrawer={handleCloseNavigationDrawer}
+      />
 
       {/* Temporary Component to change theme */}
       <Menu

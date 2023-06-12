@@ -75,9 +75,11 @@ const getTextRoles = roles => {
     }
 }
 
-const EmailsListDialog = () => {
+const EmailsListDialog = (props) => {
 
-    const { emailListDialog, handleEmailListDialog, emailList, handleOpenAddNewEmailDialog, handleSetCurrentEmailForDelete, handleSetCurrentEmailForEdit, isMobile } = useContext(AppContext)
+    const { emailList, handleCloseDialog, handleOpenDialog, handleSetCurrentEmailForDelete, handleSetCurrentEmailForEdit, isMobile } = useContext(AppContext)
+
+    const { isOpen } = props;
 
     const theme = useTheme()
 
@@ -110,11 +112,11 @@ const EmailsListDialog = () => {
                         ))
                     }
                 </TableDataContainer>
-                <Typography sx={{ textDecoration: 'underline', mt: 2, fontFamily: FontFamily.EINA04REGULAR, cursor: 'pointer', fontSize: 12, width: "calc(100% - 24px)" }} onClick={handleOpenAddNewEmailDialog} >
+                <Typography sx={{ textDecoration: 'underline', mt: 2, fontFamily: FontFamily.EINA04REGULAR, cursor: 'pointer', fontSize: 12, width: "calc(100% - 24px)" }} onClick={() => handleOpenDialog('addNewEmail')} >
                     +Add New Email
                 </Typography>
 
-                <Button style={{ mt: 3, width: 'calc(100% - 24px)' }} onClick={handleEmailListDialog}>
+                <Button style={{ mt: 3, width: 'calc(100% - 24px)' }} onClick={handleCloseDialog}>
                     {`Save`}
                 </Button>
             </>
@@ -155,10 +157,10 @@ const EmailsListDialog = () => {
                         </TableBody>
                     </Table>
                 </TableContainer>
-                <Typography sx={{ textDecoration: 'underline', mt: 3, fontFamily: FontFamily.EINA04REGULAR, cursor: 'pointer', fontSize: 20, color: theme.palette.text.primary }} onClick={handleOpenAddNewEmailDialog} >
+                <Typography sx={{ textDecoration: 'underline', mt: 3, fontFamily: FontFamily.EINA04REGULAR, cursor: 'pointer', fontSize: 20, color: theme.palette.text.primary }} onClick={() => handleOpenDialog('addNewEmail')} >
                     +Add New Email
                 </Typography>
-                <Button style={{ mt: 8, width: 'calc(100% - 48px)' }} onClick={handleEmailListDialog} >
+                <Button style={{ mt: 8, width: 'calc(100% - 48px)' }} onClick={handleCloseDialog} >
                     {`Save`}
                 </Button>
             </>
@@ -167,7 +169,7 @@ const EmailsListDialog = () => {
 
     return (
         <>
-            <CustomDialog width={800} open={emailListDialog} onClose={handleEmailListDialog} backgroundColor={theme.palette.background.dialog}  >
+            <CustomDialog width={800} open={isOpen} onClose={handleCloseDialog} backgroundColor={theme.palette.background.dialog}  >
                 <Box sx={{ backgroundColor: theme.palette.background.dialog }}>
                     <Box sx={{ padding: isMobile ? '4px 0px 32px 24px' : '4px 0px 64px 48px' }}>
                         {emailListDeviceVersion}

@@ -33,14 +33,15 @@ import { FontFamily } from "../../Constants/FontFamily";
 import { useTheme } from "@mui/material/styles";
 import DivFlexStart from "../DivFlexStart";
 
-const LoginDialog = () => {
+const LoginDialog = (props) => {
   const {
-    openLoginDialog,
     isMobile,
-    handleCloseLoginDialog,
+    handleCloseDialog,
     handleButtonOtpDialog,
     sendOtp,
   } = useContext(AppContext);
+
+  const { isOpen } = props;
 
   const theme = useTheme();
 
@@ -63,8 +64,8 @@ const LoginDialog = () => {
     setEmailSubmit(value);
   };
 
-  const handleCloseDialog = () => {
-    handleCloseLoginDialog();
+  const handleCloseLoginDialog = () => {
+    handleCloseDialog();
     setEmail("");
     setIsEmailEmpty(false);
     setIsEmailInvalid(false);
@@ -74,6 +75,7 @@ const LoginDialog = () => {
     if (email != "") {
       setIsEmailEmpty(false);
       if (isValidEmail(emailSubmit)) {
+        handleCloseDialog();
         handleButtonOtpDialog();
         setEmail("");
         setIsEmailInvalid(false);
@@ -89,8 +91,8 @@ const LoginDialog = () => {
   return (
     <>
       <CustomDialog
-        open={openLoginDialog}
-        onClose={handleCloseDialog}
+        open={isOpen}
+        onClose={handleCloseLoginDialog}
         theme={theme}
       >
         <Box sx={{ backgroundColor: theme.palette.background.dialog }}>

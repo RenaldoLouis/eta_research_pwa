@@ -37,6 +37,7 @@ import { UrlPage } from "./Constants/UrlPage";
 import LoginDialog from "./Components/DialogComponent/LoginDialog";
 import OtpDialog from "./Components/DialogComponent/OtpDialog/OtpDialog";
 import EmailsListDialog from "./Components/DialogComponent/EmailsListDialog";
+import EmailNotificationDialog from "./Components/DialogComponent/EmailNotificationDialog";
 import AddNewEmailDialog from "./Components/DialogComponent/AddNewEmailDialog";
 import DeleteEmailDialog from "./Components/DialogComponent/DeleteEmailDialog";
 import EditEmailDialog from "./Components/DialogComponent/EditEmailDialog";
@@ -52,6 +53,7 @@ import { emailDummyList } from "./dump-data";
 export const AppContext = createContext({});
 
 const Main = (props) => {
+  const { openDialog } = props;
   return (
     <>
       <AppBarResponsive />
@@ -59,14 +61,15 @@ const Main = (props) => {
       {/* ======== Global Dialog Component ======== */}
       {props.isLoadingLogin && (<LoadingDialog />)}
 
-      <LoginDialog />
-      <LogoutConfirmationDialog />
-      <OtpDialog />
+      <LoginDialog isOpen={openDialog === 'login'} />
+      <LogoutConfirmationDialog isOpen={openDialog === 'logout'} />
+      <OtpDialog isOpen={openDialog === 'otp'} />
 
-      <EmailsListDialog />
-      <AddNewEmailDialog />
-      <DeleteEmailDialog />
-      <EditEmailDialog />
+      <EmailNotificationDialog isOpen={openDialog === 'emailNotification'} />
+      <EmailsListDialog isOpen={openDialog === 'emailList'} />
+      <AddNewEmailDialog isOpen={openDialog === 'addNewEmail'} />
+      <DeleteEmailDialog isOpen={openDialog === 'deleteEmail'} />
+      <EditEmailDialog isOpen={openDialog === 'editEmail'} />
       {/* ======== Global Dialog Component ======== */}
 
 
@@ -132,69 +135,50 @@ function App() {
   const isMobile = useMediaQuery(theme.breakpoints.only("xs"));
   /* =========EOL Breakpoint device============ */
 
+  /** ======== State for navigation drawer ======== */
+  const [anchorNavigationDrawerEl, setAnchorNavigationDrawerEl] = useState(null);
+  const isNavigationDrawerOpen = Boolean(anchorNavigationDrawerEl)
 
-  /** ===============Login Dialog =============== */
-  const [openLoginDialog, setOpenLoginDialog] = useState(false);
+  const handleOpenNavigationDrawer = event => {
+    setAnchorNavigationDrawerEl(event.currentTarget);
+  }
 
-  const handleOpenLoginDialog = () => {
-    setOpenLoginDialog(true);
+  const handleCloseNavigationDrawer = () => {
+    setAnchorNavigationDrawerEl(null);
   };
-  const handleCloseLoginDialog = () => {
-    setOpenLoginDialog(false);
-  };
-  /** ===============EOL Login Dialog =============== */
+
+  /** ======== EOL state for navigation drawer ======== */
+
+  /** ===============Dialog =============== */
+  const [openDialog, setOpenDialog] = useState('');
+
+  const handleOpenDialog = (dialogName) => {
+    setAnchorNavigationDrawerEl(null);
+    setOpenDialog(dialogName);
+  }
+
+  const handleCloseDialog = () => {
+    setOpenDialog('');
+  }
+
+  /** ===============EOL Dialog =============== */
 
 
   /** ==========================OTP Dialog ========================== */
-  const [openOtpDialog, setOpenOtpDialog] = useState(false);
-
   const [sendOtp, setSendOtp] = useState(false);
 
   const handleButtonOtpDialog = () => {
-    setOpenOtpDialog(true);
+    handleOpenDialog('otp');
     setSendOtp(true);
-    handleCloseLoginDialog();
   };
 
   const handleCloseOtpDialog = () => {
-    setOpenOtpDialog(false);
+    handleCloseDialog();
     setSendOtp(false);
   };
   /** ==========================EOL OTP Dialog ========================== */
 
-
-  /** ==========================Email List Dialog ========================== */
-  const [emailListDialog, setEmailListDialog] = useState(false);
-
-  const handleEmailListDialog = () => {
-    setEmailListDialog(!emailListDialog);
-  };
-  /** ==========================EOL Email List Dialog ========================== */
-
-
-  /** ==========================State for dialog List Dialog ========================== */
-  // dialog for add new email list
-  const [addNewEmailDialog, setAddNewEmailDialog] = useState(false);
-
-  // dialog for delete email
-  const [deleteEmailDialog, setDeleteEmailDialog] = useState(false);
-
-  // dialog for edit email
-  const [editEmailDialog, setEditEmailDialog] = useState(false);
-  /** ==========================EOL State for dialog List Dialog ========================== */
-
-
   /** ==========================Add new Email ========================== */
-  // open dialog for add new email
-  const handleOpenAddNewEmailDialog = () => {
-    handleEmailListDialog();
-    setAddNewEmailDialog(true);
-  };
-  // close dialog for add new email
-  const handleCloseNewEmailDialog = () => {
-    setAddNewEmailDialog(false);
-    handleEmailListDialog();
-  };
   // add new email function
   const addNewEmail = (email) => {
     email.id = emailList.length + 1;
@@ -206,28 +190,20 @@ function App() {
   /** ==========================Delete Email ========================== */
   // select email for deleted and open dialog
   const handleSetCurrentEmailForDelete = (email) => {
-    setCurrnetEmail(email);
-    setEmailListDialog(false);
-    setEditEmailDialog(false);
-    setDeleteEmailDialog(true);
+    setCurrentEmail(email);
+    handleOpenDialog('deleteEmail');
   };
   // delete selected email
   const deleteNewEmail = (id) => {
     setEmailList(emailList.filter((email) => email.id !== id));
-    setDeleteEmailDialog(false);
-    handleEmailListDialog();
-  };
-  // close dialog for delete email
-  const handleCloseDeleteEmailDialog = () => {
-    setDeleteEmailDialog(false);
-    handleEmailListDialog();
+    handleOpenDialog('emailList');
   };
   /** ==========================EOL Delete Email ========================== */
 
 
   /** ==========================Update or Edit Email ========================== */
   // selected email for edit or delete
-  const [currentEmail, setCurrnetEmail] = useState({
+  const [currentEmail, setCurrentEmail] = useState({
     id: null,
     email: "",
     roles: "",
@@ -235,10 +211,8 @@ function App() {
 
   // select email for updated and open dialog
   const handleSetCurrentEmailForEdit = (email) => {
-    setCurrnetEmail(email);
-    setEmailListDialog(false);
-    setDeleteEmailDialog(false);
-    setEditEmailDialog(true);
+    setCurrentEmail(email);
+    handleOpenDialog('editEmail');
   };
   // update selected email
   const editNewEmail = (newEmail) => {
@@ -247,14 +221,7 @@ function App() {
         email.id == currentEmail.id ? newEmail : email
       )
     );
-    setDeleteEmailDialog(false);
-    setEditEmailDialog(false);
-    setEmailListDialog(true);
-  };
-  // close dialog for update email
-  const handleCloseEditEmailDialog = () => {
-    setEditEmailDialog(false);
-    handleEmailListDialog();
+    handleOpenDialog('emailList');
   };
   /** ==========================Eol Update or Edit Email ========================== */
 
@@ -273,18 +240,9 @@ function App() {
 
 
   /** ===============Logout =============== */
-  const [openLogoutDialog, setOpenLogoutDialog] = useState(false);
-
-  const handleOpenLogoutDialog = () => {
-    setOpenLogoutDialog(true);
-  };
-
-  const handleCloseLogoutDialog = () => {
-    setOpenLogoutDialog(false);
-  };
 
   const handleLogout = () => {
-    setOpenLogoutDialog(false);
+    handleCloseDialog();
     setIsLogin(false);
   };
   /** ===============EOL Logout =============== */
@@ -357,40 +315,31 @@ function App() {
     isScrollToPromo,
     goToPromo,
 
-    openLoginDialog,
-    handleOpenLoginDialog,
-    handleCloseLoginDialog,
     setIsLoadingLogin,
 
-    openLogoutDialog,
-    handleOpenLogoutDialog,
-    handleCloseLogoutDialog,
+    anchorNavigationDrawerEl,
+    setAnchorNavigationDrawerEl,
+    isNavigationDrawerOpen,
+    handleOpenNavigationDrawer,
+    handleCloseNavigationDrawer,
+
+    openDialog,
+    handleOpenDialog,
+    handleCloseDialog,
 
     sendOtp,
-    openOtpDialog,
     handleButtonOtpDialog,
     handleCloseOtpDialog,
 
-    emailListDialog,
-    handleEmailListDialog,
-
-    addNewEmailDialog,
-    handleOpenAddNewEmailDialog,
-    handleCloseNewEmailDialog,
     addNewEmail,
 
     currentEmail,
     deleteNewEmail,
     handleSetCurrentEmailForDelete,
 
-    deleteEmailDialog,
-    handleCloseDeleteEmailDialog,
-
-    editEmailDialog,
     handleSetCurrentEmailForEdit,
 
     editNewEmail,
-    handleCloseEditEmailDialog,
 
     isLogin,
     userRole,
@@ -415,11 +364,11 @@ function App() {
                 pauseOnFocusLoss={false}
                 position="bottom-left"
               />
-              <Main isLoadingLogin={isLoadingLogin} />
-            </Router>
-          </ThemeProvider>
-        </AppContext.Provider>
-      </PwaContextProvider>
+              <Main openDialog={openDialog} isLoadingLogin={isLoadingLogin} />
+            </Router >
+          </ThemeProvider >
+        </AppContext.Provider >
+      </PwaContextProvider >
     </>
   );
 }

@@ -1,4 +1,4 @@
-import React, {useContext} from "react";
+import React, { useContext } from "react";
 
 import { Typography, TextField, FormControl, MenuItem, Box, Select } from "@mui/material";
 
@@ -9,34 +9,20 @@ import { FontFamily } from "../../../Constants/FontFamily";
 // import style and theme
 import { useTheme, styled } from "@mui/material/styles";
 
-const Roles = [
-    {
-        value: 'admin',
-        label: 'Admin',
-    },
-    {
-        value: 'superAdmin',
-        label: 'Super Admin',
-    },
-    {
-        value: 'standard',
-        label: 'Standard',
-    },
-];
-
 const SelectMenuItem = (props) => {
 
-    const { email, handleChangeInput } = props
+    const { id, name, handleChangeInput, defaultValue, options } = props
+
 
     const theme = useTheme()
 
-    const {isMobile} = useContext(AppContext)
+    const { isMobile } = useContext(AppContext)
 
     return (
         <Select
-            id="roles"
-            defaultValue={email.roles}
-            name="roles"
+            id={id}
+            defaultValue={defaultValue}
+            name={name}
             onChange={handleChangeInput}
             inputProps={{
                 MenuProps: {
@@ -77,7 +63,7 @@ const SelectMenuItem = (props) => {
                 },
             }}
         >
-            {Roles.map((option) => (
+            {options.map((option) => (
                 <MenuItem key={option.value} value={option.value}
                     sx={{
                         background: theme.palette.background.dialog,
@@ -90,6 +76,7 @@ const SelectMenuItem = (props) => {
                     </Typography>
                 </MenuItem>
             ))}
+
         </Select>
     )
 }
