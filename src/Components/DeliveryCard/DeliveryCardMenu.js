@@ -72,7 +72,7 @@ export const ItemStickyTitle = styled("div")((props) => ({
   position: "sticky",
   top: 0,
   // width: "100%",
-  zIndex: 9999,
+  zIndex: 10,
   backgroundColor: props.theme.palette.background.deliveryCardMenuItemTitle
 }));
 
@@ -414,25 +414,28 @@ const DeliveryCardMenu = (props) => {
             return (
               <div style={{ display: 'flex', paddingBottom: "11px" }} onClick={() => { handleChangeRadio(order) }}>
                 <CustomTooltip sx={{ whiteSpace: "pre-line" }} title={order.orderPositions.some((v) => v.warning === true) ? `${order.orderNumber} \n Discrepancy` : order.orderNumber}>
-                  <div id={order.orderNumber} onMouseEnter={() => { setHoverState(order.orderNumber) }} onMouseLeave={() => { setHoverState("") }} style={{ display: "flex", alignItems: "center", justifyContent: "center", width: "24px", height: "24px" }}>
+                  <div id={order.orderNumber}
+                    onMouseEnter={() => { setHoverState(order.orderNumber) }}
+                    onMouseLeave={() => { setHoverState("") }}
+                    style={{ display: "flex", alignItems: "center", justifyContent: "center", width: "24px", height: "24px" }}>
                     {order.orderNumber === activeRadioButton ? (
                       <div>
                         {order.orderPositions.some((v) => v.warning === true) ? (
                           <Box className="icons">
                             {hoverState === order.orderNumber ? (
-                              <img src={ButtonPageWarningHover} style={{ height: "24px", width: "24px" }}
+                              <img alt="" src={ButtonPageWarningHover} style={{ height: "24px", width: "24px" }}
                               />
                             ) : (
-                              <img src={ButtonPageWarningDefault} style={{ height: "24px", width: "24px" }}
+                              <img alt="" src={ButtonPageWarningDefault} style={{ height: "24px", width: "24px" }}
                               />
                             )}
                           </Box>
                         ) : (
                           <Box className="icons">
                             {hoverState === order.orderNumber ? (
-                              <img src={ButtonPageActiveHover} style={{ height: "24px", width: "24px" }} />
+                              <img alt="" src={ButtonPageActiveHover} style={{ height: "24px", width: "24px" }} />
                             ) : (
-                              <img src={ButtonPageActiveDefault} style={{ height: "24px", width: "24px" }} />
+                              <img alt="" src={ButtonPageActiveDefault} style={{ height: "24px", width: "24px" }} />
                             )}
                           </Box>
                         )}
@@ -442,10 +445,10 @@ const DeliveryCardMenu = (props) => {
                         {order.orderPositions.some((v) => v.warning === true) ? (
                           <Box>
                             {hoverState === order.orderNumber ? (
-                              <img src={ButtonPageDangerHover} style={{ height: "12px", width: "16px", marginLeft: "5px" }}
+                              <img alt=""  src={ButtonPageDangerHover} style={{ height: "12px", width: "16px", marginLeft: "5px" }}
                               />
                             ) : (
-                              <img src={ButtonPageDangerDefault} style={{ height: "12px", width: "16px", marginLeft: "5px" }}
+                              <img alt=""  src={ButtonPageDangerDefault} style={{ height: "12px", width: "16px", marginLeft: "5px" }}
                               />
                             )}
 
@@ -453,10 +456,10 @@ const DeliveryCardMenu = (props) => {
                         ) : (
                           <Box>
                             {hoverState === order.orderNumber ? (
-                              <img src={ButtonPageHover} style={{ height: "12px", width: "12px" }}
+                              <img alt=""  src={ButtonPageHover} style={{ height: "12px", width: "12px" }}
                               />
                             ) : (
-                              <img src={ButtonPage} style={{ height: "12px", width: "12px" }}
+                              <img alt="" src={ButtonPage} style={{ height: "12px", width: "12px" }}
                               />
                             )}
                           </Box>
