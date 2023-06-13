@@ -13,7 +13,9 @@ import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
 import ClockIcon from "../../assets/icons/ClockIcon";
 import DoneIcon from "../../assets/icons/DoneIcon";
 import ErrorIcon from "../../assets/icons/ErrorIcon";
-import SearchIcon from '@mui/icons-material/Search';
+import SearchIcon from "../../assets/icons/SearchIcon";
+import ChevronDown from "../../assets/icons/ChevronDown";
+import ChevronUp from "../../assets/icons/ChevronUp";
 
 
 // import components
@@ -37,7 +39,7 @@ import CloseIcon from "../../assets/icons/CloseIcon";
 //import styles
 import '../../index.css'
 
-const RootDeliveryCard = styled("div")((props) => ({
+const RootDeliveryCard = styled(Box)((props) => ({
   backgroundColor: props.isDesktop
     ? props.data.orderNumber === props.deliveryId
       ? props.theme.palette.background.deliveryCard
@@ -45,7 +47,6 @@ const RootDeliveryCard = styled("div")((props) => ({
         ? props.theme.palette.background.deliveryCard
         : props.theme.palette.background.default
     : props.theme.palette.background.deliveryCard,
-  padding: props.isDesktop ? 16 : props.openDetail ? "16px 24px 0px 24px" : 16,
   cursor: props.isDesktop
     ? props.isOpenItemList
       ? "default"
@@ -59,9 +60,28 @@ const RootDeliveryCard = styled("div")((props) => ({
       : undefined,
   },
   ":active": {
-    backgroundColor: props.theme.palette.background.clickedDeliveryCard,
+    backgroundColor: props.openDetail ? '' : !props.isDesktop && props.totalDelivery < 2 ? '' : props.theme.palette.background.clickedDeliveryCard,
   },
 }));
+
+const ButtonOpenOrderDetail = (props) => {
+  return (
+    <DivFlexEnd style={{ zIndex: 100, position: "relative", margin: "16px 24px 16px 0px" }}>
+      <Typography sx={{
+        fontFamily: "Eina04-Regular",
+        fontStyle: "normal",
+        fontWeight: 600, fontSize: "12px",
+        lineHeight: "17px",
+        textDecorationLine: "underline",
+        cursor: "pointer",
+      }}
+        onClick={props.onClick}
+      >
+        {props.children}
+      </Typography>
+    </DivFlexEnd>
+  )
+}
 
 
 
@@ -152,7 +172,11 @@ const DeliveryCard = (props) => {
 
   const handleOpenDeliveryCard = () => {
     setOpenItem([])
-    setOpenDetail(!openDetail)
+    if (totalDelivery > 1) {
+      setOpenDetail(!openDetail)
+    } else {
+      setOpenDetail(true)
+    }
   }
 
   useEffect(() => {
@@ -170,19 +194,21 @@ const DeliveryCard = (props) => {
   const timeEnd = getTimeFormat(data.tourStopNotifications.actual.twEnd)
 
   return (
-    <Box sx={{ width: openDetail || isDesktop ? "100%" : "calc(100% - 48px)" }}>
-      <RootDeliveryCard
-        onClick={isDesktop ? undefined : () => handleOpenDeliveryCard()}
-        isDesktop={isDesktop}
-        isOpenItemList={isOpenItemList}
-        deliveryId={deliveryId}
-        data={data}
-        openDetail={openDetail}
-      >
+    <RootDeliveryCard
+      isDesktop={isDesktop}
+      isOpenItemList={isOpenItemList}
+      deliveryId={deliveryId}
+      data={data}
+      openDetail={openDetail}
+      totalDelivery={totalDelivery}
+      sx={{ width: openDetail || isDesktop ? "100%" : "calc(100% - 48px)", }}>
+
+
+      <Box onClick={isDesktop ? undefined : () => handleOpenDeliveryCard()} sx={{ padding: isDesktop ? 2 : openDetail ? "16px 24px 24px 24px" : 2, }}>
         {(isMobile || isTablet) && (
           <DivFlexSpaceBetween sx={{ marginBottom: "10px" }}>
-            {openDetail ? (
-              ""
+            {openDetail && totalDelivery > 1 ? (
+              <></>
             ) : (
               <>
                 <Typography
@@ -205,7 +231,10 @@ const DeliveryCard = (props) => {
         <DivFlexSpaceBetween
           sx={{ mb: isDesktop ? 0 : undefined, flexWrap: "wrap" }}
         >
-          {!openDetail && (
+
+          {openDetail && totalDelivery > 1 ? (
+            <></>
+          ) : (
             <Typography
               fontSize={12}
               sx={{
@@ -220,6 +249,7 @@ const DeliveryCard = (props) => {
               {data.plateDriver}
             </Typography>
           )}
+
           <Box sx={{ display: isDesktop ? "block" : "none" }}>
             {getStatusChip(data, theme)}
           </Box>
@@ -239,30 +269,39 @@ const DeliveryCard = (props) => {
           </Typography>
           {(isMobile || isTablet) && (
             <Box>
-              {openDetail && (
+              {openDetail && totalDelivery > 1 ? (
                 <CloseIcon sx={{
                   height: '16px',
                   width: '16px',
                   fill: theme.palette.background.deliveryCardCloseIcon
                 }}
                 />
+              ) : (
+                <></>
               )}
+
             </Box>
           )}
         </DivFlexSpaceBetween>
-        <DivFlexStart sx={{ marginTop: isDesktop ? "16px" : "4px" }}>
-          <Typography
-            fontSize={12}
-            color={theme.palette.text.primary}
-            sx={{
-              fontFamily: FontFamily.EINA04REGULAR,
-              lineHeight: "16.56px",
-              fontWeight: 400,
-            }}
-          >
-            {data.address}
-          </Typography>
-        </DivFlexStart>
+        {openDetail && totalDelivery > 1 ? (
+          <></>
+        ) : (
+          <>
+            <DivFlexStart sx={{ marginTop: isDesktop ? "16px" : "4px" }}>
+              <Typography
+                fontSize={12}
+                color={theme.palette.text.primary}
+                sx={{
+                  fontFamily: FontFamily.EINA04REGULAR,
+                  lineHeight: "16.56px",
+                  fontWeight: 400,
+                }}
+              >
+                {data.address}
+              </Typography>
+            </DivFlexStart>
+          </>
+        )}
 
         {openDetail ? (
           <>
@@ -352,7 +391,7 @@ const DeliveryCard = (props) => {
                   }}
                 />
                 <Typography
-                  fontSize={window.innerWidth < 1274 ? 10 : 14}
+                  fontSize={window.innerWidth < 1274 ? 14 : 14}
                   color={theme.palette.text.primary}
                   sx={{ fontFamily: FontFamily.EINA04SEMIBOLD }}
                 >
@@ -389,21 +428,6 @@ const DeliveryCard = (props) => {
                   <DivFlexStart sx={{ width: 40 }} />
                 )}
               </DivFlexStart>
-              {/* {isMobile || isTablet ? (
-                ""
-              ) : (
-                <Typography
-                  sx={{
-                    fontFamily:FontFamily.EINA04REGULAR",
-                    fontStyle: "normal",
-                    fontSize: "10px",
-                    fontWeight: 300,
-                    lineHeight: "13.8px",
-                  }}
-                >
-                  Klick für Details
-                </Typography>
-              )} */}
               {isDesktop &&
                 <Typography
                   sx={{
@@ -463,39 +487,22 @@ const DeliveryCard = (props) => {
               </>
             )}
 
-            <DivFlexSpaceBetween
-              sx={{
-                display: isOpenItemList || openDetail ? "none" : "",
-                flexWrap: "wrap",
-              }}
-            >
-              <DivFlexStart>
-                {/* <CalendarIcon color={'#959499'} sx={{
-                            fontSize: 12,
-                            mr: 0.5,
-                            ml: 0.1
-                        }} /> */}
-                {/* <Typography fontSize={10} color={theme.palette.text.primary} sx={{ fontFamily: FontFamily.EINA04LIGHT }}>
-                            {getFormatDate(data.stopStart)}
-                        </Typography> */}
-              </DivFlexStart>
-            </DivFlexSpaceBetween>
           </>
         )}
-      </RootDeliveryCard>
+      </Box>
 
       {(isMobile || isTablet) && (
-        <>
-          <Box sx={{ padding: "0px 24px", backgroundColor: theme.palette.background.deliveryCard }}>
+        <Box sx={{ pb: openDetail && !openItem.includes(data.orders[data.orders.length - 1].orderNumber) ? 5 : '' }}>
+          <Box>
             {openDetail && (
-              <DivFlexStart sx={{ paddingTop: "16px", paddingBottom: "12px" }}>
+              <DivFlexStart sx={{ mt: 2, pl: 3, pr: 3 }}>
                 <TextFieldDeliveryCardMenu
                   sx={{ backgroundColor: theme.palette.background.deliveryCardMenuSearchBar, width: "100%" }}
                   onChange={handleSearchByOrderNumberOrPositionName}
                   InputProps={{
                     startAdornment: (
                       <InputAdornment sx={{ padding: "0px" }} position="start">
-                        <SearchIcon />
+                        <SearchIcon color={theme.palette.background.deliverycardSearchIcon} sx={{ fontSize: 24 }} />
                       </InputAdornment>
                     )
                   }}
@@ -504,41 +511,23 @@ const DeliveryCard = (props) => {
             )}
           </Box>
           {handleCheckItemData() ? (
-            <Box sx={{ padding: "0px 24px 16px 0px", backgroundColor: theme.palette.background.deliveryCard }}>
+            <Box>
               {openDetail && (
-                <DivFlexEnd style={{ zIndex: 1000, position: "relative" }}>
-                  <Typography sx={{
-                    fontFamily: "Eina04-Regular",
-                    fontStyle: "normal",
-                    fontWeight: 600, fontSize: "12px",
-                    lineHeight: "17px",
-                    textDecorationLine: "underline",
-                    cursor: "pointer",
-                  }}
-                    onClick={() => { setOpenItem([]) }}
-                    >Alle verbergen</Typography>
-                </DivFlexEnd>
+                <ButtonOpenOrderDetail onClick={() => { setOpenItem([]) }}>
+                  Alle verbergen
+                </ButtonOpenOrderDetail>
               )}
             </Box>
           ) : (
-            <Box sx={{ padding: "0px 24px 16px 0px", backgroundColor: theme.palette.background.deliveryCard }}>
+            <Box>
               {openDetail && (
-                <DivFlexEnd style={{ zIndex: 1000, position: "relative" }}>
-                  <Typography sx={{
-                    fontFamily: "Eina04-Regular",
-                    fontStyle: "normal",
-                    fontWeight: 600, fontSize: "12px",
-                    lineHeight: "17px",
-                    textDecorationLine: "underline",
-                    cursor: "pointer",
-                  }}
-                    onClick={() => { handleAddAllItem() }}
-                  >Alle anzeigen</Typography>
-                </DivFlexEnd>
+                <ButtonOpenOrderDetail onClick={() => { handleAddAllItem() }}>
+                  Alle anzeigen
+                </ButtonOpenOrderDetail>
               )}
             </Box>
           )}
-          <Box className="deliveryCardGrid" style={{ maxHeight: 380, overflowY: 'scroll', position: "relative" }}>
+          <Box className="deliveryCardGrid" style={{ overflowY: 'scroll', position: "relative" }}>
             {data.orders.map((order, index) => (
               <>
                 {openDetail && (
@@ -546,11 +535,14 @@ const DeliveryCard = (props) => {
                     display: 'flex',
                     justifyContent: "space-between",
                     position: "sticky",
-                    height: "50px", padding: "0px 24px",
+                    height: "50px",
                     alignItems: "center",
-                    backgroundColor: theme.palette.background.deliveryCardItemTitle,
+                    backgroundColor: openItem.includes(order.orderNumber) ? theme.palette.background.deliveryOrderTitleActive : '',
                     zIndex: 100,
-                    top: 0
+                    top: 0,
+                    borderBottom: `1px solid ${theme.palette.background.deliveryOrderBorderBottom}`,
+                    padding: "0px  24px",
+                    // mb: data.orders.length - 1 == index ? 5 : ''
                   }}
                     onClick={() => {
                       handleOpenItemList(order.orderNumber)
@@ -562,22 +554,22 @@ const DeliveryCard = (props) => {
                       fontWeight: 400,
                       fontSize: "12px",
                       lineHeight: "17px"
-                    }}>{order.orderNumber}</Typography>
-                    {openItem.includes(order.orderNumber) ? (<ArrowDropUpIcon />) : (<ArrowDropDownIcon />)}
+                    }}>
+                      Beleg {order.orderNumber}
+                    </Typography>
+                    {openItem.includes(order.orderNumber) ? (<ChevronUp sx={{ fontSize: 16 }} color={theme.palette.background.collapseIcon} />) : (<ChevronDown sx={{ fontSize: 16 }} color={theme.palette.background.collapseIcon} />)}
                   </Box>
                 )}
-                <Collapse in={openItem.includes(order.orderNumber)} >
+                <Collapse in={openItem.includes(order.orderNumber)} sx={{ background: theme.palette.background.deliveryOrderTitle }}>
                   {order.orderPositions.map((orderPosition, index) => {
                     return (
-                      <>
-                        <ItemList
-                          item={orderPosition}
-                          key={index}
-                          index={index}
-                          itemLength={order.orderPositions.length}
-                          isOpenItemList={isOpenItemList}
-                        />
-                      </>
+                      <ItemList
+                        item={orderPosition}
+                        key={index}
+                        index={index}
+                        itemLength={order.orderPositions.length}
+                        isOpenItemList={isOpenItemList}
+                      />
                     )
                   })}
                 </Collapse>
@@ -585,10 +577,10 @@ const DeliveryCard = (props) => {
             ))}
 
           </Box>
-        </>
+        </Box>
       )}
 
-    </Box>
+    </RootDeliveryCard>
   );
 };
 

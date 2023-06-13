@@ -55,6 +55,8 @@ import PageNotFound from "../PageNotFound";
 // import Constants
 import { FontFamily } from "../../Constants/FontFamily";
 
+import { deliveryDummyData } from "../../dump-data";
+
 //import Styles
 import "../../index.css"
 import { cloneDeep, orderBy } from "lodash";
@@ -320,7 +322,7 @@ const DeliveryPage = () => {
         }}
       >
         <Grid className="deliveryCardGrid" item xs={12} md={12} lg={3} id="deliverSection"
-          bgcolor={{ xs: theme.palette.background.defaultMobile, lg: theme.palette.background.default }}
+          bgcolor={{ xs: theme.palette.background.default, lg: theme.palette.background.default }}
           sx={{
             overflowY: isDesktop ? "scroll" : "hidden",
             height: isDesktop ? "100vh" : "",
@@ -458,7 +460,7 @@ const DeliveryPage = () => {
 
         <Grid item xs={12} md={12} lg={3}
           sx={{ mt: isDesktop ? 9 : 0, }}
-          bgcolor={{ xs: theme.palette.background.defaultMobile, lg: theme.palette.background.default }}
+          bgcolor={{ xs: theme.palette.background.default, lg: theme.palette.background.default }}
         >
           <Box
             sx={{

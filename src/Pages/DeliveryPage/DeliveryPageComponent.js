@@ -22,7 +22,7 @@ export const DeliverStickyTitle = styled("div")((props) => ({
     top: 72,
     width: "100%",
     height: 60,
-    backgroundColor: props.theme.palette.background.defaultMobile,
+    backgroundColor: props.theme.palette.background.default,
     zIndex: 1000,
     padding: "0px 24px",
 
@@ -37,7 +37,7 @@ export const PromoStickyTitle = styled("div")((props) => ({
     top: 132,
     width: "100%",
     height: 60,
-    backgroundColor: props.theme.palette.background.defaultMobile,
+    backgroundColor: props.theme.palette.background.default,
     borderTop: `1px solid ${props.theme.palette.background.separatorTitle}`,
     zIndex: 1000,
     padding: "0px 24px",
