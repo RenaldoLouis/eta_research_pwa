@@ -29,26 +29,12 @@ import { useTheme, styled } from "@mui/material/styles";
 // import Constants
 import { FontFamily } from "../../Constants/FontFamily";
 
-const AddNewEmailDialog = () => {
+const AddNewEmailDialog = (props) => {
 
-    const { isMobile, isDesktop, addNewEmailDialog, handleCloseNewEmailDialog, addNewEmail } = useContext(AppContext)
+    const { isMobile, isDesktop, handleCloseDialog, handleOpenDialog, addNewEmail } = useContext(AppContext)
+    const { isOpen } = props;
 
     const theme = useTheme()
-
-    const Roles = [
-        {
-            value: 'admin',
-            label: 'Admin',
-        },
-        {
-            value: 'superAdmin',
-            label: 'Super Admin',
-        },
-        {
-            value: 'standard',
-            label: 'Standard',
-        },
-    ];
 
     const initEmail = { id: null, email: '', roles: 'admin' }
 
@@ -76,7 +62,7 @@ const AddNewEmailDialog = () => {
             if (isValidEmail(email.email)) {
                 e.preventDefault()
                 addNewEmail(email)
-                handleCloseNewEmailDialog()
+                handleCloseDialog();
                 setEmail(initEmail)
                 setIsEmailInvalid(false)
                 setIsEmailEmpty(false)
@@ -87,17 +73,32 @@ const AddNewEmailDialog = () => {
         }
     }
 
-    const handleCloseDialog = () => {
+    const handleCloseDialogAddNewEmail = () => {
         setEmail(initEmail)
-        handleCloseNewEmailDialog()
+        handleOpenDialog('');
         setIsEmailInvalid(false)
         setIsEmailEmpty(false)
     }
 
+    const roles = [
+        {
+            value: 'admin',
+            label: 'Admin',
+        },
+        {
+            value: 'superAdmin',
+            label: 'Super Admin',
+        },
+        {
+            value: 'standard',
+            label: 'Standard',
+        },
+    ];
+
 
     return (
         <>
-            <CustomDialog width={900} open={addNewEmailDialog} onClose={handleCloseDialog} theme={theme} >
+            <CustomDialog width={900} open={isOpen} onClose={handleCloseDialogAddNewEmail} theme={theme} >
                 <Box sx={{ backgroundColor: theme.palette.background.dialog }}>
                     <CustomDialogContent isMobile={isMobile}>
                         <DivFlexCenter sx={{ height: isMobile ? 20 : 40, mb: isMobile ? 3 : 8 }}>
@@ -119,7 +120,7 @@ const AddNewEmailDialog = () => {
                                         Roles
                                     </Typography>
 
-                                    <SelectMenuItem email={email} handleChangeInput={handleChangeInput} />
+                                    <SelectMenuItem id={"roles"} name={"roles"} defaultValue={email.roles} handleChangeInput={handleChangeInput} options={roles} />
 
                                 </DivFlexStart>
                             </DivFlexSpaceBetween>
@@ -148,7 +149,7 @@ const AddNewEmailDialog = () => {
                             </>
                         </DivFlexStart>
                         <DivFlexSpaceBetween sx={{ mt: isMobile ? 3 : 5 }}>
-                            <Typography sx={{ fontSize: isMobile ? 14 : 20, textDecoration: 'underline', fontFamily: FontFamily.EINA04SEMIBOLD, cursor: 'pointer', color: theme.palette.text.primary }} onClick={handleCloseDialog} >
+                            <Typography sx={{ fontSize: isMobile ? 14 : 20, textDecoration: 'underline', fontFamily: FontFamily.EINA04SEMIBOLD, cursor: 'pointer', color: theme.palette.text.primary }} onClick={handleCloseDialogAddNewEmail} >
                                 Cancel
                             </Typography>
                             <Button style={{ width: '35%' }} onClick={handleSubmit}>

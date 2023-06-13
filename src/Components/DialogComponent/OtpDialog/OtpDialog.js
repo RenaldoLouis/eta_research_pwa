@@ -49,9 +49,11 @@ const InputOtp = styled('input')((props) => ({
 }))
 
 
-const OtpDialog = () => {
+const OtpDialog = (props) => {
 
-    const { isMobile, openOtpDialog, sendOtp, handleCloseOtpDialog, handleLogin, setIsLoadingLogin } = useContext(AppContext)
+    const { isMobile, sendOtp, handleCloseOtpDialog, handleLogin, setIsLoadingLogin, handleCloseDialog } = useContext(AppContext)
+
+    const { isOpen } = props;
 
     const theme = useTheme()
 
@@ -136,7 +138,7 @@ const OtpDialog = () => {
     /** ================ EOL OTP state using OTP library */
 
 
-    const handleCloseDialog = () => {
+    const handleCloseDialogOtp = () => {
         handleCloseOtpDialog()
         setIsOtpFalse(false)
         setOtpCode("")
@@ -145,7 +147,7 @@ const OtpDialog = () => {
 
     return (
         <>
-            <CustomDialog open={openOtpDialog} theme={theme} onClose={handleCloseDialog} >
+            <CustomDialog open={isOpen} theme={theme} onClose={handleCloseDialogOtp} >
                 <Box sx={{ backgroundColor: theme.palette.background.dialog }}>
                     <CustomDialogContent isMobile={isMobile} theme={theme}>
                         <DivFlexCenter sx={{ height: isMobile ? 20 : 40, mb: isMobile ? 3 : 8 }} >

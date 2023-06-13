@@ -29,13 +29,14 @@ import { FontFamily } from "../../Constants/FontFamily";
 // import style and theme
 import { useTheme } from "@mui/material/styles";
 
-const EditEmailDialog = () => {
+const EditEmailDialog = (props) => {
 
-    const { isMobile, handleCloseNewEmailDialog, editEmailDialog, currentEmail, editNewEmail, handleCloseEditEmailDialog, isDesktop } = useContext(AppContext)
+    const { isMobile, currentEmail, editNewEmail, isDesktop, handleCloseDialog } = useContext(AppContext)
+    const { isOpen } = props;
 
     const theme = useTheme()
 
-    const Roles = [
+    const roles = [
         {
             value: 'admin',
             label: 'Admin',
@@ -78,15 +79,15 @@ const EditEmailDialog = () => {
             if (isValidEmail(email.email)) {
                 e.preventDefault()
                 editNewEmail(email)
-                handleCloseNewEmailDialog()
+                handleCloseDialog()
             } else {
                 setIsEmailInvalid(true)
             }
         }
     }
 
-    const handleCloseDialog = () => {
-        handleCloseEditEmailDialog()
+    const handleCloseDialogEditEmail = () => {
+        handleCloseDialog()
         setIsEmailInvalid(false)
         setIsEmailEmpty(false)
         setEmail(currentEmail)
@@ -102,7 +103,7 @@ const EditEmailDialog = () => {
 
     return (
         <>
-            <CustomDialog width={900} open={editEmailDialog} onClose={handleCloseDialog} theme={theme} >
+            <CustomDialog width={900} open={isOpen} onClose={handleCloseDialog} theme={theme} >
                 <Box sx={{ backgroundColor: theme.palette.background.dialog }}>
                     <CustomDialogContent isMobile={isMobile}>
                         <DivFlexCenter sx={{ height: isMobile ? 20 : 40, marginBottom: isMobile ? 3 : 8 }}>
@@ -124,7 +125,7 @@ const EditEmailDialog = () => {
                                         Roles
                                     </Typography>
 
-                                    <SelectMenuItem email={currentEmail} handleChangeInput={handleChangeInput} />
+                                    <SelectMenuItem defaultValue={currentEmail.roles} options={roles} handleChangeInput={handleChangeInput} />
 
                                 </DivFlexStart>
 
@@ -153,7 +154,7 @@ const EditEmailDialog = () => {
                         </DivFlexStart>
 
                         <DivFlexSpaceBetween sx={{ mt: isMobile ? 3 : 5 }}>
-                            <Typography sx={{ fontSize: isMobile ? 14 : 20, textDecoration: 'underline', fontFamily: FontFamily.EINA04SEMIBOLD, cursor: 'pointer', color: theme.palette.text.primary }} onClick={handleCloseDialog} >
+                            <Typography sx={{ fontSize: isMobile ? 14 : 20, textDecoration: 'underline', fontFamily: FontFamily.EINA04SEMIBOLD, cursor: 'pointer', color: theme.palette.text.primary }} onClick={handleCloseDialogEditEmail} >
                                 Cancel
                             </Typography>
 

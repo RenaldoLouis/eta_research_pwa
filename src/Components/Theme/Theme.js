@@ -38,6 +38,15 @@ export const lightTheme = createTheme({
 
             // loading
             circularLoading: "#262626",
+            // checkbox
+            checkboxDisabled: "#8D8D8D",
+            checkboxBorder: "#262626",
+            checkboxBackground: "#F4F4F4",
+
+            // radio
+            radioDisabled: "#8D8D8D",
+            radioBorder: "#262626",
+            radioHover: "#E0E0E0",
 
             // form
             borderForm: "#A8A8A8",
@@ -79,7 +88,17 @@ export const lightTheme = createTheme({
             deliveryOrderTitle: "#F3F3F3",
             deliveryOrderTitleActive: "#EBEBEB",
             collapseIcon: "#262626",
-            deliveryOrderBorderBottom: "rgba(111, 111, 111, 0.3)"
+            deliveryOrderBorderBottom: "rgba(111, 111, 111, 0.3)",
+            //DeliveryCardItemTitle
+            deliveryCardItemTitle: "#cbcbcb",
+
+            //NavigationDrawer
+            menuItemHover: "#E7E7E7",
+            menuItemClicked: "#D1D2D1",
+            menuItemActive: "#C6C6C6",
+            menuItemActiveIcon: "#6F6F6F",
+            drawerPaper: "#F3F3F3",
+            titleSeparator: "#A8A8A8"
         },
         text: {
             primary: "#1A1919",
@@ -101,7 +120,10 @@ export const lightTheme = createTheme({
             emailListRole: "#909090",
 
             // loading text
-            loadingText: '#262626'
+            loadingText: '#262626',
+            formDialog: "#1A1919",
+            setToDefault: "#1A1919",
+            setToDefaultDisabled: "#8d8d8d"
         },
     }
 });
@@ -138,6 +160,15 @@ export const darkTheme = createTheme({
 
             // loading
             circularLoading: "#F4F4F4",
+            // checkbox
+            checkboxDisabled: "#8D8D8D",
+            checkboxBorder: "#E0E0E0",
+            checkboxBackground: "#525252",
+
+            // radio
+            radioDisabled: "#A8A8A8",
+            radioBorder: "#E0E0E0",
+            radioHover: "#525252",
 
             // form
             borderForm: "#A8A8A8",
@@ -181,7 +212,19 @@ export const darkTheme = createTheme({
             deliveryOrderTitle: "#393939",
             deliveryOrderTitleActive: "#525252",
             collapseIcon: "#F4F4F4",
-            deliveryOrderBorderBottom: "rgba(250, 250, 250, 0.3)"
+            deliveryOrderBorderBottom: "rgba(250, 250, 250, 0.3)",
+            //DeliveryCardItemTitle
+            deliveryCardItemTitle: "#525252",
+
+            //NavigationDrawer
+            menuItemHover: "#4C4C4C",
+            menuItemClicked: "#353535",
+            menuItemActive: "#393939",
+            menuItemActiveIcon: "#E0E0E0",
+            drawerPaper: "#525252",
+            titleSeparator: "#6F6F6F"
+
+
         },
         text: {
             primary: "#f4f4f4",
@@ -203,7 +246,9 @@ export const darkTheme = createTheme({
             emailListRole: "#ffffff",
 
             // loading text
-            loadingText: '#F7F5F5'
+            loadingText: '#F7F5F5',
+            setToDefault: "#F4F4F4",
+            setToDefaultDisabled: "#8d8d8d"
         },
     }
 });
@@ -240,6 +285,15 @@ export const yellowTheme = createTheme({
 
             // loading
             circularLoading: "#F1C21B",
+            // checkbox
+            checkboxDisabled: "#8D8D8D",
+            checkboxBorder: "#262626",
+            checkboxBackground: "#F4F4F4",
+
+            // radio
+            radioDisabled: "#8D8D8D",
+            radioBorder: "#262626",
+            radioHover: "#E0E0E0",
 
             // form
             borderForm: "#A8A8A8",
@@ -275,7 +329,15 @@ export const yellowTheme = createTheme({
             deliveryOrderTitle: "#F3F3F3",
             deliveryOrderTitleActive: "#EBEBEB",
             collapseIcon: "#262626",
-            deliveryOrderBorderBottom: "rgba(111, 111, 111, 0.3)"
+            deliveryOrderBorderBottom: "rgba(111, 111, 111, 0.3)",
+            //NavigationDrawer
+            menuItemHover: "#F4E991",
+            menuItemClicked: "#353535",
+            menuItemActive: "#EDDA48",
+            menuItemActiveIcon: "#FDDC69",
+            drawerPaper: "#F5ECC8",
+            titleSeparator: "#A8A8A8",
+
         },
         text: {
             primary: "#1A1919",
@@ -297,7 +359,9 @@ export const yellowTheme = createTheme({
             emailListRole: "#909090",
 
             // loading text
-            loadingText: '#262626'
+            loadingText: '#262626',
+            setToDefault: "#1A1919",
+            setToDefaultDisabled: "#8d8d8d"
         },
     }
 });
@@ -334,6 +398,15 @@ export const blueTheme = createTheme({
 
             // loading
             circularLoading: "#2F6DD2",
+            // checkbox
+            checkboxDisabled: "#8D8D8D",
+            checkboxBorder: "#262626",
+            checkboxBackground: "#F4F4F4",
+
+            // radio
+            radioDisabled: "#8D8D8D",
+            radioBorder: "#262626",
+            radioHover: "#E0E0E0",
 
             // form
             borderForm: "#A8A8A8",
@@ -369,7 +442,14 @@ export const blueTheme = createTheme({
             deliveryOrderTitle: "#F3F3F3",
             deliveryOrderTitleActive: "#EBEBEB",
             collapseIcon: "#262626",
-            deliveryOrderBorderBottom: "rgba(111, 111, 111, 0.3)"
+            deliveryOrderBorderBottom: "rgba(111, 111, 111, 0.3)",
+            //NavigationDrawer
+            menuItemHover: "#A6C8FF",
+            menuItemClicked: "#78A9FF",
+            menuItemActive: "#97B6E8",
+            menuItemActiveIcon: "#525252",
+            drawerPaper: "#BACEF0",
+            titleSeparator: "#8D8D8D"
         },
         text: {
             primary: "#1A1919",
@@ -391,7 +471,9 @@ export const blueTheme = createTheme({
             emailListRole: "#909090",
 
             // loading text
-            loadingText: '#262626'
+            loadingText: '#262626',
+            setToDefault: "#1A1919",
+            setToDefaultDisabled: "#8d8d8d"
         },
     }
 });
