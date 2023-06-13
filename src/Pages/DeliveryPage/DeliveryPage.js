@@ -48,8 +48,7 @@ import {
   AnimationContainer,
   Greeting
 } from "./DeliveryPageComponent";
-
-
+import LoadingDialog from "../../Components/DialogComponent/LoadingDialog";
 import PageNotFound from "../PageNotFound";
 
 // import Constants
@@ -86,7 +85,10 @@ const DeliveryPage = () => {
   const [deliveryData, setDeliveryData] = useState([])
   const [tempDeliveryData, setTempDeliveryData] = useState([])
 
+  const [isLoading, setIsLoding] = useState(false)
+
   useEffect(() => {
+    setIsLoding(true)
     /** NORDMANN DATA (COMPLETE) */
     const url = `https://gotraces-de.commsult.dev/api/core/eta/access/${param.stopNumber}`
     // const url = `http://localhost:3001/api/core/eta/access/${param.stopNumber}`
@@ -121,8 +123,10 @@ const DeliveryPage = () => {
       setDeliveryId(newDeliveryDatas[0].id)
 
       setTempDeliveryData(newDeliveryDatas)
-    }).catch(err => {
 
+      setIsLoding(false)
+    }).catch(err => {
+      setIsLoding(false)
     })
   }, [])
 
@@ -307,210 +311,214 @@ const DeliveryPage = () => {
   /** =============== EOL Animation for greeting based on time =============== */
 
 
-  if (deliveryData.length < 1) {
-    return (
-      <PageNotFound />
-    )
+  if (isLoading) {
+    return <LoadingDialog />
   }
 
   return (
     <>
-      <Grid container
-        sx={{
-          pl: isDesktop ? 5 : "",
-          height: isDesktop ? "100vh" : "",
-        }}
-      >
-        <Grid className="deliveryCardGrid" item xs={12} md={12} lg={3} id="deliverSection"
-          bgcolor={{ xs: theme.palette.background.default, lg: theme.palette.background.default }}
-          sx={{
-            overflowY: isDesktop ? "scroll" : "hidden",
-            height: isDesktop ? "100vh" : "",
-            pb: 2, pt: 9,
-          }}
-        >
-          <>
-            {tempDeliveryData.length > 1 ? (
+      {deliveryData.length > 0 ?
+        (
+          <Grid container
+            sx={{
+              pl: isDesktop ? 5 : "",
+              height: isDesktop ? "100vh" : "",
+            }}
+          >
+            <Grid className="deliveryCardGrid" item xs={12} md={12} lg={3} id="deliverSection"
+              bgcolor={{ xs: theme.palette.background.defaultMobile, lg: theme.palette.background.default }}
+              sx={{
+                overflowY: isDesktop ? "scroll" : "hidden",
+                height: isDesktop ? "100vh" : "",
+                pb: 2, pt: 9,
+              }}
+            >
               <>
-                {scrollDown && !isDesktop && (
-                  <DeliverStickyTitle
-                    onClick={scrollToTop}
+                {tempDeliveryData.length > 1 ? (
+                  <>
+                    {scrollDown && !isDesktop && (
+                      <DeliverStickyTitle
+                        onClick={scrollToTop}
+                      >
+                        <Typography
+                          fontSize={14}
+                          color={theme.palette.text.primary}
+                          sx={{
+                            fontFamily: "Eina 04",
+                            fontStyle: "normal",
+                            fontWeight: 400,
+                            lineHeight: "19px",
+                          }}
+                        >
+                          Heutige Lieferungen
+                        </Typography>
+                        <Typography
+                          fontSize={14}
+                          color={theme.palette.text.highlithText}
+                          sx={{
+                            fontFamily: FontFamily.EINA04REGULAR,
+                            textDecoration: "underline",
+                          }}
+                        >
+                          {tempDeliveryData.length}
+                        </Typography>
+                      </DeliverStickyTitle>
+                    )}
+                    <Box id="titleDeliveryPage">
+
+                      {timeGreetingAnimation}
+
+                      <DeliveryInformation>
+                        Heute gibt es{" "}
+                        <span
+                          style={{
+                            textDecoration: "underline",
+                            fontFamily: FontFamily.EINA04REGULAR,
+                            color: theme.palette.text.highlithText,
+                            fontStyle: "normal",
+                            fontWeight: 600,
+                            lineHeight: "40px",
+                          }}
+                        >
+                          {tempDeliveryData.length}
+                        </span>{" "}
+                        <br /> Auslieferungen
+                      </DeliveryInformation>
+                    </Box>
+                  </>
+                ) : (
+                  <>
+                    {scrollDown && !isDesktop && (
+                      <DeliverStickyTitle
+                        onClick={scrollToTop}
+                      >
+                        <Typography
+                          fontSize={14}
+                          color={theme.palette.text.primary}
+                          sx={{ fontFamily: FontFamily.EINA04REGULAR }}
+                        >
+                          Today's Delivery
+                        </Typography>
+                        <Typography
+                          fontSize={14}
+                          color={theme.palette.text.primary}
+                          sx={{
+                            fontFamily: FontFamily.EINA04REGULAR,
+                            textDecoration: "underline",
+                          }}
+                        >
+                          {tempDeliveryData.length}
+                        </Typography>
+                      </DeliverStickyTitle>
+                    )}
+                    <Box id="titleDeliveryPage">
+
+                      {timeGreetingAnimation}
+
+                      <DeliveryInformation>
+                        This is your <br /> Today's Delivery
+                      </DeliveryInformation>
+                    </Box>
+                  </>
+                )}
+
+                {tempDeliveryData.map((data, index) => (
+                  <DivFlexCenter
+                    key={index}
+                    sx={{ paddingTop: "16px", pr: isDesktop ? "30px" : "" }}
+                    onClick={() => handleClickDeliveryDesktop(data.id)}
                   >
+                    <DeliveryCard
+                      data={data}
+                      totalDelivery={tempDeliveryData.length}
+                      numberOfDeliver={index + 1}
+                      deliveryId={deliveryId}
+                      handleSearchByOrderNumberOrPositionName={handleSearchByOrderNumberOrPositionName}
+                    />
+                  </DivFlexCenter>
+                ))}
+              </>
+            </Grid>
+
+            <Grid item xs={0} md={0} lg={6}
+              display={{ xs: "none", md: "none", lg: "block" }}
+              bgcolor={{ md: theme.palette.background.deliveryCardMenu }}
+              padding={{ lg: "86px 40px 0px 40px" }}
+              sx={{
+                // overflowY: isDesktop ? "scroll" : "",
+                scrollBehavior: "smooth",
+                height: isDesktop ? "100vh" : "",
+                paddingTop: "72px",
+                // overflow: "hidden",
+                // position: "sticky"
+              }}
+            >
+              <DivFlexCenter>
+                <DeliveryCardMenu
+                  data={tempDeliveryData.find((delivery) => delivery.id === deliveryId)}
+                  isOpenItemList={true}
+                  handleSearchByOrderNumberOrPositionName={handleSearchByOrderNumberOrPositionName}
+                />
+              </DivFlexCenter>
+            </Grid>
+
+            <Grid item xs={12} md={12} lg={3}
+              sx={{ mt: isDesktop ? 9 : 0, }}
+              bgcolor={{ xs: theme.palette.background.defaultMobile, lg: theme.palette.background.default }}
+            >
+              <Box
+                sx={{
+                  paddingTop: isMobile || isTablet ? "" : 3,
+                  overflowY: isDesktop ? "scroll" : "",
+                  height: isDesktop ? "calc(100vh - 80px)" : "",
+                  paddingRight: isDesktop ? "40px" : "0px",
+                  pl: isDesktop ? "24px" : "0px",
+                }}
+              >
+                <DivFlexStart
+                  id="promo"
+                  sx={{
+                    padding: isDesktop ? "" : "0px 24px",
+                    mt: 3,
+                    mb: 2,
+                    display: isDesktop ? "none" : "",
+                    scrollMarginTop: 142,
+                  }}
+                >
+                  <Typography
+                    fontSize={32}
+                    color={theme.palette.text.primary}
+                    sx={{ fontFamily: FontFamily.EINA04REGULAR }}
+                  >
+                    Promo und News
+                  </Typography>
+                </DivFlexStart>
+                {isScrollToPromo && (
+                  <PromoStickyTitle onClick={goToPromo}>
                     <Typography
                       fontSize={14}
                       color={theme.palette.text.primary}
                       sx={{
                         fontFamily: "Eina 04",
-                        fontStyle: "normal",
                         fontWeight: 400,
-                        lineHeight: "19px",
+                        lineHeight: "19.32px",
                       }}
                     >
-                      Heutige Lieferungen
+                      Promo und News
                     </Typography>
-                    <Typography
-                      fontSize={14}
-                      color={theme.palette.text.highlithText}
-                      sx={{
-                        fontFamily: FontFamily.EINA04REGULAR,
-                        textDecoration: "underline",
-                      }}
-                    >
-                      {tempDeliveryData.length}
-                    </Typography>
-                  </DeliverStickyTitle>
+                  </PromoStickyTitle>
                 )}
-                <Box id="titleDeliveryPage">
 
-                  {timeGreetingAnimation}
+                <PromoNews promoData={promoNewsData} />
 
-                  <DeliveryInformation>
-                    Heute gibt es{" "}
-                    <span
-                      style={{
-                        textDecoration: "underline",
-                        fontFamily: FontFamily.EINA04REGULAR,
-                        color: theme.palette.text.highlithText,
-                        fontStyle: "normal",
-                        fontWeight: 600,
-                        lineHeight: "40px",
-                      }}
-                    >
-                      {tempDeliveryData.length}
-                    </span>{" "}
-                    <br /> Auslieferungen
-                  </DeliveryInformation>
-                </Box>
-              </>
-            ) : (
-              <>
-                {scrollDown && !isDesktop && (
-                  <DeliverStickyTitle
-                    onClick={scrollToTop}
-                  >
-                    <Typography
-                      fontSize={14}
-                      color={theme.palette.text.primary}
-                      sx={{ fontFamily: FontFamily.EINA04REGULAR }}
-                    >
-                      Today's Delivery
-                    </Typography>
-                    <Typography
-                      fontSize={14}
-                      color={theme.palette.text.primary}
-                      sx={{
-                        fontFamily: FontFamily.EINA04REGULAR,
-                        textDecoration: "underline",
-                      }}
-                    >
-                      {tempDeliveryData.length}
-                    </Typography>
-                  </DeliverStickyTitle>
-                )}
-                <Box id="titleDeliveryPage">
+              </Box>
+            </Grid>
+          </Grid>
+        ) : (
+          <PageNotFound />
+        )
+      }
 
-                  {timeGreetingAnimation}
-
-                  <DeliveryInformation>
-                    This is your <br /> Today's Delivery
-                  </DeliveryInformation>
-                </Box>
-              </>
-            )}
-
-            {tempDeliveryData.map((data, index) => (
-              <DivFlexCenter
-                key={index}
-                sx={{ paddingTop: "16px", pr: isDesktop ? "30px" : "" }}
-                onClick={() => handleClickDeliveryDesktop(data.id)}
-              >
-                <DeliveryCard
-                  data={data}
-                  totalDelivery={tempDeliveryData.length}
-                  numberOfDeliver={index + 1}
-                  deliveryId={deliveryId}
-                  handleSearchByOrderNumberOrPositionName={handleSearchByOrderNumberOrPositionName}
-                />
-              </DivFlexCenter>
-            ))}
-          </>
-        </Grid>
-
-        <Grid item xs={0} md={0} lg={promoNewsData.length == 0 ? 9 : 6}
-          display={{ xs: "none", md: "none", lg: "block" }}
-          bgcolor={{ md: theme.palette.background.deliveryCardMenu }}
-          padding={{ lg: "86px 40px 0px 40px" }}
-          sx={{
-            // overflowY: isDesktop ? "scroll" : "",
-            scrollBehavior: "smooth",
-            height: isDesktop ? "100vh" : "",
-            paddingTop: "72px",
-            // overflow: "hidden",
-            // position: "sticky"
-          }}
-        >
-          <DivFlexCenter>
-            <DeliveryCardMenu
-              data={tempDeliveryData.find((delivery) => delivery.id === deliveryId)}
-              isOpenItemList={true}
-              handleSearchByOrderNumberOrPositionName={handleSearchByOrderNumberOrPositionName}
-              promoLength={promoNewsData.length}
-            />
-          </DivFlexCenter>
-        </Grid>
-
-        <Grid item xs={12} md={12} lg={promoNewsData.length == 0 ? 0 : 3}
-          sx={{ mt: isDesktop ? 9 : 0, display: promoNewsData.length == 0 ? 'none' : 'block' }}
-          bgcolor={{ xs: theme.palette.background.defaultMobile, lg: theme.palette.background.default }}
-        >
-          <Box
-            sx={{
-              paddingTop: isMobile || isTablet ? "" : 3,
-              overflowY: isDesktop ? "scroll" : "",
-              height: isDesktop ? "calc(100vh - 80px)" : "",
-              paddingRight: isDesktop ? "40px" : "0px",
-              pl: isDesktop ? "24px" : "0px",
-            }}
-          >
-            <DivFlexStart
-              id="promo"
-              sx={{
-                padding: isDesktop ? "" : "0px 24px",
-                mt: 3,
-                mb: 2,
-                display: isDesktop ? "none" : "",
-                scrollMarginTop: 142,
-              }}
-            >
-              <Typography
-                fontSize={32}
-                color={theme.palette.text.primary}
-                sx={{ fontFamily: FontFamily.EINA04REGULAR }}
-              >
-                Promo und News
-              </Typography>
-            </DivFlexStart>
-            {isScrollToPromo && (
-              <PromoStickyTitle onClick={goToPromo}>
-                <Typography
-                  fontSize={14}
-                  color={theme.palette.text.primary}
-                  sx={{
-                    fontFamily: "Eina 04",
-                    fontWeight: 400,
-                    lineHeight: "19.32px",
-                  }}
-                >
-                  Promo und News
-                </Typography>
-              </PromoStickyTitle>
-            )}
-
-            <PromoNews promoData={promoNewsData} />
-
-          </Box>
-        </Grid>
-      </Grid>
 
     </>
   );

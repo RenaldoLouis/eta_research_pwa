@@ -5,7 +5,7 @@ import {
 } from "@mui/material/styles";
 import { CssBaseline } from "@mui/material";
 
-export const ligthTheme = createTheme({
+export const lightTheme = createTheme({
     palette: {
         background: {
             // body
@@ -24,16 +24,20 @@ export const ligthTheme = createTheme({
             hoverPromoCard: "#f7f5f5",
 
             // appbar and icon
-            appBar: "#ebebeb",
+            appBar: "#EBEBEB",
             iconColor: "#000000",
             title: '#1A1919',
             hoverIconButton: "#F7F5F5",
 
 
             // dialog
+            dialogBlanket: "rgba(0, 0, 0, 0.3)",
             dialog: "#ffffff",
             headDialog: "#ffffff",
             iconAction: "#000000",
+
+            // loading
+            circularLoading: "#262626",
 
             // form
             borderForm: "#A8A8A8",
@@ -95,6 +99,9 @@ export const ligthTheme = createTheme({
             inputText: "#8D8D8D",
             inputTextActive: "#1A1919",
             emailListRole: "#909090",
+
+            // loading text
+            loadingText: '#262626'
         },
     }
 });
@@ -124,9 +131,13 @@ export const darkTheme = createTheme({
             hoverIconButton: "#4C4C4C",
 
             // dialog
+            dialogBlanket: "rgba(0, 0, 0, 0.3)",
             dialog: "#393939",
             headDialog: "#393939",
             iconAction: "#e0e0e0",
+
+            // loading
+            circularLoading: "#F4F4F4",
 
             // form
             borderForm: "#A8A8A8",
@@ -155,8 +166,9 @@ export const darkTheme = createTheme({
             separatorTitle: "#F4F4F4",
 
             //DeliveryCardMenuSearchBar
-            deliveryCardMenuSearchBar: "#525252",
+            deliveryCardMenuSearchBar: "#737373",
             deliverycardSearchIcon: "#C6C6C6",
+
 
 
             //DeliveryCardMenuItemTitle
@@ -189,6 +201,9 @@ export const darkTheme = createTheme({
             inputText: "#e0e0e0",
             inputTextActive: "#FFFFFF",
             emailListRole: "#ffffff",
+
+            // loading text
+            loadingText: '#F7F5F5'
         },
     }
 });
@@ -218,9 +233,13 @@ export const yellowTheme = createTheme({
             hoverIconButton: "#F7F5F5",
 
             // dialog
+            dialogBlanket: "rgba(233, 228, 211, 0.3)",
             dialog: "#ffffff",
             headDialog: "#ffffff",
             iconAction: "#000000",
+
+            // loading
+            circularLoading: "#F1C21B",
 
             // form
             borderForm: "#A8A8A8",
@@ -276,6 +295,9 @@ export const yellowTheme = createTheme({
             inputText: "#8D8D8D",
             inputTextActive: "#1A1919",
             emailListRole: "#909090",
+
+            // loading text
+            loadingText: '#262626'
         },
     }
 });
@@ -305,9 +327,13 @@ export const blueTheme = createTheme({
             hoverIconButton: "#EBF2FD",
 
             // dialog
+            dialogBlanket: "rgba(208, 226, 255, 0.3)",
             dialog: "#ffffff",
             headDialog: "#ffffff",
             iconAction: "#161616",
+
+            // loading
+            circularLoading: "#2F6DD2",
 
             // form
             borderForm: "#A8A8A8",
@@ -363,6 +389,9 @@ export const blueTheme = createTheme({
             inputText: "#8D8D8D",
             inputTextActive: "#1A1919",
             emailListRole: "#909090",
+
+            // loading text
+            loadingText: '#262626'
         },
     }
 });

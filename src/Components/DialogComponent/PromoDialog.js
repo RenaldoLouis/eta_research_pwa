@@ -1,10 +1,11 @@
 import React, { useContext } from "react";
 
-import { styled } from "@mui/system";
-
 import { AppContext } from "../../App";
 
-import { Box, Dialog, Popover, Popper, Typography } from "@mui/material";
+// import styles
+import { styled } from "@mui/system";
+import { useTheme } from "@mui/styles";
+
 
 // import icon
 import CloseIcon from "../../assets/icons/CloseIcon";
@@ -13,30 +14,23 @@ import NextIcon from "../../assets/icons/NextIcon";
 
 
 // import component
+import { Box, Dialog, Popover, Popper, Typography } from "@mui/material";
 import DivFlexCenter from "../DivFlexCenter";
 import DivFlexSpaceBetween from "../DivFlexSpacebetween";
 import PromoCard from "../PromoCard/PromoCard";
 
-// import Constants
-import { ColorTheme } from "../../Constants/ColorTheme";
 
 const DialogComponent = styled(Dialog)((props) => ({
   "& .MuiDialog-container": {
     "& .MuiPaper-root": {
       width: props.width ? props.width : "100%",
-      //   maxWidth: props.width,
       borderRadius: 0,
-      //   borderWidth: "0px",
-      //   // backgroundColor: props.isPromoDialog ? 'transparent' : ''
+      boxShadow: 'none',
       position: "unset",
-      //   backgroundColor: "red",
     },
+    backdropFilter: "blur(20px)",
+    background: props.theme.palette.background.dialogBlanket
   },
-  backdropFilter: "blur(20px)",
-  background:
-    props.mode == ColorTheme.BLUE ? 'rgba(208, 226, 255, 0.3)'
-      : props.mode == ColorTheme.YELLOW ? 'rgba(233, 228, 211, 0.3)'
-        : 'rgba(0, 0, 0, 0.3)'
 }));
 
 export const PromoDialog = (props) => {
@@ -52,8 +46,10 @@ export const PromoDialog = (props) => {
 
   const { mode } = useContext(AppContext)
 
+  const theme = useTheme()
+
   return (
-    <DialogComponent open={open} onClose={onClose} mode={mode}>
+    <DialogComponent open={open} onClose={onClose} mode={mode} theme={theme}>
       <DivFlexSpaceBetween>
         <Box sx={{ position: "absolute", left: 215, }}>
           <BackIcon
