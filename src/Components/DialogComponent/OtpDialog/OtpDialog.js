@@ -26,7 +26,8 @@ import CustomDialogContent from "../DialogContainer/CustomDialogContent";
 import DivFlexStart from "../../DivFlexStart";
 
 // import dump data
-import { otpCodeGenerate } from "../../../dump-data";
+// import { otpCodeGenerate } from "../../../dump-data";
+
 
 // import otp input library
 import OtpInput from "react-otp-input";
@@ -53,6 +54,8 @@ const OtpDialog = () => {
     const { isMobile, openOtpDialog, sendOtp, handleCloseOtpDialog, handleLogin, setIsLoadingLogin } = useContext(AppContext)
 
     const theme = useTheme()
+
+    const otpCodeGenerate = "00000000"
 
     /** ================ Countdown Timer ================ */
 
@@ -118,8 +121,7 @@ const OtpDialog = () => {
 
     const handleButtonLogin = () => {
         setIsLoadingLogin(true)
-        if (JSON.stringify(inputOtp) === JSON.stringify(otpValue)) {
-            handleSubmitOtp()
+        if (otpCode == otpCodeGenerate) {
             handleCloseOtpDialog()
             handleLogin()
             setOtpCode("")
