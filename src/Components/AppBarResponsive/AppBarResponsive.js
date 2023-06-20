@@ -67,6 +67,7 @@ const AppBarResponsive = () => {
   const {
     handleChangeTheme,
     mode,
+    logo,
     handleOpenDialog,
     isLogin,
     userRole,
@@ -104,20 +105,30 @@ const AppBarResponsive = () => {
   /** ============= Company Logo Based on Theme for Dekstop Device ============= */
   let companyLogoforDekstop
 
-  if (mode == ColorTheme.LIGHT || mode == ColorTheme.YELLOW) {
-    companyLogoforDekstop = <img src={CompanyBlackLogoDekstop} alt="company logo" style={companyLogoStyleforDekstop} />
-  } else {
-    companyLogoforDekstop = <img src={CompanyWhiteLogoDekstop} alt="comany logo" style={companyLogoStyleforDekstop} />
+  if (logo) {
+    companyLogoforDekstop = <img src={logo} alt="company logo" style={companyLogoStyleforDekstop} />
+  }
+  else {
+    if (mode == ColorTheme.LIGHT || mode == ColorTheme.YELLOW) {
+      companyLogoforDekstop = <img src={logo} alt="company logo" style={companyLogoStyleforDekstop} />
+    } else {
+      companyLogoforDekstop = <img src={logo} alt="comany logo" style={companyLogoStyleforDekstop} />
+    }
   }
   /** ============= Company Logo Based on Theme for Dekstop Device ============= */
 
   /** ============= Company Logo Based on Theme for Tablet and Mobile Device ============= */
   let companyLogoforMobile
 
-  if (mode == ColorTheme.LIGHT || mode == ColorTheme.YELLOW) {
-    companyLogoforMobile = <img src={CompanyBlackLogoMobile} alt="company logo" style={companyLogoStyleforMobile} />
-  } else {
-    companyLogoforMobile = <img src={CompanyWhiteLogoMobile} alt="logo icon" style={companyLogoStyleforMobile} />
+  if (logo) {
+    companyLogoforMobile = <img src={logo} alt="company logo" style={companyLogoStyleforMobile} />
+  }
+  else {
+    if (mode == ColorTheme.LIGHT || mode == ColorTheme.YELLOW) {
+      companyLogoforMobile = <img src={logo} alt="company logo" style={companyLogoStyleforMobile} />
+    } else {
+      companyLogoforMobile = <img src={logo} alt="logo icon" style={companyLogoStyleforMobile} />
+    }
   }
   /** ============= Company Logo Based on Theme for Tablet and Mobile Device ============= */
 

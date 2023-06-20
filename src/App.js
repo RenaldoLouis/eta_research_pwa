@@ -8,6 +8,8 @@ import { ToastContainer } from "react-toastify";
 
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
+import axios from "axios";
+
 // Import Material
 import { useMediaQuery } from "@mui/material";
 import { CssBaseline } from "@mui/material";
@@ -89,21 +91,48 @@ function App() {
 
   /* ==================== Change Theme ==================== */
   const [mode, setMode] = useState(ColorTheme.LIGHT);
+  const [logo, setLogo] = useState('')
 
   const handleChangeTheme = (theme) => {
     localStorage.setItem("mode", theme);
     setMode(theme)
   };
 
-  useEffect(() => {
-    let activeMode = localStorage.getItem("mode");
-    if (activeMode) {
-      setMode(activeMode);
-    } else {
-      setMode(ColorTheme.LIGHT);
-      localStorage.setItem("mode", ColorTheme.LIGHT);
+  const getColorTheme = async () => {
+    const config = {
+      params: {
+        etaPwaUrl: 'behn' // Hard coded for local development purpose
+      }
     }
-  }, [mode]);
+
+    axios.get(`http://localhost:3001/api/core/traces/admin-configuration`, config)
+      .then(function (response) {
+        if (response?.data?.tenantInfoGeneral) {
+          const colorTheme = response.data.tenantInfoGeneral.colorTheme
+          const logo = response.data.tenantInfoGeneral.logo
+          setMode(colorTheme)
+          setLogo(logo)
+          localStorage.setItem("mode", colorTheme)
+        }
+      })
+      .catch(function (err) {
+        console.log(err)
+      })
+  }
+
+  // useEffect(() => {
+  //   let activeMode = localStorage.getItem("mode");
+  //   if (activeMode) {
+  //     setMode(activeMode);
+  //   } else {
+  //     setMode(ColorTheme.LIGHT);
+  //     localStorage.setItem("mode", ColorTheme.LIGHT);
+  //   }
+  // }, [mode]);
+
+  useEffect(() => {
+    getColorTheme()
+  }, [])
   /* ==================== End Of Change Theme  ==================== */
 
   /* ================== Data ===================== */
@@ -301,6 +330,7 @@ function App() {
   const AppContextValue = {
     mode,
     handleChangeTheme,
+    logo,
 
     isMobile,
     isTablet,
