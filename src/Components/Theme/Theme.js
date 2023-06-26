@@ -325,6 +325,9 @@ export const yellowTheme = createTheme({
             deliveryCardMenuSearchBar: "#EBEBEB",
             deliverycardSearchIcon: "#8D8D8D",
 
+            //DeliveryCardMenuItemTitle
+            deliveryCardMenuItemTitle: "#F3F3F3",
+
             //delivery orders
             deliveryOrderTitle: "#F3F3F3",
             deliveryOrderTitleActive: "#EBEBEB",
@@ -437,6 +440,9 @@ export const blueTheme = createTheme({
             //DeliveryCardMenuSearchBar
             deliveryCardMenuSearchBar: "#EBEBEB",
             deliverycardSearchIcon: "#8D8D8D",
+
+            //DeliveryCardMenuItemTitle
+            deliveryCardMenuItemTitle: "#F3F3F3",
 
             //delivery orders
             deliveryOrderTitle: "#F3F3F3",

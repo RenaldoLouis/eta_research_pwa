@@ -95,7 +95,7 @@ const DeliveryPage = () => {
     axios.get(url).then(res => {
       const newDeliveryDatas = []
 
-      res.data.stops.forEach((deliveryData, index) => {
+      res.data.forEach((deliveryData, index) => {
         newDeliveryDatas.push(new DeliveryData(
           deliveryData.id,
           deliveryData.stopStatus,
@@ -136,6 +136,8 @@ const DeliveryPage = () => {
   };
 
   const handleSearchByOrderNumberOrPositionName = e => {
+    e.preventDefault()
+
     if (e.target.value.length === 0) {
       setTempDeliveryData(cloneDeep(deliveryData))
     }

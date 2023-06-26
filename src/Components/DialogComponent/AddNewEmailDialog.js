@@ -49,6 +49,7 @@ const AddNewEmailDialog = (props) => {
     }
 
     const handleChangeInput = (e) => {
+        e.preventDefault()
         const { name, value } = e.target
         setEmail({ ...email, [name]: value })
     }

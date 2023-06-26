@@ -58,6 +58,7 @@ const LoginDialog = (props) => {
   }
 
   const handleChangeInput = (e) => {
+    e.preventDefault()
     const { name, value } = e.target;
     console.log(e.target.value);
     setEmail(value);
