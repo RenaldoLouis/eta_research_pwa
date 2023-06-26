@@ -33,19 +33,21 @@ import DivFlexStart from "../../DivFlexStart";
 import OtpInput from "react-otp-input";
 
 const InputOtp = styled('input')((props) => ({
-    height: props.isMobile ? 35 : 60,
+    height: props.isMobile ? 35 : 46,
     border: props.isOtpFalse ? `1px solid #da1e28` : `1px solid ${props.theme.palette.background.borderForm}`,
-    marginLeft: props.isMobile ? 2 : 5,
-    marginRight: props.isMobile ? 2 : 5,
     textAlign: 'center',
     fontFamily: FontFamily.EINA04REGULAR,
     fontSize: props.isMobile ? 12 : 20,
     color: props.theme.palette.text.inputText,
     backgroundColor: props.theme.palette.background.dialog,
+    ":hover": {
+        outline: 'none',
+        border: props.isOtpFalse ? `1px solid #da1e28` : `1px solid ${props.theme.palette.background.borderFormHover}`,
+    },
     ":focus": {
         outline: 'none',
         border: props.isOtpFalse ? `1px solid #da1e28` : `1px solid ${props.theme.palette.background.borderFormActive}`,
-    }
+    },
 }))
 
 
@@ -57,7 +59,7 @@ const OtpDialog = (props) => {
 
     const theme = useTheme()
 
-    const otpCodeGenerate = "00000000"
+    const otpCodeGenerate = "000000"
 
     /** ================ Countdown Timer ================ */
 
@@ -156,24 +158,31 @@ const OtpDialog = (props) => {
                             </Typography>
                         </DivFlexCenter>
 
-                        <OtpInput
-                            value={otpCode}
-                            onChange={handleChange}
-                            numInputs={8}
-                            renderSeparator={<span style={{ width: "8px" }}></span>}
-                            renderInput={(props) => <InputOtp isOtpFalse={isOtpFalse} theme={theme} isMobile={isMobile} {...props} />}
-                            inputStyle={{
-                                width: "100%",
-                            }}
-                        />
+                        <DivFlexCenter>
+                            <DivFlexStart sx={{ width: isMobile ? '100%' : '76%' }}>
+                                <OtpInput
+                                    value={otpCode}
+                                    onChange={handleChange}
+                                    numInputs={6}
+                                    renderSeparator={<span style={{ width: "24px" }}></span>}
+                                    renderInput={(props) => <InputOtp isOtpFalse={isOtpFalse} theme={theme} isMobile={isMobile} {...props} />}
+                                    inputStyle={{
+                                        // width: "100%",
+                                        width: isMobile ? '100%' : 44
+                                    }}
+                                />
+                            </DivFlexStart>
+                        </DivFlexCenter>
 
                         {isOtpFalse &&
-                            <DivFlexStart sx={{ mt: 2, pl: 0.5 }}>
-                                <ErrorIcon sx={{ color: '#da1e28', fontSize: isMobile ? 16 : 18, mr: 0.5 }} />
-                                <Typography sx={{ fontSize: isMobile ? 12 : 14, fontFamily: FontFamily.EINA04REGULAR }} color={'#da1e28'}>
-                                    OTP code is incorrect
-                                </Typography>
-                            </DivFlexStart>
+                            <DivFlexCenter>
+                                <DivFlexStart sx={{ mt: 2, width: isMobile ? '100%' : '76%', }}>
+                                    <ErrorIcon sx={{ color: '#da1e28', fontSize: isMobile ? 16 : 18, mr: 0.5, mt:-0.2 }} />
+                                    <Typography sx={{ fontSize: isMobile ? 12 : 14, fontFamily: FontFamily.EINA04REGULAR }} color={'#da1e28'}>
+                                        OTP code is incorrect
+                                    </Typography>
+                                </DivFlexStart>
+                            </DivFlexCenter>
                         }
                         {timer != 0 && (
                             <DivFlexCenter sx={{ mb: 0, mt: 6 }}>
