@@ -218,7 +218,7 @@ const AppBarResponsive = () => {
                 ) : (<></>)}
                 {isLogin ? (
                   <>
-                    <CustomTooltip title="Menu">
+                    <CustomTooltip title={t('common.menu')}>
                       {openDialog ?
                         <MenuIcon
                           sx={{ color: theme.palette.background.iconColor }}

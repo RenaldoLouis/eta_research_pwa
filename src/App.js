@@ -92,9 +92,9 @@ function App() {
 
   const { i18n } = useTranslation()
 
-  useEffect(() => {
-    i18n.changeLanguage("de")
-  }, [])
+  // useEffect(() => {
+  //   i18n.changeLanguage("de")
+  // }, [])
 
   /* ==================== Change Theme ==================== */
   const [mode, setMode] = useState(ColorTheme.LIGHT);
@@ -236,7 +236,7 @@ function App() {
 
 
   /** ========================== Authentication and Authorization ========================== */
-  const [isLogin, setIsLogin] = useState(true);
+  const [isLogin, setIsLogin] = useState(false);
 
   const [isLoadingLogin, setIsLoadingLogin] = useState(false)
 

@@ -2,7 +2,8 @@
     "common": {
         "loading": "Lädt",
         "thisIsYour": "Hier ist Ihre",
-        "todayDelivery": "heutige Lieferung"
+        "todayDelivery": "heutige Lieferung",
+        "menu": "Menü"
     },
     "navbar": {
         "signIn": "Anmelden"

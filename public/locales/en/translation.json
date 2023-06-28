@@ -2,7 +2,8 @@
     "common": {
         "loading": "Loading",
         "thisIsYour": "This is your",
-        "todayDelivery": "Today's Delivery"
+        "todayDelivery": "Today's Delivery",
+        "menu": "Menu"
     },
     "navbar": {
         "signIn": "Sign In"
