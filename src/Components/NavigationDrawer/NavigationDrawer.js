@@ -85,10 +85,10 @@ const NavigationDrawer = (props) => {
                 <>
                     <Drawer
                         sx={{
-                            width: 260,
+                            width: 280,
                             flexShrink: 0,
                             "& .MuiDrawer-paper": {
-                                width: 260,
+                                width: 280,
                                 backgroundColor: theme.palette.background.drawerPaper
                             }
                         }}
