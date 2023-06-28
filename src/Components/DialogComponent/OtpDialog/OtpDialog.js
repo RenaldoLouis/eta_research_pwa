@@ -12,6 +12,9 @@ import { Outlet } from "react-router-dom";
 // import appContext
 import { AppContext } from "../../../App";
 
+// import translations
+import { useTranslation } from "react-i18next";
+
 // import component
 import DivFlexCenter from "../../DivFlexCenter";
 import CustomDialog from "../DialogContainer/CustomDialog";
@@ -54,6 +57,8 @@ const OtpDialog = (props) => {
     const { isMobile, sendOtp, handleCloseOtpDialog, handleLogin, setIsLoadingLogin, handleCloseDialog } = useContext(AppContext)
 
     const { isOpen } = props;
+
+    const { t } = useTranslation()
 
     const theme = useTheme()
 
@@ -152,7 +157,7 @@ const OtpDialog = (props) => {
                     <CustomDialogContent isMobile={isMobile} theme={theme}>
                         <DivFlexCenter sx={{ height: isMobile ? 20 : 40, mb: isMobile ? 3 : 8 }} >
                             <Typography sx={{ color: theme.palette.text.heading1, fontSize: isMobile ? 20 : 40, fontFamily: FontFamily.EINA04REGULAR }}>
-                                OTP
+                                {t('sigInDialog.otp')}
                             </Typography>
                         </DivFlexCenter>
 
@@ -171,19 +176,19 @@ const OtpDialog = (props) => {
                             <DivFlexStart sx={{ mt: 2, pl: 0.5 }}>
                                 <ErrorIcon sx={{ color: '#da1e28', fontSize: isMobile ? 16 : 18, mr: 0.5 }} />
                                 <Typography sx={{ fontSize: isMobile ? 12 : 14, fontFamily: FontFamily.EINA04REGULAR }} color={'#da1e28'}>
-                                    OTP code is incorrect
+                                    {t('sigInDialog.otpCodeIsIncorrect')}
                                 </Typography>
                             </DivFlexStart>
                         }
                         {timer != 0 && (
                             <DivFlexCenter sx={{ mb: 0, mt: 6 }}>
                                 <Typography sx={{ fontFamily: FontFamily.EINA04REGULAR, color: theme.palette.text.primary, textDecoration: 'underline', fontSize: isMobile ? 12 : 20 }}>
-                                    Resent OTP Code ({timer})
+                                    {t('sigInDialog.resentOtp')} ({timer})
                                 </Typography>
                             </DivFlexCenter>
                         )}
                         <Button onClick={handleButtonLogin} style={{ mt: timer != 0 ? 2 : 5 }} >
-                            {`Login`}
+                            {t('sigInDialog.login')}
                         </Button>
                     </CustomDialogContent>
                 </Box>

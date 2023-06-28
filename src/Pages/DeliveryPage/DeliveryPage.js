@@ -10,6 +10,8 @@ import { useTheme } from "@mui/material/styles";
 
 import { useParams } from "react-router-dom";
 
+import { useTranslation } from "react-i18next";
+
 // import Component
 import DeliveryCard from "../../Components/DeliveryCard/DeliveryCard";
 import PromoNews from "../../Components/PromoNews/PromoNews";
@@ -63,6 +65,8 @@ import { cloneDeep, orderBy } from "lodash";
 const DeliveryPage = () => {
   const theme = useTheme();
   const param = useParams();
+
+  const { t } = useTranslation()
 
   const {
     isMobile,
@@ -417,7 +421,7 @@ const DeliveryPage = () => {
                       {timeGreetingAnimation}
 
                       <DeliveryInformation>
-                        This is your <br /> Today's Delivery
+                        {t('common.thisIsYour')} <br /> {t('common.todayDelivery')}
                       </DeliveryInformation>
                     </Box>
                   </>

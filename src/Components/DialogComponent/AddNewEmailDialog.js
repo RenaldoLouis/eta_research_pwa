@@ -22,6 +22,7 @@ import TextFieldStyled from "../TextField/TextFieldStyle";
 import Button from "../Button";
 import SelectMenuItem from "./SelectMenuItem/SelectMenuItem";
 
+import { useTranslation } from "react-i18next";
 
 // import style and theme
 import { useTheme, styled } from "@mui/material/styles";
@@ -33,6 +34,8 @@ const AddNewEmailDialog = (props) => {
 
     const { isMobile, isDesktop, handleCloseDialog, handleOpenDialog, addNewEmail } = useContext(AppContext)
     const { isOpen } = props;
+
+    const { t } = useTranslation()
 
     const theme = useTheme()
 
@@ -103,21 +106,21 @@ const AddNewEmailDialog = (props) => {
                     <CustomDialogContent isMobile={isMobile}>
                         <DivFlexCenter sx={{ height: isMobile ? 20 : 40, mb: isMobile ? 3 : 8 }}>
                             <Typography sx={{ color: theme.palette.text.heading1, fontSize: isMobile ? 20 : 40, fontFamily: FontFamily.EINA04REGULAR }}>
-                                Add New Email
+                                {t('emailList.addNewEmail')}
                             </Typography>
                         </DivFlexCenter>
                         <FormControl sx={{ width: '100%' }} >
                             <DivFlexSpaceBetween sx={{ flexWrap: 'wrap', width: '100%' }}>
                                 <DivFlexStart sx={{ width: isDesktop ? '60%' : '100%', mb: 2, }}>
-                                    <Typography sx={{ fontSize: isMobile ? 12 : 20, fontFamily: FontFamily.EINA04SEMIBOLD, mr: 2, color: theme.palette.text.primary, width: isMobile ? 34 : 56 }}>
-                                        Email
+                                    <Typography sx={{ fontSize: isMobile ? 12 : 20, fontFamily: FontFamily.EINA04SEMIBOLD, mr: 2, color: theme.palette.text.primary, width: isMobile ? 50 : 65 }}>
+                                        {t('emailList.email')}
                                     </Typography>
                                     <TextFieldStyled onChange={handleChangeInput} id="basic" placeholder="example@mail.com" name="email" sx={{ width: isDesktop ? '80%' : '100%', }} isMobile={isMobile} />
                                 </DivFlexStart>
 
                                 <DivFlexStart sx={{ width: isDesktop ? '35%' : '100%', mb: 2 }}>
-                                    <Typography sx={{ fontSize: isMobile ? 12 : 20, fontFamily: FontFamily.EINA04SEMIBOLD, mr: 2, color: theme.palette.text.primary, width: isMobile ? 34 : 56 }}>
-                                        Roles
+                                    <Typography sx={{ fontSize: isMobile ? 12 : 20, fontFamily: FontFamily.EINA04SEMIBOLD, mr: 2, color: theme.palette.text.primary, width: isMobile ? 50 : 65 }}>
+                                        {t('emailList.roles')}
                                     </Typography>
 
                                     <SelectMenuItem id={"roles"} name={"roles"} defaultValue={email.roles} handleChangeInput={handleChangeInput} options={roles} />
@@ -134,14 +137,14 @@ const AddNewEmailDialog = (props) => {
                                     <DivFlexStart>
                                         <ErrorIcon sx={{ color: '#da1e28', fontSize: isMobile ? 16 : 18, mr: 0.5 }} />
                                         <Typography sx={{ fontSize: isMobile ? 12 : 14, fontFamily: FontFamily.EINA04REGULAR }} color={'#da1e28'}>
-                                            Email is empty
+                                            {t('sigInDialog.emailIsEmpty')}
                                         </Typography>
                                     </DivFlexStart>
                                 ) : isEmailInvalid ? (
                                     <DivFlexStart>
                                         <ErrorIcon sx={{ color: '#da1e28', fontSize: isMobile ? 16 : 18, mr: 0.5 }} />
                                         <Typography sx={{ fontSize: isMobile ? 12 : 14, fontFamily: FontFamily.EINA04REGULAR }} color={'#da1e28'}>
-                                            Email is invalid
+                                            {t('sigInDialog.emailIsInvalid')}
                                         </Typography>
                                     </DivFlexStart>
                                 ) : (<></>)

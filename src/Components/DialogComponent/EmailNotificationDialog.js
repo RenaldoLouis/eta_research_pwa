@@ -14,6 +14,8 @@ import Form from '../Form'
 import DivFlexSpaceBetween from '../DivFlexSpacebetween'
 import Button from '../Button'
 
+import { useTranslation } from 'react-i18next'
+
 
 
 const EmailNotificationDialog = (props) => {
@@ -21,6 +23,8 @@ const EmailNotificationDialog = (props) => {
     const { isMobile, isDesktop, handleCloseDialog, addNewEmail } = useContext(AppContext)
     const { isOpen } = props;
     const theme = useTheme()
+
+    const { t } = useTranslation()
 
     const dummyData = {
         isDeliveryTimeFinalized: true,
@@ -118,12 +122,12 @@ const EmailNotificationDialog = (props) => {
                     <CustomDialogContent isMobile={isMobile}>
                         <DivFlexCenter sx={{ height: isMobile ? 20 : 48, mb: isMobile ? 3 : 8 }}>
                             <Typography sx={{ color: theme.palette.text.heading1, fontSize: isMobile ? 20 : 40, fontFamily: FontFamily.EINA04REGULAR }}>
-                                ETA Email Notification
+                                {t('emailNotification.etaEmailNotification')}
                             </Typography>
                         </DivFlexCenter>
                         <DivFlexStart>
                             <Typography sx={{ color: theme.palette.text.heading1, fontSize: isMobile ? 12 : 21, fontFamily: FontFamily.EINA04SEMIBOLD }}>
-                                The latest email ETA information will be sent when:
+                                {t('emailNotification.theLatestEmailEtaInformationWillBeSent')}:
                             </Typography>
                         </DivFlexStart>
                         <Box>
@@ -134,7 +138,7 @@ const EmailNotificationDialog = (props) => {
                                             disabled
                                             checked={emailNotification.isDeliveryTimeFinalized}
                                             onChange={handleIsChecked('isDeliveryTimeFinalized')}
-                                            label={"After the delivery time is finalized"}
+                                            label={t('emailNotification.deliveryTimeIsScheduled')}
                                         />
                                     </Grid>
                                     <Grid item xs={12}>
@@ -142,14 +146,14 @@ const EmailNotificationDialog = (props) => {
                                             disabled
                                             checked={emailNotification.isDeliveryCanceled}
                                             onChange={handleIsChecked('isDeliveryCanceled')}
-                                            label={"Delivery is canceled"}
+                                            label={t('emailNotification.deliveryIsCanceled')}
                                         />
                                     </Grid>
                                     <Grid item xs={12}>
                                         <Checkbox
                                             checked={emailNotification.isChangeInETA}
                                             onChange={handleIsChecked('isChangeInETA')}
-                                            label={"Change in ETA"}
+                                            label={t('emailNotification.changeInEta')}
                                         />
                                         {emailNotification.isChangeInETA &&
                                             <Box sx={{ marginTop: 1, marginLeft: 2 }}>
@@ -158,13 +162,13 @@ const EmailNotificationDialog = (props) => {
                                                     value={radio}
                                                     onChange={handleRadio}
                                                 >
-                                                    <Radio checked={radio === 'any'} value={"any"} label="Any" />
-                                                    <Radio checked={radio === 'custom'} value={"custom"} label="Custom" />
+                                                    <Radio checked={radio === 'any'} value={"any"} label={t('emailNotification.any')} />
+                                                    <Radio checked={radio === 'custom'} value={"custom"} label={t('emailNotification.custom')} />
                                                 </RadioGroup>
                                                 {radio === 'custom' &&
                                                     <>
                                                         <Box sx={{ marginTop: 1 }} />
-                                                        <Form select label={'Time'} options={options} selectDefaultValue={30} handleChangeSelect={handleChangeSelect} />
+                                                        <Form select label={t('emailNotification.time')} options={options} selectDefaultValue={30} handleChangeSelect={handleChangeSelect} />
                                                     </>
                                                 }
                                             </Box>
@@ -174,14 +178,14 @@ const EmailNotificationDialog = (props) => {
                                         <Checkbox
                                             checked={emailNotification.isOneHourBeforeArrival}
                                             onChange={handleIsChecked('isOneHourBeforeArrival')}
-                                            label={"1 hour before arrival"}
+                                            label={t('emailNotification.1HourBeforeArrival')}
                                         />
                                     </Grid>
                                     <Grid item xs={12}>
                                         <Checkbox
                                             checked={emailNotification.isDeliveryOnTheWay}
                                             onChange={handleIsChecked('isDeliveryOnTheWay')}
-                                            label={"Delivery is on the way to your destination"}
+                                            label={t('emailNotification.deliveryIsOnTheWaytoYourDestination')}
                                         />
                                     </Grid>
                                 </Grid>
@@ -195,14 +199,14 @@ const EmailNotificationDialog = (props) => {
                                     fontSize: isMobile ? 12 : 16,
                                     color: isSetToDefaultDisabled ? theme.palette.text.setToDefaultDisabled : theme.palette.text.setToDefault
                                 }} onClick={handleSetToDefault} >
-                                    Set To Default
+                                    {t('emailNotification.setToDefault')}
                                 </Typography>
                             </FormGroup>
 
                         </Box>
                         <DivFlexSpaceBetween sx={{ mt: isMobile ? 3 : 8 }}>
                             <Button style={{ width: '100%' }} onClick={handleSubmit}>
-                                {`Save`}
+                                {t('emailNotification.save')}
                             </Button>
                         </DivFlexSpaceBetween>
 

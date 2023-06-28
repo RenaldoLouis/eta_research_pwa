@@ -16,6 +16,8 @@ import CustomDialog from "./DialogContainer/CustomDialog";
 import CustomDialogContent from "./DialogContainer/CustomDialogContent";
 import Button from "../Button";
 
+import { useTranslation } from "react-i18next";
+
 // import Constants
 import { FontFamily } from "../../Constants/FontFamily";
 
@@ -29,6 +31,8 @@ const LogoutConfirmationDialog = (props) => {
 
     const theme = useTheme()
 
+    const { t } = useTranslation()
+
 
     return (
         <>
@@ -36,20 +40,20 @@ const LogoutConfirmationDialog = (props) => {
                 <CustomDialogContent isMobile={isMobile}>
                     <DivFlexCenter sx={{ height: isMobile ? 20 : 40, mb: isMobile ? 3 : 8 }}>
                         <Typography sx={{ color: theme.palette.text.heading1, fontSize: isMobile ? 20 : 40, fontFamily: FontFamily.EINA04REGULAR }}>
-                            Sign Out
+                            {t('signOutDialog.signOut')}
                         </Typography>
                     </DivFlexCenter>
                     <Typography sx={{ fontSize: isMobile ? 12 : 20, fontFamily: FontFamily.EINA04REGULAR, color: theme.palette.text.primary }}>
-                        Are you sure you want to sign out ?
+                        {t('signOutDialog.areYouSureYouWanttoSignOut')}
                     </Typography>
 
                     <DivFlexSpaceBetween sx={{ mt: isMobile ? 3 : 5 }}>
                         <Typography sx={{ textDecoration: 'underline', fontFamily: FontFamily.EINA04SEMIBOLD, cursor: 'pointer', fontSize: isMobile ? 14 : 20, color: theme.palette.text.primary }} onClick={handleCloseDialog} >
-                            Cancel
+                            {t('signOutDialog.cancel')}
                         </Typography>
 
                         <Button style={{ width: '40%' }} onClick={handleLogout}>
-                            {`Sign Out`}
+                            {t('signOutDialog.signOut')}
                         </Button>
                     </DivFlexSpaceBetween>
                 </CustomDialogContent>

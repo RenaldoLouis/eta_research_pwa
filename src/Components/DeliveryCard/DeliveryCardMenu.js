@@ -22,6 +22,8 @@ import ButtonPageWarningHover from "../../assets/images/radioButtonWarningHover.
 import ButtonPageActiveDefault from "../../assets/images/radioButtonActiveDefault.png"
 import ButtonPageActiveHover from "../../assets/images/radioButtonActiveHover.png"
 
+import { useTranslation } from "react-i18next";
+
 // import components
 import ItemList from "../ItemList/ItemList";
 import DivFlexSpaceBetween from "../DivFlexSpacebetween";
@@ -114,6 +116,8 @@ const DeliveryCardMenu = (props) => {
     props;
 
   const { isMobile, isTablet, isDesktop } = useContext(AppContext);
+
+  const { t } = useTranslation()
 
   // theme color
   const theme = useTheme();
@@ -386,7 +390,7 @@ const DeliveryCardMenu = (props) => {
                 </InputAdornment>
               )
             }}
-            placeholder="Search Beleg Number or Item Name" />
+            placeholder={t('deliveryCard.searchReceiptNumberorItemName')}/>
         </DivFlexStart>
 
         <DivFlexSpaceBetween
@@ -445,10 +449,10 @@ const DeliveryCardMenu = (props) => {
                         {order.orderPositions.some((v) => v.warning === true) ? (
                           <Box>
                             {hoverState === order.orderNumber ? (
-                              <img alt=""  src={ButtonPageDangerHover} style={{ height: "12px", width: "16px", marginLeft: "5px" }}
+                              <img alt="" src={ButtonPageDangerHover} style={{ height: "12px", width: "16px", marginLeft: "5px" }}
                               />
                             ) : (
-                              <img alt=""  src={ButtonPageDangerDefault} style={{ height: "12px", width: "16px", marginLeft: "5px" }}
+                              <img alt="" src={ButtonPageDangerDefault} style={{ height: "12px", width: "16px", marginLeft: "5px" }}
                               />
                             )}
 
@@ -456,7 +460,7 @@ const DeliveryCardMenu = (props) => {
                         ) : (
                           <Box>
                             {hoverState === order.orderNumber ? (
-                              <img alt=""  src={ButtonPageHover} style={{ height: "12px", width: "12px" }}
+                              <img alt="" src={ButtonPageHover} style={{ height: "12px", width: "12px" }}
                               />
                             ) : (
                               <img alt="" src={ButtonPage} style={{ height: "12px", width: "12px" }}
@@ -472,7 +476,7 @@ const DeliveryCardMenu = (props) => {
             )
           })}
         </div>
-        <div id="parentScroll" className="deliveryCardMenuItems" style={{ paddingLeft: "60px", width: '100%', height: "calc(100vh - 400px)", overflowY: "auto", scrollBehavior: "smooth", paddingRight:"0px" }}>
+        <div id="parentScroll" className="deliveryCardMenuItems" style={{ paddingLeft: "60px", width: '100%', height: "calc(100vh - 400px)", overflowY: "auto", scrollBehavior: "smooth", paddingRight: "0px" }}>
           {data.orders.map((order, index) => (
             <>
               <DivFlexSpaceBetween id={`content-${order.orderNumber}`} style={{ paddingBottom: "40px", alignItems: "none", display: 'flex', justifyContent: "start" }}>

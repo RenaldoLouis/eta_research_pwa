@@ -13,6 +13,8 @@ import DivFlexCenter from "../DivFlexCenter";
 import DivFlexSpaceBetween from "../DivFlexSpacebetween";
 import Button from "../Button";
 
+import { useTranslation } from "react-i18next";
+
 // import Constants
 import { FontFamily } from "../../Constants/FontFamily";
 
@@ -33,6 +35,8 @@ const PromoCard = (props) => {
   const { promo, openDetailPromo, isDialog, isMobile, isTablet } = props;
 
   const { isDesktop } = useContext(AppContext);
+
+  const { t } = useTranslation()
 
   // color theme
   const theme = useTheme();
@@ -153,7 +157,7 @@ const PromoCard = (props) => {
                 }
                 theme={theme}
               >
-                {`Contact Our Sales Rep.`}
+                {t('promoandNewsDialog.cotactOurSalesRep')}
               </Button>
             </>
           ) : (
@@ -164,7 +168,7 @@ const PromoCard = (props) => {
                   sx={{ fontFamily: FontFamily.EINA04SEMIBOLD }}
                   color={theme.palette.text.primary}
                 >
-                  Contact Our Sales Rep.
+                  {t('promoandNewsDialog.cotactOurSalesRep')}
                 </Typography>
               </DivFlexCenter>
               <DivFlexSpaceBetween>

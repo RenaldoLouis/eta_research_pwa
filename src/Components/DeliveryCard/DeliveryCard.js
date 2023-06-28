@@ -17,6 +17,8 @@ import SearchIcon from "../../assets/icons/SearchIcon";
 import ChevronDown from "../../assets/icons/ChevronDown";
 import ChevronUp from "../../assets/icons/ChevronUp";
 
+import { useTranslation } from "react-i18next";
+
 
 // import components
 import ItemList from "../ItemList/ItemList";
@@ -127,6 +129,8 @@ const DeliveryCard = (props) => {
     props;
 
   const { isMobile, isTablet, isDesktop } = useContext(AppContext);
+
+  const { t } = useTranslation()
 
   // theme color
   const theme = useTheme();
@@ -506,7 +510,7 @@ const DeliveryCard = (props) => {
                       </InputAdornment>
                     )
                   }}
-                  placeholder="Search Beleg Number or Item Name" />
+                  placeholder={t('deliveryCard.searchReceiptNumberorItemName')}/>
               </DivFlexStart>
             )}
           </Box>

@@ -1,5 +1,74 @@
 {
+    "common": {
+        "loading": "Loading",
+        "thisIsYour": "This is your",
+        "todayDelivery": "Today's Delivery"
+    },
     "navbar": {
         "signIn": "Sign In"
+    },
+    "sigInDialog": {
+        "email": "Email",
+        "sendOtp": "Send OTP",
+        "otp": "OTP",
+        "resentOtp": "Resent OTP Code",
+        "login": "Login",
+        "otpCodeIsIncorrect": "OTP code is incorrect",
+        "emailIsEmpty": "Email is empty",
+        "emailIsInvalid": "Email is invalid"
+    },
+    "signOutDialog": {
+        "signOut": "Sign Out",
+        "cancel": "Cancel",
+        "areYouSureYouWanttoSignOut": "Are you sure you want to sign out"
+    },
+    "emailList": {
+        "standard": "Standard",
+        "admin": "Admin",
+        "superAdmin": "Super Admin",
+        "emailList": "Email List",
+        "email": "Email",
+        "roles": "Roles",
+        "addNewEmail": "Add New Email",
+        "editEmail": "Edit Email",
+        "deleteEmail": "Delete Email",
+        "save": "Save",
+        "cancel": "Cancel",
+        "areYouSureYouWanttoDelete[0]": "Are you sure you want to delete",
+        "areYouSureYouWanttoDelete[1]": "?",
+        "delete": "Delete"
+    },
+    "emailNotification": {
+        "etaEmailNotification": "ETA Email Notification",
+        "theLatestEmailEtaInformationWillBeSent": "The latest email ETA information will be sent when",
+        "deliveryTimeIsScheduled": "Delivery time is scheduled",
+        "deliveryIsCanceled": "Delivery is canceled",
+        "1HourBeforeArrival": "1 hour before arrival",
+        "changeInEta": "Change in ETA",
+        "any": "Any",
+        "custom": "Custom",
+        "time": "Time",
+        "deliveryIsOnTheWaytoYourDestination": "Delivery is on the way to your destination",
+        "setToDefault": "Set to Default",
+        "save": "Save"
+    },
+    "navigationDrawer": {
+        "signOut": "Sign Out",
+        "emailList": "Email List",
+        "emailAutomation": "Email Automation"
+    },
+    "deliveryCard": {
+        "searchReceiptNumberorItemName": "Search Receipt Number or Item Name"
+    },
+    "promoandNewsDialog": {
+        "cotactOurSalesRep": "Contact Our Sales Rep."
+    },
+    "trackingPage": {
+        "trackingNumber": "Tracking Number",
+        "pleaseInsertYourTrackingNumber": "Please insert your tracking number",
+        "track": "Track",
+        "upto12Codes": "Up to 12 codes",
+        "sorryYourTrackingAttempWasNotSuccessful": "Sorry your tracking attempt was not successful. Please re-check your tracking number.",
+        "yourLinkHasExpired": "Your link has expired"
     }
 }

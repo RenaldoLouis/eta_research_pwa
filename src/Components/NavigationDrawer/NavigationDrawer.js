@@ -10,6 +10,8 @@ import LogoutIcon from '../../assets/icons/LogoutIcon';
 import { UserRole } from '../../Constants/UserRole';
 import { FontFamily } from '../../Constants/FontFamily';
 
+import { useTranslation } from 'react-i18next';
+
 const NavigationDrawer = (props) => {
 
     // icon button component
@@ -73,6 +75,8 @@ const NavigationDrawer = (props) => {
 
 
     const theme = useTheme();
+
+    const { t } = useTranslation()
 
 
     return (
@@ -142,7 +146,7 @@ const NavigationDrawer = (props) => {
                                 <SettingIcon sx={{ stroke: theme.palette.background.iconColor, color: theme.palette.background.iconColor }} />
                             </ListItemIcon>
                             <DrawerListItemText>
-                                Email Notification
+                                {t('navigationDrawer.emailAutomation')}
                             </DrawerListItemText>
                         </DrawerMenuItem>
                         {UserRole == UserRole.ADMIN ||
@@ -152,7 +156,7 @@ const NavigationDrawer = (props) => {
                                     <ListIcon color={theme.palette.background.iconColor} />
                                 </ListItemIcon>
                                 <DrawerListItemText>
-                                    Email List
+                                    {t('navigationDrawer.emailList')}
                                 </DrawerListItemText>
                             </DrawerMenuItem>
                         }
@@ -161,7 +165,7 @@ const NavigationDrawer = (props) => {
                                 <LogoutIcon color={theme.palette.background.iconColor} />
                             </ListItemIcon>
                             <DrawerListItemText>
-                                Sign out
+                                {t('navigationDrawer.signOut')}
                             </DrawerListItemText>
                         </DrawerMenuItem>
                     </Drawer>
@@ -234,7 +238,7 @@ const NavigationDrawer = (props) => {
                             <SettingIcon sx={{ color: theme.palette.background.iconColor }} />
                         </ListItemIcon>
                         <DrawerListItemText>
-                            Email Notification
+                            {t('navigationDrawer.emailAutomation')}
                         </DrawerListItemText>
                     </DrawerMenuItem>
                     {UserRole == UserRole.ADMIN ||
@@ -244,7 +248,7 @@ const NavigationDrawer = (props) => {
                                 <ListIcon />
                             </ListItemIcon>
                             <DrawerListItemText>
-                                Email List
+                                {t('navigationDrawer.emailList')}
                             </DrawerListItemText>
                         </DrawerMenuItem>
                     }
@@ -253,7 +257,7 @@ const NavigationDrawer = (props) => {
                             <LogoutIcon color={theme.palette.background.iconColor} />
                         </ListItemIcon>
                         <DrawerListItemText>
-                            Sign out
+                            {t('navigationDrawer.signOut')}
                         </DrawerListItemText>
                     </DrawerMenuItem>
                 </Menu>

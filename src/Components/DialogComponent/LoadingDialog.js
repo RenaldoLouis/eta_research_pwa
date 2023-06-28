@@ -5,6 +5,8 @@ import { AppContext } from "../../App";
 // import style and theme
 import { useTheme } from "@mui/styles";
 
+import { useTranslation } from "react-i18next";
+
 // import components
 import DialogBlanket from "./DialogContainer/DialogBlanket";
 import { CircularProgress, circularProgressClasses, Typography } from "@mui/material";
@@ -18,6 +20,8 @@ const LoadingDialog = () => {
     const { isMobile } = useContext(AppContext)
 
     const theme = useTheme()
+
+    const { t } = useTranslation()
 
     return (
         <DialogBlanket open={true} height={'100%'}>
@@ -33,7 +37,7 @@ const LoadingDialog = () => {
                     }}
                 />
                 <Typography sx={{ mt: isMobile ? 3 : 5, fontFamily: FontFamily.EINA04SEMIBOLD, fontSize: isMobile ? 16 : 18, color: theme.palette.text.loadingText }}>
-                    Loading..
+                    {t('common.loading')}..
                 </Typography>
             </DivFlexCenter>
         </DialogBlanket>

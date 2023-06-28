@@ -15,6 +15,9 @@ import { CssBaseline } from "@mui/material";
 //Import Styles
 import { createTheme, ThemeProvider, } from "@mui/material/styles";
 
+// import translations
+import { useTranslation } from "react-i18next";
+
 // import Page
 import TemporaryLandingPage from "./Pages/TemporaryLandingPage";
 import DeliveryPage from "./Pages/DeliveryPage/DeliveryPage";
@@ -86,6 +89,12 @@ const Main = (props) => {
 
 
 function App() {
+
+  const { i18n } = useTranslation()
+
+  useEffect(() => {
+    i18n.changeLanguage("de")
+  }, [])
 
   /* ==================== Change Theme ==================== */
   const [mode, setMode] = useState(ColorTheme.LIGHT);
@@ -227,7 +236,7 @@ function App() {
 
 
   /** ========================== Authentication and Authorization ========================== */
-  const [isLogin, setIsLogin] = useState(false);
+  const [isLogin, setIsLogin] = useState(true);
 
   const [isLoadingLogin, setIsLoadingLogin] = useState(false)
 

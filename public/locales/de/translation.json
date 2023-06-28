@@ -1,5 +1,74 @@
 {
+    "common": {
+        "loading": "Lädt",
+        "thisIsYour": "Hier ist Ihre",
+        "todayDelivery": "heutige Lieferung"
+    },
     "navbar": {
         "signIn": "Anmelden"
+    },
+    "sigInDialog": {
+        "email": "E-Mail",
+        "sendOtp": "Einmal-PIN senden",
+        "otp": "Einmal-PIN",
+        "resentOtp": "Einmal-PIN zurücksetzen",
+        "login": "Login",
+        "otpCodeIsIncorrect": "Einmal-PIN ist nicht korrekt",
+        "emailIsEmpty": "E-Mail ist leer ",
+        "emailIsInvalid": "E-Mail ist ungültig"
+    },
+    "signOutDialog": {
+        "signOut": "Abmelden",
+        "cancel": "Abbrechen",
+        "areYouSureYouWanttoSignOut": "Sind Sie sicher, dass Sie sich abmelden möchten? "
+    },
+    "emailList": {
+        "standard": "Standard",
+        "admin": "Admin",
+        "superAdmin": "Super Admin",
+        "emailList": "E-Mail Liste",
+        "email": "E-Mail",
+        "roles": "Rollen",
+        "addNewEmail": "Neue E-Mail hinzufügen",
+        "editEmail": "E-Mail bearbeiten",
+        "deleteEmail": "E-Mail löschen",
+        "save": "Speichern",
+        "cancel": "Abbrechen",
+        "areYouSureYouWanttoDelete[0]": "Sind Sie sicher, dass Sie",
+        "areYouSureYouWanttoDelete[1]": "",
+        "delete": "Löschen"
+    },
+    "emailNotification": {
+        "etaEmailNotification": "ETA E-Mail-Benachrichtigung",
+        "theLatestEmailEtaInformationWillBeSent": "Die neueste ETA-Mail-Information wird gesendet bei",
+        "deliveryTimeIsScheduled": "Lieferzeit ist festgelegt",
+        "deliveryIsCanceled": "Lieferung ist storniert",
+        "1HourBeforeArrival": "1 Stunde vor Ankunft",
+        "changeInEta": "Veränderung in ETA",
+        "any": "Jede Änderung",
+        "custom": "Benutzerdefiniert",
+        "time": "Zeit",
+        "deliveryIsOnTheWaytoYourDestination": "Lieferung ist unterwegs zu Ihrem Zielort",
+        "setToDefault": "Als Standard einstellen",
+        "save": "Speichern"
+    },
+    "navigationDrawer": {
+        "signOut": "Abmelden",
+        "emailList": "E-Mail Liste",
+        "emailAutomation": "E-Mail-Automatisierung"
+    },
+    "deliveryCard": {
+        "searchReceiptNumberorItemName": "Belegnummer oder Artikelname suchen"
+    },
+    "promoandNewsDialog": {
+        "cotactOurSalesRep": "Kontaktieren Sie unseren Vertriebsmitarbeiter"
+    },
+    "trackingPage": {
+        "trackingNumber": "Sendungsnummer",
+        "pleaseInsertYourTrackingNumber": "Bitte geben Sie Ihre Sendungsnummer ein",
+        "track": "Nachverfolgen",
+        "upto12Codes": "Up to 12 codes",
+        "sorryYourTrackingAttempWasNotSuccessful": "Leider war Ihr Tracking-Versuch nicht erfolgreich. Bitte überprüfen Sie Ihre Sendungsnummer erneut",
+        "yourLinkHasExpired": "Ihr Link ist abgelaufen"
     }
 }

@@ -6,6 +6,8 @@ import { useTheme } from "@mui/material/styles";
 // import material Components
 import { Box, Typography } from "@mui/material";
 
+import { useTranslation } from "react-i18next";
+
 // import component
 import DivFlexCenter from "../../Components/DivFlexCenter";
 import DivFlexStart from "../../Components/DivFlexStart";
@@ -18,6 +20,8 @@ const LinkExpiredStatus = props => {
     // color theme
     const theme = useTheme()
 
+    const { t } = useTranslation()
+
     return (
         <DivFlexStart sx={{ pt: 10, width: '100%', flexWrap: 'wrap', }}>
             <Box sx={{ width: 335 }}>
@@ -28,7 +32,7 @@ const LinkExpiredStatus = props => {
                 </DivFlexStart>
                 <DivFlexCenter sx={{ width: '100%' }}>
                     <Typography fontSize={32} color={theme.palette.text.primary} sx={{ fontFamily: FontFamily.EINA04REGULAR }}>
-                        Your link has expired
+                        {t('trackingPage.yourLinkHasExpired')}
                     </Typography>
                 </DivFlexCenter>
             </Box>

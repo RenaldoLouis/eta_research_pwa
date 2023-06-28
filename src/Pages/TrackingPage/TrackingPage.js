@@ -26,6 +26,8 @@ import { AppContext } from "../../App";
 // import icon
 import ErrorIcon from "../../assets/icons/ErrorIcon";
 
+import { useTranslation } from "react-i18next";
+
 // import delivery simlation animations
 import { deliverySimlationLightAnimation, deliverySimlationDarkAnimation } from "../../Components/Animations/Animations";
 
@@ -76,6 +78,8 @@ const TrackingPage = () => {
 
   const trackingNumberRef = useRef()
 
+  const { t } = useTranslation()
+
   /** ========= State ============ */
   const [isLoading, setIsLoading] = useState(false);
   const [warning, setWarning] = useState(false);
@@ -116,7 +120,7 @@ const TrackingPage = () => {
                 color: theme.palette.text.tex4,
               }}
             >
-              Please insert your tracking number
+              {t('trackingPage.yourLinkHasExpired')}
             </Typography>
           )}
           <InputTrackingNumberContainer isDesktop={isDesktop} theme={theme}>
@@ -128,14 +132,14 @@ const TrackingPage = () => {
                   mb: isDesktop ? "" : 1,
                 }}
               >
-                Tracking Number
+                {t('trackingPage.trackingNumber')}
               </Typography>
             </DivFlexStart>
             <DivFlexStart sx={{ width: isMobile ? "60%" : "40%" }}>
               <FormControl sx={{ width: "100%" }}>
                 <TextFieldStyled
                   id="tracking-number"
-                  placeholder="Up to 12 codes"
+                  placeholder={t('trackingPage.upto12Codes')}
                   inputRef={trackingNumberRef}
                   warning={warning}
                   theme={theme}
@@ -150,7 +154,7 @@ const TrackingPage = () => {
               isLoading={isLoading}
               isPromo={true}
             >
-              Track
+              {t('trackingPage.track')}
             </Button>
             <DivFlexCenter sx={{ width: isMobile ? "8%" : "5%" }}>
               {isLoading && (
@@ -177,7 +181,7 @@ const TrackingPage = () => {
                       fontFamily: FontFamily.EINA04SEMIBOLD,
                     }}
                   >
-                    {`Sorry your tracking attempt was not succesfull. Please check your tracking number.`}
+                    {t('trackingPage.sorryYourTrackingAttempWasNotSuccessful')}
                   </Typography>
                 </DivFlexCenter>
               </Warning>

@@ -18,6 +18,9 @@ import { Outlet } from "react-router-dom";
 // import context
 import { AppContext } from "../../App";
 
+// import translations
+import { useTranslation } from "react-i18next";
+
 // import component
 import DivFlexCenter from "../DivFlexCenter";
 import DivFlexSpaceBetween from "../DivFlexSpacebetween";
@@ -40,6 +43,8 @@ const LoginDialog = (props) => {
     handleButtonOtpDialog,
     sendOtp,
   } = useContext(AppContext);
+
+  const { t } = useTranslation()
 
   const { isOpen } = props;
 
@@ -111,7 +116,7 @@ const LoginDialog = (props) => {
                   fontFamily: FontFamily.EINA04REGULAR,
                 }}
               >
-                Sign In
+                {t('navbar.signIn')}
               </Typography>
             </DivFlexCenter>
             <DivFlexSpaceBetween sx={{ flexWrap: "wrap" }}>
@@ -122,7 +127,7 @@ const LoginDialog = (props) => {
                   color: theme.palette.text.primary,
                 }}
               >
-                Email
+                {t('sigInDialog.email')}
               </Typography>
               <FormControl sx={{ width: isMobile ? "100%" : "90%" }}>
                 <TextFieldStyled
@@ -159,7 +164,7 @@ const LoginDialog = (props) => {
                     }}
                     color={"#da1e28"}
                   >
-                    Email is empty
+                    {t('sigInDialog.emailIsEmpty')}
                   </Typography>
                 </DivFlexStart>
               ) : isEmailInvalid ? (
@@ -178,7 +183,7 @@ const LoginDialog = (props) => {
                     }}
                     color={"#da1e28"}
                   >
-                    Email is invalid
+                    {t('sigInDialog.emailIsInvalid')}
                   </Typography>
                 </DivFlexStart>
               ) : (
@@ -191,7 +196,7 @@ const LoginDialog = (props) => {
               style={{ marginTop: isMobile ? 3 : 5, width: "100%" }}
               ref={(node) => (this.btn = node)}
             >
-              {`Send OTP`}
+              {t('sigInDialog.sendOtp')}
             </Button>
           </CustomDialogContent>
         </Box>
