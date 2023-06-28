@@ -198,7 +198,7 @@ const AppBarResponsive = () => {
                     }}
                     fontSize={"18px"}
                   >
-                    Track and Trace
+                    Track & Trace
                   </Typography>
                 )}
               </DivFlexCenter>
