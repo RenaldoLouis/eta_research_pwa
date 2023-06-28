@@ -19,6 +19,8 @@ import CompanyBlackLogoDekstop from "../../assets/images/company-logo-black-deks
 import CompanyWhiteLogoMobile from "../../assets/images/company-logo-white-mobile.png"
 import CompanyBlackLogoMobile from "../../assets/images/company-logo-black-mobile.png"
 
+import { useTranslation } from 'react-i18next';
+
 
 // import react-router-dom
 import { Outlet } from "react-router-dom";
@@ -62,6 +64,8 @@ const companyLogoStyleforMobile = {
 const AppBarResponsive = () => {
 
   const theme = useTheme();
+
+  const { t, i18n } = useTranslation()
 
   // state from context
   const {
@@ -146,6 +150,7 @@ const AppBarResponsive = () => {
   }
 
   /** ============= EOL Company Logo Section ============= */
+  console.log('LANG', i18n.language)
 
 
   return (
@@ -229,7 +234,7 @@ const AppBarResponsive = () => {
                     </CustomTooltip>
                   </>
                 ) : (
-                  <CustomTooltip title="Login">
+                  <CustomTooltip title={`${t('navbar.signIn')}`}>
                     <IconButton theme={theme} onClick={() => handleOpenDialog('login')}>
                       <LoginIcon
                         color={theme.palette.background.iconColor}

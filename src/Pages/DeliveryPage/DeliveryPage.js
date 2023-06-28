@@ -95,7 +95,8 @@ const DeliveryPage = () => {
     axios.get(url).then(res => {
       const newDeliveryDatas = []
 
-      res.data.stops.forEach((deliveryData, index) => {
+      // res.data.stops.forEach((deliveryData, index) => {
+      res.data.forEach((deliveryData, index) => {
         newDeliveryDatas.push(new DeliveryData(
           deliveryData.id,
           deliveryData.stopStatus,

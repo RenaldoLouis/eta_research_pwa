@@ -6,6 +6,9 @@ import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import reportWebVitals from './reportWebVitals';
 import { onServiceWorkerUpdate } from '@3m1/service-worker-updater'
 
+// import i18n
+import './i18n'
+
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 
