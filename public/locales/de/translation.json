@@ -3,7 +3,8 @@
         "loading": "Lädt",
         "thisIsYour": "Hier ist Ihre",
         "todayDelivery": "heutige Lieferung",
-        "menu": "Menü"
+        "menu": "Menü",
+        "todaysDelivery": "Heutige Lieferungen"
     },
     "navbar": {
         "signIn": "Anmelden"
@@ -59,7 +60,9 @@
         "emailAutomation": "E-Mail-Automatisierung"
     },
     "deliveryCard": {
-        "searchReceiptNumberorItemName": "Belegnummer oder Artikelname suchen"
+        "searchReceiptNumberorItemName": "Belegnummer oder Artikelname suchen",
+        "current": "Aktuell",
+        "ordered": "Geplant"
     },
     "promoandNewsDialog": {
         "cotactOurSalesRep": "Kontaktieren Sie unseren Vertriebsmitarbeiter"
@@ -68,7 +71,7 @@
         "trackingNumber": "Sendungsnummer",
         "pleaseInsertYourTrackingNumber": "Bitte geben Sie Ihre Sendungsnummer ein",
         "track": "Nachverfolgen",
-        "upto12Codes": "Up to 12 codes",
+        "upto12Codes": "Bis zu 12 Ziffern",
         "sorryYourTrackingAttempWasNotSuccessful": "Leider war Ihr Tracking-Versuch nicht erfolgreich. Bitte überprüfen Sie Ihre Sendungsnummer erneut",
         "yourLinkHasExpired": "Ihr Link ist abgelaufen"
     }

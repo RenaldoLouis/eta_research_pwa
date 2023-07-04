@@ -9,6 +9,8 @@ import Collapse from "@mui/material/Collapse";
 
 import { AppContext } from "../../App";
 
+import { useTranslation } from "react-i18next";
+
 // import Icons
 import ErrorIcon from "../../assets/icons/ErrorIcon";
 
@@ -45,6 +47,8 @@ const ItemList = (props) => {
   const handleClickExpandList = () => {
     setOpen(!open);
   };
+
+  const { t } = useTranslation()
 
 
   return (
@@ -112,7 +116,7 @@ const ItemList = (props) => {
                     sx={{ fontSize: 12, fontFamily: FontFamily.EINA04REGULAR }}
                     color={theme.palette.text.primary}
                   >
-                    On Truck
+                    {t('deliveryCard.current')}
                   </Typography>
                   <Typography
                     sx={{ fontSize: 12, fontFamily: FontFamily.EINA04REGULAR }}
@@ -131,7 +135,7 @@ const ItemList = (props) => {
                     sx={{ fontSize: 12, fontFamily: FontFamily.EINA04REGULAR }}
                     color={theme.palette.text.primary}
                   >
-                    Ordered
+                    {t('deliveryCard.ordered')}
                   </Typography>
                   <Typography
                     sx={{ fontSize: 12, fontFamily: FontFamily.EINA04REGULAR }}

@@ -3,7 +3,8 @@
         "loading": "Loading",
         "thisIsYour": "This is your",
         "todayDelivery": "Today's Delivery",
-        "menu": "Menu"
+        "menu": "Menu",
+        "todaysDelivery": " Today's Delivery"
     },
     "navbar": {
         "signIn": "Sign In"
@@ -59,7 +60,9 @@
         "emailAutomation": "Email Automation"
     },
     "deliveryCard": {
-        "searchReceiptNumberorItemName": "Search Receipt Number or Item Name"
+        "searchReceiptNumberorItemName": "Search Receipt Number or Item Name",
+        "current": "Current",
+        "ordered": "Ordered"
     },
     "promoandNewsDialog": {
         "cotactOurSalesRep": "Contact Our Sales Rep."

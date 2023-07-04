@@ -402,7 +402,7 @@ const DeliveryPage = () => {
                           color={theme.palette.text.primary}
                           sx={{ fontFamily: FontFamily.EINA04REGULAR }}
                         >
-                          Today's Delivery
+                         {t('common.todaysDelivery')}
                         </Typography>
                         <Typography
                           fontSize={14}
