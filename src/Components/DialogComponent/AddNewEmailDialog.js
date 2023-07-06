@@ -153,10 +153,10 @@ const AddNewEmailDialog = (props) => {
                         </DivFlexStart>
                         <DivFlexSpaceBetween sx={{ mt: isMobile ? 3 : 5 }}>
                             <Typography sx={{ fontSize: isMobile ? 14 : 20, textDecoration: 'underline', fontFamily: FontFamily.EINA04SEMIBOLD, cursor: 'pointer', color: theme.palette.text.primary }} onClick={handleCloseDialogAddNewEmail} >
-                                Cancel
+                                {t('emailList.cancel')}
                             </Typography>
                             <Button style={{ width: '35%' }} onClick={handleSubmit}>
-                                {`Save`}
+                                {t('emailList.save')}
                             </Button>
                         </DivFlexSpaceBetween>
                     </CustomDialogContent>
