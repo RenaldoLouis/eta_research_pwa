@@ -59,9 +59,11 @@ const companyLogoStyleforMobile = {
   height: "20px", widht: "141px"
 }
 
-const AppBarResponsive = () => {
+const AppBarResponsive = props => {
 
   const theme = useTheme();
+
+  const { isLoading } = props;
 
   // state from context
   const {
@@ -145,14 +147,14 @@ const AppBarResponsive = () => {
     companyLogoSection =
       <>
         {companyLogoforDekstop}
-        <CustomTooltip title="Temporary Button">
+        {/* <CustomTooltip title="Temporary Button">
           <IconButton
             onClick={handleOpenThemeMenu}
             sx={{ ml: 2, mt: 0.5 }}
           >
             <SettingsIcon sx={{ color: theme.palette.background.iconColor }} />
           </IconButton>
-        </CustomTooltip>
+        </CustomTooltip> */}
       </>
   }
 
@@ -204,7 +206,7 @@ const AppBarResponsive = () => {
                     }}
                     fontSize={"18px"}
                   >
-                    Track and Trace
+                    {`Track and Trace`}
                   </Typography>
                 )}
               </DivFlexCenter>
@@ -212,7 +214,7 @@ const AppBarResponsive = () => {
 
             <Grid item xs={4} md={3}>
               <DivFlexEnd sx={{ alignItems: "center", height: "100%" }}>
-                {isMobile || isTablet ? (
+                {/* {isMobile || isTablet ? (
                   <CustomTooltip title="Temporary Button">
                     <IconButton
                       onClick={handleOpenThemeMenu}
@@ -221,7 +223,7 @@ const AppBarResponsive = () => {
                       <SettingsIcon sx={{ color: theme.palette.background.iconColor }} />
                     </IconButton>
                   </CustomTooltip>
-                ) : (<></>)}
+                ) : (<></>)} */}
                 {isLogin ? (
                   <>
                     <CustomTooltip title="Menu">
@@ -263,7 +265,7 @@ const AppBarResponsive = () => {
       />
 
       {/* Temporary Component to change theme */}
-      <Menu
+      {/* <Menu
         id="change-theme-menu"
         anchorEl={anchorThemeMenuEl}
         open={isThemeMenuOpen}
@@ -287,7 +289,7 @@ const AppBarResponsive = () => {
         <MenuItem onClick={() => handleClickTheme(ColorTheme.DARK)}>Dark Theme</MenuItem>
         <MenuItem onClick={() => handleClickTheme(ColorTheme.YELLOW)}>Yellow Theme</MenuItem>
         <MenuItem onClick={() => handleClickTheme(ColorTheme.BLUE)}>Blue Theme</MenuItem>
-      </Menu>
+      </Menu> */}
 
       <Outlet />
     </>

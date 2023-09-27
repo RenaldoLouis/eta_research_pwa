@@ -59,7 +59,6 @@ const LoginDialog = (props) => {
 
   const handleChangeInput = (e) => {
     const { name, value } = e.target;
-    console.log(e.target.value);
     setEmail(value);
     setEmailSubmit(value);
   };

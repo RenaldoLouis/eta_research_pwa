@@ -75,6 +75,8 @@ const DeliveryPage = () => {
     isDesktop,
     goToPromo,
     isScrollToPromo,
+    isLoading, 
+    setIsLoading
   } = useContext(AppContext);
 
 
@@ -85,17 +87,16 @@ const DeliveryPage = () => {
   const [deliveryData, setDeliveryData] = useState([])
   const [tempDeliveryData, setTempDeliveryData] = useState([])
 
-  const [isLoading, setIsLoding] = useState(false)
-
   useEffect(() => {
-    setIsLoding(true)
+    setIsLoading(true)
     /** NORDMANN DATA (COMPLETE) */
     const url = `https://gotraces-de.commsult.dev/api/core/eta/access/${param.stopNumber}`
     // const url = `http://localhost:3001/api/core/eta/access/${param.stopNumber}`
     axios.get(url).then(res => {
+
       const newDeliveryDatas = []
 
-      res.data.stops.forEach((deliveryData, index) => {
+      res.data.forEach((deliveryData, index) => {
         newDeliveryDatas.push(new DeliveryData(
           deliveryData.id,
           deliveryData.stopStatus,
@@ -124,9 +125,9 @@ const DeliveryPage = () => {
 
       setTempDeliveryData(newDeliveryDatas)
 
-      setIsLoding(false)
+      setIsLoading(false)
     }).catch(err => {
-      setIsLoding(false)
+      setIsLoading(false)
     })
   }, [])
 

@@ -118,7 +118,6 @@ const OtpDialog = (props) => {
 
     const handleChange = (otp) => {
         setOtpCode(otp);
-        console.log("code", otpCode);
     };
 
     const handleButtonLogin = () => {

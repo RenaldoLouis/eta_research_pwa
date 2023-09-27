@@ -11,7 +11,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import axios from "axios";
 
 // Import Material
-import { useMediaQuery } from "@mui/material";
+import { Skeleton, useMediaQuery } from "@mui/material";
 import { CssBaseline } from "@mui/material";
 
 //Import Styles
@@ -58,7 +58,19 @@ const Main = (props) => {
   const { openDialog } = props;
   return (
     <>
-      <AppBarResponsive />
+      {props.isLoadingTenant ? (
+        <Skeleton variant="rectangular"
+          width={"100%"}
+          height={72}
+          sx={{
+            position: 'fixed', top: 0,
+            zIndex: 20000,
+            width: "100%",
+            height: 72,
+          }} />
+      ) : (
+        <AppBarResponsive />
+      )}
 
       {/* ======== Global Dialog Component ======== */}
       {props.isLoadingLogin && (<LoadingDialog />)}
@@ -105,14 +117,23 @@ function App() {
       }
     }
 
-    axios.get(`http://localhost:3001/api/core/traces/admin-configuration`, config)
+    setIsLoadingTenant(true)
+    axios.get(`https://gotraces-de.commsult.dev/api/core/traces/admin-configuration`, config)
       .then(function (response) {
         if (response?.data?.tenantInfoGeneral) {
-          const colorTheme = response.data.tenantInfoGeneral.colorTheme
-          const logo = response.data.tenantInfoGeneral.logo
-          setMode(colorTheme)
-          setLogo(logo)
-          localStorage.setItem("mode", colorTheme)
+          const general = response.data.tenantInfoGeneral
+          const announcements = response.data.tenantInfoAnnouncement.newsAndPromo
+
+
+          setMode(general.colorTheme)
+          setLogo(general.logo)
+          setPhone(general.salesPhone)
+          setEmail(general.salesEmail)
+
+          setPromoNewsData(announcements)
+
+          localStorage.setItem("mode", general.colorTheme)
+          setIsLoadingTenant(false)
         }
       })
       .catch(function (err) {
@@ -135,8 +156,12 @@ function App() {
   }, [])
   /* ==================== End Of Change Theme  ==================== */
 
+  /* ================== Tenant Info ===================== */
+  const [phone, setPhone] = useState("")
+  const [email, setEmail] = useState("")
+
   /* ================== Data ===================== */
-  const [promoNewsData, setPromoNewsData] = useState(promoDummyData)
+  const [promoNewsData, setPromoNewsData] = useState([])
 
   const [emailList, setEmailList] = useState(emailDummyList);
   /* =====================EOL Data ===================== */
@@ -260,6 +285,9 @@ function App() {
 
   const [isLoadingLogin, setIsLoadingLogin] = useState(false)
 
+  const [isLoadingTenant, setIsLoadingTenant] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
+
   const [userRole, setUserRole] = useState(UserRole.SUPERADMIN);
 
   const handleLogin = () => {
@@ -331,6 +359,8 @@ function App() {
     mode,
     handleChangeTheme,
     logo,
+    email,
+    phone,
 
     isMobile,
     isTablet,
@@ -346,6 +376,9 @@ function App() {
     goToPromo,
 
     setIsLoadingLogin,
+
+    isLoading,
+    setIsLoading,
 
     anchorNavigationDrawerEl,
     setAnchorNavigationDrawerEl,
@@ -394,7 +427,7 @@ function App() {
                 pauseOnFocusLoss={false}
                 position="bottom-left"
               />
-              <Main openDialog={openDialog} isLoadingLogin={isLoadingLogin} />
+              <Main openDialog={openDialog} isLoadingLogin={isLoadingLogin} isLoadingTenant={isLoadingTenant} />
             </Router >
           </ThemeProvider >
         </AppContext.Provider >

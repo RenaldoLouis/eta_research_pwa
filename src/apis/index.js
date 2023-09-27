@@ -7,7 +7,6 @@ const handleErrors = (err /* path  payload */) => {
 
 const getRequest = async (path, payload) => {
   try {
-    console.log("path", path)
     const res = await http.get(path, payload)
     return res;
   } catch (err) {

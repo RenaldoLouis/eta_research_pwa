@@ -32,13 +32,18 @@ import PhoneIcon from "../../assets/icons/PhoneIcon";
 const PromoCard = (props) => {
   const { promo, openDetailPromo, isDialog, isMobile, isTablet } = props;
 
-  const { isDesktop } = useContext(AppContext);
+  const { isDesktop, email, phone } = useContext(AppContext);
 
   // color theme
   const theme = useTheme();
 
   // local state
   const [openDetail, setOpenDetail] = useState(openDetailPromo);
+
+  const handleMailTo = e => {
+    window.location.href = `mailto:${email}`;
+    e.preventDefault();
+  }
 
   return (
     <Card
@@ -67,7 +72,7 @@ const PromoCard = (props) => {
         component="img"
         image={promo.image}
         alt="promo"
-        sx={{ objectFit: "contain" }}
+        sx={{ objectFit: "cover", height: isDialog ? "auto" : 195 }}
         onClick={isMobile || isTablet ? () => setOpenDetail(!openDetail) : undefined}
       />
       <CardContent
@@ -87,7 +92,7 @@ const PromoCard = (props) => {
             paddingLeft: isDesktop ? "" : openDetail ? "" : "16px",
           }}
         >
-          {promo.title}
+          {promo.headline}
         </Typography>
       </CardContent>
 
@@ -112,7 +117,7 @@ const PromoCard = (props) => {
               fontFamily: FontFamily.EINA04REGULAR,
             }}
           >
-            {promo.detail}
+            {promo.description}
           </Typography>
         </Box>
 
@@ -142,7 +147,7 @@ const PromoCard = (props) => {
                       sx={{ fontSize: 16, mr: 0.5, mt: -0.2 }}
                     />{" "}
                   </span>{" "}
-                  +62 123 4567 89
+                  {phone}
                 </Typography>
               </DivFlexCenter>
 
@@ -151,6 +156,7 @@ const PromoCard = (props) => {
                 icon={
                   <ChatIcon color={"#F4F4F4"} sx={{ mr: 1, fontSize: 20 }} />
                 }
+                onClick={handleMailTo}
                 theme={theme}
               >
                 {`Contact Our Sales Rep.`}
@@ -164,7 +170,7 @@ const PromoCard = (props) => {
                   sx={{ fontFamily: FontFamily.EINA04SEMIBOLD }}
                   color={theme.palette.text.primary}
                 >
-                  Contact Our Sales Rep.
+                  {`Contact Our Sales Rep.`}
                 </Typography>
               </DivFlexCenter>
               <DivFlexSpaceBetween>
@@ -186,8 +192,8 @@ const PromoCard = (props) => {
 PromoCard.defaultProps = {
   promo: {
     image: logo,
-    title: "-",
-    detail: "---",
+    headline: "-",
+    description: "---",
   },
 };
 
